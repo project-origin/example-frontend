@@ -1,0 +1,20 @@
+
+
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 2px 50px;
+    cursor: pointer;
+}
+
+button.cancel {
+    background-color: #d2d2d2; 
+    color: #797979;
+}
+
+button.withdraw {
+    background-color: #4d8a8b; 
+    color: white;
+}
+

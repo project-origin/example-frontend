@@ -1,0 +1,102 @@
+
+<div class="dashboard">
+
+    <div class="filters">
+        <mat-card>
+            <mat-card-content>
+                <h1>About</h1>
+                <p>
+                    Write a description of how retiring works
+                </p>
+
+
+
+                <form [formGroup]="form">
+
+                    <h1>Filter</h1>
+
+                    <div class="filter">
+                        <div class="icon">
+                            <img src="/assets/icon_date.png">
+                        </div>
+                        <div class="label">Date:</div>
+                        <div class="field daterange">
+                            <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date">
+                            <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                            <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                        </div>
+                    </div>
+
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="details">
+
+        <mat-card>
+            <mat-card-content class="overview">
+                <div class="data-overview">
+                    <h1>GGO Overview</h1>
+
+                    <app-ggo-summary
+                        [dateFrom]="dateFrom"
+                        [dateTo]="dateTo">
+                    </app-ggo-summary>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+
+
+        <mat-card>
+            <mat-card-content>
+                <h1>Commodities</h1>
+                <h2>Produced power and issued GGOs</h2>
+
+                <app-commodity-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    measurementType="production">
+                </app-commodity-plot>
+
+                &nbsp;<br>
+                <h2>Consumed power and retired GGOs</h2>
+
+                <app-commodity-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    measurementType="consumption">
+                </app-commodity-plot>
+
+            </mat-card-content>
+        </mat-card>
+
+
+        <mat-card>
+            <mat-card-content>
+                <h1>Trading</h1>
+                <h2>Inbound GGO trading</h2>
+
+                <app-trading-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    direction="inbound">
+                </app-trading-plot>
+
+                &nbsp;<br>
+                <h2>Outbound GGO trading</h2>
+
+                <app-trading-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    direction="outbound">
+                </app-trading-plot>
+
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+
+</div>

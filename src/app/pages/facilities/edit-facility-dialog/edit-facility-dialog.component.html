@@ -1,0 +1,52 @@
+
+<div class="dialog-header">
+    <h1>Edit facility details</h1>
+    <h2>{{facility.address}}, {{facility.postcode}} {{facility.cityName}}</h2>
+    <h2>GSRN: {{facility.gsrn}}</h2>
+</div>
+
+
+<div class="dialog-body">
+
+    <input matInput
+        type="text"
+        class="field" 
+        placeholder="Enter facility name"
+        [value]="name"
+        (input)="name = $event.target.value">
+
+    
+    <input matInput type="text" placeholder="Add tag" class="field"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addTag($event)">
+
+    <div class="field">
+        <div *ngIf="tags.length === 0">
+            Tags will appear here once added (above)<br>&nbsp;
+        </div>
+
+        <mat-chip-list #chipList>
+            <mat-chip *ngFor="let tag of tags"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeTag(tag)">
+
+                {{tag}}
+
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        </mat-chip-list>
+    </div>
+    
+
+    <div>&nbsp;</div>
+
+
+    <div class="legend">
+        <button mat-button type="button" (click)="closeDialog()" class="cancel">CANCEL</button>
+        <div class="fill-remaining"></div>
+        <button mat-button type="submit" (click)="submitForm()" class="send">SAVE FACILITY</button>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+
+<div class="chart-container">
+    <canvas baseChart
+        *ngIf="chartData"
+        [width]="175"
+        [height]="175"
+        [chartType]="chartType"
+        [data]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [colors]="chartColors">
+    </canvas>
+</div>

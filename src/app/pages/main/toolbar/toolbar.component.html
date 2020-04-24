@@ -1,0 +1,42 @@
+<mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+        <img src="assets/logo.png">
+
+        <div class="fill-remaining"></div>
+
+        <a mat-button routerLink="/dashboard" [class.current]="isDashboard()">DASHBOARD</a>
+        <div class="space"></div>
+        <a mat-button routerLink="/commodities" [class.current]="isCommodities()">COMMODITIES</a>
+        <div class="space"></div>
+        <a mat-button routerLink="/trade" [class.current]="isTrade()">TRADE</a>
+        <div class="space"></div>
+        <a mat-button routerLink="/retire" [class.current]="isRetire()">RETIRE</a>
+        <div class="space"></div>
+        <a mat-button routerLink="/facilities" [class.current]="isFacilities()">FACILITIES</a>
+        <div class="space"></div>
+        <a mat-button routerLink="/disclosure" [class.current]="isDisclosure()">DISCLOSURE</a>
+
+        <div class="fill-remaining"></div>
+
+        <button mat-button [matMenuTriggerFor]="menu" class="user">
+            <div class="user">
+                <p class="name">{{ user.name }}</p>
+                <div class="space"></div>
+                <div class="avatar">
+                    <div class="badge" *ngIf="hasPendingProposals()">
+                        {{ pendingProposals }}
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/trade" class="pending-proposal" *ngIf="hasPendingProposals()">
+                Pending proposals ({{ pendingProposals }})
+            </button>
+
+            <button mat-menu-item (click)="editProfil()">Edit profile</button>
+            <button mat-menu-item (click)="logOut()">Log out</button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>

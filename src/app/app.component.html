@@ -1,0 +1,6 @@
+
+<div *ngIf="!authenticated">
+    <app-signin></app-signin>
+</div>
+<app-main *ngIf="authenticated"></app-main>
+

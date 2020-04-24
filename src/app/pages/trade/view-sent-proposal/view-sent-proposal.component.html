@@ -1,0 +1,55 @@
+
+<div class="dialog-header">
+    <h1>Pending proposal</h1>
+    <h2>This is a pending proposal you have sent</h2>
+</div>
+
+
+<div class="dialog-body">
+
+
+    <table width="100%">
+        <tr>
+            <td>Direction:</td>
+            <td>{{ agreement.direction }}</td>
+        </tr>
+        <tr>
+            <td>Counterpart:</td>
+            <td>{{ agreement.counterpart }}</td>
+        </tr>
+        <tr>
+            <td>Technology:</td>
+            <td>{{ agreement.technology }}</td>
+        </tr>
+        <tr *ngIf="isOutbound()" valign="top">
+            <td>Facilities:</td>
+            <td>
+                <div *ngFor="let facility of facilities">
+                    {{facility}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Amount:</td>
+            <td>{{ agreement.amount }} {{ agreement.unit }}</td>
+        </tr>
+        <tr>
+            <td>Date:</td>
+            <td>{{ agreement.dateFrom }} - {{ agreement.dateTo }}</td>
+        </tr>
+    </table>
+
+
+    <div>&nbsp;</div>
+
+
+    <!-- Buttons -->
+    <div class="legend">
+        <button mat-button type="button" (click)="closeDialog()" class="cancel">CLOSE</button>
+        <div class="fill-remaining"></div>
+        <button mat-button type="button" (click)="withdrawProposal()" class="withdraw" [disabled]="loading">
+            {{ loading ? 'WITHDRAWING..' : 'WITHDRAW PROPOSAL' }}
+        </button>
+    </div>
+
+</div>

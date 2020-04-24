@@ -1,0 +1,171 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~saturn-datepicker/bundle.css';
+
+
+html, body { height: 100%; }
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background-color: #e9e9e9;
+    background-image: url(assets/background-top-left.png);
+    background-position: top 25px left 0;
+    background-repeat: no-repeat;
+
+    /*
+    Make the scrollbar always visible so it doesn't move the content
+    horizontally when its visible and when its not
+    */
+    overflow-y: scroll;
+}
+
+h1 {
+    font-size: 1.7em;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+h1, h2, h3 {
+    color: #363636;
+    margin-top: 0;
+}
+
+a { color: #2b505d; }
+a:hover { color: #882416; }
+
+
+mat-card {
+    margin-bottom: 10px;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.legend h1,
+.legend h2,
+.legend h3 {
+    margin: 0;
+}
+
+.space {
+    width: 16px;
+}
+
+.space2 {
+    width: 32px;
+}
+
+.fill-remaining {
+    flex-grow: 1;
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+
+.Hydro { background-color: #00587c; }
+.Solar { background-color: #d59c48; }
+.Wind { background-color: #679b9c; }
+.Oil { background-color: #882416; }
+.Coal { background-color: #333333; }
+
+
+.energy-type-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.energy-type-avatar.Hydro { background-image: url(/assets/icon_hydro.png); }
+
+
+/* -- Buttons -- */
+
+button.trade {
+    height: 30px;
+    border: #679b9c solid 2px;
+    border-radius: 15px;
+    background-color: #679b9c;
+    background-image: url(/assets/icon_trade.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button.dates {
+    height: 30px;
+    border: #679b9c solid 2px;
+    border-radius: 15px;
+    background-color: #679b9c;
+    background-image: url(/assets/icon_clock.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button.disclosure {
+    height: 30px;
+    border: #679b9c solid 2px;
+    border-radius: 15px;
+    background-image: url(/assets/icon_share.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button.text {
+    height: 30px;
+    border: #679b9c solid 2px;
+    border-radius: 15px;
+}
+
+button.text.primary {
+    background-color: #679b9c;
+}
+
+
+/* -- Dialogs -- */
+
+.mat-dialog-container {
+    border: #797979 solid 2px;
+}
+
+.dialog .mat-dialog-container {
+    padding: 0;
+    border-radius: 10px;
+    background-color: #e9e9e9;
+    overflow-x: hidden;
+}
+
+.dialog-header {
+    background-color: white;
+    border-bottom: #d3d3d3 solid 1px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .dialog-header h1 {
+        color: #363636;
+        margin: 0 0 10px 0;
+    }
+
+    .dialog-header h2 {
+        color: #4d8a8b;
+        margin: 0;
+        font-size: 1em;
+    }
+
+
+.dialog-body {
+    padding: 30px 70px;
+}

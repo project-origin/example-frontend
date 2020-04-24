@@ -1,0 +1,31 @@
+
+.toolbar-container {
+    height: 64px;
+    padding: 0 10px;
+    background-color: #4d8a8b;
+}
+
+.toolbar {
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+
+.content-container {
+    padding: 20px 10px 10px 10px;
+}
+
+.onboarding {
+    max-width: 1360px;
+    margin: 0 auto;
+    background-color: #f4d34f;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.content {
+    max-width: 1380px;
+    margin: 0 auto;
+}

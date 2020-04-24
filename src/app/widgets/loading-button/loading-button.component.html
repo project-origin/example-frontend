@@ -1,0 +1,21 @@
+
+<button mat-flat-button
+    [type]="type"
+    [color]="color"
+    [disabled]="loading"
+    class="full-width">
+    
+    <div class="loading-button">
+        <div *ngIf="loading">
+            <mat-progress-spinner
+                mode="indeterminate"
+                [diameter]="24">
+            </mat-progress-spinner>
+        </div>
+        
+        <div *ngIf="loading" class="space"></div>
+
+        <span>{{ buttonText }}</span>
+    </div>
+
+</button>

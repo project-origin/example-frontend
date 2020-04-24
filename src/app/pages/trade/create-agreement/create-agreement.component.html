@@ -1,0 +1,165 @@
+
+<div class="dialog-header">
+    <h1>{{ headline1 }}</h1>
+    <h2>{{ headline2 }}</h2>
+</div>
+
+
+<div class="dialog-body">
+
+    <form [formGroup]="form">
+
+        <!-- Direction (inbound/outbound) -->
+        <div class="legend">
+            <div class="fill-remaining"></div>
+
+            <mat-button-toggle-group formControlName="direction">
+                <mat-button-toggle value="outbound">Outbound</mat-button-toggle>
+                <div class="space"></div>
+                <mat-button-toggle value="inbound">Inbound</mat-button-toggle>
+            </mat-button-toggle-group>
+
+            <div class="fill-remaining"></div>
+        </div>
+
+
+        <!-- Reference ID -->
+        <input matInput
+            type="text"
+            placeholder="Enter your reference ID"
+            class="field"
+            formControlName="reference">
+        
+
+        <!-- Counterpart -->
+        <input 
+            matInput type="text"
+            placeholder="Enter counterpart name"
+            class="field"
+            [matAutocomplete]="auto"
+            formControlName="counterpartId">
+        
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of (filteredCounterparts | async)" [value]="user.id">
+                {{ user.name }}
+            </mat-option>
+        </mat-autocomplete>
+
+
+        <!-- Technology -->
+        <div class="field" [class.disabled]="!canSelectTechnology">
+            <mat-select
+                formControlName="technology" 
+                [placeholder]="loadingFilteringOptions ? 'Loading...' : 'Select energy category (optional)'">
+
+                <mat-option [value]="null">Any</mat-option>
+                <mat-option *ngFor="let technology of availableTechnologies" [value]="technology">
+                    {{technology}}
+                </mat-option>
+
+            </mat-select>
+        </div>
+
+
+        <!-- Facilities -->
+        <div class="field" [class.disabled]="!canSelectFacilities" *ngIf="showFacilities">
+            <mat-select
+                formControlName="facilityIds"
+                [placeholder]="loadingFacilities ? 'Loading...' : 'All facilities'"
+                multiple>
+
+                <mat-option *ngFor="let facility of availableFacilities" [value]="facility.id">
+                    {{facility.name}} ({{facility.gsrn}})
+                </mat-option>
+            </mat-select>
+        </div>
+
+
+        <!-- Amount -->
+        <div class="amount">
+            <input matInput
+                type="text"
+                placeholder="Enter amount"
+                class="field value"
+                formControlName="amount">
+            
+            <div class="field unit" [class.disabled]="isDisabled">
+                <mat-select formControlName="unit" placeholder="Unit">
+                    <mat-option *ngFor="let unit of availableUnits" [value]="unit">
+                        {{ unit }}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+
+        <!-- Date period -->
+        <div class="date">
+            <input matInput
+                class="field value"
+                placeholder="Choose a period"
+                formControlName="date"
+                [satDatepicker]="datePicker">
+
+            <div class="picker" [style.display]="canSelectDates ? 'block' : 'none'">
+                <sat-datepicker #datePicker [rangeMode]="true"></sat-datepicker>
+                <sat-datepicker-toggle  [for]="datePicker"></sat-datepicker-toggle>
+            </div>
+        </div>
+
+
+        <div>&nbsp;</div>
+
+
+        <!-- Buttons -->
+        <div class="legend">
+            <button mat-button
+                type="button"
+                class="cancel"
+                (click)="closeDialog()"
+                *ngIf="showCancelButton">
+                CANCEL
+            </button>
+
+            <button mat-button
+                type="button"
+                class="cancel"
+                [disabled]="loadingSubmitting"
+                (click)="declineProposal()"
+                *ngIf="showDeclineButton">
+                {{ loadingSubmitting ? 'DECLINING..' : 'DECLINE' }}
+            </button>
+
+            <div class="fill-remaining"></div>
+
+            <button mat-button
+                type="button"
+                class="send"
+                [disabled]="loadingSubmitting"
+                (click)="acceptProposal()"
+                *ngIf="showAcceptButton">
+                {{ loadingSubmitting ? 'ACCEPTING..' : 'ACCEPT' }}
+            </button>
+
+            <button mat-button
+                type="button"
+                class="send"
+                [disabled]="loadingSubmitting"
+                (click)="submitProposal()"
+                *ngIf="showSubmitButton">
+                {{ loadingSubmitting ? 'SENDING..' : 'SUBMIT PROPOSAL' }}
+            </button>
+
+            <button mat-button
+                type="button"
+                class="send"
+                [disabled]="loadingSubmitting"
+                (click)="withdrawProposal()"
+                *ngIf="showWithdrawButton">
+                {{ loadingSubmitting ? 'WITHDRAWING..' : 'WITHDRAW PROPOSAL' }}
+            </button>
+        </div>
+
+    </form>
+
+</div>

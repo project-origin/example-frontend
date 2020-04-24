@@ -1,0 +1,153 @@
+
+<mat-card>
+    <mat-card-content>
+        
+        <div class="legend">
+            <h1>GGO Trade Agreements</h1>
+            <div class="fill-remaining"></div>
+            <button mat-stroked-button class="trade" (click)="createAgreement()"></button>
+        </div>
+
+
+        <!-- Pending proposals -->
+        <div class="agreement-table" *ngIf="pending.length > 0">
+            <h2>Pending proposals</h2>
+
+            <div class="table-row table-legend">
+                <span class="counterpart">Sender Name &amp; ID</span>
+                <span class="status">Status</span>
+            </div>
+            
+            <div matRipple class="table-row table-item"
+                *ngFor="let agreement of pending"
+                (click)="viewPendingProposal(agreement)">
+
+                <span class="counterpart">
+                    <span class="name">{{ agreement.counterpart }}</span>
+                    {{ agreement.reference }}
+                </span>
+                <span class="status pending">
+                    Awaiting your response...
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Sent proposals -->
+        <div class="agreement-table" *ngIf="sent.length > 0">
+            <h2>Sent proposals</h2>
+            
+            <div class="table-row table-legend">
+                <span class="counterpart">Receiver Name &amp; ID</span>
+                <span class="status">Status</span>
+            </div>
+            
+            <div matRipple class="table-row table-item"
+                *ngFor="let agreement of sent"
+                (click)="viewSentProposal(agreement)">
+
+                <span class="counterpart">
+                    <span class="name">{{ agreement.counterpart }}</span>
+                    {{ agreement.reference }}
+                </span>
+                <span class="status">
+                    Awaiting response from {{ agreement.counterpart }}
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Outbound -->
+        <div class="agreement-table">
+            <h2>Outbound</h2>
+
+            <div class="table-row table-legend">
+                <span class="counterpart">Receiver Name &amp; ID</span>
+                <span class="technology">Technology</span>
+                <span class="facility">Facility</span>
+                <span class="amount">Amount</span>
+                <span class="period">Period</span>
+            </div>
+
+            <div class="table-row empty" *ngIf="outbound.length == 0">
+                <div>
+                    <b>No outbound agreements</b>
+                    <br><br>
+                    Outbound agreements transfers GGOs from your facilities to your partner's account.
+                </div>
+            </div>
+            
+            <div matRipple class="table-row table-item"
+                *ngFor="let agreement of outbound"
+                (click)="select(agreement)"
+                [class.selected]="isSelected(agreement)">
+
+                <span class="counterpart">
+                    <span class="name">{{ agreement.counterpart }}</span>
+                    {{ agreement.reference }}
+                </span>
+                <span class="technology">
+                    <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
+                </span>
+                <span class="facility">
+                    <div *ngFor="let facility of agreement.facilities">
+                        {{ facility.name }}
+                    </div>
+                </span>
+                <span class="amount">
+                    <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
+                </span>
+                <span class="period">
+                    Start: {{ agreement.dateFrom }}<br>
+                    Stop: {{ agreement.dateTo }}
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Inbound -->
+        <div class="agreement-table">
+            <h2>Inbound</h2>
+
+            <div class="table-row table-legend">
+                <span class="counterpart">Sender Name &amp; ID</span>
+                <span class="technology">Technology</span>
+                <span class="facility"></span>
+                <span class="amount">Amount</span>
+                <span class="period">Period</span>
+            </div>
+
+            <div class="table-row empty" *ngIf="inbound.length == 0">
+                <div>
+                    <b>No inbound agreements found</b><br><br>
+                    Inbound agreements transfers GGOs from your partner's facilities to your account,<br>
+                    and optionally <a routerLink="/retire">retires the GGOs</a> to one or more of your facilities.
+                </div>
+            </div>
+            
+            <div matRipple class="table-row table-item"
+                *ngFor="let agreement of inbound"
+                (click)="select(agreement)"
+                [class.selected]="isSelected(agreement)">
+
+                <span class="counterpart">
+                    <span class="name">{{ agreement.counterpart }}</span>
+                    {{ agreement.reference }}
+                </span>
+                <span class="technology">
+                    <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
+                </span>
+                <span class="facility">
+                </span>
+                <span class="amount">
+                    <span class="value">1.7</span> MWh
+                </span>
+                <span class="period">
+                    Start: {{ agreement.dateFrom }}<br>
+                    Stop: {{ agreement.dateTo }}
+                </span>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>

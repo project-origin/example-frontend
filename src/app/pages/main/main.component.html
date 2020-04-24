@@ -1,0 +1,19 @@
+
+<div class="toolbar-container">
+    <div class="toolbar">
+        <app-toolbar></app-toolbar>
+    </div>
+</div>
+
+
+<div class="content-container">
+    <div class="onboarding">
+      <span>Perform onboarding!</span>
+      <span class="fill-remaining"></span>
+      <span><button mat-button (click)="startOnboarding()">Onboarding!!!</button></span>
+    </div>
+
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

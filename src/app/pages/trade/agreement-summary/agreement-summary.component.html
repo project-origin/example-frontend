@@ -1,0 +1,67 @@
+
+<mat-card>
+    <mat-card-content>
+
+        <div class="legend">
+            <h1 *ngIf="isAggregated()">All agreements</h1>
+            <h1 *ngIf="!isAggregated()">Agreement details</h1>
+
+            <div class="fill-remaining"></div>
+            <button mat-stroked-button class="dates">&nbsp;</button>
+            &nbsp;
+            <button mat-stroked-button class="text">CSV</button>
+        </div>
+
+
+        <app-loading-view *ngIf="loading"></app-loading-view>
+
+
+        <div class="summary" *ngIf="!loading && datasets.length > 0">
+            <h2>Trade summary</h2>
+
+            <div class="table-row table-legend">
+                <span class="technology">Technology</span>
+                <span class="traded">Traded</span>
+            </div>
+
+            <div class="table-row table-item" *ngFor="let dataset of datasets">
+                <span class="technology">
+                    <div class="avatar" [ngClass]="dataset.label"></div>
+                    {{ dataset.label }}
+                </span>
+                <span class="traded">
+                    {{ dataset.amount | number }}
+                    {{ dataset.unit }}
+                </span>
+            </div>
+
+            <div class="table-row table-legend total">
+                <span class="technology">Total</span>
+                <span class="traded">
+                    {{ total | number }} Wh
+                </span>
+            </div>
+        </div>
+
+
+
+        <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length > 0">
+            <canvas baseChart
+                [datasets]="chartData"
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [legend]="chartLegend"
+                [chartType]="chartType">
+            </canvas>
+        </div>
+
+
+
+        <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length == 0">
+            No trade data has been recorded
+        </div>
+
+
+
+    </mat-card-content>
+</mat-card>

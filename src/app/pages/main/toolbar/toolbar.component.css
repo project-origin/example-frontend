@@ -1,0 +1,75 @@
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: transparent;
+}
+
+mat-toolbar-row {
+    padding: 0;
+}
+
+
+/* -- Menu navigation -- */
+
+a {
+    color: white;
+    border-radius: 20px;
+}
+
+a.current {
+    background-color: #2b505d;
+}
+
+
+/* -- User name and avatar -- */
+
+button.user {
+    padding: 0;
+    height: 100%;
+}
+
+div.user {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+p.name {
+    color: white;
+    font-weight: bold;
+}
+
+.avatar {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    background-image: url(/assets/icon_user.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.badge {
+    top: -7px;
+    left: -11px;
+    position: absolute;
+    padding: 0 10px;
+    color: #2b505d;
+    background-color: #f4d34f;
+    border: #4d8a8b solid 2px;
+    border-radius: 10px;
+    line-height: normal;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.pending-proposal {
+    font-weight: bold;
+    background-color: #f4d34f;
+}
+
+.pending-proposal:hover {
+    font-weight: bold;
+    background-color: #f4d34f;
+}

@@ -1,0 +1,104 @@
+
+<div class="facilities">
+
+    <div class="about">
+        <mat-card>
+            <mat-card-content>
+                <h1>About</h1>
+                <p>
+                    Write a description of how this works
+                </p>
+
+                <h2>Import facilities</h2>
+                <p>
+                    By clicking the button below you are redirected to Energinet's DataHub
+                    where you can authorize this application to pull data on your facilities.
+                </p>
+
+                <button type="button" mat-flat-button color="primary" (click)="startOnboarding()">Start onboardings</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+    <div class="list">
+
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <h1>Facilities</h1>
+                    <div class="fill-remaining"></div>
+                    <div class="searchfield">&nbsp;</div>
+                </div>
+
+
+                <app-loading-view *ngIf="loading"></app-loading-view>
+
+
+                <div *ngIf="!loading">
+
+                    <!-- Production -->
+                    <div class="facility-table">
+                        <h2>Production</h2>
+                        <div class="table-row table-legend">
+                            <span class="name-gsrn">Name</span>
+                            <span class="address">Address</span>
+                            <span class="tags">Tags</span>
+                            <span class="technology">Category</span>
+                        </div>
+
+                        <div matRipple class="table-row table-item" *ngFor="let facility of producers" (click)="editFacility(facility)">
+                            <span class="name-gsrn">
+                                <span class="name">{{ facility.name }}</span>
+                                {{ facility.gsrn }}
+                            </span>
+                            <span class="address">
+                                {{ facility.address }}<br>
+                                {{ facility.postcode }} {{ facility.cityName }}
+                            </span>
+                            <span class="tags">
+                                {{ facility.tags.join(', ') }}
+                            </span>
+                            <span class="technology">
+                                <div class="energy-type-avatar" [ngClass]="facility.technology"></div>
+                                &nbsp;
+                                {{ facility.technology }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Consumption -->
+                    <div class="facility-table">
+                        <h2>Consumption</h2>
+                        <div class="table-row table-legend">
+                            <span class="name-gsrn">Name</span>
+                            <span class="address">Address</span>
+                            <span class="tags">Tags</span>
+                            <span class="technology"></span>
+                        </div>
+
+                        <div matRipple class="table-row table-item" *ngFor="let facility of consumers" (click)="editFacility(facility)">
+                            <span class="name-gsrn">
+                                <span class="name">{{ facility.name }}</span>
+                                {{ facility.gsrn }}
+                            </span>
+                            <span class="address">
+                                {{ facility.address }}<br>
+                                {{ facility.postcode }} {{ facility.cityName }}
+                            </span>
+                            <span class="tags">
+                                {{ facility.tags.join(', ') }}
+                            </span>
+                            <span class="technology"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+
+</div>

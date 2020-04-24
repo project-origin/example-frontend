@@ -1,0 +1,42 @@
+
+<div class="dashboard">
+
+    <div class="filters">
+        <app-commodities-filters
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [filters]="filters">
+        </app-commodities-filters>
+    </div>
+
+    <div class="details">
+      <mat-card>
+          <mat-card-content>
+              <h1>Produced power and issued GGOs</h1>
+
+              <app-commodity-plot
+                  [dateFrom]="dateFrom"
+                  [dateTo]="dateTo"
+                  [filters]="filters"
+                  measurementType="production">
+              </app-commodity-plot>
+          </mat-card-content>
+      </mat-card>
+
+
+      <mat-card>
+          <mat-card-content>
+              <h1>Consumed power and retired GGOs</h1>
+
+              <app-commodity-plot
+                  [dateFrom]="dateFrom"
+                  [dateTo]="dateTo"
+                  [filters]="filters"
+                  measurementType="consumption">
+              </app-commodity-plot>
+          </mat-card-content>
+      </mat-card>
+
+    </div>
+
+</div>
