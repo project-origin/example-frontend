@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -6,8 +7,8 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsService {
 
-  apiBaseUrl = 'http://api.app.eloprindelse.dk';
-  authUrl = this.apiBaseUrl + '/auth/login';
+  apiBaseUrl = environment.apiUrl;
+  authUrl = environment.authUrl;
 
   constructor() { }
 
