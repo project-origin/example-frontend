@@ -58,8 +58,8 @@ export class GgoSummaryComponent implements OnChanges {
     if(response.success) {
       console.log('GgoSummaryComponent.onLoadComplete', response);
       this.issued = response.distributions.issued;
-//       this.inbound = response.distributions.inbound;
-//       this.outbound = response.distributions.outbound;
+      this.inbound = response.distributions.inbound;
+      this.outbound = response.distributions.outbound;
       this.stored = response.distributions.stored;
       this.retired = response.distributions.retired;
       this.expired = response.distributions.expired;

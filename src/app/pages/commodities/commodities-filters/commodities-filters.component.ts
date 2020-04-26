@@ -105,11 +105,7 @@ export class CommoditiesFiltersComponent implements OnInit {
 
 
   resetFilters() {
-    this.form.patchValue({
-      tags: [],
-      facilityType: '',
-      text: '',
-    });
+    this.router.navigate(['/commodities']);
   }
 
 

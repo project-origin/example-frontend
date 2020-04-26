@@ -37,6 +37,11 @@ export class DashboardComponent implements OnInit {
         this.dateFrom = moment().subtract(1, 'months').toDate();
         this.dateTo = moment().toDate();
       }
+
+      this.form.patchValue({date: {
+        begin: this.dateFrom,
+        end: this.dateTo,
+      }})
     });
 
     this.form.valueChanges
