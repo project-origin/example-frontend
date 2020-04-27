@@ -114,7 +114,7 @@ export class CreateAgreementComponent implements OnInit {
 
   setupDialogForNewAgreement() {
     this.headline1 = 'NEW GGO TRANSFER AGREEMENT';
-    this.headline2 = 'Submit a transfer proposal to a trading partner';
+    this.headline2 = 'Submit a transfer proposal to a partner';
 
     // Form default values
     this.form.patchValue({
