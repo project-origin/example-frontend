@@ -15,7 +15,7 @@
                     where you can authorize this application to pull data on your facilities.
                 </p>
 
-                <button type="button" mat-flat-button color="primary" (click)="startOnboarding()">Start onboardings</button>
+                <button type="button" mat-flat-button color="primary" (click)="startOnboarding()">Start onboarding</button>
             </mat-card-content>
         </mat-card>
     </div>
@@ -35,7 +35,13 @@
                 <app-loading-view *ngIf="loading"></app-loading-view>
 
 
-                <div *ngIf="!loading">
+                <div *ngIf="!loading && empty" class="empty">
+                    <p><b>No facilities found</b></p>
+                    <p>Start onboarding from ElOverblik by clicking the button to the left to import your facilities</p>
+                </div>
+
+
+                <div *ngIf="!loading && !empty">
 
                     <!-- Production -->
                     <div class="facility-table">

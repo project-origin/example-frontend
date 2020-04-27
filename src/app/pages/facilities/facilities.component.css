@@ -65,6 +65,15 @@
         margin-bottom: 4px;
     }
 
+    .list .empty {
+        padding: 40px 0;
+        margin-bottom: 2px;
+        justify-content: center;
+        text-align: center;
+        border: #d2d2d2 solid 2px;
+        border-radius: 10px;
+    }
+
 
 .searchfield {
     display: flex;

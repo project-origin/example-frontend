@@ -17,8 +17,8 @@ export class FacilitiesComponent implements OnInit {
   loading: boolean = false;
   error: boolean = false;
 
-  producers: Facility[];
-  consumers: Facility[];
+  producers: Facility[] = [];
+  consumers: Facility[] = [];
 
 
   constructor(
@@ -30,6 +30,11 @@ export class FacilitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+  }
+
+
+  get empty() : boolean {
+    return this.producers.length == 0 && this.consumers.length == 0;
   }
 
 
