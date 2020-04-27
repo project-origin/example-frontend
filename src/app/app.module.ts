@@ -57,6 +57,7 @@ import { ViewSentProposalComponent } from './pages/trade/view-sent-proposal/view
 import { ViewReceivedProposalComponent } from './pages/trade/view-received-proposal/view-received-proposal.component';
 import { CommoditiesComponent } from './pages/commodities/commodities.component';
 import { CommoditiesFiltersComponent } from './pages/commodities/commodities-filters/commodities-filters.component';
+import { formatAmountTransformer } from './pipes/unitamount';
 
 
 const DEBUG = false;
@@ -68,8 +69,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'commodities', component: CommoditiesComponent },
-  { path: 'trade/:agreementId', component: TradeComponent },
-  { path: 'trade', component: TradeComponent },
+  { path: 'transfer/:agreementId', component: TradeComponent },
+  { path: 'transfer', component: TradeComponent },
   { path: 'retire', component: RetireComponent },
   { path: 'facilities', component: FacilitiesComponent },
   { path: 'disclosure', component: DisclosureComponent },
@@ -106,6 +107,7 @@ const appRoutes: Routes = [
     ViewReceivedProposalComponent,
     CommoditiesComponent,
     CommoditiesFiltersComponent,
+    formatAmountTransformer,
   ],
   imports: [
     RouterModule.forRoot(

@@ -17,11 +17,11 @@
 
 
         <div class="summary" *ngIf="!loading && datasets.length > 0">
-            <h2>Trade summary</h2>
+            <h2>Transfer summary</h2>
 
             <div class="table-row table-legend">
                 <span class="technology">Technology</span>
-                <span class="traded">Traded</span>
+                <span class="traded">Transferred</span>
             </div>
 
             <div class="table-row table-item" *ngFor="let dataset of datasets">
@@ -30,15 +30,14 @@
                     {{ dataset.label }}
                 </span>
                 <span class="traded">
-                    {{ dataset.amount | number }}
-                    {{ dataset.unit }}
+                    {{ dataset.amount | formatAmount }}
                 </span>
             </div>
 
             <div class="table-row table-legend total">
                 <span class="technology">Total</span>
                 <span class="traded">
-                    {{ total | number }} Wh
+                    {{ total | formatAmount }}
                 </span>
             </div>
         </div>
@@ -58,7 +57,7 @@
 
 
         <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length == 0">
-            No trade data has been recorded
+            No transfer data has been recorded
         </div>
 
 

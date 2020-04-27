@@ -8,7 +8,7 @@
         <div class="space"></div>
         <a mat-button routerLink="/commodities" [class.current]="isCommodities()">COMMODITIES</a>
         <div class="space"></div>
-        <a mat-button routerLink="/trade" [class.current]="isTrade()">TRADE</a>
+        <a mat-button routerLink="/transfer" [class.current]="isTransfer()">TRANSFER</a>
         <div class="space"></div>
         <a mat-button routerLink="/retire" [class.current]="isRetire()">RETIRE</a>
         <div class="space"></div>
@@ -31,7 +31,7 @@
         </button>
 
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/trade" class="pending-proposal" *ngIf="hasPendingProposals()">
+            <button mat-menu-item routerLink="/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
                 Pending proposals ({{ pendingProposals }})
             </button>
 

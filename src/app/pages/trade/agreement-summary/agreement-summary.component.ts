@@ -92,7 +92,7 @@ export class AgreementSummaryComponent implements OnChanges {
         unit: dataSet.unit,
       });
 
-      this.total = this.datasets.reduce((a, b) => a.amount + b.amount, 0);
+      this.total = this.datasets.reduce((a, b) => a + b.amount, 0);
     }
   }
 

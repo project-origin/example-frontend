@@ -1,4 +1,5 @@
 import { Type } from "class-transformer";
+import { formatNumber } from '@angular/common';
 
 
 export class CommodityColor {
@@ -34,7 +35,6 @@ export enum MeasurementType {
 export class GgoTechnology {
   technology: string;
   amount: number;
-  unit: string;
 
   get color() : string {
     return CommodityColor.get(this.technology);
@@ -45,8 +45,10 @@ export class GgoTechnology {
 export class GgoDistribution {
   @Type(() => GgoTechnology)
   technologies: GgoTechnology[] = [];
-  total: number;
-  unit: string;
+
+  get total(): number {
+    return this.technologies.reduce((a, b) => a + b.amount, 0);
+  }
 }
 
 

@@ -104,9 +104,9 @@ export class AgreementListComponent implements OnInit {
 
   select(agreement: Agreement) {
     if(this.isSelected(agreement)) {
-      this.router.navigate(['trade']);
+      this.router.navigate(['transfer']);
     } else {
-      this.router.navigate(['trade', agreement.id]);
+      this.router.navigate(['transfer', agreement.id]);
     }
     
     document.body.scrollTop = 0;

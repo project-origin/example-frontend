@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import { ChartType, ChartOptions } from 'chart.js';
 import { GgoDistribution, GgoTechnology } from 'src/app/services/commodities/models';
+import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class GgoDoughnotChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.hasData()) {
-      this.chartLabels = this.distribution.technologies.map((tech: GgoTechnology) => tech.technology + ' (' + tech.unit + ')');
+      this.chartLabels = this.distribution.technologies.map((tech: GgoTechnology) => tech.technology + ' (' + FormatAmount.getUnitLabelForAmount(tech.amount) + ')');
       this.chartData = [ this.distribution.technologies.map((tech: GgoTechnology) => tech.amount) ];
       this.chartColors = [ {
         backgroundColor: this.distribution.technologies.map((tech: GgoTechnology) => tech.color)
