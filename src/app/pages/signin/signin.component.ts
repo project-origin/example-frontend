@@ -50,6 +50,9 @@ export class SigninComponent implements OnInit {
     this.loading = false;
     if(response.success) {
       this.authService.register(response.user);
+    } else {
+      this.showGettingProfile = false;
+      this.showLoginButton = true;
     }
   }
 

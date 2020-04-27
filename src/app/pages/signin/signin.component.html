@@ -3,15 +3,12 @@
 
     <mat-card *ngIf="showGettingProfile">
         <mat-spinner [diameter]="40"></mat-spinner><br>
-        <b>GETTING PROFILE...</b>
+        <b>Signing in...</b>
     </mat-card>
 
     <mat-card *ngIf="showLoginButton">
-      <button mat-button (click)="login()">LOGIN!</button>
-    </mat-card>
-
-    <mat-card *ngIf="showLoginButton">
-      <button mat-button (click)="login()">LOGIN!</button>
+      <p>Write a welcome message here?</p>
+      <button mat-button color="primary" (click)="login()">SIGN IN</button>
     </mat-card>
 
 <!--    <mat-card *ngIf="redirecting">-->
