@@ -1,0 +1,26 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-frontend-deployment
+  namespace: project-origin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-frontend-deployment
+  template:
+    metadata:
+      labels:
+        app: example-frontend-deployment
+    spec:
+      containers:
+        - name: example-frontend-container
+          image: projectorigin/example_frontend:2078
+          envFrom:
+            - configMapRef:
+                name: namespace-config
+            - configMapRef:
+                name: example-frontend-config
+          ports:
+          - containerPort: 80
