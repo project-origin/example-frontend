@@ -8,6 +8,26 @@
                 <p>
                     Write a description of how retiring works
                 </p>
+
+                <h1>Retire back in time</h1>
+                <p>
+                    Click this button to start retiring stored GGOs.
+                    The process may take a while to complete.
+                </p>
+                
+                <p *ngIf="!retiringBackInTime">
+                    <button mat-button color="primary" (click)="retireBackInTime()">
+                        RETIRE NOW
+                    </button>
+                </p>
+
+                <p *ngIf="retiringBackInTime">
+                    Retiring in progress...
+                </p>
+
+                <p *ngIf="retiringBackInTimeError" style="color:red">
+                    Failed to start retiring, please try again
+                </p>
             </mat-card-content>
         </mat-card>
     </div>
@@ -27,10 +47,10 @@
                 </div>
         
 
-                <app-loading-view *ngIf="loading"></app-loading-view>
+                <app-loading-view *ngIf="loadingFacilities"></app-loading-view>
 
 
-                <div *ngIf="!loading">
+                <div *ngIf="!loadingFacilities">
 
                     <!-- Active -->
                     <div class="facility-table">

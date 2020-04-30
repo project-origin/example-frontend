@@ -13,10 +13,12 @@ export class RetireComponent {
 
 
   // Loading state
-  loading: boolean = false;
+  loadingFacilities: boolean = false;
   loadingError: boolean = false;
   submitting: boolean = false;
   submittingError: boolean = false;
+  retiringBackInTime: boolean = false;
+  retiringBackInTimeError: boolean = false;
 
   // Sorting lists
   active: Facility[] = [];
@@ -40,14 +42,14 @@ export class RetireComponent {
       orderBy: FacilityOrderBy.retirePriority,
     };
 
-    this.loading = true;
+    this.loadingFacilities = true;
     this.facilityService
         .getFacilityList(request)
         .subscribe(this.onLoadComplete.bind(this));
   }
 
   onLoadComplete(response: GetFacilityListResponse) {
-    this.loading = false;
+    this.loadingFacilities = false;
     this.loadingError = !response.success;
 
     if(response.success) {
@@ -57,6 +59,22 @@ export class RetireComponent {
       this.inactive = response.facilities.filter(
           (facility: Facility) => !facility.isGgoReceiver());
     }
+  }
+
+
+  // -- Retire back in time ----------------------------------------------- //
+
+
+  retireBackInTime() {
+    this.retiringBackInTime = true;
+    this.facilityService
+        .retireBackInTime()
+        .subscribe(this.onRetireBackInTimeComplete.bind(this));
+  }
+
+  onRetireBackInTimeComplete(response: GetFacilityListResponse) {
+    this.retiringBackInTime = response.success;
+    this.retiringBackInTimeError = !response.success;
   }
 
 

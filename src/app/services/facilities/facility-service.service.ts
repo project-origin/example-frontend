@@ -94,4 +94,9 @@ export class FacilityService {
     return this.api.invoke('/facilities/set-retiring-priority', SetRetiringPriorityResponse, request);
   }
 
+
+  retireBackInTime() : Observable<ApiResponse> {
+    return this.api.invoke('/facilities/retire-back-in-time', ApiResponse, {});
+  }
+
 }
