@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: example-frontend-container
-          image: projectorigin/example_frontend:2078
+          image: projectorigin/example_frontend:2162
           envFrom:
             - configMapRef:
                 name: namespace-config
