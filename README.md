@@ -8,4 +8,4 @@ TODO Describe me!
 
 # Running Docker image
 
-    docker run -e API_URL="http://example.com" -e AUTH_URL="http://example.com/auth/login" example-frontend:v1
+    docker run -e API_URL="http://example.com" -e AUTH_URL="http://example.com/auth/login" -E LOGOUT_URL="http://example.com/auth/logout" example-frontend:v1

@@ -9,6 +9,7 @@ export class SettingsService {
 
   apiBaseUrl = environment.apiUrl;
   authUrl = environment.authUrl;
+  logoutUrl = environment.logoutUrl;
 
   constructor() { }
 

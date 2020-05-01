@@ -49,10 +49,10 @@ export class AuthService {
   unregister() {
     this._user = null;
     this.cookieService.delete(this.TOKEN_COOKIE_NAME);
+    location.replace(this.settings.logoutUrl);
   }
 
   login() {
     location.replace(this.settings.authUrl + '?returnUrl=' + window.location.href);
   }
-
 }
