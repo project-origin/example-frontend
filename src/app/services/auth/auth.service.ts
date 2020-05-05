@@ -48,7 +48,7 @@ export class AuthService {
 
   unregister() {
     this._user = null;
-    this.cookieService.delete(this.TOKEN_COOKIE_NAME);
+    this.cookieService.delete(this.TOKEN_COOKIE_NAME, '/', '.' + window.location.hostname); 
     location.replace(this.settings.logoutUrl);
   }
 
