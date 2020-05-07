@@ -8,7 +8,6 @@ resources:
 variables:
   imageName: 'projectorigin/example-frontend'
   vmImageName: 'ubuntu-latest'
-  kubeCon: alpha-origin-con
   ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
     kubeCon: 'test-kube-con'
     tag: '$(Build.BuildId)'
