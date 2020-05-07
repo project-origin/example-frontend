@@ -33,7 +33,6 @@
     }
 
     .list .table-item {
-        cursor: pointer;
         padding: 17px 20px;
         margin-bottom: 2px;
         border: #d2d2d2 solid 2px;
@@ -45,11 +44,9 @@
     }
 
 
-    .list .name-gsrn { flex: 2 2 0; }
-    .list .address { flex: 2 2 0; }
-    .list .tags { flex: 2 2 0; }
-    .list .priority { flex: 1 1 0; }
-    .list .icon { flex: 1 1 0; text-align: right; }
+    .list .name { flex: 4 4 0; }
+    .list .dates { flex: 3 3 0; }
+    .list .buttons { flex: 2 2 0; }
 
     .list .empty {
         padding: 40px 0;

@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
       dateTo: moment(this.form.get('date').value.end).format('YYYY-MM-DD'),
     };
 
-    this.router.navigate(['/dashboard'], { queryParams: queryParams });
+    this.router.navigate(['/app/dashboard'], { queryParams: queryParams });
   }
 
 }

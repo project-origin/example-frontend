@@ -26,7 +26,11 @@
 
       <mat-card>
           <mat-card-content>
-              <h1>Consumed power and retired GGOs</h1>
+                <div class="legend">
+                    <h1>Consumed power and retired GGOs</h1>
+                    <div class="fill-remaining"></div>
+                    <button type="button" mat-flat-button color="primary" (click)="createDisclosure()">DISCLOSE DATA</button>
+                </div>
 
               <app-commodity-plot
                   [dateFrom]="dateFrom"

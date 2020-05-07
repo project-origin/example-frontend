@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="header">
+        <img src="/assets/logo.png">
+    </div>
+    <div class="body">
+
+        TODO beskrivelse her!
+
+    </div>
+
+    <app-loading-view *ngIf="loading"></app-loading-view>
+</div>
+
+
+<div class="container" *ngFor="let dataseries of data">
+    <div class="body">
+
+        <div *ngFor="let dataseries of data">
+            <app-disclosure-chart
+                [labels]="labels"
+                [dataseries]="dataseries">
+            </app-disclosure-chart>
+        </div>
+
+    </div>
+</div>

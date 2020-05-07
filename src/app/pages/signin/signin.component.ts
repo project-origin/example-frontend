@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, GetProfileResponse } from '../../services/auth/user.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class SigninComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private authService: AuthService,
   ) { }

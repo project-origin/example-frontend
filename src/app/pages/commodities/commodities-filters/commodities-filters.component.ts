@@ -100,12 +100,12 @@ export class CommoditiesFiltersComponent implements OnInit {
     if(this.form.get('gsrn').value.length > 0)
       queryParams['gsrn'] = JSON.stringify(this.form.get('gsrn').value);
 
-    this.router.navigate(['/commodities'], { queryParams: queryParams });
+    this.router.navigate(['/app/commodities'], { queryParams: queryParams });
   }
 
 
   resetFilters() {
-    this.router.navigate(['/commodities']);
+    this.router.navigate(['/app/commodities']);
   }
 
 

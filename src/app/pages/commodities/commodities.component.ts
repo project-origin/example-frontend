@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as moment from 'moment';
 import { IFacilityFilters, FacilityType } from 'src/app/services/facilities/models';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateDisclosureDialogComponent } from '../disclosure/create-disclosure/create-disclosure-dialog/create-disclosure-dialog.component';
 
 
 @Component({
@@ -16,7 +18,10 @@ export class CommoditiesComponent implements OnInit {
   filters: IFacilityFilters;
 
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+  ) { }
 
 
   ngOnInit() {
@@ -36,6 +41,19 @@ export class CommoditiesComponent implements OnInit {
         text: params.get('text') || '',
         facilityType: FacilityType[params.get('facilityType')] || '',
       };
+    });
+  }
+
+
+  createDisclosure() {
+    this.dialog.open(CreateDisclosureDialogComponent, { 
+      data: {
+        dateFrom: this.dateFrom,
+        dateTo: this.dateTo,
+        filters: this.filters, 
+      },
+      width: '750px',
+      panelClass: 'dialog'
     });
   }
 

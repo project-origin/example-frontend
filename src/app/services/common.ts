@@ -10,4 +10,11 @@ export class DateRange {
     @Transform(obj => moment(obj).format('YYYY-MM-DD'), { toPlainOnly: true })
     end: Date;
 
+    constructor(args?: {
+        begin: Date,
+        end: Date,
+    }) {
+      Object.assign(this, args);
+    }
+
 }

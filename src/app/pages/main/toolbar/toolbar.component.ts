@@ -76,27 +76,27 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   isDashboard() : boolean {
-    return this.router.url.startsWith('/dashboard');
+    return this.router.url.startsWith('/app/dashboard');
   }
 
   isCommodities() : boolean {
-    return this.router.url.startsWith('/commodities');
+    return this.router.url.startsWith('/app/commodities');
   }
 
   isTransfer() : boolean {
-    return this.router.url.startsWith('/transfer');
+    return this.router.url.startsWith('/app/transfer');
   }
 
   isRetire() : boolean {
-    return this.router.url.startsWith('/retire');
+    return this.router.url.startsWith('/app/retire');
   }
 
   isFacilities() : boolean {
-    return this.router.url.startsWith('/facilities');
+    return this.router.url.startsWith('/app/facilities');
   }
 
   isDisclosure() : boolean {
-    return this.router.url.startsWith('/disclosure');
+    return this.router.url.startsWith('/app/disclosure');
   }
 
 }

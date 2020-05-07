@@ -1,19 +1,25 @@
 
-<div class="toolbar-container">
-    <div class="toolbar">
-        <app-toolbar></app-toolbar>
-    </div>
-</div>
+
+<app-signin *ngIf="!isAuthenticated"></app-signin>
 
 
-<div class="content-container">
-    <div class="legend onboarding">
-      <span>Perform onboarding via ElOverblik to import your facilities, measurements and GGOs</span>
-      <span class="fill-remaining"></span>
-      <span><button mat-button (click)="startOnboarding()">START ONBOARDING</button></span>
+<div *ngIf="isAuthenticated">
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <app-toolbar></app-toolbar>
+        </div>
     </div>
 
-    <div class="content">
-        <router-outlet></router-outlet>
+
+    <div class="content-container">
+        <div class="legend onboarding">
+        <span>Perform onboarding via ElOverblik to import your facilities, measurements and GGOs</span>
+        <span class="fill-remaining"></span>
+        <span><button mat-button (click)="startOnboarding()">START ONBOARDING</button></span>
+        </div>
+
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>
