@@ -36,6 +36,7 @@ stages:
           latest
           $(tag)
     - task: Docker@2
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')
       displayName: Push image
       inputs:
         command: push
@@ -46,6 +47,7 @@ stages:
           $(tag)
           
 - stage: update_cluster
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')
   displayName: Update kubernetes
   jobs:  
   - job: push_to_cluster
