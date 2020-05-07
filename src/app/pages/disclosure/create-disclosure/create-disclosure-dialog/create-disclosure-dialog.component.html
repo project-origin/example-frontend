@@ -13,6 +13,8 @@
     <app-loading-view *ngIf="loadingPreview"></app-loading-view>
 
     <div *ngIf="!loadingPreview && !submitted" class="list">
+
+        <!-- Dates -->
         <div class="legend">
             <div>
                 <img src="/assets/icon_date.png">
@@ -26,6 +28,23 @@
         </div>
 
 
+        <!-- Name -->
+        <input matInput
+            type="text"
+            placeholder="Enter a name for reference"
+            class="field"
+            [(ngModel)]="name">
+
+
+        <!-- Description -->
+        <input matInput
+            type="text"
+            placeholder="Enter an optional description"
+            class="field"
+            [(ngModel)]="description">
+
+
+        <!-- Options -->
         <div class="table-item" *ngIf="previewFacilities.length > 0">
             <mat-radio-group aria-label="Select an option" [(ngModel)]="publicizeMeteringpoints">
                 <mat-radio-button [value]="false">
@@ -45,6 +64,7 @@
         </div>
 
 
+        <!-- No facilities available -->
         <div class="table-item" style="text-align: center;" *ngIf="previewFacilities.length == 0">
             <p><b>No consuming facilities chosen</b></p>
             <p>
@@ -53,6 +73,7 @@
         </div>
 
 
+        <!-- Facility list -->
         <div class="table-row table-item" *ngFor="let facility of previewFacilities">
             <span class="checkbox">
                 <mat-checkbox 
@@ -92,6 +113,7 @@
     </div>
 
 
+    <!-- Submitted confirmation -->
     <div *ngIf="!loadingPreview && submitted" class="list">
         <div class="table-item" style="text-align: center;">
             <b>DISCLOSURE CREATED SUCCESSFULLY</b>

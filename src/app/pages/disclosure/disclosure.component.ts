@@ -39,9 +39,11 @@ export class DisclosureComponent implements OnInit {
 
 
   deleteDisclosure(disclosure: Disclosure) {
-    this.disclosureService
-      .deleteDisclosure(new DeleteDisclosureRequest({id: disclosure.id}))
-      .subscribe(this.onDeleteDisclosureComplete.bind(this));
+    if(confirm('Delete this disclosure?')) {
+      this.disclosureService
+        .deleteDisclosure(new DeleteDisclosureRequest({id: disclosure.id}))
+        .subscribe(this.onDeleteDisclosureComplete.bind(this));
+    }
 
   }
 

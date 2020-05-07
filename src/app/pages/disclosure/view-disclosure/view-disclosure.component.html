@@ -15,12 +15,10 @@
 <div class="container" *ngFor="let dataseries of data">
     <div class="body">
 
-        <div *ngFor="let dataseries of data">
-            <app-disclosure-chart
-                [labels]="labels"
-                [dataseries]="dataseries">
-            </app-disclosure-chart>
-        </div>
+        <app-disclosure-chart
+            [labels]="labels"
+            [dataseries]="dataseries">
+        </app-disclosure-chart>
 
     </div>
 </div>

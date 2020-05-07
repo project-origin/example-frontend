@@ -24,6 +24,8 @@ export class CreateDisclosureDialogComponent implements OnInit {
   submitted: boolean = false;
   submittedId: string;
 
+  name: string = '';
+  description: string = '';
   publicizeMeteringpoints: boolean = false;
   publicizeGsrn: boolean = true;
   publicizePhysicalAddress: boolean = true;
@@ -106,7 +108,7 @@ export class CreateDisclosureDialogComponent implements OnInit {
 
 
   canSubmit() : boolean {
-    return !this.loadingSubmitting && this.selectedGsrnNumbers.length > 0;
+    return !this.loadingSubmitting && this.selectedGsrnNumbers.length > 0 && this.name.length > 0;
   }
 
 
@@ -114,8 +116,8 @@ export class CreateDisclosureDialogComponent implements OnInit {
     this.loadingSubmitting = true;
 
     let request = new CreateDisclosureRequest({
-      name: 'NAME',
-      description: 'DESCRIPTION',
+      name: this.name,
+      description: this.description,
       gsrn: this.selectedGsrnNumbers,
       publicizeMeteringpoints: this.publicizeMeteringpoints,
       publicizeGsrn: this.publicizeGsrn,
