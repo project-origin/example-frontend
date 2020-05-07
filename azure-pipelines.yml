@@ -16,6 +16,10 @@ variables:
     kubeCon: 'dev-kube-con'
     tag: 'dev.$(Build.BuildId)'
     namespace: 'dev-project-origin'
+  ${{ if eq(variables['Build.SourceBranchName'], 'merge') }}:
+    kubeCon: '-'
+    tag: 'merge.$(Build.BuildId)'
+    namespace: '-'
 
 stages:
 - stage: build_and_publish
