@@ -10,10 +10,16 @@ variables:
   vmImageName: 'ubuntu-latest'
   ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
     tag: '$(Build.BuildId)'
+    kubeCon: 'test-kube-con'
+    namespace: 'test-project-origin'
   ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
     tag: 'dev.$(Build.BuildId)'
+    kubeCon: 'dev-kube-con'
+    namespace: 'dev-project-origin'
   ${{ if eq(variables['Build.SourceBranchName'], 'merge') }}:
     tag: 'merge.$(Build.BuildId)'
+    kubeCon: '-'
+    namespace: '-'
 
 stages:
 - stage: build_and_publish
@@ -47,13 +53,6 @@ stages:
 - stage: update_dev_cluster
   condition: ne(variables['Build.Reason'], 'PullRequest')
   displayName: Update kubernetes
-  variables:
-    ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-      kubeCon: 'test-kube-con'
-      namespace: 'test-project-origin'
-    ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
-      kubeCon: 'dev-kube-con'
-      namespace: 'dev-project-origin'
   jobs:  
   - job: push_to_cluster
     displayName: Push to Cluster
