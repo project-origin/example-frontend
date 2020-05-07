@@ -98,8 +98,8 @@
                     <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
                 </span>
                 <span class="period">
-                    Start: {{ agreement.dateFrom }}<br>
-                    Stop: {{ agreement.dateTo }}
+                    Start: {{ agreement.dateFrom | date }}<br>
+                    Stop: {{ agreement.dateTo | date }}
                 </span>
             </div>
         </div>
@@ -143,8 +143,8 @@
                     <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
                 </span>
                 <span class="period">
-                    Start: {{ agreement.dateFrom }}<br>
-                    Stop: {{ agreement.dateTo }}
+                    Start: {{ agreement.dateFrom | date }}<br>
+                    Stop: {{ agreement.dateTo | date }}
                 </span>
             </div>
         </div>
