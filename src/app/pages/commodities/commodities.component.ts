@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { IFacilityFilters, FacilityType } from 'src/app/services/facilities/models';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateDisclosureDialogComponent } from '../disclosure/create-disclosure/create-disclosure-dialog/create-disclosure-dialog.component';
+import { CommodityService, GetMeasurementsRequest } from 'src/app/services/commodities/commodity.service';
+import { DateRange } from 'src/app/services/common';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class CommoditiesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private commodityService: CommodityService,
   ) { }
 
 
@@ -55,6 +58,27 @@ export class CommoditiesComponent implements OnInit {
       width: '750px',
       panelClass: 'dialog'
     });
+  }
+
+
+  exportMeasurements() {
+    this.commodityService.exportMeasurements(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
+  }
+
+
+  exportGgoSummary() {
+    this.commodityService.exportGgoSummary(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
+  }
+
+
+  exportGgoList() {
+    this.commodityService.exportGgoList(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
   }
 
 }

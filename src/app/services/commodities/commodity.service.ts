@@ -36,12 +36,12 @@ export class GetGgoDistributionResponse extends ApiResponse {
 export class GetMeasurementsRequest {
   @Type(() => DateRange)
   dateRange: DateRange;
-  measurementType: MeasurementType;
+  measurementType?: MeasurementType;
   filters?: IFacilityFilters;
 
   constructor(args: {
     dateRange: DateRange,
-    measurementType: MeasurementType,
+    measurementType?: MeasurementType,
     filters?: IFacilityFilters,
   }) {
     Object.assign(this, args);
@@ -80,6 +80,21 @@ export class CommodityService {
 
   getMeasurements(request: GetMeasurementsRequest) : Observable<GetMeasurementsResponse> {
     return this.api.invoke('/commodities/measurements', GetMeasurementsResponse, request);
+  }
+
+
+  exportMeasurements(request: GetMeasurementsRequest) {
+    return this.api.downloadFile('/commodities/measurements/csv', 'measurements.csv', request);
+  }
+
+
+  exportGgoSummary(request: GetMeasurementsRequest) {
+    return this.api.downloadFile('/commodities/ggo-summary/csv', 'ggo-summary.csv', request);
+  }
+
+
+  exportGgoList(request: GetMeasurementsRequest) {
+    return this.api.downloadFile('/commodities/ggo-list/csv', 'ggo-list.csv', request);
   }
 
 }

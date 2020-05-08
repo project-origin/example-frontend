@@ -4,6 +4,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import * as moment from 'moment';
 import { IFacilityFilters, FacilityType } from 'src/app/services/facilities/models';
+import { CommodityService, GetMeasurementsRequest } from 'src/app/services/commodities/commodity.service';
+import { DateRange } from 'src/app/services/common';
 
 
 @Component({
@@ -25,6 +27,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private commodityService: CommodityService,
   ) { }
 
 
@@ -57,6 +60,27 @@ export class DashboardComponent implements OnInit {
     };
 
     this.router.navigate(['/app/dashboard'], { queryParams: queryParams });
+  }
+
+
+  exportMeasurements() {
+    this.commodityService.exportMeasurements(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
+  }
+
+
+  exportGgoSummary() {
+    this.commodityService.exportGgoSummary(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
+  }
+
+
+  exportGgoList() {
+    this.commodityService.exportGgoList(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
   }
 
 }

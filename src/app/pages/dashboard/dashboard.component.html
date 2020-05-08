@@ -51,7 +51,16 @@
 
         <mat-card>
             <mat-card-content>
-                <h1>Commodities</h1>
+                <div class="legend">
+                    <h1>Commodities</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">EXPORT CSV</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
+                        <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
+                        <button mat-menu-item (click)="exportGgoList()">GGO List</button>
+                    </mat-menu>
+                </div>
                 <h2>Produced power and issued GGOs</h2>
 
                 <app-commodity-plot
@@ -75,7 +84,11 @@
 
         <mat-card>
             <mat-card-content>
-                <h1>Transferring</h1>
+                <div class="legend">
+                    <h1>Transferring</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary">EXPORT CSV</button>
+                </div>
                 <h2>Inbound GGO transferring</h2>
 
                 <app-trading-plot

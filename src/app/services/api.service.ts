@@ -26,19 +26,26 @@ export class ApiService {
     private authService: AuthService) { }
 
 
+  post(path: String, body: any, options: any = {}) : Observable<Object> {
+    let absoluteUrl = this.settings.apiBaseUrl + path;
+    let token = this.authService.token;
+    // let options2 = {
+    //   responseType: 'arraybuffer'
+    // };
+
+    if(token) {
+      options['headers'] = { 'Authorization': token };
+    }
+
+    return this.http.post(absoluteUrl, classToPlain(body), options);
+  }
+
+
   invoke<TResponse extends ApiResponse>(
     path: String,
     responseType: {new(): TResponse},
     body?: {}
   ) : Observable<TResponse> {
-
-    let absoluteUrl = this.settings.apiBaseUrl + path;
-    let token = this.authService.token;
-    let options = {};
-
-    if(token) {
-      options['headers'] = { 'Authorization': token };
-    }
 
     return Observable.create((observer) => {
       let deserialize = (data: {}) => {
@@ -66,9 +73,24 @@ export class ApiService {
         }
       };
 
-      this.http
-        .post(absoluteUrl, classToPlain(body), options)
-        .subscribe(onComplete, onError);
+      this.post(path, body)
+        .subscribe(onComplete, onError)
     });
+  }
+
+
+  downloadFile(path: String, filename: string, body?: {}) {
+    this.post(path, body, { responseType: 'arraybuffer' })
+      .subscribe((response: any) =>{
+          let dataType = response.type;
+          let binaryData = [];
+          binaryData.push(response);
+          let downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+          downloadLink.setAttribute('download', filename);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+      }
+    )
   }
 }
