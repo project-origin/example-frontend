@@ -7,10 +7,23 @@
             <h1 *ngIf="!isAggregated()">Agreement details</h1>
 
             <div class="fill-remaining"></div>
-            <button mat-stroked-button class="dates">&nbsp;</button>
-            &nbsp;
-            <button mat-stroked-button class="text">CSV</button>
+            <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">EXPORT CSV</button>
         </div>
+
+        
+        <form [formGroup]="form">
+            <div class="filter">
+                <div class="icon">
+                    <img src="/assets/icon_date.png">
+                </div>
+                <div class="label">Date:</div>
+                <div class="field daterange">
+                    <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date">
+                    <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                    <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                </div>
+            </div>
+        </form>
 
 
         <app-loading-view *ngIf="loading"></app-loading-view>

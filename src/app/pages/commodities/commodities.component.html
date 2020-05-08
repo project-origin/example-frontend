@@ -12,7 +12,16 @@
     <div class="details">
       <mat-card>
           <mat-card-content>
-              <h1>Produced power and issued GGOs</h1>
+                <div class="legend">
+                    <h1>Produced power and issued GGOs</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">EXPORT CSV</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
+                        <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
+                        <button mat-menu-item (click)="exportGgoList()">GGO List</button>
+                    </mat-menu>
+                </div>
 
               <app-commodity-plot
                   [dateFrom]="dateFrom"
@@ -21,10 +30,9 @@
                   measurementType="production">
               </app-commodity-plot>
           </mat-card-content>
-      </mat-card>
+          
+          <br><br>
 
-
-      <mat-card>
           <mat-card-content>
                 <div class="legend">
                     <h1>Consumed power and retired GGOs</h1>

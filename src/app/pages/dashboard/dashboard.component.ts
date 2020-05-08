@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { IFacilityFilters, FacilityType } from 'src/app/services/facilities/models';
 import { CommodityService, GetMeasurementsRequest } from 'src/app/services/commodities/commodity.service';
 import { DateRange } from 'src/app/services/common';
+import { AgreementService, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private commodityService: CommodityService,
+    private agreementService: AgreementService,
   ) { }
 
 
@@ -79,6 +81,13 @@ export class DashboardComponent implements OnInit {
 
   exportGgoList() {
     this.commodityService.exportGgoList(new GetMeasurementsRequest({
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+      }));
+  }
+
+
+  exportTransferGgoSummary() {
+    this.agreementService.exportGgoSummary(new GetAgreementSummaryRequest({
         dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
       }));
   }

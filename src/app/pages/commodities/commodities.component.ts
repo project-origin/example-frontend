@@ -63,21 +63,24 @@ export class CommoditiesComponent implements OnInit {
 
   exportMeasurements() {
     this.commodityService.exportMeasurements(new GetMeasurementsRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo}),
+        filters: this.filters
       }));
   }
 
 
   exportGgoSummary() {
     this.commodityService.exportGgoSummary(new GetMeasurementsRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo}),
+        filters: this.filters
       }));
   }
 
 
   exportGgoList() {
     this.commodityService.exportGgoList(new GetMeasurementsRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
+        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo}),
+        filters: this.filters
       }));
   }
 

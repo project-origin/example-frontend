@@ -202,4 +202,9 @@ export class AgreementService {
     return this.api.invoke('/agreements/propose/pending-count', CountPendingProposalsResponse);
   }
 
+
+  exportGgoSummary(request: GetAgreementSummaryRequest) {
+    return this.api.downloadFile('/agreements/ggo-summary/csv', 'transfer-ggo-summary.csv', request);
+  }
+
 }
