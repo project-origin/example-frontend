@@ -10,10 +10,16 @@ variables:
   vmImageName: 'ubuntu-latest'
   ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
     tag: '$(Build.BuildId)'
-    namespace: 'project-origin'
+    kubeCon: 'test-kube-con'
+    namespace: 'test-project-origin'
   ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
     tag: 'dev.$(Build.BuildId)'
+    kubeCon: 'dev-kube-con'
     namespace: 'dev-project-origin'
+  ${{ if eq(variables['Build.SourceBranchName'], 'merge') }}:
+    tag: 'merge.$(Build.BuildId)'
+    kubeCon: '-'
+    namespace: '-'
 
 stages:
 - stage: build_and_publish
@@ -34,6 +40,7 @@ stages:
           latest
           $(tag)
     - task: Docker@2
+      condition: ne(variables['Build.Reason'], 'PullRequest')
       displayName: Push image
       inputs:
         command: push
@@ -43,7 +50,8 @@ stages:
           latest
           $(tag)
           
-- stage: update_cluster
+- stage: update_dev_cluster
+  condition: ne(variables['Build.Reason'], 'PullRequest')
   displayName: Update kubernetes
   jobs:  
   - job: push_to_cluster
@@ -55,7 +63,7 @@ stages:
         displayName: Helm upgrade
         inputs:
           connectionType: 'Kubernetes Service Connection'
-          kubernetesServiceConnection: 'origin-kubernetes-connection'
+          kubernetesServiceConnection: $(kubeCon)
           namespace: $(namespace)
           command: upgrade
           chartType: filepath
