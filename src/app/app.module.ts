@@ -63,6 +63,7 @@ import { formatAmountTransformer } from './pipes/unitamount';
 import { CreateDisclosureDialogComponent } from './pages/disclosure/create-disclosure/create-disclosure-dialog/create-disclosure-dialog.component';
 import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view-disclosure.component';
 import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
+import { ErrorPopupComponent } from './pages/errors/error-popup/error-popup.component';
 
 
 const DEBUG = false;
@@ -120,6 +121,7 @@ const appRoutes: Routes = [
     CreateDisclosureDialogComponent,
     ViewDisclosureComponent,
     DisclosureChartComponent,
+    ErrorPopupComponent,
   ],
   imports: [
     RouterModule.forRoot(

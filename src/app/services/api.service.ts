@@ -5,6 +5,8 @@ import { plainToClass, Type, classToPlain } from "class-transformer";
 import { SettingsService } from './settings.service';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorPopupComponent } from '../pages/errors/error-popup/error-popup.component';
 
 
 export class ApiResponse {
@@ -21,6 +23,7 @@ export class ApiResponse {
 export class ApiService {
 
   constructor(
+    private dialog: MatDialog,
     private http: HttpClient,
     private settings: SettingsService,
     private authService: AuthService,
@@ -58,6 +61,7 @@ export class ApiService {
       };
 
       let onError = (data: {}) => {
+        console.log('onError', data['status'], data);
         if(data['status'] == 0) {
           // Connection error
           observer.next(deserialize({'success': false, 'message': data['message']}));
@@ -65,7 +69,7 @@ export class ApiService {
           this.authService.unregister();
         } else if(data['status'] == 500) {
           // Do not expect JSON output
-          // TODO observer.next()
+          this.showErrorPopup();
           let response = new ApiResponse();
           response.success = false;
           response.message = data['error'];
@@ -95,5 +99,14 @@ export class ApiService {
           downloadLink.click();
       }
     )
+  }
+
+
+  showErrorPopup() {
+    console.log('ERROR!!!');
+    this.dialog.open(ErrorPopupComponent, { 
+      width: '560px',
+      panelClass: 'dialog'
+    });
   }
 }
