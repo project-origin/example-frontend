@@ -23,7 +23,8 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private settings: SettingsService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+  ) { }
 
 
   post(path: String, body: any, options: any = {}) : Observable<Object> {
@@ -60,6 +61,8 @@ export class ApiService {
         if(data['status'] == 0) {
           // Connection error
           observer.next(deserialize({'success': false, 'message': data['message']}));
+        } else if(data['status'] == 401) {
+          this.authService.unregister();
         } else if(data['status'] == 500) {
           // Do not expect JSON output
           // TODO observer.next()
