@@ -63,38 +63,47 @@ export class AgreementListComponent implements OnInit {
 
 
   createAgreement() {
-    this.dialog.open(CreateAgreementComponent, { 
-      data: { type: CreateProposalPopupType.new },
-      width: '560px',
-      panelClass: 'dialog',
-      disableClose: true,
-    });
+    this.dialog
+      .open(CreateAgreementComponent, { 
+        data: { type: CreateProposalPopupType.new },
+        width: '560px',
+        panelClass: 'dialog',
+        disableClose: true,
+      })
+      .beforeClosed()
+      .subscribe(this.loadData.bind(this));
   }
 
 
   viewPendingProposal(agreement: Agreement) {
-    this.dialog.open(CreateAgreementComponent, { 
-      data: { 
-        type: CreateProposalPopupType.pending,
-        agreement: agreement,
-      },
-      width: '560px',
-      panelClass: 'dialog',
-      disableClose: false,
-    });
+    this.dialog
+      .open(CreateAgreementComponent, { 
+        data: { 
+          type: CreateProposalPopupType.pending,
+          agreement: agreement,
+        },
+        width: '560px',
+        panelClass: 'dialog',
+        disableClose: false,
+      })
+      .beforeClosed()
+      .subscribe(this.loadData.bind(this));
   }
 
 
   viewSentProposal(agreement: Agreement) {
-    this.dialog.open(CreateAgreementComponent, { 
-      data: { 
-        type: CreateProposalPopupType.sent,
-        agreement: agreement,
-      },
-      width: '560px',
-      panelClass: 'dialog',
-      disableClose: false,
-    });
+    this.dialog
+      .open(CreateAgreementComponent, { 
+        data: { 
+          type: CreateProposalPopupType.sent,
+          agreement: agreement,
+        },
+        width: '560px',
+        panelClass: 'dialog',
+        disableClose: false,
+      })
+      .beforeClosed()
+      .subscribe(this.loadData.bind(this));
   }
 
 
@@ -104,9 +113,9 @@ export class AgreementListComponent implements OnInit {
 
   select(agreement: Agreement) {
     if(this.isSelected(agreement)) {
-      this.router.navigate(['app/transfer']);
+      this.router.navigate(['app/transfer'], { queryParamsHandling: 'preserve' });
     } else {
-      this.router.navigate(['app/transfer', agreement.id]);
+      this.router.navigate(['app/transfer', agreement.id], { queryParamsHandling: 'preserve' });
     }
     
     document.body.scrollTop = 0;

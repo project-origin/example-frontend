@@ -18,8 +18,8 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
 
   @Input() agreementId: string;
 
-  dateFrom: Date = moment().toDate();
-  dateTo: Date = moment().subtract(1, 'year').toDate();
+  dateFrom: Date = moment().subtract(1, 'year').toDate();
+  dateTo: Date = moment().toDate();
 
   // Form controls
   form: FormGroup = new FormGroup({
@@ -52,7 +52,12 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private agreementService: AgreementService,
-  ) { }
+  ) { 
+    this.form.patchValue({date: {
+      begin: this.dateFrom,
+      end: this.dateTo,
+    }});
+  }
 
 
   ngOnInit() {
@@ -101,7 +106,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
       dateRange: new DateRange({
         begin: this.form.get('date').value.begin,
         end: this.form.get('date').value.end,
-      })
+      }),
     });
 
     this.loading = true;
