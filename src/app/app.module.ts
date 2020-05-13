@@ -64,6 +64,7 @@ import { CreateDisclosureDialogComponent } from './pages/disclosure/create-discl
 import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view-disclosure.component';
 import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
 import { ErrorPopupComponent } from './pages/errors/error-popup/error-popup.component';
+import { SupportComponent } from './pages/support/support.component';
 
 
 const DEBUG = false;
@@ -84,6 +85,7 @@ const appRoutes: Routes = [
       { path: 'retire', component: RetireComponent },
       { path: 'facilities', component: FacilitiesComponent },
       { path: 'disclosure', component: DisclosureComponent },
+      { path: 'support', component: SupportComponent },
     ]
   },
   { path: '**', component: PageNotFoundComponent },
@@ -122,6 +124,7 @@ const appRoutes: Routes = [
     ViewDisclosureComponent,
     DisclosureChartComponent,
     ErrorPopupComponent,
+    SupportComponent,
   ],
   imports: [
     RouterModule.forRoot(

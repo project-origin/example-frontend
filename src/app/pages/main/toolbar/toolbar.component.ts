@@ -96,4 +96,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this.router.url.startsWith('/app/disclosure');
   }
 
+  isSupport() : boolean {
+    return this.router.url.startsWith('/app/support');
+  }
+
 }
