@@ -21,11 +21,9 @@
                 <h2>Public datasets</h2>
 
                 <div class="table-row table-legend">
-                    <span class="name-gsrn">Name</span>
-                    <span class="address">Address</span>
-                    <span class="tags">Tags</span>
-                    <span class="priority">Priority</span>
-                    <span class="icon"></span>
+                    <span class="name">Name</span>
+                    <span class="dates">Dates</span>
+                    <span class="buttons"></span>
                 </div>
                 
 
@@ -38,21 +36,24 @@
                     </div>
                 </div>
 
-                <div matRipple class="table-row table-item">
-                    <span class="name-gsrn">
-                        asd
+                <div class="table-row table-item" *ngFor="let disclosure of disclosures">
+                    <span class="name">
+                        <b>{{ disclosure.name }}</b><br>
+                        {{ disclosure.description }}
                     </span>
-                    <span class="address">
-                        asd
+                    <span class="dates">
+                        Begin: <b>{{ disclosure.begin | date}}</b><br>
+                        End: <b>{{ disclosure.end | date}}</b>
                     </span>
-                    <span class="tags">
-                        Wind, Offshore
-                    </span>
-                    <span class="priority">
-                        asd
-                    </span>
-                    <span class="icon">
-                        <img src="/assets/icon_sort.png">
+                    <span class="buttons">
+                        <button mat-flat-button color="warn" (click)="deleteDisclosure(disclosure)">DELETE</button> &nbsp;
+                        <a
+                            mat-flat-button
+                            color="primary"
+                            target="_blank"
+                            routerLink="/disclosure/{{ disclosure.id }}">
+                            VIEW
+                        </a>
                     </span>
                 </div>
                 

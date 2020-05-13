@@ -71,6 +71,10 @@ mat-button-toggle.mat-button-toggle-disabled {
     border-radius: 20px;
 }
 
+.field.error {
+    border-color: red;
+}
+
 .field:disabled,
 .disabled {
     opacity: 0.5;

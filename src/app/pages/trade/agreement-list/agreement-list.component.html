@@ -98,8 +98,8 @@
                     <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
                 </span>
                 <span class="period">
-                    Start: {{ agreement.dateFrom }}<br>
-                    Stop: {{ agreement.dateTo }}
+                    Start: {{ agreement.dateFrom | date }}<br>
+                    Stop: {{ agreement.dateTo | date }}
                 </span>
             </div>
         </div>
@@ -121,7 +121,7 @@
                 <div>
                     <b>No inbound agreements found</b><br><br>
                     Inbound agreements transfers GGOs from your partner's facilities to your account,<br>
-                    and optionally <a routerLink="/retire">retires the GGOs</a> to one or more of your facilities.
+                    and optionally <a routerLink="/app/retire">retires the GGOs</a> to one or more of your facilities.
                 </div>
             </div>
             
@@ -143,8 +143,8 @@
                     <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
                 </span>
                 <span class="period">
-                    Start: {{ agreement.dateFrom }}<br>
-                    Stop: {{ agreement.dateTo }}
+                    Start: {{ agreement.dateFrom | date }}<br>
+                    Stop: {{ agreement.dateTo | date }}
                 </span>
             </div>
         </div>

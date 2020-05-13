@@ -28,6 +28,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatBadgeModule } from '@angular/material/badge';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio'; 
 
 
 // Origin
@@ -58,25 +60,35 @@ import { ViewReceivedProposalComponent } from './pages/trade/view-received-propo
 import { CommoditiesComponent } from './pages/commodities/commodities.component';
 import { CommoditiesFiltersComponent } from './pages/commodities/commodities-filters/commodities-filters.component';
 import { formatAmountTransformer } from './pipes/unitamount';
+import { CreateDisclosureDialogComponent } from './pages/disclosure/create-disclosure/create-disclosure-dialog/create-disclosure-dialog.component';
+import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view-disclosure.component';
+import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
+import { ErrorPopupComponent } from './pages/errors/error-popup/error-popup.component';
+import { SupportComponent } from './pages/support/support.component';
 
 
 const DEBUG = false;
 
 
 const appRoutes: Routes = [
-//   { path: 'signin', component: SigninComponent },
-
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'commodities', component: CommoditiesComponent },
-  { path: 'transfer/:agreementId', component: TradeComponent },
-  { path: 'transfer', component: TradeComponent },
-  { path: 'retire', component: RetireComponent },
-  { path: 'facilities', component: FacilitiesComponent },
-  { path: 'disclosure', component: DisclosureComponent },
-
-  // { path: '', component: SigninComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
+  { path: 'signin', component: SigninComponent },
+  { path: 'disclosure/:disclosureId', component: ViewDisclosureComponent },
+  { 
+    path: 'app',
+    component: MainComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'commodities', component: CommoditiesComponent },
+      { path: 'transfer/:agreementId', component: TradeComponent },
+      { path: 'transfer', component: TradeComponent },
+      { path: 'retire', component: RetireComponent },
+      { path: 'facilities', component: FacilitiesComponent },
+      { path: 'disclosure', component: DisclosureComponent },
+      { path: 'support', component: SupportComponent },
+    ]
+  },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 
@@ -108,6 +120,11 @@ const appRoutes: Routes = [
     CommoditiesComponent,
     CommoditiesFiltersComponent,
     formatAmountTransformer,
+    CreateDisclosureDialogComponent,
+    ViewDisclosureComponent,
+    DisclosureChartComponent,
+    ErrorPopupComponent,
+    SupportComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -140,6 +157,8 @@ const appRoutes: Routes = [
     SatDatepickerModule,
     SatNativeDateModule,
     MatAutocompleteModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],

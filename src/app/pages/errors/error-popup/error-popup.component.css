@@ -1,0 +1,13 @@
+
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 2px 50px;
+    cursor: pointer;
+}
+
+button.cancel {
+    background-color: #d2d2d2; 
+    color: #797979;
+}

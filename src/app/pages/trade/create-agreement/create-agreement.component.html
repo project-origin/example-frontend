@@ -24,18 +24,22 @@
 
 
         <!-- Reference ID -->
+        <div style="color: red;" *ngFor="let error of errors.reference">- {{ error }}</div>
         <input matInput
             type="text"
             placeholder="Enter your reference ID"
             class="field"
+            [class.error]="errors.reference.length > 0"
             formControlName="reference">
         
 
         <!-- Counterpart -->
+        <div style="color: red;" *ngFor="let error of errors.counterpartId">- {{ error }}</div>
         <input 
             matInput type="text"
             placeholder="Enter counterpart name"
             class="field"
+            [class.error]="errors.counterpartId.length > 0"
             [matAutocomplete]="auto"
             formControlName="counterpartId">
         
@@ -76,11 +80,13 @@
 
 
         <!-- Amount -->
+        <div style="color: red;" *ngFor="let error of errors.amount">- {{ error }}</div>
         <div class="amount">
             <input matInput
                 type="text"
                 placeholder="Enter amount"
                 class="field value"
+                [class.error]="errors.amount.length > 0"
                 formControlName="amount">
             
             <div class="field unit" [class.disabled]="isDisabled">
@@ -94,11 +100,13 @@
 
 
         <!-- Date period -->
+        <div style="color: red;" *ngFor="let error of errors.date">- {{ error }}</div>
         <div class="date">
             <input matInput
                 class="field value"
                 placeholder="Choose a period"
                 formControlName="date"
+                [class.error]="errors.date.length > 0"
                 [satDatepicker]="datePicker">
 
             <div class="picker" [style.display]="canSelectDates ? 'block' : 'none'">

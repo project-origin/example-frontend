@@ -106,7 +106,18 @@ export class SubmitProposalRequest {
 }
 
 
-export class SubmitProposalResponse extends ApiResponse {}
+export class SubmitProposalErrors {
+  reference: string[] = [];
+  counterpartId: string[] = [];
+  amount: string[] = [];
+  date: string[] = [];
+}
+
+
+export class SubmitProposalResponse extends ApiResponse {
+  @Type(() => SubmitProposalErrors)
+  errors: SubmitProposalErrors = new SubmitProposalErrors();
+}
 
 
 // -- respondToProposal requests & responses ---------------------------------
@@ -200,6 +211,11 @@ export class AgreementService {
 
   countPendingProposalt() : Observable<CountPendingProposalsResponse> {
     return this.api.invoke('/agreements/propose/pending-count', CountPendingProposalsResponse);
+  }
+
+
+  exportGgoSummary(request: GetAgreementSummaryRequest) {
+    return this.api.downloadFile('/agreements/ggo-summary/csv', 'transfer-ggo-summary.csv', request);
   }
 
 }

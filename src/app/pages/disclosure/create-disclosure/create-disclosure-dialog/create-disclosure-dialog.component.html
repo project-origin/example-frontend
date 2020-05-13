@@ -1,0 +1,145 @@
+
+<div class="dialog-header">
+    <h1>SHARE INFORMATION</h1>
+    <h2>
+        You are about to make consumption and retired GGOs
+        for the following facilities public
+    </h2>
+</div>
+
+
+<div class="dialog-body">
+
+    <app-loading-view *ngIf="loadingPreview"></app-loading-view>
+
+    <div *ngIf="!loadingPreview && !submitted" class="list">
+
+        <!-- Dates -->
+        <div class="legend">
+            <div>
+                <img src="/assets/icon_date.png">
+            </div>
+            <div>&nbsp;From: <b>{{ dateFrom | date }}</b></div>
+            <div class="fill-remaining"></div>
+            <div>
+                <img src="/assets/icon_date.png">
+            </div>
+            <div>&nbsp;To: <b>{{ dateTo | date }}</b></div>
+        </div>
+
+
+        <!-- Name -->
+        <input matInput
+            type="text"
+            placeholder="Enter a name for reference"
+            class="field"
+            [(ngModel)]="name">
+
+
+        <!-- Description -->
+        <input matInput
+            type="text"
+            placeholder="Enter an optional description"
+            class="field"
+            [(ngModel)]="description">
+
+
+        <!-- Options -->
+        <div class="table-item" *ngIf="previewFacilities.length > 0">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="publicizeMeteringpoints">
+                <mat-radio-button [value]="false">
+                    Disclose aggregated data for all facilities together
+                </mat-radio-button>
+                <br><br>
+                <mat-radio-button [value]="true">
+                    Disclose data for each facility seperately
+                </mat-radio-button>
+            </mat-radio-group>
+
+            
+            <div *ngIf="publicizeMeteringpoints" style="margin-top: 10px; padding-left: 30px;">
+                <mat-checkbox [(ngModel)]="publicizeGsrn">Disclose GSRN number</mat-checkbox><br>
+                <mat-checkbox [(ngModel)]="publicizePhysicalAddress">Disclose physical address</mat-checkbox>
+            </div>
+        </div>
+
+
+        <!-- No facilities available -->
+        <div class="table-item" style="text-align: center;" *ngIf="previewFacilities.length == 0">
+            <p><b>No consuming facilities chosen</b></p>
+            <p>
+                Close this dialog and select one or more consuming facilities in the filters to the left
+            </p>
+        </div>
+
+
+        <!-- Facility list -->
+        <div class="table-row table-item" *ngFor="let facility of previewFacilities">
+            <span class="checkbox">
+                <mat-checkbox 
+                    checked="!isSelected(facility)"
+                    (click)="toggleSelection(facility)"></mat-checkbox>
+            </span>
+            <span class="name-gsrn">
+                <span class="name">{{ facility.name }}</span>
+                {{ facility.gsrn }}
+            </span>
+            <span class="address">
+                {{ facility.address }}<br>
+                {{ facility.postcode }} {{ facility.cityName }}
+            </span>
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="legend" style="margin-top: 30px;">
+            <button mat-button
+                type="button"
+                class="cancel"
+                (click)="closeDialog()">
+                CANCEL
+            </button>
+
+            <div class="fill-remaining"></div>
+
+            <button mat-button
+                type="button"
+                class="send"
+                [disabled]="!canSubmit()"
+                (click)="createDisclosure()">
+                CREATE DISCLOSURE
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Submitted confirmation -->
+    <div *ngIf="!loadingPreview && submitted" class="list">
+        <div class="table-item" style="text-align: center;">
+            <b>DISCLOSURE CREATED SUCCESSFULLY</b>
+            <p>The disclosure is now publicly available.</p>
+            <p>It may take a little while for the data to be available via the link.</p>
+            <p>The disclosure data is updated once a day.</p>
+
+            <a mat-button
+                type="button"
+                class="send"
+                target="_blank"
+                routerLink="/disclosure/{{ submittedId }}">
+                OPEN DISCLOSURE
+            </a>
+        </div>
+
+        <div class="legend" style="margin-top: 30px;">
+            <div class="fill-remaining"></div>
+            <button mat-button
+                type="button"
+                class="cancel"
+                (click)="closeDialog()">
+                CLOSE WINDOW
+            </button>
+            <div class="fill-remaining"></div>
+        </div>
+    </div>
+
+</div>

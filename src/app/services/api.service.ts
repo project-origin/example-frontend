@@ -5,6 +5,8 @@ import { plainToClass, Type, classToPlain } from "class-transformer";
 import { SettingsService } from './settings.service';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorPopupComponent } from '../pages/errors/error-popup/error-popup.component';
 
 
 export class ApiResponse {
@@ -21,9 +23,26 @@ export class ApiResponse {
 export class ApiService {
 
   constructor(
+    private dialog: MatDialog,
     private http: HttpClient,
     private settings: SettingsService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+  ) { }
+
+
+  post(path: String, body: any, options: any = {}) : Observable<Object> {
+    let absoluteUrl = this.settings.apiBaseUrl + path;
+    let token = this.authService.token;
+    // let options2 = {
+    //   responseType: 'arraybuffer'
+    // };
+
+    if(token) {
+      options['headers'] = { 'Authorization': token };
+    }
+
+    return this.http.post(absoluteUrl, classToPlain(body), options);
+  }
 
 
   invoke<TResponse extends ApiResponse>(
@@ -31,14 +50,6 @@ export class ApiService {
     responseType: {new(): TResponse},
     body?: {}
   ) : Observable<TResponse> {
-
-    let absoluteUrl = this.settings.apiBaseUrl + path;
-    let token = this.authService.token;
-    let options = {};
-
-    if(token) {
-      options['headers'] = { 'Authorization': token };
-    }
 
     return Observable.create((observer) => {
       let deserialize = (data: {}) => {
@@ -50,12 +61,15 @@ export class ApiService {
       };
 
       let onError = (data: {}) => {
+        console.log('onError', data['status'], data);
         if(data['status'] == 0) {
           // Connection error
           observer.next(deserialize({'success': false, 'message': data['message']}));
+        } else if(data['status'] == 401) {
+          this.authService.unregister();
         } else if(data['status'] == 500) {
           // Do not expect JSON output
-          // TODO observer.next()
+          this.showErrorPopup();
           let response = new ApiResponse();
           response.success = false;
           response.message = data['error'];
@@ -66,9 +80,33 @@ export class ApiService {
         }
       };
 
-      this.http
-        .post(absoluteUrl, classToPlain(body), options)
-        .subscribe(onComplete, onError);
+      this.post(path, body)
+        .subscribe(onComplete, onError)
+    });
+  }
+
+
+  downloadFile(path: String, filename: string, body?: {}) {
+    this.post(path, body, { responseType: 'arraybuffer' })
+      .subscribe((response: any) =>{
+          let dataType = response.type;
+          let binaryData = [];
+          binaryData.push(response);
+          let downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+          downloadLink.setAttribute('download', filename);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+      }
+    )
+  }
+
+
+  showErrorPopup() {
+    console.log('ERROR!!!');
+    this.dialog.open(ErrorPopupComponent, { 
+      width: '560px',
+      panelClass: 'dialog'
     });
   }
 }

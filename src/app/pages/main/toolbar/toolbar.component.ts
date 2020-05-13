@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/services/auth/models';
 import { AgreementService, CountPendingProposalsResponse } from 'src/app/services/agreements/agreement.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -19,7 +19,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private dialog: MatDialog,
+    private settings: SettingsService,
     private router: Router,
     private authService: AuthService,
     private agreementService: AgreementService,
@@ -58,16 +58,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this.authService.user;
   }
 
-  // get pendingProposals() : number {
-  //   return this.agreementService.pendingProposals;
-  // }
 
   hasPendingProposals() : boolean {
     return this.pendingProposals > 0;
   }
 
   editProfil() {
-    // this.dialog.open(EditProfileComponent, { width: '500px' });
+    location.href = this.settings.apiBaseUrl + '/auth/edit-profile';
   }
 
   logOut() {
@@ -76,27 +73,31 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   isDashboard() : boolean {
-    return this.router.url.startsWith('/dashboard');
+    return this.router.url.startsWith('/app/dashboard');
   }
 
   isCommodities() : boolean {
-    return this.router.url.startsWith('/commodities');
+    return this.router.url.startsWith('/app/commodities');
   }
 
   isTransfer() : boolean {
-    return this.router.url.startsWith('/transfer');
+    return this.router.url.startsWith('/app/transfer');
   }
 
   isRetire() : boolean {
-    return this.router.url.startsWith('/retire');
+    return this.router.url.startsWith('/app/retire');
   }
 
   isFacilities() : boolean {
-    return this.router.url.startsWith('/facilities');
+    return this.router.url.startsWith('/app/facilities');
   }
 
   isDisclosure() : boolean {
-    return this.router.url.startsWith('/disclosure');
+    return this.router.url.startsWith('/app/disclosure');
+  }
+
+  isSupport() : boolean {
+    return this.router.url.startsWith('/app/support');
   }
 
 }

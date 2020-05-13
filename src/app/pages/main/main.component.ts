@@ -12,11 +12,22 @@ export class MainComponent {
 
   loading: boolean = false;
 
+  isAuthenticated: boolean = false;
+
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
-  ) { }
+  ) {
+    this.authService
+        .isAuthenticated()
+        .subscribe(this.onAuthenticationStatusChanged.bind(this))
+  }
+
+
+  onAuthenticationStatusChanged(isAuthenticated: boolean) {
+    this.isAuthenticated = isAuthenticated;
+  }
 
 
   get showOnboardingMessage() : boolean {

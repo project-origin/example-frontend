@@ -1,0 +1,104 @@
+
+<div class="support">
+
+    <div class="about">
+        <mat-card>
+            <mat-card-content>
+                <h1>Contact EnergiNet</h1>
+                <p>
+                    Adress, phone, etc.
+                </p>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+    <div class="list">
+        
+        <mat-card>
+            <mat-card-content>
+
+                <h1>Submit a Support Enquiry</h1>
+                <p>
+                    The easiest way to get support is by filling out the form below.
+                </p>
+
+                <br>
+
+
+                <div *ngIf="error">
+                    <p class="error"><b>Please fill out all fields</b></p>
+                </div>
+
+
+                <div *ngIf="submitted">
+                    <p class="success"><b>Your enquiry has been submitted</b></p>
+                </div>
+
+
+                <form [formGroup]="form" *ngIf="!submitted">
+                    <table width="100%">
+                        <tr valign="top">
+                            <td><b>E-mail:</b></td>
+                            <td>
+                                <input matInput
+                                    type="text"
+                                    placeholder="Enter your E-mail"
+                                    class="field"
+                                    formControlName="email">
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td><b>Phone:</b></td>
+                            <td>
+                                <input matInput
+                                    type="text"
+                                    placeholder="Enter your Phone number"
+                                    class="field"
+                                    formControlName="phone">
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td><b>Subject:</b></td>
+                            <td>
+                                <input matInput
+                                    type="text"
+                                    placeholder="Enter a subject"
+                                    class="field"
+                                    formControlName="subject">
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td><b>Message:</b></td>
+                            <td>
+                                <textarea matInput
+                                    type="text"
+                                    placeholder="Enter a message"
+                                    class="field"
+                                    rows="10"
+                                    formControlName="message"></textarea>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td></td>
+                            <td>
+                                <button mat-button
+                                    type="button"
+                                    class="send"
+                                    [disabled]="loading"
+                                    (click)="submit()">
+                                    SUBMIT ENQUIRY
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+</div>
+

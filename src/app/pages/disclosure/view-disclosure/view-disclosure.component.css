@@ -1,0 +1,17 @@
+.container {
+    background: white;
+    box-shadow: 2px 2px 2px #c1c1c1;
+    border-radius: 5px;
+    max-width: 950px;
+    margin: 20px auto;
+}
+
+.container .header {
+    background-color: #4d8a8b;
+    padding: 20px 30px;
+    border-radius: 5px 5px 0 0;
+}
+
+.container .body {
+    padding: 30px;
+}

@@ -37,6 +37,10 @@ a { color: #2b505d; }
 a:hover { color: #882416; }
 
 
+.error { color: #882416; }
+.success { color: #168818; }
+
+
 mat-card {
     margin-bottom: 10px;
 }

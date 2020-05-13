@@ -16,7 +16,9 @@ import {
   RespondToProposalResponse,
   WithdrawProposalsRequest,
   WithdrawProposalsResponse,
+  SubmitProposalErrors,
 } from 'src/app/services/agreements/agreement.service';
+import { DateRange } from 'src/app/services/common';
 
 
 export enum CreateProposalPopupType {
@@ -36,6 +38,7 @@ export class CreateAgreementComponent implements OnInit {
   // Injected data
   type: CreateProposalPopupType;
   agreement: Agreement;
+  errors: SubmitProposalErrors = new SubmitProposalErrors();
 
   headline1: string = '';
   headline2: string = '';
@@ -118,8 +121,11 @@ export class CreateAgreementComponent implements OnInit {
 
     // Form default values
     this.form.patchValue({
+      reference: '',
       direction: 'outbound',
+      counterpartId: '',
       unit: 'MWh',
+      amount: '',
     });
 
     this.canSelectDates = true;
@@ -297,6 +303,7 @@ export class CreateAgreementComponent implements OnInit {
 
   onSubmitComplete(response: SubmitProposalResponse) {
     this.loadingSubmitting = false;
+    this.errors = response.errors;
     if(response.success) {
       this.closeDialog();
     }
