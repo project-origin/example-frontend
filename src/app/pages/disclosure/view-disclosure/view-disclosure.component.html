@@ -12,6 +12,18 @@
 </div>
 
 
+<div class="container" *ngIf="!exists && !loading">
+    <div class="body">
+
+        <h1>Disclosure not found</h1>
+        <p>
+            The data you are looking for is not available.
+        </p>
+
+    </div>
+</div>
+
+
 <div class="container" *ngFor="let dataseries of data">
     <div class="body">
 

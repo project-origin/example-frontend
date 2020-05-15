@@ -15,6 +15,7 @@ export class ViewDisclosureComponent implements OnInit {
   data: DisclosureDataSeries[] = [];
 
   loading: boolean = false;
+  exists: boolean = false;
 
 
   constructor(
@@ -43,6 +44,7 @@ export class ViewDisclosureComponent implements OnInit {
 
   onGetDisclosureComplete(response: GetDisclosureResponse) {
     this.loading = false;
+    this.exists = response.success;
     if(response.success) {
       this.labels = response.labels;
       this.data = response.data;
