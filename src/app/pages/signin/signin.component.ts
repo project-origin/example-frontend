@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, GetProfileResponse } from '../../services/auth/user.service';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { OnboardingDialogComponent } from '../main/onboarding-dialog/onboarding-dialog.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SigninComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
+    private dialog: MatDialog,
     private userService: UserService,
     private authService: AuthService,
   ) { }
@@ -52,10 +53,22 @@ export class SigninComponent implements OnInit {
     this.loading = false;
     if(response.success) {
       this.authService.register(response.user);
+      
+      if(!response.user.hasPerformedOnboarding) {
+        this.openOnboardingDialog();
+      }
     } else {
       this.showGettingProfile = false;
       this.showLoginButton = true;
     }
+  }
+
+
+  openOnboardingDialog() {
+    this.dialog.open(OnboardingDialogComponent, { 
+      width: '560px',
+      panelClass: 'dialog',
+    });
   }
 
 }

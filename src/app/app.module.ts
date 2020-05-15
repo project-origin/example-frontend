@@ -65,6 +65,7 @@ import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view
 import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
 import { ErrorPopupComponent } from './pages/errors/error-popup/error-popup.component';
 import { SupportComponent } from './pages/support/support.component';
+import { OnboardingDialogComponent } from './pages/main/onboarding-dialog/onboarding-dialog.component';
 
 
 const DEBUG = false;
@@ -125,6 +126,7 @@ const appRoutes: Routes = [
     DisclosureChartComponent,
     ErrorPopupComponent,
     SupportComponent,
+    OnboardingDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(
