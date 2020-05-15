@@ -22,6 +22,10 @@ export class ApiResponse {
 })
 export class ApiService {
 
+  errorDialogVisible: boolean = false;
+
+
+
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
@@ -103,10 +107,18 @@ export class ApiService {
 
 
   showErrorPopup() {
-    console.log('ERROR!!!');
-    this.dialog.open(ErrorPopupComponent, { 
-      width: '560px',
-      panelClass: 'dialog'
-    });
+    if(!this.errorDialogVisible) {
+      this.dialog
+        .open(ErrorPopupComponent, { 
+          width: '560px',
+          panelClass: 'dialog'
+        })
+        .afterClosed()
+        .subscribe(() => {
+          this.errorDialogVisible = false;
+        });
+  
+      this.errorDialogVisible = true;
+    }
   }
 }
