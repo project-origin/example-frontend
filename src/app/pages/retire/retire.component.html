@@ -89,7 +89,7 @@
                                     {{ facility.postcode }} {{ facility.cityName }}
                                 </span>
                                 <span class="tags">
-                                    Wind, Offshore
+                                    {{ facility.tags.join(', ') }}
                                 </span>
                                 <span class="priority">
                                     {{ getPriority(facility) }}
@@ -131,7 +131,7 @@
                                     {{ facility.postcode }} {{ facility.cityName }}
                                 </span>
                                 <span class="tags">
-                                    Wind, Offshore
+                                    {{ facility.tags.join(', ') }}
                                 </span>
                                 <span class="priority">
                                     <!-- <mat-spinner [diameter]="24" *ngIf="isLoading(facility)"></mat-spinner> -->
