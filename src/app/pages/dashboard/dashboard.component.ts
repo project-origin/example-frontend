@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import * as moment from 'moment';
-import { IFacilityFilters, FacilityType } from 'src/app/services/facilities/models';
 import { CommodityService, GetMeasurementsRequest } from 'src/app/services/commodities/commodity.service';
 import { DateRange } from 'src/app/services/common';
 import { AgreementService, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
