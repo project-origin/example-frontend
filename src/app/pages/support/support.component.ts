@@ -11,6 +11,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class SupportComponent implements OnInit {
 
+  subjectTypes = [
+    {value: 'Spørgsmål', label: 'Question'},
+    {value: 'Ændringsønske', label: 'Feature request'},
+    {value: 'Fejl', label: 'Bug or error'},
+  ];
+
 
   loading: boolean = false;
   submitted: boolean = false;
@@ -20,7 +26,11 @@ export class SupportComponent implements OnInit {
     email: new FormControl(),
     phone: new FormControl(),
     subject: new FormControl(),
+    subjectType: new FormControl(),
     message: new FormControl(),
+    fileName: new FormControl(),
+    file: new FormControl(),
+    recipe: new FormControl(),
   });
 
 
@@ -32,24 +42,53 @@ export class SupportComponent implements OnInit {
 
   ngOnInit() {
     this.form.patchValue({
+      subjectType: 'Spørgsmål',
       email: this.authService.user.email,
       phone: this.authService.user.phone,
+      recipe: true,
     });
   }
 
 
-  submit() {
-    let request = new SubmitSupportEnquiryRequest({
-      email: this.form.get('email').value,
-      phone: this.form.get('phone').value,
-      subject: this.form.get('subject').value,
-      message: this.form.get('message').value,
-    });
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      this.form.patchValue({ file: event.target.files[0] });
+    }
+  }
 
-    this.loading = true;
-    this.supportService
-        .submitSupportEnquiry(request)
-        .subscribe(this.onSubmitComplete.bind(this));
+
+  submit() {
+    let fileSource = null;
+
+    const submitToApi = () => {
+      let request = new SubmitSupportEnquiryRequest({
+        email: this.form.get('email').value,
+        phone: this.form.get('phone').value,
+        subject: this.form.get('subject').value,
+        subjectType: this.form.get('subjectType').value,
+        message: this.form.get('message').value,
+        recipe: this.form.get('recipe').value,
+        fileName: this.form.get('fileName').value,
+        fileSource: fileSource,
+      });
+  
+      this.loading = true;
+      this.supportService
+          .submitSupportEnquiry(request)
+          .subscribe(this.onSubmitComplete.bind(this));
+    }
+
+    if(this.form.get('file').value) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.form.get('file').value);
+      reader.onerror = error => console.log('ERROR', error);
+      reader.onload = () => {
+        fileSource = reader.result;
+        submitToApi();
+      };
+    } else {
+      submitToApi()
+    }
   }
 
 
