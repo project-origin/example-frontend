@@ -1,8 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { ChartOptions, ChartType, ChartDataSets, ChartTooltipItem } from 'chart.js';
 import { MeasurementDataSet, MeasurementType } from 'src/app/services/commodities/models';
 import { IFacilityFilters } from 'src/app/services/facilities/models';
 import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse } from 'src/app/services/commodities/commodity.service';
+import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
 @Component({
@@ -34,9 +35,22 @@ export class CommodityPlotComponent implements OnChanges {
       align: 'end',
       position: 'top'
     },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem:ChartTooltipItem, data) {
+          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatAmount.format(Number(tooltipItem.value));
+        }
+      }
+    },
     scales: {
       xAxes: [{ stacked: true }],
-      yAxes: [{ stacked: true }],
+      yAxes: [{ 
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          callback: label => FormatAmount.format(label)
+        }
+      }],
     },
   };
 
