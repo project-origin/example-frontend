@@ -68,6 +68,11 @@ import { ErrorPopupComponent } from './pages/errors/error-popup/error-popup.comp
 import { SupportComponent } from './pages/support/support.component';
 import { OnboardingDialogComponent } from './pages/main/onboarding-dialog/onboarding-dialog.component';
 
+// Locale
+import { registerLocaleData } from '@angular/common';
+import localeDa from '@angular/common/locales/da';
+
+registerLocaleData(localeDa, 'da');
 
 const DEBUG = false;
 
