@@ -1,7 +1,7 @@
 import { Component, OnChanges, SimpleChanges, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { MeasurementDataSet } from 'src/app/services/commodities/models';
-import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
+import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest, CancelAgreementRequest, CancelAgreementResponse } from 'src/app/services/agreements/agreement.service';
 import { Agreement } from 'src/app/services/agreements/models';
 import { DateRange } from 'src/app/services/common';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -57,7 +57,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private agreementService: AgreementService,
-    private settingsService: SettingsService,
+    settingsService: SettingsService,
   ) { 
     this.minDate = settingsService.minDate;
     this.maxDate = settingsService.maxDate;
@@ -170,6 +170,26 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
         end: this.form.get('date').value.end,
       })
     }));
+  }
+
+
+  cancelAgreement() {
+    if(confirm('Really cancel this agreement?')) {
+      let request = new CancelAgreementRequest({
+        id: this.agreementId,
+      });
+  
+      this.agreementService
+          .cancelAgreement(request)
+          .subscribe(this.onCancelAgreementComplete.bind(this));
+    }
+  }
+
+
+  onCancelAgreementComplete(response: CancelAgreementResponse) {
+    if(response.success) {
+      this.router.navigate(['app/transfer'], { queryParamsHandling: 'preserve' });
+    }
   }
 
 }
