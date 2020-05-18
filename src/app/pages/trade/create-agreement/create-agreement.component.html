@@ -30,6 +30,7 @@
             placeholder="Enter your reference ID"
             class="field"
             [class.error]="errors.reference.length > 0"
+            (input)="resetErrorsFor('reference')"
             formControlName="reference">
         
 
@@ -41,6 +42,7 @@
             class="field"
             [class.error]="errors.counterpartId.length > 0"
             [matAutocomplete]="auto"
+            (input)="resetErrorsFor('counterpartId')"
             formControlName="counterpartId">
         
         <mat-autocomplete #auto="matAutocomplete">
@@ -87,6 +89,7 @@
                 placeholder="Enter amount"
                 class="field value"
                 [class.error]="errors.amount.length > 0"
+                (input)="resetErrorsFor('amount')"
                 formControlName="amount">
             
             <div class="field unit" [class.disabled]="isDisabled">
@@ -108,6 +111,8 @@
                 formControlName="date"
                 [class.error]="errors.date.length > 0"
                 [satDatepicker]="datePicker"
+                (input)="resetErrorsFor('date')"
+                (change)="resetErrorsFor('date')"
                 [min]="minDate"
                 [max]="maxDate">
 

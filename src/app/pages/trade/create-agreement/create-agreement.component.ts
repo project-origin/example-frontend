@@ -326,6 +326,11 @@ export class CreateAgreementComponent implements OnInit {
   }
 
 
+  resetErrorsFor(field: string) {
+    this.errors[field] = [];
+  }
+
+
   // -- Withdraw -------------------------------------------------------------
 
 
