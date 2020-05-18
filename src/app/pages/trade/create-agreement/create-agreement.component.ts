@@ -150,6 +150,10 @@ export class CreateAgreementComponent implements OnInit {
     this.headline2 = 'This is a pending proposal you have received';
 
     this.form.patchValue(this.agreement);
+    this.form.patchValue({
+      counterpartId: this.agreement.counterpart,
+      date: { begin: this.agreement.dateFrom, end: this.agreement.dateTo },
+    });
     this.form.disable();
 
     if(this.isOutbound) {
@@ -176,6 +180,10 @@ export class CreateAgreementComponent implements OnInit {
     this.headline2 = 'This is a pending proposal you have sent';
 
     this.form.patchValue(this.agreement);
+    this.form.patchValue({
+      counterpartId: this.agreement.counterpart,
+      date: { begin: this.agreement.dateFrom, end: this.agreement.dateTo },
+    });
     this.form.disable();
 
     if(this.agreement.technology) {
