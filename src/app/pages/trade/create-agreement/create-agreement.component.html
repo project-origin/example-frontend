@@ -107,7 +107,9 @@
                 placeholder="Choose a period"
                 formControlName="date"
                 [class.error]="errors.date.length > 0"
-                [satDatepicker]="datePicker">
+                [satDatepicker]="datePicker"
+                [min]="minDate"
+                [max]="maxDate">
 
             <div class="picker" [style.display]="canSelectDates ? 'block' : 'none'">
                 <sat-datepicker #datePicker [rangeMode]="true"></sat-datepicker>

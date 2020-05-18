@@ -18,7 +18,7 @@ import {
   WithdrawProposalsResponse,
   SubmitProposalErrors,
 } from 'src/app/services/agreements/agreement.service';
-import { DateRange } from 'src/app/services/common';
+import * as moment from 'moment';
 
 
 export enum CreateProposalPopupType {
@@ -34,6 +34,10 @@ export enum CreateProposalPopupType {
   styleUrls: ['./create-agreement.component.css']
 })
 export class CreateAgreementComponent implements OnInit {
+
+  minDate: Date = moment('2019-01-01').toDate();
+  maxDate: Date = moment('2020-12-31').toDate();
+
 
   // Injected data
   type: CreateProposalPopupType;
