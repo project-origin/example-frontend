@@ -23,7 +23,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
 
   @Input() agreementId: string;
 
-  dateFrom: Date = moment().subtract(1, 'year').toDate();
+  dateFrom: Date = moment().subtract(3, 'months').toDate();
   dateTo: Date = moment().toDate();
 
   // Form controls
@@ -74,7 +74,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
         this.dateFrom = moment(params.get('dateFrom'), 'YYYY-MM-DD').toDate();
         this.dateTo = moment(params.get('dateTo'), 'YYYY-MM-DD').toDate();
       } else {
-        this.dateFrom = moment().subtract(6, 'months').toDate();
+        this.dateFrom = moment().subtract(3, 'months').toDate();
         this.dateTo = moment().toDate();
       }
 
