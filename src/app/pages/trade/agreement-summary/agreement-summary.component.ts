@@ -190,7 +190,6 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
 
 
   canCancel() : boolean {
-    console.log('canCancel', this.agreement);
     return this.agreement && this.agreement.state == AgreementState.ACCEPTED;
   }
 
