@@ -7,6 +7,7 @@ import { DateRange } from 'src/app/services/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 @Component({
@@ -15,6 +16,10 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./agreement-summary.component.css']
 })
 export class AgreementSummaryComponent implements OnInit, OnChanges {
+
+  minDate: Date;
+  maxDate: Date;
+
 
   @Input() agreementId: string;
 
@@ -52,7 +57,10 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private agreementService: AgreementService,
+    private settingsService: SettingsService,
   ) { 
+    this.minDate = settingsService.minDate;
+    this.maxDate = settingsService.maxDate;
     this.form.patchValue({date: {
       begin: this.dateFrom,
       end: this.dateTo,

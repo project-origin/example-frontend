@@ -5,6 +5,7 @@ import { IFacilityFilters, Facility, FacilityType } from 'src/app/services/facil
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 type DateRange = [{begin: Date, end: Date}];
@@ -16,6 +17,9 @@ type DateRange = [{begin: Date, end: Date}];
   styleUrls: ['./commodities-filters.component.css']
 })
 export class CommoditiesFiltersComponent implements OnInit {
+
+  minDate: Date;
+  maxDate: Date;
 
   // Current selected filters
   @Input() dateFrom: Date;
@@ -47,7 +51,11 @@ export class CommoditiesFiltersComponent implements OnInit {
   constructor(
     private router: Router,
     private facilityService: FacilityService,
-  ) { }
+    private settingsService: SettingsService,
+  ) {
+    this.minDate = settingsService.minDate;
+    this.maxDate = settingsService.maxDate;
+  }
 
 
   ngOnInit() {

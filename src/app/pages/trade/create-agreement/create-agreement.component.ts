@@ -19,6 +19,7 @@ import {
   SubmitProposalErrors,
 } from 'src/app/services/agreements/agreement.service';
 import * as moment from 'moment';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 export enum CreateProposalPopupType {
@@ -35,8 +36,8 @@ export enum CreateProposalPopupType {
 })
 export class CreateAgreementComponent implements OnInit {
 
-  minDate: Date = moment('2019-01-01').toDate();
-  maxDate: Date = moment('2020-12-31').toDate();
+  minDate: Date;
+  maxDate: Date;
 
 
   // Injected data
@@ -80,6 +81,7 @@ export class CreateAgreementComponent implements OnInit {
     private facilityService: FacilityService,
     private agreementService: AgreementService,
     private userService: UserService,
+    private settingsService: SettingsService,
     @Inject(MAT_DIALOG_DATA) data: {
       type: CreateProposalPopupType,
       agreement?: Agreement,
@@ -87,6 +89,8 @@ export class CreateAgreementComponent implements OnInit {
   ) {
     this.type = data.type;
     this.agreement = data.agreement;
+    this.minDate = settingsService.minDate;
+    this.maxDate = settingsService.maxDate;
 
     if(this.type != CreateProposalPopupType.new && !this.agreement) {
       throw new Error('Must provide an agreement when not using type = new');

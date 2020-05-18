@@ -18,7 +18,9 @@
                 </div>
                 <div class="label">Date:</div>
                 <div class="field daterange">
-                    <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date">
+                    <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date"
+                        [min]="minDate"
+                        [max]="maxDate">
                     <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
                     <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
                 </div>

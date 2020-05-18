@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { CommodityService, GetMeasurementsRequest } from 'src/app/services/commodities/commodity.service';
 import { DateRange } from 'src/app/services/common';
 import { AgreementService, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 @Component({
@@ -14,6 +15,9 @@ import { AgreementService, GetAgreementSummaryRequest } from 'src/app/services/a
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  minDate: Date;
+  maxDate: Date;
 
   dateFrom: Date = moment().toDate();
   dateTo: Date = moment().subtract(1, 'months').toDate();
@@ -29,7 +33,11 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private commodityService: CommodityService,
     private agreementService: AgreementService,
-  ) { }
+    private settingsService: SettingsService,
+  ) {
+    this.minDate = settingsService.minDate;
+    this.maxDate = settingsService.maxDate;
+  }
 
 
   ngOnInit() {
