@@ -27,7 +27,7 @@
         <div style="color: red;" *ngFor="let error of errors.reference">- {{ error }}</div>
         <input matInput
             type="text"
-            placeholder="Enter your reference ID"
+            placeholder="Enter subject of your own choosing"
             class="field"
             [class.error]="errors.reference.length > 0"
             (input)="resetErrorsFor('reference')"
@@ -36,20 +36,29 @@
 
         <!-- Counterpart -->
         <div style="color: red;" *ngFor="let error of errors.counterpartId">- {{ error }}</div>
-        <input 
-            matInput type="text"
-            placeholder="Enter counterpart name"
-            class="field"
-            [class.error]="errors.counterpartId.length > 0"
-            [matAutocomplete]="auto"
-            (input)="resetErrorsFor('counterpartId')"
-            formControlName="counterpartId">
-        
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let user of (filteredCounterparts | async)" [value]="user.id">
-                {{ user.name }}
-            </mat-option>
-        </mat-autocomplete>
+
+        <div *ngIf="!hasCounterpart()">
+            <input 
+                matInput type="text"
+                placeholder="Enter counterpart name"
+                class="field"
+                [class.error]="errors.counterpartId.length > 0"
+                [matAutocomplete]="auto"
+                (input)="resetErrorsFor('counterpartId')"
+                formControlName="counterpart">
+            
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCounterpartSelected($event)">
+                <mat-option *ngFor="let user of (filteredCounterparts | async)" [value]="user">
+                    {{ user.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+
+        <div *ngIf="hasCounterpart()" class="field disabled legend">
+            <div>{{ counterpart }}</div>
+            <div class="fill-remaining"></div>
+            <a mat-button (click)="resetCounterpart()" *ngIf="canSelectCounterpart">X</a>
+        </div>
 
 
         <!-- Technology -->
