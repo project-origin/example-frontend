@@ -1,8 +1,8 @@
 import { Component, OnChanges, SimpleChanges, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { MeasurementDataSet } from 'src/app/services/commodities/models';
-import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest, CancelAgreementRequest, CancelAgreementResponse } from 'src/app/services/agreements/agreement.service';
-import { Agreement } from 'src/app/services/agreements/models';
+import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest, CancelAgreementRequest, CancelAgreementResponse, GetAgreementDetailsResponse, GetAgreementDetailsRequest } from 'src/app/services/agreements/agreement.service';
+import { Agreement, AgreementState } from 'src/app/services/agreements/models';
 import { DateRange } from 'src/app/services/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
@@ -83,7 +83,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
         end: this.dateTo,
       }});
 
-      this.loadData();
+      this.loadSummaryData();
     });
 
     this.form.valueChanges
@@ -104,11 +104,40 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    this.loadData();
+    this.loadSummaryData();
+
+    if(this.agreementId) {
+      this.loadAgreement();
+    }
   }
 
 
-  loadData() {
+  // -- Load Agreement ------------------------------------------------------
+
+  
+  loadAgreement() {
+    let request = new GetAgreementDetailsRequest({
+      id: this.agreementId,
+    });
+
+    this.loading = true;
+    this.agreementService
+        .getAgreementDetails(request)
+        .subscribe(this.onLoadAgreementComplete.bind(this));
+  }
+
+
+  onLoadAgreementComplete(response: GetAgreementDetailsResponse) {
+    if(response.success) {
+      this.agreement = response.agreement;
+    }
+  }
+
+
+  // -- Load Agreement summary -----------------------------------------------
+
+
+  loadSummaryData() {
     let request = new GetAgreementSummaryRequest({
       id: this.agreementId,
       dateRange: new DateRange({
@@ -120,17 +149,15 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     this.loading = true;
     this.agreementService
         .getAgreementSummary(request)
-        .subscribe(this.onLoadComplete.bind(this));
+        .subscribe(this.onLoadSummaryDataComplete.bind(this));
   }
 
 
-  onLoadComplete(response: GetAgreementSummaryResponse) {
+  onLoadSummaryDataComplete(response: GetAgreementSummaryResponse) {
     this.loading = false;
     this.error = !response.success;
 
     if(response.success) {
-//       this.agreement = response.agreement;
-
       this.chartLabels = response.labels;
 
       this.chartData = response.ggos.map((dataSet: MeasurementDataSet) => <ChartDataSets>{
@@ -159,6 +186,12 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
 
   isAggregated() : boolean {
     return !this.agreementId;
+  }
+
+
+  canCancel() : boolean {
+    console.log('canCancel', this.agreement);
+    return this.agreement && this.agreement.state == AgreementState.ACCEPTED;
   }
 
 

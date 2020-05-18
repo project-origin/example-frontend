@@ -78,7 +78,7 @@
 
         <button mat-flat-button
             color="warn"
-            *ngIf="!isAggregated()"
+            *ngIf="canCancel()"
             (click)="cancelAgreement()">
             CANCEL AGREEMENT
         </button>

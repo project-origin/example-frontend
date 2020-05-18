@@ -23,6 +23,12 @@ export class GetAgreementsResponse extends ApiResponse {
 
   @Type(() => Agreement)
   outbound: Agreement[];
+
+  @Type(() => Agreement)
+  cancelled: Agreement[];
+
+  @Type(() => Agreement)
+  declined: Agreement[];
 }
 
 

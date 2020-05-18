@@ -149,5 +149,81 @@
             </div>
         </div>
 
+
+        <!-- Cancelled -->
+        <div class="agreement-table" *ngIf="cancelled.length > 0">
+            <h2>Cancelled</h2>
+
+            <div class="table-row table-legend">
+                <span class="counterpart">Sender Name &amp; ID</span>
+                <span class="technology">Technology</span>
+                <span class="facility"></span>
+                <span class="amount">Amount</span>
+                <span class="period">Period</span>
+            </div>
+
+            
+            <div matRipple class="table-row table-item"
+                *ngFor="let agreement of cancelled"
+                (click)="select(agreement)"
+                [class.selected]="isSelected(agreement)">
+
+                <span class="counterpart">
+                    <span class="name">{{ agreement.counterpart }}</span>
+                    {{ agreement.reference }}
+                </span>
+                <span class="technology">
+                    <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
+                </span>
+                <span class="facility">
+                </span>
+                <span class="amount">
+                    <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
+                </span>
+                <span class="period">
+                    Start: {{ agreement.dateFrom | date }}<br>
+                    Stop: {{ agreement.dateTo | date }}
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Declined -->
+        <div class="agreement-table" *ngIf="declined.length > 0">
+            <h2>Declined</h2>
+
+            <div class="table-row table-legend">
+                <span class="counterpart">Sender Name &amp; ID</span>
+                <span class="technology">Technology</span>
+                <span class="facility"></span>
+                <span class="amount">Amount</span>
+                <span class="period">Period</span>
+            </div>
+
+            
+            <div matRipple class="table-row table-item"
+                *ngFor="let agreement of declined"
+                (click)="select(agreement)"
+                [class.selected]="isSelected(agreement)">
+
+                <span class="counterpart">
+                    <span class="name">{{ agreement.counterpart }}</span>
+                    {{ agreement.reference }}
+                </span>
+                <span class="technology">
+                    <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
+                </span>
+                <span class="facility">
+                </span>
+                <span class="amount">
+                    <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
+                </span>
+                <span class="period">
+                    Start: {{ agreement.dateFrom | date }}<br>
+                    Stop: {{ agreement.dateTo | date }}
+                </span>
+            </div>
+        </div>
+
     </mat-card-content>
 </mat-card>
