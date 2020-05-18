@@ -32,6 +32,14 @@ export enum MeasurementType {
 }
 
 
+export enum GgoCategory {
+  issued = 'issued',
+  stored = 'stored',
+  retired = 'retired',
+  expired = 'expired',
+}
+
+
 export class GgoTechnology {
   technology: string;
   amount: number;

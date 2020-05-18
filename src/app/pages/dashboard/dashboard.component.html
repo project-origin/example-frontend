@@ -53,6 +53,20 @@
 
         <mat-card>
             <mat-card-content>
+                <h1>Stored GGOs</h1>
+
+                <app-ggo-summary-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    category="stored">
+                </app-ggo-summary-plot>
+
+            </mat-card-content>
+        </mat-card>
+
+
+        <mat-card>
+            <mat-card-content>
                 <div class="legend">
                     <h1>Commodities</h1>
                     <div class="fill-remaining"></div>

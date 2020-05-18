@@ -71,6 +71,7 @@ import { OnboardingDialogComponent } from './pages/main/onboarding-dialog/onboar
 // Locale
 import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
+import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -133,6 +134,7 @@ const appRoutes: Routes = [
     ErrorPopupComponent,
     SupportComponent,
     OnboardingDialogComponent,
+    GgoSummaryPlotComponent,
   ],
   imports: [
     RouterModule.forRoot(

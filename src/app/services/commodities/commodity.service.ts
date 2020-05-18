@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Type } from "class-transformer";
-import * as moment from 'moment';
 import { ApiService, ApiResponse } from '../api.service';
-import { MeasurementDataSet, MeasurementType, GgoDistributionBundle } from './models';
+import { MeasurementDataSet, MeasurementType, GgoDistributionBundle, GgoCategory } from './models';
 import { IFacilityFilters } from '../facilities/models';
 import { DateRange } from '../common';
 
@@ -27,6 +26,31 @@ export class GetGgoDistributionRequest {
 export class GetGgoDistributionResponse extends ApiResponse {
   @Type(() => GgoDistributionBundle)
   distributions: GgoDistributionBundle;
+}
+
+
+// -- getGgoSummary request & response -------------------------------------
+
+
+export class GetGgoSummaryRequest {
+  @Type(() => DateRange)
+  dateRange: DateRange;
+  category: GgoCategory;
+
+  constructor(args: {
+    dateRange: DateRange,
+    category: GgoCategory,
+  }) {
+    Object.assign(this, args);
+  }
+}
+
+
+export class GetGgoSummaryResponse extends ApiResponse {
+  labels: string[];
+
+  @Type(() => MeasurementDataSet)
+  ggos: MeasurementDataSet[];
 }
 
 
@@ -75,6 +99,11 @@ export class CommodityService {
 
   getGgoDistribution(request: GetGgoDistributionRequest) : Observable<GetGgoDistributionResponse> {
     return this.api.invoke('/commodities/distributions', GetGgoDistributionResponse, request);
+  }
+
+
+  getGgoSummary(request: GetGgoSummaryRequest) : Observable<GetGgoSummaryResponse> {
+    return this.api.invoke('/commodities/ggo-summary', GetGgoSummaryResponse, request);
   }
 
 
