@@ -66,7 +66,9 @@
                                 {{ facility.tags.join(', ') }}
                             </span>
                             <span class="technology">
-                                {{ facility.technology }}
+                                <div class="energy-type-avatar {{ facility.technology }}"></div>
+                                &nbsp;
+                                <b>{{ facility.technology }}</b>
                             </span>
                         </div>
                     </div>
