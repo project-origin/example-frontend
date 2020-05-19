@@ -34,8 +34,8 @@ export class GgoDoughnotChartComponent implements OnChanges {
       enabled: this.interactive,
       callbacks: {
         label: function(tooltipItem, data) {
-          if(data.labels[tooltipItem.datasetIndex].toString() !== 'No data') {
-            return data.labels[tooltipItem.datasetIndex].toString() 
+          if(data.labels[tooltipItem.index].toString() !== 'No data') {
+            return data.labels[tooltipItem.index].toString() 
                 + ': ' 
                 + FormatAmount.format(Number(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]));
           } else {
