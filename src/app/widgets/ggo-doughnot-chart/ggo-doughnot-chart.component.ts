@@ -34,8 +34,6 @@ export class GgoDoughnotChartComponent implements OnChanges {
       enabled: this.interactive,
       callbacks: {
         label: function(tooltipItem, data) {
-          console.log('tooltipItem', tooltipItem);
-          console.log('data', data);
           if(data.labels[tooltipItem.datasetIndex].toString() !== 'No data') {
             return data.labels[tooltipItem.datasetIndex].toString() 
                 + ': ' 
@@ -58,16 +56,13 @@ export class GgoDoughnotChartComponent implements OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges', this.distribution);
     if(this.hasData()) {
-      console.log('ngOnChanges HAS DATA');
       this.chartLabels = this.distribution.technologies.map((tech: GgoTechnology) => tech.technology);
       this.chartData = [ this.distribution.technologies.map((tech: GgoTechnology) => tech.amount) ];
       this.chartColors = [ {
         backgroundColor: this.distribution.technologies.map((tech: GgoTechnology) => tech.color)
       } ];
     } else {
-      console.log('ngOnChanges no data');
       this.chartLabels = ['No data'];
       this.chartData = [[ 1 ]];
       this.chartColors = [{ backgroundColor: '#f0efef' }];
