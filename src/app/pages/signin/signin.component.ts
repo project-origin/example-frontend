@@ -3,6 +3,7 @@ import { UserService, GetProfileResponse } from '../../services/auth/user.servic
 import { AuthService } from '../../services/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OnboardingDialogComponent } from '../main/onboarding-dialog/onboarding-dialog.component';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 
 @Component({
@@ -16,12 +17,14 @@ export class SigninComponent implements OnInit {
   error : boolean = false;
 
   showLoginButton : boolean = false;
+  showRedirecting : boolean = false;
   showGettingProfile : boolean = false;
   showOnboarding : boolean = false;
 
 
   constructor(
     private dialog: MatDialog,
+    private route: ActivatedRoute,
     private userService: UserService,
     private authService: AuthService,
   ) { }
@@ -34,9 +37,18 @@ export class SigninComponent implements OnInit {
     } else {
       this.showLoginButton = true;
     }
+
+    this.route.queryParamMap.subscribe((params: ParamMap) => {
+      if(params.get('autoLogin') == '1') {
+        this.login();
+      }
+    });
   }
 
+
   login() {
+    this.showRedirecting = true;
+    this.showLoginButton= false;
     this.authService.login();
   }
 
