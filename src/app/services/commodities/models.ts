@@ -9,18 +9,28 @@ export class CommodityColor {
         return '#0073a0';
       case 'consumption':
         return '#ce3e2d';
-      case 'hydro':
-        return '#2b505d';
-      case 'solar':
-        return '#d59c48';
       case 'wind':
-        return '#679b9c';
-      case 'oil':
-        return '#882416';
+        return '#0a515d';
+      case 'hydro':
+        return '#00a98f';
+      case 'solar':
+        return '#ffd424';
+      case 'biomass':
+        return '#a0cd92';
+      case 'biogas':
+        return '#293a4c';
+      case 'waste':
+        return '#a0c1c2';
       case 'coal':
         return '#333333';
+      case 'naturalgas':
+        return '#a0ffc8';
+      case 'oil':
+        return '#ff6600';
+      case 'nuclear':
+        return '#8064a2';
       default:
-        return '#000000';
+        return '#4bacc6';
     }
   }
 }
@@ -29,6 +39,14 @@ export class CommodityColor {
 export enum MeasurementType {
   production = 'production',
   consumption = 'consumption'
+}
+
+
+export enum GgoCategory {
+  issued = 'issued',
+  stored = 'stored',
+  retired = 'retired',
+  expired = 'expired',
 }
 
 

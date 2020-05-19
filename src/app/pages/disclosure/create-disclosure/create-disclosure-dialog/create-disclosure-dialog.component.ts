@@ -72,8 +72,6 @@ export class CreateDisclosureDialogComponent implements OnInit {
     } else {
       this.selectedGsrnNumbers.push(facility.gsrn);
     }
-
-    console.log('this.selectedGsrnNumbers', this.selectedGsrnNumbers);
   }
 
 

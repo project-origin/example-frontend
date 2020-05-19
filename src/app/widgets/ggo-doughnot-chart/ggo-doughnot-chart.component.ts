@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
-import { ChartType, ChartOptions } from 'chart.js';
+import { ChartType, ChartOptions, ChartTooltipItem } from 'chart.js';
 import { GgoDistribution, GgoTechnology } from 'src/app/services/commodities/models';
 import { FormatAmount } from 'src/app/pipes/unitamount';
 
@@ -32,6 +32,17 @@ export class GgoDoughnotChartComponent implements OnChanges {
     },
     tooltips: {
       enabled: this.interactive,
+      callbacks: {
+        label: function(tooltipItem, data) {
+          if(data.labels[tooltipItem.index].toString() !== 'No data') {
+            return data.labels[tooltipItem.index].toString() 
+                + ': ' 
+                + FormatAmount.format(Number(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]));
+          } else {
+            return 'No data';
+          }
+        }
+      }
     }
   };
 
@@ -46,7 +57,7 @@ export class GgoDoughnotChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.hasData()) {
-      this.chartLabels = this.distribution.technologies.map((tech: GgoTechnology) => tech.technology + ' (' + FormatAmount.getUnitLabelForAmount(tech.amount) + ')');
+      this.chartLabels = this.distribution.technologies.map((tech: GgoTechnology) => tech.technology);
       this.chartData = [ this.distribution.technologies.map((tech: GgoTechnology) => tech.amount) ];
       this.chartColors = [ {
         backgroundColor: this.distribution.technologies.map((tech: GgoTechnology) => tech.color)

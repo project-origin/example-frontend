@@ -18,7 +18,9 @@
                 </div>
                 <div class="label">Date:</div>
                 <div class="field daterange">
-                    <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date">
+                    <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date"
+                        [min]="minDate"
+                        [max]="maxDate">
                     <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
                     <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
                 </div>
@@ -69,11 +71,33 @@
 
 
 
-        <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length == 0">
+        <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length == 0" style="margin: 30px 0;">
             No transfer data has been recorded
         </div>
 
 
+        <button mat-flat-button
+            color="warn"
+            *ngIf="canCancel()"
+            (click)="cancelAgreement()">
+            CANCEL AGREEMENT
+        </button>
+
+        <div class="about">
+            <h1>About</h1>
+            <p>
+                This page is an overview of all your current transfer agreements. 
+            </p>
+            <p>
+                Each agreement is automatically processed when you receive new GGOs.
+            </p>
+            <p>
+                Each transfer agreement has an amount. This is the maximum amount that of Wh that will be transferred pr hour.
+            </p>
+            <p>
+                When pressing the New Agreement button, you can choose both inbound or outbound trade proposals, to both send og request GGOs from another party on the platform.
+            </p>
+        </div>
 
     </mat-card-content>
 </mat-card>

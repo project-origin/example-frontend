@@ -1,22 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets, ChartTooltipItem } from 'chart.js';
-import { MeasurementDataSet, MeasurementType } from 'src/app/services/commodities/models';
+import { MeasurementDataSet, MeasurementType, GgoCategory } from 'src/app/services/commodities/models';
 import { IFacilityFilters } from 'src/app/services/facilities/models';
-import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse } from 'src/app/services/commodities/commodity.service';
+import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse, GetGgoSummaryRequest, GetGgoSummaryResponse } from 'src/app/services/commodities/commodity.service';
 import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
 @Component({
-  selector: 'app-commodity-plot',
-  templateUrl: './commodity-plot.component.html',
-  styleUrls: ['./commodity-plot.component.css']
+  selector: 'app-ggo-summary-plot',
+  templateUrl: './ggo-summary-plot.component.html',
+  styleUrls: ['./ggo-summary-plot.component.css']
 })
-export class CommodityPlotComponent implements OnChanges {
+export class GgoSummaryPlotComponent implements OnChanges {
 
   @Input() dateFrom: Date;
   @Input() dateTo: Date;
-  @Input() filters: IFacilityFilters;
-  @Input() measurementType: MeasurementType;
+  @Input() category: GgoCategory;
 
   // Loading state
   loading: boolean = false;
@@ -64,9 +63,8 @@ export class CommodityPlotComponent implements OnChanges {
 
 
   loadData() {
-    let request = new GetMeasurementsRequest({
-      measurementType: this.measurementType,
-      filters: this.filters,
+    let request = new GetGgoSummaryRequest({
+      category: this.category,
       dateRange: {
         begin: this.dateFrom,
         end: this.dateTo,
@@ -76,12 +74,12 @@ export class CommodityPlotComponent implements OnChanges {
     this.loading = true;
     this.error = false;
     this.commodityService
-        .getMeasurements(request)
+        .getGgoSummary(request)
         .subscribe(this.onLoadComplete.bind(this));
   }
 
 
-  onLoadComplete(response: GetMeasurementsResponse) {
+  onLoadComplete(response: GetGgoSummaryResponse) {
     this.loading = false;
     this.error = !response.success;
 
@@ -92,21 +90,8 @@ export class CommodityPlotComponent implements OnChanges {
   }
 
 
-  buildDataFromResponse(response: GetMeasurementsResponse) : ChartDataSets[] {
-    let dataSets: ChartDataSets[] = [];
-
-    dataSets.push(<ChartDataSets>{
-      label: response.measurements.label,
-      type: 'line',
-      fill: false,
-      borderColor: response.measurements.color,
-      hoverBorderColor: response.measurements.color,
-      backgroundColor: response.measurements.color,
-      hoverBackgroundColor: response.measurements.color,
-      data: response.measurements.values,
-    });
-
-    return dataSets.concat(response.ggos.map((data: MeasurementDataSet) => <ChartDataSets>{
+  buildDataFromResponse(response: GetGgoSummaryResponse) : ChartDataSets[] {
+    return response.ggos.map((data: MeasurementDataSet) => <ChartDataSets>{
       label: data.label,
       // fill: false,
       borderColor: data.color,
@@ -114,7 +99,7 @@ export class CommodityPlotComponent implements OnChanges {
       backgroundColor: data.color,
       hoverBackgroundColor: data.color,
       data: data.values,
-    }));
+    });
   }
 
 }

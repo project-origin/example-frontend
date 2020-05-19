@@ -4,6 +4,7 @@ import { MeasurementDataSet } from 'src/app/services/commodities/models';
 import { AgreementDirection } from 'src/app/services/agreements/models';
 import { AgreementService, GetAgreementSummaryRequest, GetAgreementSummaryResponse } from 'src/app/services/agreements/agreement.service';
 import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse } from 'src/app/services/commodities/commodity.service';
+import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
 @Component({
@@ -36,7 +37,13 @@ export class TradingPlotComponent implements OnChanges {
     },
     scales: {
       xAxes: [{ stacked: true }],
-      yAxes: [{ stacked: true }],
+      yAxes: [{ 
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          callback: label => FormatAmount.format(label)
+        }
+      }],
     },
   };
 

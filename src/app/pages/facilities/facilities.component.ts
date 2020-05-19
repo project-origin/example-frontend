@@ -64,25 +64,26 @@ export class FacilitiesComponent implements OnInit {
 
 
   editFacility(facility) {
-    this.dialog.open(EditFacilityDialogComponent, {
-      data: { facility: facility },
-      width: '560px',
-      panelClass: 'dialog',
-    });
+    this.dialog
+      .open(EditFacilityDialogComponent, {
+        data: { facility: facility },
+        width: '560px',
+        panelClass: 'dialog',
+      })
+      .beforeClosed()
+      .subscribe(this.loadData.bind(this));;
   }
 
 
   startOnboarding() {
-    this.loading = true;
     this.userService
       .getOnboardingUrl()
       .subscribe(this.onGetOnboardingUrlComplete.bind(this));
   }
 
   onGetOnboardingUrlComplete(response: GetOnboardingUrlResponse) {
-    this.loading = false;
     if(response.success) {
-      location.replace(response.url);
+      location.href = response.url;
     }
   }
 

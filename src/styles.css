@@ -76,11 +76,19 @@ mat-card {
 }
 
 
-.Hydro { background-color: #00587c; }
-.Solar { background-color: #d59c48; }
-.Wind { background-color: #679b9c; }
-.Oil { background-color: #882416; }
+.production { background-color: #0073a0; }
+.consumption { background-color: #ce3e2d; }
+.Wind { background-color: #0a515d; }
+.Hydro { background-color: #00a98f; }
+.Solar { background-color: #ffd424; }
+.Biomass { background-color: #a0cd92; }
+.Biogas { background-color: #293a4c; }
+.Waste { background-color: #a0c1c2; }
 .Coal { background-color: #333333; }
+.Naturalgas { background-color: #a0ffc8; }
+.Oil { background-color: #ff6600; }
+.Nuclear { background-color: #8064a2; }
+.Other { background-color: #4bacc6; }
 
 
 .energy-type-avatar {
@@ -89,9 +97,20 @@ mat-card {
     border-radius: 16px;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 24px 24px;
 }
 
-.energy-type-avatar.Hydro { background-image: url(/assets/icon_hydro.png); }
+.energy-type-avatar.Wind { background-image: url(/assets/technologies/wind.png); }
+.energy-type-avatar.Hydro { background-image: url(/assets/technologies/hydro.png); }
+.energy-type-avatar.Solar { background-image: url(/assets/technologies/solar.png); }
+.energy-type-avatar.Biomass { background-image: url(/assets/technologies/biomass.png); }
+.energy-type-avatar.Biogas { background-image: url(/assets/technologies/biogas.png); }
+.energy-type-avatar.Waste { background-image: url(/assets/technologies/waste.png); }
+.energy-type-avatar.Coal { background-image: url(/assets/technologies/coal.png); }
+.energy-type-avatar.Naturalgas { background-image: url(/assets/technologies/naturalgas.png); }
+.energy-type-avatar.Oil { background-image: url(/assets/technologies/oil.png); }
+.energy-type-avatar.Nuclear { background-image: url(/assets/technologies/nuclear.png); }
+.energy-type-avatar.Other { background-image: url(/assets/technologies/other.png); }
 
 
 /* -- Buttons -- */

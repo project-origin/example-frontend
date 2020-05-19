@@ -23,6 +23,8 @@ export class AgreementListComponent implements OnInit {
   sent: Agreement[] = [];
   outbound: Agreement[] = [];
   inbound: Agreement[] = [];
+  cancelled: Agreement[] = [];
+  declined: Agreement[] = [];
 
   // Loading state
   loading: boolean = false;
@@ -58,6 +60,8 @@ export class AgreementListComponent implements OnInit {
       this.sent = response.sent;
       this.inbound = response.inbound;
       this.outbound = response.outbound;
+      this.cancelled = response.cancelled;
+      this.declined = response.declined;
     }
   }
 

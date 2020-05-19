@@ -23,6 +23,12 @@ export class GetAgreementsResponse extends ApiResponse {
 
   @Type(() => Agreement)
   outbound: Agreement[];
+
+  @Type(() => Agreement)
+  cancelled: Agreement[];
+
+  @Type(() => Agreement)
+  declined: Agreement[];
 }
 
 
@@ -72,6 +78,23 @@ export class GetAgreementSummaryResponse extends ApiResponse {
   @Type(() => MeasurementDataSet)
   ggos: MeasurementDataSet[] = [];
 }
+
+
+// -- cancelAgreement request & response ---------------------------------
+
+
+export class CancelAgreementRequest {
+  id?: string;
+
+  constructor(args: {
+    id?: string,
+  }) {
+    Object.assign(this, args);
+  }
+}
+
+
+export class CancelAgreementResponse extends ApiResponse {}
 
 
 // -- submitProposal requests & responses ------------------------------------
@@ -191,6 +214,11 @@ export class AgreementService {
 
   getAgreementSummary(request: GetAgreementSummaryRequest) : Observable<GetAgreementSummaryResponse> {
     return this.api.invoke('/agreements/summary', GetAgreementSummaryResponse, request);
+  }
+
+
+  cancelAgreement(request: CancelAgreementRequest) : Observable<CancelAgreementResponse> {
+    return this.api.invoke('/agreements/cancel', CancelAgreementResponse, request);
   }
 
 

@@ -6,7 +6,11 @@
             <mat-card-content>
                 <h1>Contact EnergiNet</h1>
                 <p>
-                    Adress, phone, etc.
+                    If your are experiencing problems or have questions or feedback, please don't hesitate to contact us.
+                </p>
+
+                <p>
+                    Please use this form on the right, and we will contact you as soon as possibly.
                 </p>
 
             </mat-card-content>
@@ -39,6 +43,18 @@
 
                 <form [formGroup]="form" *ngIf="!submitted">
                     <table width="100%">
+                        <tr valign="top">
+                            <td><b>Enquiry type:</b></td>
+                            <td>
+                                <div class="field">
+                                    <mat-select formControlName="subjectType" >
+                                        <mat-option *ngFor="let st of subjectTypes" [value]="st.value">
+                                            {{st.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </td>
+                        </tr>
                         <tr valign="top">
                             <td><b>E-mail:</b></td>
                             <td>
@@ -79,6 +95,33 @@
                                     rows="10"
                                     formControlName="message"></textarea>
                             </td>
+                        </tr>
+                        <tr valign="top">
+                            <td><b>Upload file:</b></td>
+                            <td>
+                                <input 
+                                    class="ng-hide"
+                                    id="input-file-id"
+                                    type="file"
+                                    formControlName="fileName"
+                                    (change)="onFileChange($event)" />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr valign="top">
+                            <td></td>
+                            <td>
+                                <mat-checkbox formControlName="recipe">
+                                    Send me a copy
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td></td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr valign="top">
                             <td></td>

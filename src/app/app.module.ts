@@ -6,8 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { RouterModule, Routes } from '@angular/router';
-import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { CookieService } from 'ngx-cookie-service';
+import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter'
 
 // Angular Material Design
 import { MatCardModule } from '@angular/material/card';
@@ -65,7 +66,14 @@ import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view
 import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
 import { ErrorPopupComponent } from './pages/errors/error-popup/error-popup.component';
 import { SupportComponent } from './pages/support/support.component';
+import { OnboardingDialogComponent } from './pages/main/onboarding-dialog/onboarding-dialog.component';
 
+// Locale
+import { registerLocaleData } from '@angular/common';
+import localeDa from '@angular/common/locales/da';
+import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
+
+registerLocaleData(localeDa, 'da');
 
 const DEBUG = false;
 
@@ -125,6 +133,8 @@ const appRoutes: Routes = [
     DisclosureChartComponent,
     ErrorPopupComponent,
     SupportComponent,
+    OnboardingDialogComponent,
+    GgoSummaryPlotComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -162,6 +172,24 @@ const appRoutes: Routes = [
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],
-  providers: [ CookieService ],
+  providers: [ 
+    CookieService,
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: ['l', 'LL'],
+        },
+        display: {
+          dateInput: 'll',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'YYYY',
+        },
+      },
+    },
+    // { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class AppModule { }

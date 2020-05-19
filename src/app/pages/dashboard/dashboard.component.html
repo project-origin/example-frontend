@@ -5,11 +5,23 @@
         <mat-card>
             <mat-card-content>
                 <h1>About</h1>
-                <p>
-                    Write a description of how retiring works
-                </p>
+                <div>
+                    <p> On this view, you get an overview of all the GGOs (Granular Guarantees of Origin). 
+                        You can select a filter of which dates to look at. 
+                        This filter is applied to all graphs on this view. </p>
 
+                    <p>Inbound and Issued are sources of GGOs. This is where you get them from. <br>
+                    Outbound, Retired and Expired are sinks of GGOs, where they end up. <br>
+                    Stored is the amount you currently have available to use or transfer.
+                    </p>
 
+                    <p><b>Inbound:</b> The sum of GGOs transferred into your account. </p>
+                    <p><b>Stored:</b> The sum of GGOs available for trade or retirement. </p>
+                    <p><b>Outbound:</b> The sum of GGOs transferred out of your account. </p>
+                    <p><b>Issued:</b> The sum of GGOs issued to your facilities. </p>
+                    <p><b>Retired:</b> The sum of GGOs retired to your facilities. </p>
+                    <p><b>Expired:</b> The sum of GGOs that is to old and has expired. </p>
+                </div>
 
                 <form [formGroup]="form">
 
@@ -21,13 +33,16 @@
                         </div>
                         <div class="label">Date:</div>
                         <div class="field daterange">
-                            <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date">
+                            <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date"
+                                [min]="minDate"
+                                [max]="maxDate">
                             <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
                             <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
                         </div>
                     </div>
 
                 </form>
+
             </mat-card-content>
         </mat-card>
     </div>
@@ -44,6 +59,20 @@
                         [dateTo]="dateTo">
                     </app-ggo-summary>
                 </div>
+
+            </mat-card-content>
+        </mat-card>
+
+
+        <mat-card>
+            <mat-card-content>
+                <h1>Stored GGOs</h1>
+
+                <app-ggo-summary-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    category="stored">
+                </app-ggo-summary-plot>
 
             </mat-card-content>
         </mat-card>

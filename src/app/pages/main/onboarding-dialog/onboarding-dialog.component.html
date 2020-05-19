@@ -1,0 +1,32 @@
+
+<div class="dialog-header">
+    <h1>Welcome</h1>
+    <h2>Please onboard your company to ElOverblik.dk</h2>
+</div>
+
+
+<div class="dialog-body">
+    <p>
+        Before you can start using this application, we must be
+        able to import your consumption and production measurements
+        from ElOverblik.dk
+    </p>
+
+    <p>
+        This process takes 2 minutes to complete, and requires you
+        to have your NemID at hand.
+    </p>
+
+    <div class="legend">
+        <div class="fill-remaining"></div>
+
+        <a mat-button
+            type="button"
+            class="send"
+            (click)="startOnboarding()">
+            START ONBOARDING NOW
+        </a>
+
+        <div class="fill-remaining"></div>
+    </div>
+</div>

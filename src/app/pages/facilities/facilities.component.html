@@ -6,7 +6,13 @@
             <mat-card-content>
                 <h1>About</h1>
                 <p>
-                    Write a description of how this works
+                    On this page you have an overview of the facilities (metering points) you have onboarded into your account.
+                </p>
+                <p>
+                    These facilities are split into two categories, production facilities that produce electricity, and consumption facilities that use electricity.
+                </p>
+                <p>
+                    If you click on a facility, you can change the name of a facility or add tags to better enable filtering the facilities. 
                 </p>
 
                 <h2>Import facilities</h2>
@@ -15,7 +21,7 @@
                     where you can authorize this application to pull data on your facilities.
                 </p>
 
-                <button type="button" mat-flat-button color="primary" (click)="startOnboarding()">Start onboarding</button>
+                <button type="button" mat-flat-button color="primary" (click)="startOnboarding()">START ONBOARDING</button>
             </mat-card-content>
         </mat-card>
     </div>
@@ -66,9 +72,9 @@
                                 {{ facility.tags.join(', ') }}
                             </span>
                             <span class="technology">
-                                <div class="energy-type-avatar" [ngClass]="facility.technology"></div>
+                                <div class="energy-type-avatar {{ facility.technology }}"></div>
                                 &nbsp;
-                                {{ facility.technology }}
+                                <b>{{ facility.technology }}</b>
                             </span>
                         </div>
                     </div>

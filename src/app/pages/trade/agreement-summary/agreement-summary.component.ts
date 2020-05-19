@@ -1,12 +1,13 @@
 import { Component, OnChanges, SimpleChanges, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { MeasurementDataSet } from 'src/app/services/commodities/models';
-import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
-import { Agreement } from 'src/app/services/agreements/models';
+import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest, CancelAgreementRequest, CancelAgreementResponse, GetAgreementDetailsResponse, GetAgreementDetailsRequest } from 'src/app/services/agreements/agreement.service';
+import { Agreement, AgreementState } from 'src/app/services/agreements/models';
 import { DateRange } from 'src/app/services/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 @Component({
@@ -16,9 +17,13 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class AgreementSummaryComponent implements OnInit, OnChanges {
 
+  minDate: Date;
+  maxDate: Date;
+
+
   @Input() agreementId: string;
 
-  dateFrom: Date = moment().subtract(1, 'year').toDate();
+  dateFrom: Date = moment().subtract(3, 'months').toDate();
   dateTo: Date = moment().toDate();
 
   // Form controls
@@ -52,7 +57,10 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private agreementService: AgreementService,
+    settingsService: SettingsService,
   ) { 
+    this.minDate = settingsService.minDate;
+    this.maxDate = settingsService.maxDate;
     this.form.patchValue({date: {
       begin: this.dateFrom,
       end: this.dateTo,
@@ -66,7 +74,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
         this.dateFrom = moment(params.get('dateFrom'), 'YYYY-MM-DD').toDate();
         this.dateTo = moment(params.get('dateTo'), 'YYYY-MM-DD').toDate();
       } else {
-        this.dateFrom = moment().subtract(6, 'months').toDate();
+        this.dateFrom = moment().subtract(3, 'months').toDate();
         this.dateTo = moment().toDate();
       }
 
@@ -75,7 +83,7 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
         end: this.dateTo,
       }});
 
-      this.loadData();
+      this.loadSummaryData();
     });
 
     this.form.valueChanges
@@ -96,11 +104,40 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    this.loadData();
+    this.loadSummaryData();
+
+    if(this.agreementId) {
+      this.loadAgreement();
+    }
   }
 
 
-  loadData() {
+  // -- Load Agreement ------------------------------------------------------
+
+  
+  loadAgreement() {
+    let request = new GetAgreementDetailsRequest({
+      id: this.agreementId,
+    });
+
+    this.loading = true;
+    this.agreementService
+        .getAgreementDetails(request)
+        .subscribe(this.onLoadAgreementComplete.bind(this));
+  }
+
+
+  onLoadAgreementComplete(response: GetAgreementDetailsResponse) {
+    if(response.success) {
+      this.agreement = response.agreement;
+    }
+  }
+
+
+  // -- Load Agreement summary -----------------------------------------------
+
+
+  loadSummaryData() {
     let request = new GetAgreementSummaryRequest({
       id: this.agreementId,
       dateRange: new DateRange({
@@ -112,17 +149,15 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     this.loading = true;
     this.agreementService
         .getAgreementSummary(request)
-        .subscribe(this.onLoadComplete.bind(this));
+        .subscribe(this.onLoadSummaryDataComplete.bind(this));
   }
 
 
-  onLoadComplete(response: GetAgreementSummaryResponse) {
+  onLoadSummaryDataComplete(response: GetAgreementSummaryResponse) {
     this.loading = false;
     this.error = !response.success;
 
     if(response.success) {
-//       this.agreement = response.agreement;
-
       this.chartLabels = response.labels;
 
       this.chartData = response.ggos.map((dataSet: MeasurementDataSet) => <ChartDataSets>{
@@ -154,6 +189,11 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
   }
 
 
+  canCancel() : boolean {
+    return this.agreement && this.agreement.state == AgreementState.ACCEPTED;
+  }
+
+
   exportTransferGgoSummary() {
     this.agreementService.exportGgoSummary(new GetAgreementSummaryRequest({
       id: this.agreementId,
@@ -162,6 +202,26 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
         end: this.form.get('date').value.end,
       })
     }));
+  }
+
+
+  cancelAgreement() {
+    if(confirm('Really cancel this agreement?')) {
+      let request = new CancelAgreementRequest({
+        id: this.agreementId,
+      });
+  
+      this.agreementService
+          .cancelAgreement(request)
+          .subscribe(this.onCancelAgreementComplete.bind(this));
+    }
+  }
+
+
+  onCancelAgreementComplete(response: CancelAgreementResponse) {
+    if(response.success) {
+      this.router.navigate(['app/transfer'], { queryParamsHandling: 'preserve' });
+    }
   }
 
 }

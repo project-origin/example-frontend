@@ -14,7 +14,7 @@ export class FormatAmount {
     static format(amount: number) : string {
         let unit = FormatAmount.getUnit(amount);
         let unitLabel = FormatAmount.getUnitLabel(unit);
-        return formatNumber(amount / unit, 'en-GB') + ' ' + unitLabel;
+        return formatNumber(amount / unit, 'da') + ' ' + unitLabel;
     }
 
     static getAmount(amount: number) {

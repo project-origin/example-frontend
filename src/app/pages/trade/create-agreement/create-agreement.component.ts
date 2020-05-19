@@ -18,7 +18,8 @@ import {
   WithdrawProposalsResponse,
   SubmitProposalErrors,
 } from 'src/app/services/agreements/agreement.service';
-import { DateRange } from 'src/app/services/common';
+import * as moment from 'moment';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 export enum CreateProposalPopupType {
@@ -35,6 +36,10 @@ export enum CreateProposalPopupType {
 })
 export class CreateAgreementComponent implements OnInit {
 
+  minDate: Date;
+  maxDate: Date;
+
+
   // Injected data
   type: CreateProposalPopupType;
   agreement: Agreement;
@@ -42,6 +47,7 @@ export class CreateAgreementComponent implements OnInit {
 
   headline1: string = '';
   headline2: string = '';
+  canSelectCounterpart: boolean = false;
   canSelectDates: boolean = false;
   canSelectTechnology: boolean = false;
   canSelectFacilities: boolean = false;
@@ -50,6 +56,7 @@ export class CreateAgreementComponent implements OnInit {
   form: FormGroup = new FormGroup({
     direction: new FormControl(),
     reference: new FormControl(),
+    counterpart: new FormControl(),
     counterpartId: new FormControl(),
     technology: new FormControl(),
     facilityIds: new FormControl(),
@@ -76,6 +83,7 @@ export class CreateAgreementComponent implements OnInit {
     private facilityService: FacilityService,
     private agreementService: AgreementService,
     private userService: UserService,
+    private settingsService: SettingsService,
     @Inject(MAT_DIALOG_DATA) data: {
       type: CreateProposalPopupType,
       agreement?: Agreement,
@@ -83,6 +91,8 @@ export class CreateAgreementComponent implements OnInit {
   ) {
     this.type = data.type;
     this.agreement = data.agreement;
+    this.minDate = settingsService.minDate;
+    this.maxDate = settingsService.maxDate;
 
     if(this.type != CreateProposalPopupType.new && !this.agreement) {
       throw new Error('Must provide an agreement when not using type = new');
@@ -100,7 +110,7 @@ export class CreateAgreementComponent implements OnInit {
     }
 
     // Change in counterpart trigger autocomplete
-    this.filteredCounterparts = this.form.get('counterpartId').valueChanges.pipe(
+    this.filteredCounterparts = this.form.get('counterpart').valueChanges.pipe(
       debounceTime(300),
       switchMap(query => this.userService.autocompleteUsers(query)),
       map(response => response.users)
@@ -128,6 +138,7 @@ export class CreateAgreementComponent implements OnInit {
       amount: '',
     });
 
+    this.canSelectCounterpart = true;
     this.canSelectDates = true;
     this.canSelectTechnology = true;
     this.canSelectFacilities = true;
@@ -142,6 +153,12 @@ export class CreateAgreementComponent implements OnInit {
     this.headline2 = 'This is a pending proposal you have received';
 
     this.form.patchValue(this.agreement);
+    this.form.patchValue({ 
+      date: {
+        begin: this.agreement.dateFrom,
+        end: this.agreement.dateTo },
+      }
+    );
     this.form.disable();
 
     if(this.isOutbound) {
@@ -168,6 +185,12 @@ export class CreateAgreementComponent implements OnInit {
     this.headline2 = 'This is a pending proposal you have sent';
 
     this.form.patchValue(this.agreement);
+    this.form.patchValue({ 
+      date: {
+        begin: this.agreement.dateFrom,
+        end: this.agreement.dateTo },
+      }
+    );
     this.form.disable();
 
     if(this.agreement.technology) {
@@ -178,6 +201,37 @@ export class CreateAgreementComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+
+  // -- Counterpart selection ------------------------------------------------
+
+
+  onCounterpartSelected(event) {
+    this.form.patchValue({
+      counterpartId: event.option.value.id,
+      counterpart: event.option.value.company,
+    });
+    return false;
+  }
+
+
+  hasCounterpart() : boolean {
+    return (this.form.get('counterpartId').value !== null
+            && this.form.get('counterpartId').value !== '');
+  }
+
+
+  resetCounterpart() {
+    this.form.patchValue({
+      counterpartId: null,
+      counterpart: null,
+    });
+  }
+
+
+  get counterpart() : string {
+    return this.form.get('counterpart').value;
   }
 
 
@@ -307,6 +361,11 @@ export class CreateAgreementComponent implements OnInit {
     if(response.success) {
       this.closeDialog();
     }
+  }
+
+
+  resetErrorsFor(field: string) {
+    this.errors[field] = [];
   }
 
 
