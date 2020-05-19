@@ -2,6 +2,29 @@
 <mat-card>
     <mat-card-content>
 
+        <div class="about">
+            <h1>About</h1>
+            <p>
+                This page is an overview of all your current transfer agreements. 
+            </p>
+            <p>
+                Each agreement is automatically processed when you receive new GGOs.
+            </p>
+            <p>
+                Each transfer agreement has an amount. This is the maximum amount that of Wh that will be transferred pr hour.
+            </p>
+            <p>
+                When pressing the New Agreement button, you can choose both inbound or outbound trade proposals, to both send og request GGOs from another party on the platform.
+            </p>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+
+
+<mat-card>
+    <mat-card-content>
+
         <div class="legend">
             <h1 *ngIf="isAggregated()">All agreements</h1>
             <h1 *ngIf="!isAggregated()">Agreement details</h1>
@@ -82,22 +105,6 @@
             (click)="cancelAgreement()">
             CANCEL AGREEMENT
         </button>
-
-        <div class="about">
-            <h1>About</h1>
-            <p>
-                This page is an overview of all your current transfer agreements. 
-            </p>
-            <p>
-                Each agreement is automatically processed when you receive new GGOs.
-            </p>
-            <p>
-                Each transfer agreement has an amount. This is the maximum amount that of Wh that will be transferred pr hour.
-            </p>
-            <p>
-                When pressing the New Agreement button, you can choose both inbound or outbound trade proposals, to both send og request GGOs from another party on the platform.
-            </p>
-        </div>
 
     </mat-card-content>
 </mat-card>

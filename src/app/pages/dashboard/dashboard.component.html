@@ -10,9 +10,10 @@
                         You can select a filter of which dates to look at. 
                         This filter is applied to all graphs on this view. </p>
 
-                    <p>Inbound and Issued are sources of GGOs. This is where you get them from. <br>
-                    Outbound, Retired and Expired are sinks of GGOs, where they end up. <br>
-                    Stored is the amount you currently have available to use or transfer.
+                    <p>
+                        Inbound and Issued are sources of GGOs. This is where you get them from. <br>
+                        Outbound, Retired and Expired are sinks of GGOs, where they end up. <br>
+                        Stored is the amount you currently have available to use or transfer.
                     </p>
 
                     <p><b>Inbound:</b> The sum of GGOs transferred into your account. </p>
@@ -23,6 +24,12 @@
                     <p><b>Expired:</b> The sum of GGOs that is to old and has expired. </p>
                 </div>
 
+            </mat-card-content>
+        </mat-card>
+
+
+        <mat-card>
+            <mat-card-content>
                 <form [formGroup]="form">
 
                     <h1>Filter</h1>
