@@ -1,15 +1,20 @@
 
 <div class="container">
 
-    <mat-card *ngIf="showGettingProfile">
-        <mat-spinner [diameter]="40"></mat-spinner><br>
-        <b>Signing in...</b>
-    </mat-card>
+  <mat-card *ngIf="showGettingProfile">
+      <mat-spinner [diameter]="40"></mat-spinner><br>
+      <b>Signing in...</b>
+  </mat-card>
 
-    <mat-card *ngIf="showLoginButton">
+  <mat-card *ngIf="showRedirecting">
+      <mat-spinner [diameter]="40"></mat-spinner><br>
+      <b>Redirecting...</b>
+  </mat-card>
+
+  <mat-card *ngIf="showLoginButton">
       <p>Hello and welcome to ElOprindelse</p>
       <button mat-button color="primary" (click)="login()">SIGN IN</button>
-    </mat-card>
+  </mat-card>
 
 <!--    <mat-card *ngIf="redirecting">-->
 <!--        <mat-spinner [diameter]="40"></mat-spinner><br>-->
