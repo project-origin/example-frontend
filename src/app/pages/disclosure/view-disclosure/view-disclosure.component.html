@@ -4,12 +4,17 @@
     </div>
     <div class="body">
 
-        TODO beskrivelse her!
+        <h1>Consumption disclosure</h1>
+
+        {{ description }}
 
     </div>
-
-    <app-loading-view *ngIf="loading"></app-loading-view>
 </div>
+
+
+
+<app-loading-view *ngIf="loading"></app-loading-view>
+
 
 
 <div class="container" *ngIf="!exists && !loading">
@@ -24,8 +29,34 @@
 </div>
 
 
+<div class="container" *ngIf="exists && !loading">
+    <div class="body">
+        <form [formGroup]="form" class="legend" style="padding: 0; margin: 0">
+            <div class="fill-remaining"></div>
+            <div>Period:&nbsp;&nbsp;</div>
+            <div>
+                <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="dateRange"
+                    [min]="minDate"
+                    [max]="maxDate">
+                <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+            </div>
+            <div class="fill-remaining"></div>
+        </form>
+    </div>
+</div>
+
+
 <div class="container" *ngFor="let dataseries of data">
     <div class="body">
+        <div class="legend">
+            <h2>Consumption data</h2>
+            <div class="fill-remaining"></div>
+            <div *ngIf="dataseries.address || dataseries.gsrn">
+                <div *ngIf="dataseries.address">{{ dataseries.address }}</div>
+                <div *ngIf="dataseries.gsrn">GSRN: {{ dataseries.gsrn }}</div>
+            </div>
+        </div>
 
         <app-disclosure-chart
             [labels]="labels"

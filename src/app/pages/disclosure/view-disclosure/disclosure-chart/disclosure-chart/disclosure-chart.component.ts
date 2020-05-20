@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { ChartDataSets, ChartType, ChartOptions, ChartTooltipItem } from 'chart.js';
 import { DisclosureDataSeries } from 'src/app/services/disclosures/disclosures.service';
 import { MeasurementDataSet } from 'src/app/services/commodities/models';
+import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
 @Component({
@@ -28,9 +29,22 @@ export class DisclosureChartComponent implements OnInit {
       align: 'end',
       position: 'top'
     },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem:ChartTooltipItem, data) {
+          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatAmount.format(Number(tooltipItem.value));
+        }
+      }
+    },
     scales: {
       xAxes: [{ stacked: true }],
-      yAxes: [{ stacked: true }],
+      yAxes: [{ 
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          callback: label => FormatAmount.format(label)
+        }
+      }],
     },
   };
 
