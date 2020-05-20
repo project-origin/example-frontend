@@ -101,11 +101,15 @@ export class ViewDisclosureComponent implements OnInit {
       this.labels = response.labels;
       this.data = response.data;
       this.description = response.description;
+      this.minDate = response.begin;
+      this.maxDate = response.end;
 
-      this.form.patchValue({dateRange: new DateRange({
-        begin: response.begin,
-        end: response.end,
-      })}, {emitEvent: false});
+      if(!this.form.get('dateRange').value) {
+        this.form.patchValue({dateRange: new DateRange({
+          begin: response.begin,
+          end: response.end,
+        })}, {emitEvent: false});
+      }
     }
   }
 
