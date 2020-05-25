@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { IFacilityFilters, Facility } from 'src/app/services/facilities/models';
-import { DisclosureService, GetDisclosurePreviewRequest, GetDisclosurePreviewResponse, CreateDisclosureResponse, CreateDisclosureRequest } from 'src/app/services/disclosures/disclosures.service';
+import { DisclosureService, GetDisclosurePreviewRequest, GetDisclosurePreviewResponse, CreateDisclosureResponse, CreateDisclosureRequest, SummaryResolution } from 'src/app/services/disclosures/disclosures.service';
 import { DateRange } from 'src/app/services/common';
 
 
@@ -26,6 +26,7 @@ export class CreateDisclosureDialogComponent implements OnInit {
 
   name: string = '';
   description: string = '';
+  maxResolution: SummaryResolution = null;
   publicizeMeteringpoints: boolean = false;
   publicizeGsrn: boolean = true;
   publicizePhysicalAddress: boolean = true;
@@ -54,6 +55,11 @@ export class CreateDisclosureDialogComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+
+  possibleResolutions() : string[] {
+    return Object.keys(SummaryResolution);
   }
 
 
@@ -106,7 +112,10 @@ export class CreateDisclosureDialogComponent implements OnInit {
 
 
   canSubmit() : boolean {
-    return !this.loadingSubmitting && this.selectedGsrnNumbers.length > 0 && this.name.length > 0;
+    return (!this.loadingSubmitting
+            && this.selectedGsrnNumbers.length > 0
+            && this.name.length > 0
+            && this.maxResolution !== null);
   }
 
 
@@ -117,6 +126,7 @@ export class CreateDisclosureDialogComponent implements OnInit {
       name: this.name,
       description: this.description,
       gsrn: this.selectedGsrnNumbers,
+      maxResolution: this.maxResolution,
       publicizeMeteringpoints: this.publicizeMeteringpoints,
       publicizeGsrn: this.publicizeGsrn,
       publicizePhysicalAddress: this.publicizePhysicalAddress,

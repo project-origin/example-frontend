@@ -44,6 +44,20 @@
             [(ngModel)]="description">
 
 
+        <!-- Max resolution -->
+        <div class="field">
+            <mat-select
+                [(ngModel)]="maxResolution" 
+                placeholder="Maximum visible data resolution">
+
+                <mat-option *ngFor="let technology of possibleResolutions()" [value]="technology">
+                    {{technology}}
+                </mat-option>
+
+            </mat-select>
+        </div>
+
+
         <!-- Options -->
         <div class="table-item" *ngIf="previewFacilities.length > 0">
             <mat-radio-group aria-label="Select an option" [(ngModel)]="publicizeMeteringpoints">

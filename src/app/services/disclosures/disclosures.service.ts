@@ -1,11 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Type } from "class-transformer";
+import { Type, Transform } from "class-transformer";
 import { ApiService, ApiResponse } from '../api.service';
 import { IFacilityFilters, Facility } from '../facilities/models';
 import { DateRange } from '../common';
 import { MeasurementDataSet } from '../commodities/models';
 import { Disclosure } from './models';
+import * as moment from 'moment';
+
+
+
+export enum SummaryResolution {
+  all = 'all',
+  year = 'year',
+  month = 'month',
+  day = 'day',
+  hour = 'hour',
+}
 
 
 // -- getDisclosure request & response ---------------------------------------
@@ -37,9 +48,16 @@ export class GetDisclosureRequest {
 
 export class GetDisclosureResponse extends ApiResponse {
   labels: string[];
+  description: string;
 
   @Type(() => DisclosureDataSeries)
   data: DisclosureDataSeries[];
+
+  @Transform(obj => moment(obj).format('YYYY-MM-DD'), { toPlainOnly: true })
+  begin: Date;
+
+  @Transform(obj => moment(obj).format('YYYY-MM-DD'), { toPlainOnly: true })
+  end: Date;
 }
 
 
@@ -84,6 +102,7 @@ export class CreateDisclosureRequest {
   name: string;
   description: string;
   gsrn: string[] = [];
+  maxResolution: SummaryResolution;
   publicizeMeteringpoints: boolean;
   publicizeGsrn: boolean;
   publicizePhysicalAddress: boolean;
@@ -95,6 +114,7 @@ export class CreateDisclosureRequest {
     name: string,
     description: string,
     gsrn: string[],
+    maxResolution: SummaryResolution,
     publicizeMeteringpoints: boolean,
     publicizeGsrn: boolean,
     publicizePhysicalAddress: boolean,

@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private commodityService: CommodityService,
     private agreementService: AgreementService,
-    private settingsService: SettingsService,
+    settingsService: SettingsService,
   ) {
     this.minDate = settingsService.minDate;
     this.maxDate = settingsService.maxDate;

@@ -49,6 +49,6 @@ export class AuthService {
   }
 
   login() {
-    location.replace(this.settings.authUrl + '?returnUrl=' + window.location.href);
+    location.replace(this.settings.authUrl + '?returnUrl=' + window.location.href.split('?')[0]);
   }
 }

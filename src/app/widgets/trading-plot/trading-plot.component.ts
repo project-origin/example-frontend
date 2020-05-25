@@ -1,9 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { ChartOptions, ChartType, ChartDataSets, ChartTooltipItem } from 'chart.js';
 import { MeasurementDataSet } from 'src/app/services/commodities/models';
 import { AgreementDirection } from 'src/app/services/agreements/models';
 import { AgreementService, GetAgreementSummaryRequest, GetAgreementSummaryResponse } from 'src/app/services/agreements/agreement.service';
-import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse } from 'src/app/services/commodities/commodity.service';
 import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
@@ -34,6 +33,13 @@ export class TradingPlotComponent implements OnChanges {
     legend: {
       align: 'end',
       position: 'top'
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem:ChartTooltipItem, data) {
+          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatAmount.format(Number(tooltipItem.value));
+        }
+      }
     },
     scales: {
       xAxes: [{ stacked: true }],
