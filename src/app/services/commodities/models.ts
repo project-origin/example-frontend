@@ -11,6 +11,8 @@ export class CommodityColor {
         return '#ce3e2d';
       case 'wind':
         return '#0a515d';
+      case 'marine':
+        return '#f29e1f';
       case 'hydro':
         return '#00a98f';
       case 'solar':
