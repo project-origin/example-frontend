@@ -2,13 +2,19 @@
 <mat-card>
     <mat-card-content>
 
-        <form [formGroup]="form">
+        <div class="legend">
+            <h1>Filter</h1>
+            <div class="fill-remaining"></div>
+            <button mat-icon-button class="reset" (click)="resetFilters()" matTooltip="Reset all filters" matTooltipPosition="above">&nbsp;</button>
+        </div>
 
-            <div class="legend">
-                <h1>Filter</h1>
-                <div class="fill-remaining"></div>
-                <button mat-icon-button class="reset" (click)="resetFilters()">&nbsp;</button>
-            </div>
+        <p>
+            The filter on the Commodities page allows you modify the data displayed in the graphs.
+            The chosen parameters will be applied if you choose to export data to CSV or disclose data.
+        </p>
+
+
+        <form [formGroup]="form">
 
             <div class="filter">
                 <div class="icon">
@@ -30,7 +36,7 @@
                 </div>
                 <div class="label">Tags:</div>
                 <div class="field">
-                    <mat-select formControlName="tags" multiple>
+                    <mat-select formControlName="tags" multiple matTooltip="Filter the commodities based on your own tags. You can define tags on the Facilities page" matTooltipPosition="above">
                         <mat-option *ngFor="let tag of availableTags" [value]="tag">{{tag}}</mat-option>
                     </mat-select>
                 </div>
@@ -74,33 +80,35 @@
             <div class="divider"></div>
 
 
-            <div class="legend">
-                <h2>Specific facilities</h2>
-                <div class="fill-remaining"></div>
-                <button mat-icon-button class="reset" (click)="resetFacilitySelection()">&nbsp;</button>
-            </div>
-
-
-            <div class="facilities-container">
-                <div class="facilities" [class.overlayed]="loadingFacilities || errorFacilities">
-                    <div matRipple class="table-row table-item"
-                        *ngFor="let facility of availableFacilities"
-                        (click)="selectFacilitiy(facility)"
-                        [class.selected]="isSelected(facility)">
-
-                        <span class="counterpart">
-                            <span class="name">{{ facility.name }}</span>
-                            {{ facility.gsrn }}
-                        </span>
-                    </div>
+            <div matTooltip="Choose one or more facilities, that you have onboarded. Chosen facilities turn green. You can onboard further facilities on the Facilities page" matTooltipPosition="above">
+                <div class="legend">
+                    <h2>Specific facilities</h2>
+                    <div class="fill-remaining"></div>
+                    <button mat-icon-button class="reset" (click)="resetFacilitySelection()" matTooltip="Reset selected facilities" matTooltipPosition="above">&nbsp;</button>
                 </div>
 
-                <div class="overlay" *ngIf="loadingFacilities || errorFacilities">
-                    <app-loading-view *ngIf="loadingFacilities"></app-loading-view>
 
-                    <div *ngIf="errorFacilities" class="error">
-                        FAILED TO FACILITIES<br><br>
-                        <button mat-flat-button color="primary" (click)="loadFacilities()">TRY AGAIN</button>
+                <div class="facilities-container">
+                    <div class="facilities" [class.overlayed]="loadingFacilities || errorFacilities">
+                        <div matRipple class="table-row table-item"
+                            *ngFor="let facility of availableFacilities"
+                            (click)="selectFacilitiy(facility)"
+                            [class.selected]="isSelected(facility)">
+
+                            <span class="counterpart">
+                                <span class="name">{{ facility.name }}</span>
+                                {{ facility.gsrn }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="overlay" *ngIf="loadingFacilities || errorFacilities">
+                        <app-loading-view *ngIf="loadingFacilities"></app-loading-view>
+
+                        <div *ngIf="errorFacilities" class="error">
+                            FAILED TO FACILITIES<br><br>
+                            <button mat-flat-button color="primary" (click)="loadFacilities()">TRY AGAIN</button>
+                        </div>
                     </div>
                 </div>
             </div>

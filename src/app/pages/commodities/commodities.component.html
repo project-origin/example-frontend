@@ -15,7 +15,13 @@
                 <div class="legend">
                     <h1>Produced power and issued GGOs</h1>
                     <div class="fill-remaining"></div>
-                    <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">EXPORT CSV</button>
+                    <button mat-flat-button
+                        color="primary"
+                        [matMenuTriggerFor]="menu"
+                        matTooltip="You can export the data shown in the graphs to a CSV-file"
+                        matTooltipPosition="above">
+                        EXPORT CSV
+                    </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
                         <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
@@ -37,7 +43,14 @@
                 <div class="legend">
                     <h1>Consumed power and retired GGOs</h1>
                     <div class="fill-remaining"></div>
-                    <button type="button" mat-flat-button color="primary" (click)="createDisclosure()">DISCLOSE DATA</button>
+                    <button mat-flat-button
+                        type="button"
+                        color="primary"
+                        (click)="createDisclosure()"
+                        matTooltip="You can generate a link that allows you to share the displayed graphs with others. You can always delete a link on the Disclosure page. Your data will not be accessible to others after deletion"
+                        matTooltipPosition="above">
+                        DISCLOSE DATA
+                    </button>
                 </div>
 
               <app-commodity-plot

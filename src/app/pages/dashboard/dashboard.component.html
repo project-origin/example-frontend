@@ -6,22 +6,18 @@
             <mat-card-content>
                 <h1>About</h1>
                 <div>
-                    <p> On this view, you get an overview of all the GGOs (Granular Guarantees of Origin). 
-                        You can select a filter of which dates to look at. 
-                        This filter is applied to all graphs on this view. </p>
-
                     <p>
-                        Inbound and Issued are sources of GGOs. This is where you get them from. <br>
-                        Outbound, Retired and Expired are sinks of GGOs, where they end up. <br>
-                        Stored is the amount you currently have available to use or transfer.
+                        The dashboard gives you an overview of all the GGOs (Granular Guarantees of Origin). 
+                        You can modify the overview by choosing a date or period in the filter below. 
+                        This filter is applied to all graphs on this page. 
                     </p>
-
+                    
                     <p><b>Inbound:</b> The sum of GGOs transferred into your account. </p>
-                    <p><b>Stored:</b> The sum of GGOs available for trade or retirement. </p>
-                    <p><b>Outbound:</b> The sum of GGOs transferred out of your account. </p>
-                    <p><b>Issued:</b> The sum of GGOs issued to your facilities. </p>
-                    <p><b>Retired:</b> The sum of GGOs retired to your facilities. </p>
-                    <p><b>Expired:</b> The sum of GGOs that is to old and has expired. </p>
+                    <p><b>Stored:</b> The sum of GGOs available for trade or retirement (=consumption). </p>
+                    <p><b>Outbound:</b> The sum of GGOs transferred from your account to others. </p>
+                    <p><b>Issued:</b> The sum of GGOs issued by Eloprindelse correlated to your own electricity production as registered on the <a routerLink="/app/facilities">"Facilities"-page</a>. </p>
+                    <p><b>Retired:</b> The sum of GGOs correlated to your own electricity consumption as registered on the <a routerLink="/app/facilities">"Facilities"-page</a>. Retired means that a GGO has been used/paired with consumption. </p>
+                    <p><b>Expired:</b> The sum of GGOs that is too old and has expired. A GGO expires after xx months. </p>
                 </div>
 
             </mat-card-content>
@@ -88,7 +84,7 @@
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <h1>Commodities</h1>
+                    <h1>Production and consumption facilities</h1>
                     <div class="fill-remaining"></div>
                     <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">EXPORT CSV</button>
                     <mat-menu #menu="matMenu">
@@ -121,11 +117,11 @@
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <h1>Transferring</h1>
+                    <h1>Transfer</h1>
                     <div class="fill-remaining"></div>
                     <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">EXPORT CSV</button>
                 </div>
-                <h2>Inbound GGO transferring</h2>
+                <h2>Inbound GGOs</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
@@ -134,7 +130,7 @@
                 </app-trading-plot>
 
                 &nbsp;<br>
-                <h2>Outbound GGO transferring</h2>
+                <h2>Outbound GGOs</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
