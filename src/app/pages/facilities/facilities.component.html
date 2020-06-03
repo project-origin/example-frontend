@@ -61,12 +61,15 @@
                             <span class="name-gsrn">Name</span>
                             <span class="address">Address</span>
                             <span class="tags">Tags</span>
-                            <span class="technology">Category</span>
+                            <span class="technology">Technology</span>
                         </div>
 
                         <div matRipple class="table-row table-item" *ngFor="let facility of producers" (click)="editFacility(facility)">
                             <span class="name-gsrn">
-                                <span class="name">{{ facility.name }}</span>
+                                <span class="name">
+                                    {{ facility.name }}
+                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                </span>
                                 {{ facility.gsrn }}
                             </span>
                             <span class="address">
@@ -96,7 +99,10 @@
 
                         <div matRipple class="table-row table-item" *ngFor="let facility of consumers" (click)="editFacility(facility)">
                             <span class="name-gsrn">
-                                <span class="name">{{ facility.name }}</span>
+                                <span class="name">
+                                    {{ facility.name }}
+                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                </span>
                                 {{ facility.gsrn }}
                             </span>
                             <span class="address">

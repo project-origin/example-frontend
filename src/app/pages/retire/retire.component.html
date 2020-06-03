@@ -71,6 +71,7 @@
                         <h2>Receiving Facilities</h2>
                         <div class="table-row table-legend">
                             <span class="name-gsrn">Name</span>
+                            <span class="type"></span>
                             <span class="address">Address</span>
                             <span class="tags">Tags</span>
                             <span class="priority">Priority</span>
@@ -98,6 +99,9 @@
                                     <span class="name">{{ facility.name }}</span>
                                     {{ facility.gsrn }}
                                 </span>
+                                <span class="type">
+                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                </span>
                                 <span class="address">
                                     {{ facility.address }}<br>
                                     {{ facility.postcode }} {{ facility.cityName }}
@@ -122,6 +126,7 @@
                         <h2>Facilities not receiving GGOs</h2>
                         <div class="table-row table-legend">
                             <span class="name-gsrn">Name</span>
+                            <span class="type"></span>
                             <span class="address">Address</span>
                             <span class="tags">Tags</span>
                             <span class="priority"></span>
@@ -139,6 +144,9 @@
                                 <span class="name-gsrn">
                                     <span class="name">{{ facility.name }}</span>
                                     {{ facility.gsrn }}
+                                </span>
+                                <span class="type">
+                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
                                 </span>
                                 <span class="address">
                                     {{ facility.address }}<br>
