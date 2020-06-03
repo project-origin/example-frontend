@@ -95,8 +95,13 @@
                             (click)="selectFacilitiy(facility)"
                             [class.selected]="isSelected(facility)">
 
+                            
+
                             <span class="counterpart">
-                                <span class="name">{{ facility.name }}</span>
+                                <span class="name">
+                                    {{ facility.name }}
+                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                </span>
                                 {{ facility.gsrn }}
                             </span>
                         </div>

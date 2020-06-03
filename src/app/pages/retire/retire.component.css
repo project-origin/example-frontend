@@ -50,6 +50,7 @@
 
 
     .list .name-gsrn { flex: 2 2 0; }
+    .list .type { flex: 1 1 0; }
     .list .address { flex: 2 2 0; }
     .list .tags { flex: 2 2 0; }
     .list .priority { 
