@@ -1,0 +1,16 @@
+
+.facility-badge {
+    padding: 6px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.production {
+    background-color: #0073a0;
+}
+
+.consumption {
+    background-color: #ce3e2d;
+}
