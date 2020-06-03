@@ -75,7 +75,7 @@ export class CreateAgreementComponent implements OnInit {
   availableTags : string[] = [];
   availableTechnologies : string[] = [];
   availableFacilities : Facility[] = [];
-  availableUnits : string[] = ['Wh', 'KWh', 'MWh', 'GWh'];
+  availableUnits : string[] = ['Wh', 'kWh', 'MWh', 'GWh'];
 
 
   constructor(
