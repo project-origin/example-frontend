@@ -210,7 +210,7 @@ export class CreateAgreementComponent implements OnInit {
   onCounterpartSelected(event) {
     this.form.patchValue({
       counterpartId: event.option.value.id,
-      counterpart: event.option.value.company,
+      counterpart: event.option.value.company + ' (' + event.option.value.name + ')',
     });
     return false;
   }
