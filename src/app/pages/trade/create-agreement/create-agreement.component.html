@@ -49,7 +49,7 @@
             
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCounterpartSelected($event)">
                 <mat-option *ngFor="let user of (filteredCounterparts | async)" [value]="user">
-                    {{ user.name }}
+                    {{ user.company }} ({{ user.name }})
                 </mat-option>
             </mat-autocomplete>
         </div>

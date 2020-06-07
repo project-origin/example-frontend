@@ -8,7 +8,7 @@ import { ChartsModule } from 'ng2-charts';
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter'
+import { MomentDateAdapter } from '@angular/material-moment-adapter'
 
 // Angular Material Design
 import { MatCardModule } from '@angular/material/card';
@@ -30,7 +30,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio'; 
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip'; 
 
 
 // Origin
@@ -72,6 +73,7 @@ import { OnboardingDialogComponent } from './pages/main/onboarding-dialog/onboar
 import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
+import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -135,6 +137,7 @@ const appRoutes: Routes = [
     SupportComponent,
     OnboardingDialogComponent,
     GgoSummaryPlotComponent,
+    FacilityTypeBadgeComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -169,6 +172,7 @@ const appRoutes: Routes = [
     MatAutocompleteModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatTooltipModule,
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],

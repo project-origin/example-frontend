@@ -75,7 +75,7 @@ export class CreateAgreementComponent implements OnInit {
   availableTags : string[] = [];
   availableTechnologies : string[] = [];
   availableFacilities : Facility[] = [];
-  availableUnits : string[] = ['Wh', 'KWh', 'MWh', 'GWh'];
+  availableUnits : string[] = ['Wh', 'kWh', 'MWh', 'GWh'];
 
 
   constructor(
@@ -210,7 +210,7 @@ export class CreateAgreementComponent implements OnInit {
   onCounterpartSelected(event) {
     this.form.patchValue({
       counterpartId: event.option.value.id,
-      counterpart: event.option.value.company,
+      counterpart: event.option.value.company + ' (' + event.option.value.name + ')',
     });
     return false;
   }

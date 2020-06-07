@@ -38,7 +38,8 @@ div.user {
 
 p.name {
     color: white;
-    font-weight: bold;
+    line-height: 18px;
+    text-align: right;
 }
 
 .avatar {
