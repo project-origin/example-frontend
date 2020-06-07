@@ -36,6 +36,8 @@ jobs:
         vmImage: 'ubuntu-latest'
 
     steps:
+      - script: echo "$USER"
+
       - task: Docker@2
         displayName: Build docker image
         inputs:
