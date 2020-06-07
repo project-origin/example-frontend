@@ -26,41 +26,36 @@ variables:
     tag: 'dev.$(Build.BuildId)'
     namespace: 'dev-project-origin'
 
-stages:
-- stage: build_and_deploy
-  displayName: Build and Deploy
-  pool:
-    ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-      name: eloprindelse-prod
-    ${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
-      vmImage: 'ubuntu-latest'
+jobs:  
+  - job: build_deploy
+    displayName: Build and Deploy
+    pool:
+      ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+        name: eloprindelse-prod
+      ${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
+        vmImage: 'ubuntu-latest'
 
-  jobs:  
-  - job: docker_build_push
-    displayName: Docker build and push
     steps:
-    - task: Docker@2
-      displayName: Build docker image
-      inputs:
-        command: build
-        repository: $(imageName)
-        Dockerfile: Dockerfile
-        tags: |
-          latest
-          $(tag)
-    - task: Docker@2
-      displayName: Push image
-      inputs:
-        command: push
-        repository: $(imageName)
-        containerRegistry: dockerHub
-        tags: |
-          latest
-          $(tag)
-          
-  - job: push_to_cluster
-    displayName: Push to Cluster
-    steps:
+      - task: Docker@2
+        displayName: Build docker image
+        inputs:
+          command: build
+          repository: $(imageName)
+          Dockerfile: Dockerfile
+          tags: |
+            latest
+            $(tag)
+
+      - task: Docker@2
+        displayName: Push image
+        inputs:
+          command: push
+          repository: $(imageName)
+          containerRegistry: dockerHub
+          tags: |
+            latest
+            $(tag)
+
       - task: HelmDeploy@0
         displayName: Helm upgrade
         inputs:
