@@ -2,23 +2,36 @@ trigger:
   branches:
     include:
     - master
+    - test
     - develop
+
+# no PR triggers
+pr: none
 
 resources:
 - repo: self
 
 variables:
   imageName: 'projectorigin/example-frontend'
-  vmImageName: 'ubuntu-latest'
   ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    kubeCon: 'kubecon-eloprindelse-prod'
     tag: '$(Build.BuildId)'
+    namespace: 'eloprindelse'
+  ${{ if eq(variables['Build.SourceBranchName'], 'test') }}:
     kubeCon: 'test-kube-con'
+    tag: '$(Build.BuildId)'
     namespace: 'test-project-origin'
   ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
-    tag: 'dev.$(Build.BuildId)'
     kubeCon: 'dev-kube-con'
+    tag: 'dev.$(Build.BuildId)'
     namespace: 'dev-project-origin'
 
+${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+  pool: 
+    name: eloprindelse-prod
+${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
+  pool:
+    vmImage: 'ubuntu-latest'
 
 stages:
 - stage: build_and_publish
@@ -26,8 +39,6 @@ stages:
   jobs:  
   - job: docker_build_push
     displayName: Docker build and push
-    pool:
-      vmImage: $(vmImageName)
     steps:
     - task: Docker@2
       displayName: Build docker image
@@ -53,8 +64,6 @@ stages:
   jobs:  
   - job: push_to_cluster
     displayName: Push to Cluster
-    pool:
-      vmImage: $(vmImageName)
     steps:
       - task: HelmDeploy@0
         displayName: Helm upgrade
