@@ -26,16 +26,15 @@ variables:
     tag: 'dev.$(Build.BuildId)'
     namespace: 'dev-project-origin'
 
-${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-  pool: 
-    name: eloprindelse-prod
-${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
-  pool:
-    vmImage: 'ubuntu-latest'
-
 stages:
-- stage: build_and_publish
-  displayName: Build and publish
+- stage: build_and_deploy
+  displayName: Build and Deploy
+  pool:
+    ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+      name: eloprindelse-prod
+    ${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
+      vmImage: 'ubuntu-latest'
+
   jobs:  
   - job: docker_build_push
     displayName: Docker build and push
@@ -59,9 +58,6 @@ stages:
           latest
           $(tag)
           
-- stage: update_dev_cluster
-  displayName: Update kubernetes
-  jobs:  
   - job: push_to_cluster
     displayName: Push to Cluster
     steps:
