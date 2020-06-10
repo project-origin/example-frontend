@@ -32,6 +32,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
+import { MatDividerModule } from '@angular/material/divider';
 
 
 // Origin
@@ -74,6 +75,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
 import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
+import { AccountDetailsDialogComponent } from './pages/account/account-details-dialog/account-details-dialog.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -138,6 +140,7 @@ const appRoutes: Routes = [
     OnboardingDialogComponent,
     GgoSummaryPlotComponent,
     FacilityTypeBadgeComponent,
+    AccountDetailsDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -173,6 +176,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatRadioModule,
     MatTooltipModule,
+    MatDividerModule,
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],
