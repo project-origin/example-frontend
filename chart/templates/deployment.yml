@@ -16,7 +16,6 @@ spec:
       containers:
         - name: example-frontend-container
           image: projectorigin/example-frontend:{{ .Values.tag }}
-          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: namespace-config
