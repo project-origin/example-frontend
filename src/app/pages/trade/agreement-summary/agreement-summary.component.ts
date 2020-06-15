@@ -1,5 +1,5 @@
 import { Component, OnChanges, SimpleChanges, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { ChartDataSets, ChartType, ChartOptions, ChartTooltipItem } from 'chart.js';
 import { MeasurementDataSet } from 'src/app/services/commodities/models';
 import { AgreementService, GetAgreementSummaryResponse, GetAgreementSummaryRequest, CancelAgreementRequest, CancelAgreementResponse, GetAgreementDetailsResponse, GetAgreementDetailsRequest } from 'src/app/services/agreements/agreement.service';
 import { Agreement, AgreementState } from 'src/app/services/agreements/models';
@@ -8,6 +8,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
+import { FormatAmount } from 'src/app/pipes/unitamount';
 
 
 @Component({
@@ -49,6 +50,23 @@ export class AgreementSummaryComponent implements OnInit, OnChanges {
     legend: {
       align: 'end',
       position: 'top'
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem:ChartTooltipItem, data) {
+          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatAmount.format(Number(tooltipItem.value));
+        }
+      }
+    },
+    scales: {
+      xAxes: [{ stacked: true }],
+      yAxes: [{ 
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          callback: label => FormatAmount.format(label)
+        }
+      }],
     },
   };
 
