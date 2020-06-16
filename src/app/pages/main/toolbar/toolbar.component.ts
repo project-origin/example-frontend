@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/services/auth/models';
 import { AgreementService, CountPendingProposalsResponse } from 'src/app/services/agreements/agreement.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { AccountDetailsDialogComponent } from 'src/app/pages/account/account-details-dialog/account-details-dialog.component';
+
 
 @Component({
   selector: 'app-toolbar',
@@ -19,6 +22,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private dialog: MatDialog,
     private settings: SettingsService,
     private router: Router,
     private authService: AuthService,
@@ -50,6 +54,14 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     if(response.success) {
       this.pendingProposals = response.count;
     }
+  }
+
+
+  showAccountDetails() {
+    this.dialog.open(AccountDetailsDialogComponent, {
+      width: '560px',
+      panelClass: 'dialog',
+    });
   }
 
 

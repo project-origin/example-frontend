@@ -1,0 +1,27 @@
+
+<div class="dialog-header">
+    <h1>Account details</h1>
+    <h2>Below is a list of your account ID(s)</h2>
+</div>
+
+
+<div class="dialog-body">
+
+    <table>
+        <tr *ngFor="let account of accounts">
+            <td>Account ID:</td>
+            <td><b>{{ account.id }}</b></td>
+        </tr>
+    </table>
+    
+
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+
+
+    <div class="legend">
+        <div class="fill-remaining"></div>
+        <button mat-button type="button" (click)="closeDialog()" class="cancel">CLOSE</button>
+        <div class="fill-remaining"></div>
+    </div>
+</div>
