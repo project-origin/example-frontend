@@ -107,6 +107,7 @@ export class SubmitProposalRequest {
   technology: string;
   amount: number;
   unit: string;
+  limitToConsumption: boolean;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
   facilityIds: string[];
@@ -123,6 +124,7 @@ export class SubmitProposalRequest {
     amount: number,
     unit: string,
     date: DateRange,
+    limitToConsumption: boolean,
   }) {
     Object.assign(this, args);
   }

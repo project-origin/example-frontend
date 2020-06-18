@@ -18,7 +18,6 @@ import {
   WithdrawProposalsResponse,
   SubmitProposalErrors,
 } from 'src/app/services/agreements/agreement.service';
-import * as moment from 'moment';
 import { SettingsService } from 'src/app/services/settings.service';
 
 
@@ -63,6 +62,7 @@ export class CreateAgreementComponent implements OnInit {
     amount: new FormControl(),
     unit: new FormControl(),
     date: new FormControl(),
+    limitToConsumption: new FormControl(),
   });
 
   // Loading state
@@ -136,6 +136,7 @@ export class CreateAgreementComponent implements OnInit {
       counterpartId: '',
       unit: 'MWh',
       amount: '',
+      limitToConsumption: false,
     });
 
     this.canSelectCounterpart = true;
