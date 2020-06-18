@@ -90,27 +90,6 @@
         </div>
 
 
-        <!-- Amount -->
-        <div style="color: red;" *ngFor="let error of errors.amount">- {{ error }}</div>
-        <div class="amount">
-            <input matInput
-                type="text"
-                placeholder="Enter amount"
-                class="field value"
-                [class.error]="errors.amount.length > 0"
-                (input)="resetErrorsFor('amount')"
-                formControlName="amount">
-            
-            <div class="field unit" [class.disabled]="isDisabled">
-                <mat-select formControlName="unit" placeholder="Unit">
-                    <mat-option *ngFor="let unit of availableUnits" [value]="unit">
-                        {{ unit }}
-                    </mat-option>
-                </mat-select>
-            </div>
-        </div>
-
-
         <!-- Date period -->
         <div style="color: red;" *ngFor="let error of errors.date">- {{ error }}</div>
         <div class="date">
@@ -129,6 +108,36 @@
                 <sat-datepicker #datePicker [rangeMode]="true"></sat-datepicker>
                 <sat-datepicker-toggle  [for]="datePicker"></sat-datepicker-toggle>
             </div>
+        </div>
+
+
+        <!-- Amount -->
+        <div style="color: red;" *ngFor="let error of errors.amount">- {{ error }}</div>
+        <div class="amount">
+            <input matInput
+                type="text"
+                placeholder="Enter max. amount"
+                class="field value"
+                [class.error]="errors.amount.length > 0"
+                (input)="resetErrorsFor('amount')"
+                formControlName="amount">
+            
+            <div class="field unit" [class.disabled]="isDisabled">
+                <mat-select formControlName="unit" placeholder="Unit">
+                    <mat-option *ngFor="let unit of availableUnits" [value]="unit">
+                        {{ unit }}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+
+        <!-- Limit amount to recipient's consumption -->
+        <div style="color: red;" *ngFor="let error of errors.limitToConsumption">- {{ error }}</div>
+        <div class="field" [class.disabled]="isDisabled">
+            <mat-checkbox formControlName="limitToConsumption">
+                Limit transfers to recipient's consumption
+            </mat-checkbox>
         </div>
 
 

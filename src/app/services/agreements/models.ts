@@ -28,6 +28,7 @@ export class Agreement {
   unit: string;
   dateFrom: Date;
   dateTo: Date;
+  limitToConsumption: boolean;
 
   @Type(() => Facility)
   facilities: Facility[] = [];
