@@ -136,6 +136,7 @@ export class SubmitProposalErrors {
   counterpartId: string[] = [];
   amount: string[] = [];
   date: string[] = [];
+  limitToConsumption: string[] = [];
 }
 
 
