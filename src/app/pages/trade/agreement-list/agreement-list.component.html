@@ -83,7 +83,14 @@
                 [class.selected]="isSelected(agreement)">
 
                 <span class="counterpart">
-                    <span class="name">{{ agreement.counterpart }}</span>
+                    <span class="name">
+                        {{ agreement.counterpart }}
+                        <span *ngIf="agreement.limitToConsumption">
+                            <img
+                                matTooltip="This agreement is limited to the recipient's consumption" matTooltipPosition="above"
+                                src="/assets/icon_limited_to_consumption.png">
+                        </span>
+                    </span>
                     {{ agreement.reference }}
                 </span>
                 <span class="technology">
@@ -131,7 +138,14 @@
                 [class.selected]="isSelected(agreement)">
 
                 <span class="counterpart">
-                    <span class="name">{{ agreement.counterpart }}</span>
+                    <span class="name">
+                        {{ agreement.counterpart }}
+                        <span *ngIf="agreement.limitToConsumption">
+                            <img
+                                matTooltip="This agreement is limited to the your consumption" matTooltipPosition="above"
+                                src="/assets/icon_limited_to_consumption.png">
+                        </span>
+                    </span>
                     {{ agreement.reference }}
                 </span>
                 <span class="technology">

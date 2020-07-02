@@ -4,9 +4,10 @@ FROM tiangolo/node-frontend:10 as build-stage
 WORKDIR /app
 COPY package*.json /app/
 RUN npm install
+RUN npm install -g @angular/cli
 COPY ./ /app/
 ARG configuration=production
-RUN npm run build --output-path=./dist/originfe
+RUN ng build --prod --output-path=./dist/originfe
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx
