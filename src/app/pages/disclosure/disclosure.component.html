@@ -33,12 +33,14 @@
                 </div>
                 
 
-                <div class="table-row empty" *ngIf="false">
+                <div class="table-row empty" *ngIf="disclosures.length == 0">
                     <div>
-                        <b>No consuming facilities are set to receive GGOs when trading</b>
+                        <b>No disclosured found</b>
                         <br><br>
-                        Drag facilities up here for them to receive GGOs in the prioritized
-                        order GGOs should be distributed
+                        Create disclosures by navigating to 
+                        <a routerLink="/app/commodities/">Commodities</a>,
+                        then filtering the data you want to disclose,
+                        and then click the DISCLOSE DATA button.
                     </div>
                 </div>
 
