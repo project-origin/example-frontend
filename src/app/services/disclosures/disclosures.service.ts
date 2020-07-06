@@ -36,12 +36,14 @@ export class GetDisclosureRequest {
   @Type(() => DateRange)
   dateRange?: DateRange;
   id: string;
+  utcOffset: number;
 
   constructor(args: {
     dateRange?: DateRange,
     id: string,
   }) {
     Object.assign(this, args);
+    this.utcOffset = (new Date().getTimezoneOffset()) / 60 * -1;
   }
 }
 
