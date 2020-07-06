@@ -20,7 +20,7 @@ export class SupportComponent implements OnInit {
 
   loading: boolean = false;
   submitted: boolean = false;
-  error: boolean = false;
+  errors: any = null;
 
   form: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -95,7 +95,11 @@ export class SupportComponent implements OnInit {
   onSubmitComplete(response: SubmitSupportEnquiryResponse) {
     this.loading = false;
     this.submitted = response.success;
-    this.error = !response.success;
+    if(response.success) {
+      this.errors = null;
+    } else {
+      this.errors = response.errors;
+    }
   }
 
 }

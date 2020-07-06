@@ -58,6 +58,7 @@ export class GetAgreementDetailsResponse extends ApiResponse {
 export class GetAgreementSummaryRequest {
   id?: string;
   direction?: AgreementDirection;
+  utcOffset: number;
 
   @Type(() => DateRange)
   dateRange?: DateRange;
@@ -68,6 +69,7 @@ export class GetAgreementSummaryRequest {
     dateRange?: DateRange,
   }) {
     Object.assign(this, args);
+    this.utcOffset = (new Date().getTimezoneOffset()) / 60 * -1;
   }
 }
 
