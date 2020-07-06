@@ -28,11 +28,12 @@
                     The easiest way to get support is by filling out the form below.
                 </p>
 
+
                 <br>
 
 
-                <div *ngIf="error">
-                    <p class="error"><b>Please fill out all fields</b></p>
+                <div *ngIf="errors">
+                    <p style="color: red"><b>Please fill out all the required fields</b></p>
                 </div>
 
 
@@ -55,6 +56,10 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('email')">
+                            <td></td>
+                            <td><p style="color: red"><b>This field is required</b></p></td>
+                        </tr>
                         <tr valign="top">
                             <td><b>E-mail:</b></td>
                             <td>
@@ -64,6 +69,10 @@
                                     class="field"
                                     formControlName="email">
                             </td>
+                        </tr>
+                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('phone')">
+                            <td></td>
+                            <td><p style="color: red"><b>This field is required</b></p></td>
                         </tr>
                         <tr valign="top">
                             <td><b>Phone:</b></td>
@@ -75,6 +84,10 @@
                                     formControlName="phone">
                             </td>
                         </tr>
+                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('subject')">
+                            <td></td>
+                            <td><p style="color: red"><b>This field is required</b></p></td>
+                        </tr>
                         <tr valign="top">
                             <td><b>Subject:</b></td>
                             <td>
@@ -84,6 +97,10 @@
                                     class="field"
                                     formControlName="subject">
                             </td>
+                        </tr>
+                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('message')">
+                            <td></td>
+                            <td><p style="color: red"><b>This field is required</b></p></td>
                         </tr>
                         <tr valign="top">
                             <td><b>Message:</b></td>

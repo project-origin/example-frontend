@@ -13,12 +13,13 @@ import { DateRange } from '../common';
 export class GetGgoDistributionRequest {
   @Type(() => DateRange)
   dateRange: DateRange;
-//   filters?: IFacilityFilters;
+  utcOffset: number;
 
   constructor(args: {
     dateRange: DateRange,
   }) {
     Object.assign(this, args);
+    this.utcOffset = (new Date().getTimezoneOffset()) / 60 * -1;
   }
 }
 
@@ -36,12 +37,14 @@ export class GetGgoSummaryRequest {
   @Type(() => DateRange)
   dateRange: DateRange;
   category: GgoCategory;
+  utcOffset: number;
 
   constructor(args: {
     dateRange: DateRange,
     category: GgoCategory,
   }) {
     Object.assign(this, args);
+    this.utcOffset = (new Date().getTimezoneOffset()) / 60 * -1;
   }
 }
 
@@ -62,6 +65,7 @@ export class GetMeasurementsRequest {
   dateRange: DateRange;
   measurementType?: MeasurementType;
   filters?: IFacilityFilters;
+  utcOffset: number;
 
   constructor(args: {
     dateRange: DateRange,
@@ -69,6 +73,7 @@ export class GetMeasurementsRequest {
     filters?: IFacilityFilters,
   }) {
     Object.assign(this, args);
+    this.utcOffset = (new Date().getTimezoneOffset()) / 60 * -1;
   }
 }
 
