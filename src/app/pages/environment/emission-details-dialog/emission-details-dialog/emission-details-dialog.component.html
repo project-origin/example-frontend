@@ -1,1 +1,46 @@
-<p>emission-details-dialog works!</p>
+
+<div class="dialog-header">
+    <h1 [innerHTML]="htmlLabel"></h1>
+    <h2>TODO WRITE SOMETHING HERE</h2>
+</div>
+
+
+<div class="dialog-body">
+
+    
+    <table width="100%" cellpadding="10" cellspacing="2">
+        <tr>
+            <td></td>
+            <th>Reduced</th>
+            <th>Actual</th>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td>Consumed energy</td>
+            <td style="text-align: right;">
+                {{ totalConsumedAmount | formatAmount }}
+            </td>
+            <td style="text-align: right;">
+                {{ totalConsumedAmount | formatNumber : 99 }} Wh
+            </td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td>Relative emission</td>
+            <td style="text-align: right;">
+                {{ totalEmissionPerkWh | formatNumber : 2 }} g/kWh
+            </td>
+            <td style="text-align: right;">
+                {{ totalEmissionPerWh | formatNumber : 99 }} g/Wh
+            </td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td>Total emission</td>
+            <td style="text-align: right;">
+                {{ totalEmission | formatEmission }}
+            </td>
+            <td style="text-align: right;">
+                {{ totalEmission | formatNumber : 99 }} g
+            </td>
+        </tr>
+    </table>
+
+</div>

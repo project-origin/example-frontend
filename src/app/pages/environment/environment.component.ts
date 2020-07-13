@@ -320,10 +320,19 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  showEmissionDetails() {
+  showEmissionDetails(key: string) {
+    let data = {
+      key: key,
+      plainLabel: this.getPlainLabel(key),
+      htmlLabel: this.getHtmlLabel(key),
+      totalConsumedAmount: this.individual.totalConsumedAmount,
+      totalEmission: this.individual.totalEmissions[key],
+      totalEmissionPerWh: this.individual.totalEmissionsPerWh[key],
+    };
+
     this.dialog.open(EmissionDetailsDialogComponent, { 
-      data: { asd: 123 },
-      width: '560px',
+      data: data,
+      width: '800px',
       panelClass: 'dialog',
     });
   }
@@ -409,12 +418,12 @@ export class EnvironmentComponent implements OnInit {
       return 0;
     }
 
-    let delta = e1 / e2;
+    let delta = (1 - (e1 / e2)) * 100;
 
     if(delta > 1) {
-      return delta * 100;
+      return delta;
     } else if(delta < 1) {
-      return -1 * (1- delta) * 100;
+      return -1 * delta;
     } else {
       return 0;
     }
