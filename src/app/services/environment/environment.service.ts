@@ -18,7 +18,6 @@ export class EcoDeclaration {
 
 
 export enum EcoDeclarationResolution {
-  all = 'all',
   year = 'year',
   month = 'month',
   day = 'day',

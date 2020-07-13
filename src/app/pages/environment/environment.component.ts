@@ -21,13 +21,6 @@ type Technology = {
 };
 
 
-
-class EmissionLabels {
-
-  
-}
-
-
 @Component({
   selector: 'app-environment',
   templateUrl: './environment.component.html',
@@ -39,8 +32,8 @@ export class EnvironmentComponent implements OnInit {
   loading: boolean = false;
   error: boolean = false;
 
-  dateFrom: Date = moment().toDate();
-  dateTo: Date = moment().subtract(1, 'months').toDate();
+  dateFrom: moment.Moment = moment();
+  dateTo: moment.Moment = moment().subtract(1, 'months');
   filters: IFacilityFilters;
 
   hasData: boolean = false;
@@ -228,11 +221,11 @@ export class EnvironmentComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       if(params.get('dateFrom') && params.get('dateTo')) {
-        this.dateFrom = moment(params.get('dateFrom'), 'YYYY-MM-DD').toDate();
-        this.dateTo = moment(params.get('dateTo'), 'YYYY-MM-DD').toDate();
+        this.dateFrom = moment(params.get('dateFrom'), 'YYYY-MM-DD');
+        this.dateTo = moment(params.get('dateTo'), 'YYYY-MM-DD');
       } else {
-        this.dateFrom = moment().subtract(1, 'months').toDate();
-        this.dateTo = moment().toDate();
+        this.dateFrom = moment().subtract(1, 'months');
+        this.dateTo = moment();
       }
 
       this.filters = {
@@ -247,38 +240,21 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  getPlainLabel(key: string) : string {
-    if(key in this.emissions) {
-      return this.emissions[key].plain;
-    } else {
-      return key;
-    }
-  }
-
-
-  getHtmlLabel(key: string) : string {
-    if(key in this.emissions) {
-      return this.emissions[key].html;
-    } else {
-      return key;
-    }
-  }
-
-
   loadEnvironmentDeclaration() {
     let request = new GetEcoDeclarationRequest({
-      dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo}),
       filters: this.filters,
-      resolution: EcoDeclarationResolution.hour,
+      resolution: this.getResolution(),
+      dateRange: new DateRange({
+        begin: this.dateFrom.toDate(),
+        end: this.dateTo.toDate(),
+      }),
     });
 
     this.techChartLabels = [];
     this.techChartData = [];
     this.techChartColors = [];
-
     this.totalEmissionsChartLabels = [];
     this.totalEmissionsChartData = [];
-
     this.relativeEmissionsChartLabels = [];
     this.relativeEmissionsChartData = [];
 
@@ -288,6 +264,7 @@ export class EnvironmentComponent implements OnInit {
         .subscribe(this.onLoadEnvironmentDeclaration.bind(this));
   }
 
+
   onLoadEnvironmentDeclaration(response: GetEcoDeclarationResponse) {
     this.loading = false;
     this.hasData = response.success;
@@ -296,7 +273,7 @@ export class EnvironmentComponent implements OnInit {
     if(response.success) {
       this.individual = response.individual;
       this.general = response.general;
-      this.technologies = this.getTechnologies(response.individual);
+      this.technologies = this.buildTechnologies(response.individual);
       
       this.buildEmissionsChart(
         response.individual.emissions,
@@ -320,7 +297,7 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  showEmissionDetails(key: string) {
+  showEmissionDetailsPopup(key: string) {
     let data = {
       key: key,
       plainLabel: this.getPlainLabel(key),
@@ -338,7 +315,41 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  getTechnologies(declaration: EcoDeclaration) : Technology[] {
+  getResolution() : EcoDeclarationResolution {
+    let deltaDays = this.dateTo.diff(this.dateFrom, 'days');
+
+    console.log('deltaDays', deltaDays);
+    if(deltaDays >= 365 * 3) {
+      return EcoDeclarationResolution.year;
+    } else if(deltaDays >= 60) {
+      return EcoDeclarationResolution.month;
+    } else if(deltaDays >= 3) {
+      return EcoDeclarationResolution.day;
+    } else {
+      return EcoDeclarationResolution.hour;
+    }
+  }
+
+
+  getPlainLabel(key: string) : string {
+    if(key in this.emissions) {
+      return this.emissions[key].plain;
+    } else {
+      return key;
+    }
+  }
+
+
+  getHtmlLabel(key: string) : string {
+    if(key in this.emissions) {
+      return this.emissions[key].html;
+    } else {
+      return key;
+    }
+  }
+
+
+  buildTechnologies(declaration: EcoDeclaration) : Technology[] {
     let technologies: Technology[] = [];
 
     for(var technology in declaration.technologies) {
@@ -360,9 +371,23 @@ export class EnvironmentComponent implements OnInit {
     transform: (value: number) => number,
   ) {
     let data = {};
+    let formatBegin = (begin: moment.Moment) : string => {
+      switch(this.getResolution()) {
+        case EcoDeclarationResolution.year:
+          return moment(begin).format('YYYY');
+        case EcoDeclarationResolution.month:
+          return moment(begin).format('YYYY-MM');
+        case EcoDeclarationResolution.day:
+          return moment(begin).format('YYYY-MM-DD');
+        case EcoDeclarationResolution.hour:
+          return moment(begin).format('YYYY-MM-DD HH:mm');
+      }
+    };
+
+    console.log(emissions);
 
     for(var begin in emissions) {
-      targetLabels.push(begin);
+      targetLabels.push(formatBegin(moment(begin)));
 
       for(var key in emissions[begin]) {
         if(!(key in data)) {
@@ -373,7 +398,6 @@ export class EnvironmentComponent implements OnInit {
     }
 
     for(var key in data) {
-      console.log('KEY', key, 'DATA', data[key]);
       targetData.push(<ChartDataSets>{
         label: this.getPlainLabel(key),
         backgroundColor: 'transparent',

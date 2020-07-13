@@ -40,7 +40,7 @@
                     </tr>
                     <tr class="emission"
                         *ngFor="let emission of emissions_in_air"
-                        (click)="showEmissionDetails(emission)">
+                        (click)="showEmissionDetailsPopup(emission)">
 
                         <td [innerHTML]="getHtmlLabel(emission)"></td>
                         <td style="background-color: #e1e1e1; text-align: right;">
@@ -69,7 +69,7 @@
                     </tr>
                     <tr class="emission"
                         *ngFor="let emission of residues"
-                        (click)="showEmissionDetails(emission)">
+                        (click)="showEmissionDetailsPopup(emission)">
 
                         <td [innerHTML]="getHtmlLabel(emission)"></td>
                         <td style="background-color: #e1e1e1; text-align: right;">
