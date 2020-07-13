@@ -1,0 +1,184 @@
+
+<div class="dashboard">
+
+    <div class="filters">
+        <app-environment-filters
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [filters]="filters">
+        </app-environment-filters>
+    </div>
+
+    <div class="details">
+      <mat-card>
+          <mat-card-content>
+            <h1>Emissions</h1>
+
+
+            <app-loading-view *ngIf="loading"></app-loading-view>
+
+
+            <div *ngIf="hasData && !loading">
+                <p style="font-size: 20px;">
+                    Total consumption: <b>{{ individual.totalConsumedAmount | formatAmount}}</b>
+                </p>
+
+
+                <table width="100%" cellpadding="10" cellspacing="2">
+                    <tr style="background-color: #f1f1f1;">
+                        <th></th>
+                        <th colspan="2" style="background-color: #e1e1e1;">Min udledning</th>
+                        <th>Generelt mix (Danmark)</th>
+                        <th>Difference</th>
+                    </tr>
+                    <tr style="background-color: #f1f1f1;">
+                        <td><b>Emissioner til luften</b></td>
+                        <td style="text-align: right; background-color: #e1e1e1;"><b>Total</b></td>
+                        <td style="text-align: right; background-color: #e1e1e1;"><b>g/kWh</b></td>
+                        <td style="text-align: right;"><b>g/kWh</b></td>
+                        <td style="text-align: right;"><b>Percent</b></td>
+                    </tr>
+                    <tr class="emission"
+                        *ngFor="let emission of emissions_in_air"
+                        (click)="showEmissionDetails()">
+
+                        <td [innerHTML]="getHtmlLabel(emission)"></td>
+                        <td style="background-color: #e1e1e1; text-align: right;">
+                            {{ getTotalEmissions(individual, emission) | formatEmission }}
+                        </td>
+                        <td style="background-color: #e1e1e1; text-align: right;">
+                            {{ getEmissionsPerkWh(individual, emission) | formatNumber : 2 }} g/kWh
+                        </td>
+                        <td style="text-align: right;">
+                            {{ getEmissionsPerkWh(general, emission) | formatNumber : 2 }} g/kWh
+                        </td>
+                        <td style="text-align: right;">
+                            <ng-container *ngIf="getDeltaEmissionsPerkWh(individual, general, emission);let deltaEmission">
+                                <span *ngIf="deltaEmission > 0" style="color: red;">+{{ deltaEmission | formatNumber : 1 }}%</span>
+                                <span *ngIf="deltaEmission < 0" style="color: green;">{{ deltaEmission | formatNumber : 1 }}%</span>
+                                <span *ngIf="deltaEmission == 0">{{ deltaEmission | formatNumber : 1 }}%</span>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f1f1f1;">
+                        <td><b>Restprodukter</b></td>
+                        <td style="text-align: right; background-color: #e1e1e1;"><b>Total</b></td>
+                        <td style="text-align: right; background-color: #e1e1e1;"><b>g/kWh</b></td>
+                        <td style="text-align: right;"><b>g/kWh</b></td>
+                        <td style="text-align: right;"><b>Percent</b></td>
+                    </tr>
+                    <tr class="emission"
+                        *ngFor="let emission of residues"
+                        (click)="showEmissionDetails()">
+
+                        <td [innerHTML]="getHtmlLabel(emission)"></td>
+                        <td style="background-color: #e1e1e1; text-align: right;">
+                            {{ getTotalEmissions(individual, emission) | formatEmission }}
+                        </td>
+                        <td style="background-color: #e1e1e1; text-align: right;">
+                            {{ getEmissionsPerkWh(individual, emission) | formatNumber : 2 }} g/kWh
+                        </td>
+                        <td style="text-align: right;">
+                            {{ getEmissionsPerkWh(general, emission) | formatNumber : 2 }} g/kWh
+                        </td>
+                        <td style="text-align: right;">
+                            <ng-container *ngIf="getDeltaEmissionsPerkWh(individual, general, emission);let deltaEmission">
+                                <span *ngIf="deltaEmission > 0" style="color: red;">+{{ deltaEmission | formatNumber : 1 }}%</span>
+                                <span *ngIf="deltaEmission < 0" style="color: green;">{{ deltaEmission | formatNumber : 1 }}%</span>
+                                <span *ngIf="deltaEmission == 0">{{ deltaEmission | formatNumber : 1 }}%</span>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <br><br>
+
+
+                <h1>Total emissions</h1>
+                
+                <canvas baseChart
+                    width="2"
+                    height="1"
+                    [datasets]="totalEmissionsChartData"
+                    [labels]="totalEmissionsChartLabels"
+                    [options]="totalEmissionsChartOptions"
+                    [legend]="totalEmissionsChartLegend"
+                    [chartType]="totalEmissionsChartType">
+                </canvas>
+
+
+                <br><br>
+
+
+                <h1>Relative emissions (gram/kWh)</h1>
+                
+                <canvas baseChart
+                    width="2"
+                    height="1"
+                    [datasets]="relativeEmissionsChartData"
+                    [labels]="relativeEmissionsChartLabels"
+                    [options]="relativeEmissionsChartOptions"
+                    [legend]="relativeEmissionsChartLegend"
+                    [chartType]="relativeEmissionsChartType">
+                </canvas>
+            </div>
+
+          </mat-card-content>
+      </mat-card>
+
+
+      <mat-card *ngIf="hasData && !loading">
+        <mat-card-content>
+            <h1>Origin of Technology</h1>
+
+            <canvas baseChart
+                *ngIf="techChartData"
+                [width]="400"
+                [height]="200"
+                [chartType]="techChartType"
+                [data]="techChartData"
+                [labels]="techChartLabels"
+                [options]="techChartOptions"
+                [colors]="techChartColors">
+            </canvas>
+
+            <br><br>
+
+
+            <table width="100%" cellpadding="10" cellspacing="2">
+                <tr style="background-color: #f1f1f1;">
+                    <th colspan="2">Technology</th>
+                    <th style="text-align: right; background-color: #e1e1e1;">Usage</th>
+                    <th colspan="2">Percent of overall usage</th>
+                </tr>
+                <tr style="background-color: #f1f1f1;" *ngFor="let technology of technologies">
+                    <td style="width: 32px;">
+                        <div class="energy-type-avatar {{ technology.technology }}"></div>
+                    </td>
+                    <td>
+                        <div>{{ technology.technology }}</div>
+                    </td>
+                    <td style="width: 25%; text-align: right; background-color: #e1e1e1;">
+                        {{ technology.amount | formatAmount }}
+                    </td>
+                    <td style="width: 25%; text-align: right;">
+                        {{ technology.percent | formatNumber : 2 }}%
+                    </td>
+                    <td style="width: 25%">
+                        <mat-progress-bar
+                            mode="determinate"
+                            color="warn"
+                            [value]="technology.percent">
+                        </mat-progress-bar>
+                    </td>
+                </tr>
+            </table>
+
+
+        </mat-card-content>
+    </mat-card>
+
+    </div>
+
+</div>

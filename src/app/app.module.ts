@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -62,7 +63,9 @@ import { ViewSentProposalComponent } from './pages/trade/view-sent-proposal/view
 import { ViewReceivedProposalComponent } from './pages/trade/view-received-proposal/view-received-proposal.component';
 import { CommoditiesComponent } from './pages/commodities/commodities.component';
 import { CommoditiesFiltersComponent } from './pages/commodities/commodities-filters/commodities-filters.component';
-import { formatAmountTransformer } from './pipes/unitamount';
+import { EnvironmentComponent } from './pages/environment/environment.component';
+import { EnvironmentFiltersComponent } from './pages/environment/environment-filters/environment-filters.component';
+import { formatAmountTransformer, formatEmissionTransformer, formatNumberTransformer } from './pipes/unitamount';
 import { CreateDisclosureDialogComponent } from './pages/disclosure/create-disclosure/create-disclosure-dialog/create-disclosure-dialog.component';
 import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view-disclosure.component';
 import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
@@ -76,6 +79,7 @@ import localeDa from '@angular/common/locales/da';
 import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
 import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
 import { AccountDetailsDialogComponent } from './pages/account/account-details-dialog/account-details-dialog.component';
+import { EmissionDetailsDialogComponent } from './pages/environment/emission-details-dialog/emission-details-dialog/emission-details-dialog.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -92,6 +96,7 @@ const appRoutes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'commodities', component: CommoditiesComponent },
+      { path: 'emissions', component: EnvironmentComponent },
       { path: 'transfer/:agreementId', component: TradeComponent },
       { path: 'transfer', component: TradeComponent },
       { path: 'retire', component: RetireComponent },
@@ -131,7 +136,11 @@ const appRoutes: Routes = [
     ViewReceivedProposalComponent,
     CommoditiesComponent,
     CommoditiesFiltersComponent,
+    EnvironmentComponent,
+    EnvironmentFiltersComponent,
     formatAmountTransformer,
+    formatEmissionTransformer,
+    formatNumberTransformer,
     CreateDisclosureDialogComponent,
     ViewDisclosureComponent,
     DisclosureChartComponent,
@@ -141,6 +150,7 @@ const appRoutes: Routes = [
     GgoSummaryPlotComponent,
     FacilityTypeBadgeComponent,
     AccountDetailsDialogComponent,
+    EmissionDetailsDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -157,6 +167,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatToolbarModule,
     MatIconModule,
     MatGridListModule,

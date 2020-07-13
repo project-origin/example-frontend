@@ -92,6 +92,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this.router.url.startsWith('/app/commodities');
   }
 
+  isEmissions() : boolean {
+    return this.router.url.startsWith('/app/emissions');
+  }
+
   isTransfer() : boolean {
     return this.router.url.startsWith('/app/transfer');
   }
