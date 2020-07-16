@@ -80,6 +80,7 @@ import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-
 import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
 import { AccountDetailsDialogComponent } from './pages/account/account-details-dialog/account-details-dialog.component';
 import { EmissionDetailsDialogComponent } from './pages/environment/emission-details-dialog/emission-details-dialog/emission-details-dialog.component';
+import { ExportEcoDeclarationPdfDialogComponent } from './pages/environment/export-pdf-dialog/export-eco-declaration-pdf-dialog/export-eco-declaration-pdf-dialog.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -151,6 +152,7 @@ const appRoutes: Routes = [
     FacilityTypeBadgeComponent,
     AccountDetailsDialogComponent,
     EmissionDetailsDialogComponent,
+    ExportEcoDeclarationPdfDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(

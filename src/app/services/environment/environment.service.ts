@@ -64,4 +64,9 @@ export class EnvironmentService {
     return this.api.invoke('/eco-declaration', GetEcoDeclarationResponse, request);
   }
 
+
+  exportEcoDeclarationPdf(request: GetEcoDeclarationRequest) {
+    return this.api.downloadFile('/eco-declaration/pdf', 'environment-declaration.pdf', request);
+  }
+
 }

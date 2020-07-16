@@ -11,6 +11,7 @@ import { CommodityColor } from 'src/app/services/commodities/models';
 import { FormatAmount, FormatEmission } from 'src/app/pipes/unitamount';
 import { EmissionDetailsDialogComponent } from './emission-details-dialog/emission-details-dialog/emission-details-dialog.component';
 import { formatNumber } from '@angular/common';
+import { ExportEcoDeclarationPdfDialogComponent } from './export-pdf-dialog/export-eco-declaration-pdf-dialog/export-eco-declaration-pdf-dialog.component';
 
 
 
@@ -55,8 +56,8 @@ export class EnvironmentComponent implements OnInit {
       html: 'N<sub>2</sub>O (Lattergas - drivhusgas)',
     },
     'SO2': {
-      plain: 'SO22 (Svovldioxid)',
-      html: 'SO2<sub>2</sub> (Svovldioxid)',
+      plain: 'SO2 (Svovldioxid)',
+      html: 'SO<sub>2</sub> (Svovldioxid)',
     },
     'NOx': {
       plain: 'NOx (Kvælstofilte)',
@@ -240,8 +241,8 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  loadEnvironmentDeclaration() {
-    let request = new GetEcoDeclarationRequest({
+  get request() : GetEcoDeclarationRequest {
+    return new GetEcoDeclarationRequest({
       filters: this.filters,
       resolution: this.getResolution(),
       dateRange: new DateRange({
@@ -249,7 +250,10 @@ export class EnvironmentComponent implements OnInit {
         end: this.dateTo.toDate(),
       }),
     });
+  }
 
+
+  loadEnvironmentDeclaration() {
     this.techChartLabels = [];
     this.techChartData = [];
     this.techChartColors = [];
@@ -260,7 +264,7 @@ export class EnvironmentComponent implements OnInit {
 
     this.loading = true;
     this.environmentService
-        .getEcoDeclaration(request)
+        .getEcoDeclaration(this.request)
         .subscribe(this.onLoadEnvironmentDeclaration.bind(this));
   }
 
@@ -294,6 +298,15 @@ export class EnvironmentComponent implements OnInit {
       this.individual = null;
       this.general = null;
     }
+  }
+
+
+  exportPDF() {
+    this.environmentService.exportEcoDeclarationPdf(this.request);
+    this.dialog.open(ExportEcoDeclarationPdfDialogComponent, { 
+      width: '550px',
+      panelClass: 'dialog',
+    });
   }
 
 

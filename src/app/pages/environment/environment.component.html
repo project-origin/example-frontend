@@ -12,7 +12,11 @@
     <div class="details">
       <mat-card>
           <mat-card-content>
-            <h1>Emissions</h1>
+            <div class="legend">
+                <h1>Emissions</h1>
+                <div class="fill-remaining"></div>
+                <button mat-flat-button color="primary" (click)="exportPDF()">EXPORT PDF</button>
+            </div>
 
 
             <app-loading-view *ngIf="loading"></app-loading-view>
