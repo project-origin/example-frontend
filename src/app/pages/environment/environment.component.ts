@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { IFacilityFilters } from 'src/app/services/facilities/models';
 import { MatDialog } from '@angular/material/dialog';
 import { DateRange } from 'src/app/services/common';
-import { EnvironmentService, GetEcoDeclarationRequest, EcoDeclarationResolution, GetEcoDeclarationResponse, EcoDeclaration } from 'src/app/services/environment/environment.service';
+import { EnvironmentService, GetEcoDeclarationRequest, EcoDeclarationResolution, GetEcoDeclarationResponse, EcoDeclaration, EmissionColor } from 'src/app/services/environment/environment.service';
 import { CommodityColor } from 'src/app/services/commodities/models';
 import { FormatAmount, FormatEmission } from 'src/app/pipes/unitamount';
 import { EmissionDetailsDialogComponent } from './emission-details-dialog/emission-details-dialog/emission-details-dialog.component';
@@ -411,9 +411,19 @@ export class EnvironmentComponent implements OnInit {
     }
 
     for(var key in data) {
+      let color = EmissionColor.get(key);
+
+      console.log(key, color);
+
       targetData.push(<ChartDataSets>{
         label: this.getPlainLabel(key),
-        backgroundColor: 'transparent',
+        fill: false,
+        borderColor: color,
+        backgroundColor: color,
+        hoverBorderColor: color,
+        hoverBackgroundColor: color,
+        pointBorderColor: color,
+        pointBackgroundColor: color,
         data: data[key],
       });
     }

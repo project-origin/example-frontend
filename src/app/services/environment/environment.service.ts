@@ -6,6 +6,40 @@ import { IFacilityFilters } from '../facilities/models';
 import { DateRange } from '../common';
 
 
+export class EmissionColor {
+  static get(key: string) : string {
+    switch(key) {
+      case 'CO2':
+        return '#8e0000';
+      case 'CH4':
+        return '#8e24aa';
+      case 'N2O':
+        return '#9fa8da';
+      case 'SO2':
+        return '#3f51b5';
+      case 'NOx':
+        return '#2196f3';
+      case 'CO':
+        return '#009688';
+      case 'NMVOC':
+        return '#4caf50';
+      case 'particles':
+        return '#cddc39';
+      case 'flyash':
+        return '#ff8f00';
+      case 'slag':
+        return '#6d4c41';
+      case 'desulphurisation':
+        return '#78909c';
+      case 'waste':
+        return '#f8bbd0';
+      default:
+        return '#000';
+    }
+  }
+}
+
+
 
 export class EcoDeclaration {
   emissions: Map<Date, Map<string, number>>;
