@@ -258,9 +258,9 @@ export class EnvironmentComponent implements OnInit {
     this.techChartData = [];
     this.techChartColors = [];
     this.totalEmissionsChartLabels = [];
-    this.totalEmissionsChartData = [];
+    this.totalEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
     this.relativeEmissionsChartLabels = [];
-    this.relativeEmissionsChartData = [];
+    this.relativeEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
 
     this.loading = true;
     this.environmentService
