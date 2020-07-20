@@ -361,7 +361,6 @@ export class EnvironmentComponent implements OnInit {
   getResolution() : EcoDeclarationResolution {
     let deltaDays = this.dateTo.diff(this.dateFrom, 'days');
 
-    console.log('deltaDays', deltaDays);
     if(deltaDays >= 365 * 3) {
       return EcoDeclarationResolution.year;
     } else if(deltaDays >= 60) {
@@ -427,8 +426,6 @@ export class EnvironmentComponent implements OnInit {
       }
     };
 
-    console.log(emissions);
-
     for(var begin in emissions) {
       targetLabels.push(formatBegin(moment(begin)));
 
@@ -442,8 +439,6 @@ export class EnvironmentComponent implements OnInit {
 
     for(var key in data) {
       let color = EmissionColor.get(key);
-
-      console.log(key, color);
 
       targetData.push(<ChartDataSets>{
         label: this.getPlainLabel(key),
