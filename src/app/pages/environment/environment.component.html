@@ -16,6 +16,16 @@
                 <h1>Emissions</h1>
                 <div class="fill-remaining"></div>
                 <button mat-flat-button color="primary" (click)="exportPDF()">EXPORT PDF</button>
+                &nbsp;
+                <button mat-flat-button
+                    color="primary"
+                    [matMenuTriggerFor]="menu">
+                    EXPORT CSV
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="exportEmissionsCSV()">Emissions (g)</button>
+                    <button mat-menu-item (click)="exportTechnologiesCSV()">Technologies (Wh)</button>
+                </mat-menu>
             </div>
 
 

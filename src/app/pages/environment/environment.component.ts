@@ -306,6 +306,36 @@ export class EnvironmentComponent implements OnInit {
     this.dialog.open(ExportEcoDeclarationPdfDialogComponent, { 
       width: '550px',
       panelClass: 'dialog',
+      data: {
+        headline1: 'Generating PDF',
+        headline2: 'Export environment declaration as PDF',
+      },
+    });
+  }
+
+
+  exportEmissionsCSV() {
+    this.environmentService.exportEcoDeclarationEmissionsCsv(this.request);
+    this.dialog.open(ExportEcoDeclarationPdfDialogComponent, { 
+      width: '550px',
+      panelClass: 'dialog',
+      data: {
+        headline1: 'Generating CSV',
+        headline2: 'Export emissions (in gram) per hour',
+      },
+    });
+  }
+
+
+  exportTechnologiesCSV() {
+    this.environmentService.exportEcoDeclarationEmissionsTechnologies(this.request);
+    this.dialog.open(ExportEcoDeclarationPdfDialogComponent, { 
+      width: '550px',
+      panelClass: 'dialog',
+      data: {
+        headline1: 'Generating CSV',
+        headline2: 'Export technologies (in Wh) per hour',
+      },
     });
   }
 
@@ -365,11 +395,11 @@ export class EnvironmentComponent implements OnInit {
   buildTechnologies(declaration: EcoDeclaration) : Technology[] {
     let technologies: Technology[] = [];
 
-    for(var technology in declaration.technologies) {
+    for(var technology in declaration.totalTechnologies) {
       technologies.push({
         technology: technology,
-        amount: declaration.technologies[technology],
-        percent: declaration.technologies[technology] / declaration.totalConsumedAmount * 100,
+        amount: declaration.totalTechnologies[technology],
+        percent: declaration.totalTechnologies[technology] / declaration.totalConsumedAmount * 100,
       });
     }
 
@@ -432,9 +462,9 @@ export class EnvironmentComponent implements OnInit {
 
   buildTechnologyChart() {
     let techColors: string[] = [];
-    for(var technology in this.individual.technologies) {
+    for(var technology in this.individual.totalTechnologies) {
       this.techChartLabels.push(technology);
-      this.techChartData.push(this.individual.technologies[technology]);
+      this.techChartData.push(this.individual.totalTechnologies[technology]);
       techColors.push(CommodityColor.get(technology));
     }
     this.techChartColors = [ {backgroundColor: techColors} ];

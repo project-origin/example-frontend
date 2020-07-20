@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+
+type InjectData = {
+  headline1: string,
+  headline2: string,
+};
+
 
 @Component({
   selector: 'app-export-eco-declaration-pdf-dialog',
@@ -8,7 +15,18 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ExportEcoDeclarationPdfDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<ExportEcoDeclarationPdfDialogComponent>) { }
+  
+  headline1: string;
+  headline2: string;
+
+
+  constructor(
+    private dialogRef: MatDialogRef<ExportEcoDeclarationPdfDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data: InjectData,
+  ) {
+    this.headline1 = data.headline1;
+    this.headline2 = data.headline2;
+  }
 
 
   closeDialog() {

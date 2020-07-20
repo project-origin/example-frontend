@@ -44,10 +44,11 @@ export class EmissionColor {
 export class EcoDeclaration {
   emissions: Map<Date, Map<string, number>>;
   emissionsPerWh: Map<Date, Map<string, number>>;
+  technologies: Map<Date, Map<string, number>>;
   totalEmissions: Map<string, number>;
   totalEmissionsPerWh: Map<string, number>;
   totalConsumedAmount: number;
-  technologies: Map<string, number>;
+  totalTechnologies: Map<string, number>;
 }
 
 
@@ -101,6 +102,16 @@ export class EnvironmentService {
 
   exportEcoDeclarationPdf(request: GetEcoDeclarationRequest) {
     return this.api.downloadFile('/eco-declaration/pdf', 'environment-declaration.pdf', request);
+  }
+
+
+  exportEcoDeclarationEmissionsCsv(request: GetEcoDeclarationRequest) {
+    return this.api.downloadFile('/eco-declaration/csv/emissions', 'environment-declaration-emissions.csv', request);
+  }
+
+
+  exportEcoDeclarationEmissionsTechnologies(request: GetEcoDeclarationRequest) {
+    return this.api.downloadFile('/eco-declaration/csv/technologies', 'environment-declaration-technologies.csv', request);
   }
 
 }
