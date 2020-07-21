@@ -1,9 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets, ChartTooltipItem } from 'chart.js';
-import { MeasurementDataSet, MeasurementType, GgoCategory } from 'src/app/services/commodities/models';
-import { IFacilityFilters } from 'src/app/services/facilities/models';
-import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse, GetGgoSummaryRequest, GetGgoSummaryResponse } from 'src/app/services/commodities/commodity.service';
-import { FormatAmount } from 'src/app/pipes/unitamount';
+import { MeasurementDataSet, GgoCategory } from 'src/app/services/commodities/models';
+import { CommodityService, GetGgoSummaryRequest, GetGgoSummaryResponse } from 'src/app/services/commodities/commodity.service';
 
 
 @Component({
@@ -21,37 +18,9 @@ export class GgoSummaryPlotComponent implements OnChanges {
   loading: boolean = false;
   error: boolean = false;
 
-  // Chart data
-  chartLabels: string[] = [];
-  chartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
-  chartLegend = true;
-  chartType: ChartType = 'bar';
-  chartOptions: ChartOptions = {
-    responsive: true,
-    aspectRatio: 3,
-    maintainAspectRatio: true,
-    legend: {
-      align: 'end',
-      position: 'top'
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem:ChartTooltipItem, data) {
-          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatAmount.format(Number(tooltipItem.value));
-        }
-      }
-    },
-    scales: {
-      xAxes: [{ stacked: true }],
-      yAxes: [{ 
-        stacked: true,
-        ticks: {
-          beginAtZero: true,
-          callback: label => FormatAmount.format(label)
-        }
-      }],
-    },
-  };
+  // Graph data
+  labels: string[] = [];
+  bars: MeasurementDataSet[] = [];
 
 
   constructor(private commodityService: CommodityService) { }
@@ -82,24 +51,10 @@ export class GgoSummaryPlotComponent implements OnChanges {
   onLoadComplete(response: GetGgoSummaryResponse) {
     this.loading = false;
     this.error = !response.success;
-
     if(response.success) {
-      this.chartLabels = response.labels;
-      this.chartData = this.buildDataFromResponse(response);
+      this.labels = response.labels;
+      this.bars = response.ggos;
     }
-  }
-
-
-  buildDataFromResponse(response: GetGgoSummaryResponse) : ChartDataSets[] {
-    return response.ggos.map((data: MeasurementDataSet) => <ChartDataSets>{
-      label: data.label,
-      // fill: false,
-      borderColor: data.color,
-      hoverBorderColor: data.color,
-      backgroundColor: data.color,
-      hoverBackgroundColor: data.color,
-      data: data.values,
-    });
   }
 
 }

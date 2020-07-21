@@ -79,19 +79,19 @@
 
 
 
-        <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length > 0">
-            <canvas baseChart
-                [datasets]="chartData"
+        <div class="plot" [class.loading]="loading" *ngIf="!loading && chartData.length > 0">
+            <app-energy-plot
+                [loading]="loading"
+                [error]="error"
+                [lines]="chartData"
                 [labels]="chartLabels"
-                [options]="chartOptions"
-                [legend]="chartLegend"
-                [chartType]="chartType">
-            </canvas>
+                (reload)="loadSummaryData()">
+            </app-energy-plot>
         </div>
 
 
 
-        <div class="plot" [class.loading]="loading" *ngIf="!loading && datasets.length == 0" style="margin: 30px 0;">
+        <div class="plot" [class.loading]="loading" *ngIf="!loading && chartData.length == 0" style="margin: 30px 0;">
             No transfer data has been recorded
         </div>
 

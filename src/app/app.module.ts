@@ -76,6 +76,7 @@ import localeDa from '@angular/common/locales/da';
 import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
 import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
 import { AccountDetailsDialogComponent } from './pages/account/account-details-dialog/account-details-dialog.component';
+import { EnergyPlotComponent } from './widgets/energy-plot/energy-plot/energy-plot.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -141,6 +142,7 @@ const appRoutes: Routes = [
     GgoSummaryPlotComponent,
     FacilityTypeBadgeComponent,
     AccountDetailsDialogComponent,
+    EnergyPlotComponent,
   ],
   imports: [
     RouterModule.forRoot(

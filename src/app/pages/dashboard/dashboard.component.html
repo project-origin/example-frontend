@@ -54,6 +54,7 @@
 
         <mat-card>
             <mat-card-content class="overview">
+
                 <div class="data-overview">
                     <h1>GGO Overview</h1>
 
@@ -69,6 +70,7 @@
 
         <mat-card>
             <mat-card-content>
+
                 <h1>Stored GGOs</h1>
 
                 <app-ggo-summary-plot
@@ -83,6 +85,7 @@
 
         <mat-card>
             <mat-card-content>
+
                 <div class="legend">
                     <h1>Production and consumption facilities</h1>
                     <div class="fill-remaining"></div>
@@ -93,53 +96,64 @@
                         <button mat-menu-item (click)="exportGgoList()">GGO List</button>
                     </mat-menu>
                 </div>
+
                 <h2>Produced power and issued GGOs</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    measurementType="production">
+                    measurementType="production"
+                    ggoCategory="issued">
                 </app-commodity-plot>
 
                 &nbsp;<br>
+
                 <h2>Consumed power and retired GGOs</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    measurementType="consumption">
+                    measurementType="consumption"
+                    ggoCategory="retired">
                 </app-commodity-plot>
 
             </mat-card-content>
         </mat-card>
 
 
+                
         <mat-card>
             <mat-card-content>
+                
                 <div class="legend">
                     <h1>Transfer</h1>
                     <div class="fill-remaining"></div>
                     <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">EXPORT CSV</button>
                 </div>
+
                 <h2>Inbound GGOs</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    direction="inbound">
+                    direction="inbound"
+                    display="bars">
                 </app-trading-plot>
 
                 &nbsp;<br>
+                
                 <h2>Outbound GGOs</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    direction="outbound">
+                    direction="outbound"
+                    display="bars">
                 </app-trading-plot>
 
             </mat-card-content>
         </mat-card>
+   
 
 
     </div>

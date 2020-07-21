@@ -82,9 +82,6 @@ export class GetMeasurementsResponse extends ApiResponse {
   labels: string[];
 
   @Type(() => MeasurementDataSet)
-  ggos: MeasurementDataSet[];
-
-  @Type(() => MeasurementDataSet)
   measurements: MeasurementDataSet;
 }
 
