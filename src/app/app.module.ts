@@ -77,6 +77,8 @@ import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-
 import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
 import { AccountDetailsDialogComponent } from './pages/account/account-details-dialog/account-details-dialog.component';
 import { EnergyPlotComponent } from './widgets/energy-plot/energy-plot/energy-plot.component';
+import { ForecastComponent } from './pages/forecast/forecast.component';
+import { ForecastDetailsComponent } from './pages/forecast/forecast-details/forecast-details/forecast-details.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -98,6 +100,7 @@ const appRoutes: Routes = [
       { path: 'retire', component: RetireComponent },
       { path: 'facilities', component: FacilitiesComponent },
       { path: 'disclosure', component: DisclosureComponent },
+      { path: 'forecast', component: ForecastComponent },
       { path: 'support', component: SupportComponent },
     ]
   },
@@ -143,6 +146,8 @@ const appRoutes: Routes = [
     FacilityTypeBadgeComponent,
     AccountDetailsDialogComponent,
     EnergyPlotComponent,
+    ForecastComponent,
+    ForecastDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(
