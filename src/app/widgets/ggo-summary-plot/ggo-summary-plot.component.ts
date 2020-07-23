@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MeasurementDataSet, GgoCategory } from 'src/app/services/commodities/models';
 import { CommodityService, GetGgoSummaryRequest, GetGgoSummaryResponse } from 'src/app/services/commodities/commodity.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -10,9 +11,14 @@ import { CommodityService, GetGgoSummaryRequest, GetGgoSummaryResponse } from 's
 })
 export class GgoSummaryPlotComponent implements OnChanges {
 
+
   @Input() dateFrom: Date;
   @Input() dateTo: Date;
   @Input() category: GgoCategory;
+
+  selectedDateFrom: Date;
+  selectedDateTo: Date;
+
 
   // Loading state
   loading: boolean = false;
@@ -23,10 +29,47 @@ export class GgoSummaryPlotComponent implements OnChanges {
   bars: MeasurementDataSet[] = [];
 
 
+  get actualDateFrom() : Date {
+    return this.selectedDateFrom ? this.selectedDateFrom : this.dateFrom;
+  }
+
+
+  get actualDateTo() : Date {
+    return this.selectedDateTo ? this.selectedDateTo : this.dateTo;
+  }
+
+
+  get deltaDays() : number {
+    return moment(this.actualDateTo).diff(this.actualDateFrom, 'days');
+  }
+
+
+  get showNavigationBar() : boolean {
+    return true;
+  }
+
+
+  get canZoomIn() : boolean {
+    return this.deltaDays > 1;
+  }
+
+
+  get canZoomOut() : boolean {
+    return this.deltaDays < (365 * 10);
+  }
+
+
+  get canReset() : boolean {
+    return (this.selectedDateFrom !== null || this.selectedDateTo !== null);
+  }
+
+
   constructor(private commodityService: CommodityService) { }
 
 
   ngOnChanges(changes: SimpleChanges) {
+    this.selectedDateFrom = null;
+    this.selectedDateTo = null;
     this.loadData();
   }
 
@@ -35,8 +78,8 @@ export class GgoSummaryPlotComponent implements OnChanges {
     let request = new GetGgoSummaryRequest({
       category: this.category,
       dateRange: {
-        begin: this.dateFrom,
-        end: this.dateTo,
+        begin: this.actualDateFrom,
+        end: this.actualDateTo,
       },
     });
 
@@ -55,6 +98,55 @@ export class GgoSummaryPlotComponent implements OnChanges {
       this.labels = response.labels;
       this.bars = response.ggos;
     }
+  }
+
+
+  // -- Navigation and zoom --------------------------------------------------
+
+
+  navigatePrevious() {
+    let deltaDays = this.deltaDays + 1;
+    this.selectedDateFrom = moment(this.actualDateFrom).subtract(deltaDays, 'days').toDate();
+    this.selectedDateTo = moment(this.actualDateTo).subtract(deltaDays, 'days').toDate();
+    this.loadData();
+  }
+
+
+  navigateNext() {
+    let deltaDays = this.deltaDays + 1;
+    this.selectedDateFrom = moment(this.actualDateFrom).add(deltaDays, 'days').toDate();
+    this.selectedDateTo = moment(this.actualDateTo).add(deltaDays, 'days').toDate();
+    this.loadData();
+  }
+
+
+  zoomIn() {
+    let delta = Math.floor(this.deltaDays / 3);
+    delta = (delta > 1) ? delta : 1;
+    let dateFrom = moment(this.actualDateFrom).add(delta, 'days');
+    let dateTo = moment(this.actualDateTo).subtract(delta, 'days');
+    if(dateTo.diff(dateFrom, 'days') < 0) {
+      dateFrom = dateTo;
+    }
+    this.selectedDateFrom = dateFrom.toDate();
+    this.selectedDateTo = dateTo.toDate();
+    this.loadData();
+  }
+
+
+  zoomOut() {
+    let delta = Math.floor(this.deltaDays / 1.5);
+    delta = (delta > 1) ? delta : 1;
+    this.selectedDateFrom = moment(this.actualDateFrom).subtract(delta, 'days').toDate();
+    this.selectedDateTo = moment(this.actualDateTo).add(delta, 'days').toDate();
+    this.loadData();
+  }
+
+
+  reset() {
+    this.selectedDateFrom = null;
+    this.selectedDateTo = null;
+    this.loadData();
   }
 
 }
