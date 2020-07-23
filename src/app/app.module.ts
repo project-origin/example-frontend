@@ -80,6 +80,7 @@ import { EnergyPlotComponent } from './widgets/energy-plot/energy-plot/energy-pl
 import { ForecastComponent } from './pages/forecast/forecast.component';
 import { ForecastDetailsComponent } from './pages/forecast/forecast-details/forecast-details/forecast-details.component';
 import { ZoomNavigateBarComponent } from './widgets/zoom-navigate-bar/zoom-navigate-bar/zoom-navigate-bar.component';
+import { ForecastHistoryComponent } from './pages/forecast/forecast-history/forecast-history/forecast-history.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -150,6 +151,7 @@ const appRoutes: Routes = [
     ForecastComponent,
     ForecastDetailsComponent,
     ZoomNavigateBarComponent,
+    ForecastHistoryComponent,
   ],
   imports: [
     RouterModule.forRoot(

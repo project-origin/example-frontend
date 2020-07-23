@@ -32,6 +32,14 @@ export class Forecast {
   get createdString() : string {
     return moment(this.created).format('MMMM Do YYYY, h:mm:ss a');
   }
+
+  get beginReadable() : string {
+    return moment(this.begin).format('MMMM Do YYYY, h:mm:ss a');
+  }
+
+  get endReadable() : string {
+    return moment(this.end).format('MMMM Do YYYY, h:mm:ss a');
+  }
 }
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ForecastService, GetForecastSeriesResponse } from 'src/app/services/forecast/forecast.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -88,6 +89,14 @@ export class ForecastComponent implements OnInit {
 
 
   // -- Navigation -----------------------------------------------------------
+
+
+  onOffsetChange(offset: number) {
+    this.router.navigate([], { queryParams: { 
+      offset: offset,
+      reference: this.selectedReference
+    } });
+  }
 
 
   navigatePrevious() {

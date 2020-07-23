@@ -1,38 +1,42 @@
-<div>
 
-    <div class="legend navigation">
-        <button
-            mat-flat-button
-            type="button"
-            color="primary"
-            [disabled]="!canNavigatePrevious()"
-            (click)="navigatePrevious()">
-            &lt;&lt; PREVIOUS
-        </button>
+<mat-card>
+    <mat-card-content>
+        <h1>Forecasts</h1>
 
-        <div class="fill-remaining"></div>
+        <div class="legend navigation">
+            <button
+                mat-flat-button
+                type="button"
+                color="primary"
+                [disabled]="!canNavigatePrevious()"
+                (click)="navigatePrevious()">
+                &lt;&lt; PREVIOUS
+            </button>
+    
+            <div class="fill-remaining"></div>
+    
+            <h2 *ngIf="forecast">{{ forecast.reference }}</h2>
+    
+            <div class="fill-remaining"></div>
+    
+            <button
+                mat-flat-button
+                type="button"
+                color="primary"
+                [disabled]="!canNavigateNext()"
+                (click)="navigateNext()"> 
+                NEXT &gt;&gt;
+            </button>
+        </div>
+    
+    
+        <app-energy-plot
+            [loading]="loading"
+            [error]="error"
+            [bars]="graphData"
+            [labels]="graphLabels"
+            (reload)="loadForecast()">
+        </app-energy-plot>
 
-        <h2 *ngIf="forecast">{{ forecast.reference }}</h2>
-
-        <div class="fill-remaining"></div>
-
-        <button
-            mat-flat-button
-            type="button"
-            color="primary"
-            [disabled]="!canNavigateNext()"
-            (click)="navigateNext()"> 
-            NEXT &gt;&gt;
-        </button>
-    </div>
-
-
-    <app-energy-plot
-        [loading]="loading"
-        [error]="error"
-        [bars]="graphData"
-        [labels]="graphLabels"
-        (reload)="loadForecast()">
-    </app-energy-plot>
-
-</div>
+    </mat-card-content>
+</mat-card>

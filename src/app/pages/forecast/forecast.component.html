@@ -47,24 +47,33 @@
 
 
     <div class="list">
-        <mat-card>
+        
+        <mat-card *ngIf="!selectedReference">
             <mat-card-content>
                 <h1>Forecasts</h1>
-
-                <app-forecast-details
-                    [reference]="selectedReference"
-                    [offset]="offset"
-                    (previous)="navigatePrevious()"
-                    (next)="navigateNext()"
-                    *ngIf="selectedReference">
-                </app-forecast-details>
-
-
-                <div *ngIf="!selectedReference">
+                <div>
                     Select a series in the menu to the left
                 </div>
             </mat-card-content>
         </mat-card>
+
+
+        <app-forecast-details
+            [reference]="selectedReference"
+            [offset]="offset"
+            (previous)="navigatePrevious()"
+            (next)="navigateNext()"
+            *ngIf="selectedReference">
+        </app-forecast-details>
+
+        
+        <app-forecast-history
+            [reference]="selectedReference"
+            [offset]="offset"
+            (offsetChange)="onOffsetChange($event)"
+            *ngIf="selectedReference">
+        </app-forecast-history>
+
     </div>
 
 </div>
