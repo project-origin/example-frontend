@@ -1,5 +1,4 @@
 import { Type } from "class-transformer";
-import { formatNumber } from '@angular/common';
 
 
 export class CommodityColor {
@@ -97,6 +96,14 @@ export class MeasurementDataSet {
   label: string;
   values: number[] = [];
   unit: string;
+
+  constructor(args: {
+    label?: string,
+    values?: number[],
+    unit?: string,
+  }) {
+    Object.assign(this, args);
+  }
 
   get color() : string {
     return CommodityColor.get(this.label);
