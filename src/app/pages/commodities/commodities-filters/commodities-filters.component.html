@@ -78,6 +78,15 @@
                 </div>
             </div>
 
+            <br><br>
+
+            <app-zoom-navigate-bar
+                [dateFrom]="dateFrom"
+                [dateTo]="dateTo"
+                (dateChange)="onUserNavigatedDates($event)"
+                (dateReset)="onResetDates()">
+            </app-zoom-navigate-bar>
+
 
             <div class="divider"></div>
 

@@ -70,7 +70,8 @@ export class CommodityPlotComponent implements OnChanges {
     this.measurementsLoading = false;
     this.measurementsError = !response.success;
     if(response.success) {
-      this.labels = response.labels;
+      if(!this.labels || this.labels.length == 0 && response.labels)
+        this.labels = response.labels;
       this.lines = [response.measurements];
     }
     this.onLoadComplete();
@@ -98,7 +99,8 @@ export class CommodityPlotComponent implements OnChanges {
     this.ggosLoading = false;
     this.ggosError = !response.success;
     if(response.success) {
-      this.labels = response.labels;
+      if(!this.labels || this.labels.length == 0 && response.labels)
+        this.labels = response.labels;
       this.bars = response.ggos;
     }
     this.onLoadComplete();

@@ -1,0 +1,26 @@
+
+<mat-card *ngIf="!loading && !error">
+    <mat-card-content>
+        <h1>History of forecasts (this series)</h1>
+
+
+        <div class="forecast">
+            <div class="column"><b>Begin</b></div>
+            <div class="column"><b>End</b></div>
+            <div class="column"><b>Sector</b></div>
+        </div>
+
+        <div
+            class="forecast"
+            [class.selected]="isSelected(forecast)"
+            (click)="selectForecast(forecast)"
+            *ngFor="let forecast of forecasts">
+
+            <div class="column">{{ forecast.beginReadable }}</div>
+            <div class="column">{{ forecast.endReadable }}</div>
+            <div class="column">{{ forecast.sector }}</div>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+ 

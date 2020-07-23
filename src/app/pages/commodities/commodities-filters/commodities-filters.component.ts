@@ -48,6 +48,16 @@ export class CommoditiesFiltersComponent implements OnInit {
   errorFacilities: boolean = false;
 
 
+  get defaultDateFrom() : Date {
+    return moment().subtract(1, 'months').toDate();
+  }
+
+
+  get defaultDateTo() : Date {
+    return moment().toDate();
+  }
+
+
   constructor(
     private router: Router,
     private facilityService: FacilityService,
@@ -108,18 +118,38 @@ export class CommoditiesFiltersComponent implements OnInit {
     if(this.form.get('gsrn').value.length > 0)
       queryParams['gsrn'] = JSON.stringify(this.form.get('gsrn').value);
 
-    this.router.navigate(['/app/commodities'], { queryParams: queryParams });
+    this.router.navigate([], { queryParams: queryParams });
   }
 
 
   resetFilters() {
-    this.router.navigate(['/app/commodities']);
+    this.router.navigate([]);
   }
 
 
   resetFacilitySelection() {
     this.form.patchValue({
       gsrn: [],
+    });
+  }
+
+
+  onUserNavigatedDates(event: {dateFrom: Date, dateTo: Date}) {
+    this.form.patchValue({
+      date: {
+        begin: event.dateFrom,
+        end: event.dateTo,
+      }
+    });
+  }
+
+
+  onResetDates() {
+    this.form.patchValue({
+      date: {
+        begin: this.defaultDateFrom,
+        end: this.defaultDateTo,
+      }
     });
   }
 

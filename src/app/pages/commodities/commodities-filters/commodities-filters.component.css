@@ -57,26 +57,6 @@ input:disabled {
 
 
 
-/* .facilities .table-row {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    border-radius: 10px;
-}
-
-.facilities .table-item {
-    cursor: pointer;
-    padding: 17px 20px;
-    margin-bottom: 2px;
-    border: #d2d2d2 solid 2px;
-}
-
-.facilities .table-item.selected {
-    background-color: #f0efef;
-    border: #61ac95 solid 2px;
-} */
-
-
 .facilities-container {
     position: relative;
     min-height: 100px;

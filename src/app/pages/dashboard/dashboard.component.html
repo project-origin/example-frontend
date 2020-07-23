@@ -26,25 +26,36 @@
 
         <mat-card>
             <mat-card-content>
-                <form [formGroup]="form">
 
-                    <h1>Filter</h1>
+                <h1>Filter</h1>
 
-                    <div class="filter">
-                        <div class="icon">
-                            <img src="/assets/icon_date.png">
-                        </div>
-                        <div class="label">Date:</div>
-                        <div class="field daterange">
-                            <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date"
-                                [min]="minDate"
-                                [max]="maxDate">
-                            <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                            <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
-                        </div>
+                <div class="filter">
+                    <div class="icon">
+                        <img src="/assets/icon_date.png">
                     </div>
+                    <div class="label">Date:</div>
+                    <div class="field daterange">
+                        <input matInput disabled
+                            class="dateinput"
+                            [satDatepicker]="datePicker"
+                            (dateChange)="onUserPickedDate($event)"
+                            [value]="pickerValue"
+                            [min]="minDate"
+                            [max]="maxDate">
 
-                </form>
+                        <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                        <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <app-zoom-navigate-bar
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    (dateChange)="onUserNavigated($event)"
+                    (dateReset)="onReset()">
+                </app-zoom-navigate-bar>
 
             </mat-card-content>
         </mat-card>
