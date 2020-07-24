@@ -26,25 +26,36 @@
 
         <mat-card>
             <mat-card-content>
-                <form [formGroup]="form">
 
-                    <h1>Filter</h1>
+                <h1>Filter</h1>
 
-                    <div class="filter">
-                        <div class="icon">
-                            <img src="/assets/icon_date.png">
-                        </div>
-                        <div class="label">Date:</div>
-                        <div class="field daterange">
-                            <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date"
-                                [min]="minDate"
-                                [max]="maxDate">
-                            <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                            <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
-                        </div>
+                <div class="filter">
+                    <div class="icon">
+                        <img src="/assets/icon_date.png">
                     </div>
+                    <div class="label">Date:</div>
+                    <div class="field daterange">
+                        <input matInput disabled
+                            class="dateinput"
+                            [satDatepicker]="datePicker"
+                            (dateChange)="onUserPickedDate($event)"
+                            [value]="pickerValue"
+                            [min]="minDate"
+                            [max]="maxDate">
 
-                </form>
+                        <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                        <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <app-zoom-navigate-bar
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    (dateChange)="onUserNavigated($event)"
+                    (dateReset)="onReset()">
+                </app-zoom-navigate-bar>
 
             </mat-card-content>
         </mat-card>
@@ -54,6 +65,7 @@
 
         <mat-card>
             <mat-card-content class="overview">
+
                 <div class="data-overview">
                     <h1>GGO Overview</h1>
 
@@ -69,6 +81,7 @@
 
         <mat-card>
             <mat-card-content>
+
                 <h1>Stored GGOs</h1>
 
                 <app-ggo-summary-plot
@@ -83,6 +96,7 @@
 
         <mat-card>
             <mat-card-content>
+
                 <div class="legend">
                     <h1>Production and consumption facilities</h1>
                     <div class="fill-remaining"></div>
@@ -93,53 +107,64 @@
                         <button mat-menu-item (click)="exportGgoList()">GGO List</button>
                     </mat-menu>
                 </div>
+
                 <h2>Produced power and issued GGOs</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    measurementType="production">
+                    measurementType="production"
+                    ggoCategory="issued">
                 </app-commodity-plot>
 
                 &nbsp;<br>
+
                 <h2>Consumed power and retired GGOs</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    measurementType="consumption">
+                    measurementType="consumption"
+                    ggoCategory="retired">
                 </app-commodity-plot>
 
             </mat-card-content>
         </mat-card>
 
 
+                
         <mat-card>
             <mat-card-content>
+                
                 <div class="legend">
                     <h1>Transfer</h1>
                     <div class="fill-remaining"></div>
                     <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">EXPORT CSV</button>
                 </div>
+
                 <h2>Inbound GGOs</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    direction="inbound">
+                    direction="inbound"
+                    display="bars">
                 </app-trading-plot>
 
                 &nbsp;<br>
+                
                 <h2>Outbound GGOs</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
                     [dateTo]="dateTo"
-                    direction="outbound">
+                    direction="outbound"
+                    display="bars">
                 </app-trading-plot>
 
             </mat-card-content>
         </mat-card>
+   
 
 
     </div>

@@ -1,0 +1,18 @@
+
+.forecast {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 17px 20px;
+    margin-bottom: 2px;
+    border: #d2d2d2 solid 2px;
+}
+
+.forecast.selected {
+    background-color: #f0efef;
+    border: #61ac95 solid 2px;
+}
+
+.forecast .column { flex: 1 1 0; }

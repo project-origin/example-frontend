@@ -2,11 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Agreement } from 'src/app/services/agreements/models';
-import { Facility } from 'src/app/services/facilities/models';
 import { CreateAgreementComponent, CreateProposalPopupType } from '../create-agreement/create-agreement.component';
-import { AgreementService, GetAgreementsResponse } from 'src/app/services/agreements/agreement.service';
-import { ViewSentProposalComponent } from '../view-sent-proposal/view-sent-proposal.component';
-import { ViewReceivedProposalComponent } from '../view-received-proposal/view-received-proposal.component';
+import { AgreementService, GetAgreementsResponse, SetTransferPriorityResponse } from 'src/app/services/agreements/agreement.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -29,6 +27,8 @@ export class AgreementListComponent implements OnInit {
   // Loading state
   loading: boolean = false;
   error: boolean = false;
+  submitting: boolean = false;
+  submittingError: boolean = false;
 
 
   constructor(
@@ -124,6 +124,63 @@ export class AgreementListComponent implements OnInit {
     
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+  }
+
+
+  // -- Agreement (outbound) priority ------------------------------------- //
+
+
+  getPriority(agreement: Agreement) : number {
+    let index = this.outbound.indexOf(agreement);
+    if(index !== -1) {
+      return index;
+    }
+  }
+
+  onPriorityChanged() {
+    let request = {
+      idsPrioritized: this.outbound.map((agreement: Agreement) => agreement.id),
+    };
+
+    this.submitting = true;
+    this.agreementService
+        .setTransferPriority(request)
+        .subscribe(this.onSubmitPrioritiesComplete.bind(this));
+  };
+
+  onSubmitPrioritiesComplete(response: SetTransferPriorityResponse) {
+    this.submitting = false;
+    this.submittingError = !response.success;
+  }
+
+
+  // -- Drag and drop ----------------------------------------------------- //
+
+
+  drop(event: CdkDragDrop<Agreement[]>) {
+    moveItemInArray(event.container.data,
+                    event.previousIndex,
+                    event.currentIndex);
+
+    this.onPriorityChanged();
+
+    // if (event.previousContainer === event.container) {
+    // } else {
+    //   transferArrayItem(event.previousContainer.data,
+    //                     event.container.data,
+    //                     event.previousIndex,
+    //                     event.currentIndex);
+    // }
+
+    // let movedFromActive = event.previousContainer.data === this.active;
+    // let movedFromInactive = event.previousContainer.data === this.inactive;
+    // let movedToActive = event.container.data === this.active;
+    // let movedToInactive = event.container.data === this.inactive;
+    // let changingIndex = event.previousIndex !== event.currentIndex;
+
+    // if(movedToActive || (movedFromActive && movedToInactive)) {
+    //   this.onPriorityChanged();
+    // }
   }
 
 

@@ -108,6 +108,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this.router.url.startsWith('/app/disclosure');
   }
 
+  isForecast() : boolean {
+    return this.router.url.startsWith('/app/forecast');
+  }
+
   isSupport() : boolean {
     return this.router.url.startsWith('/app/support');
   }

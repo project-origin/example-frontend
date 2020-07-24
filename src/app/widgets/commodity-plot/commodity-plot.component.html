@@ -1,23 +1,9 @@
 
-<div class="container">
-
-    <div class="plot" [class.overlayed]="loading || error">
-        <canvas baseChart
-            [datasets]="chartData"
-            [labels]="chartLabels"
-            [options]="chartOptions"
-            [legend]="chartLegend"
-            [chartType]="chartType">
-        </canvas>
-    </div>
-
-    <div class="overlay" *ngIf="loading || error">
-        <app-loading-view *ngIf="loading"></app-loading-view>
-        
-        <div *ngIf="error" class="error">
-            FAILED TO LOAD PLOT DATA<br><br>
-            <button mat-flat-button color="primary" (click)="loadData()">TRY AGAIN</button>
-        </div>
-    </div>
-
-</div>
+<app-energy-plot
+    [loading]="loading"
+    [error]="error"
+    [lines]="lines"
+    [bars]="bars"
+    [labels]="labels"
+    (reload)="loadData()">
+</app-energy-plot>

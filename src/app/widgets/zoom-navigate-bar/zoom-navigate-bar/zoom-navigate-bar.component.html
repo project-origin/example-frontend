@@ -1,0 +1,56 @@
+
+<div class="legend">
+    <button mat-stroked-button
+        type="button"
+        class="fill-remaining"
+        (click)="navigatePrevious()"
+        matTooltip="Back in time"
+        matTooltipPosition="above">
+        &lt;&lt;
+    </button>
+
+    &nbsp;
+
+    <button mat-stroked-button
+        type="button"
+        class="fill-remaining"
+        [disabled]="!canZoomOut"
+        (click)="zoomOut()"
+        matTooltip="Zoom out"
+        matTooltipPosition="above">
+        <mat-icon>zoom_out</mat-icon>
+    </button>
+
+    &nbsp;
+
+    <button mat-stroked-button
+        type="button"
+        class="fill-remaining"
+        (click)="reset()"
+        matTooltip="Reset dates"
+        matTooltipPosition="above">
+        <mat-icon>refresh</mat-icon>
+    </button>
+
+    &nbsp;
+
+    <button mat-stroked-button
+        type="button"
+        class="fill-remaining"
+        [disabled]="!canZoomIn"
+        (click)="zoomIn()"
+        matTooltip="Zoom in"
+        matTooltipPosition="above">
+        <mat-icon>zoom_in</mat-icon>
+    </button>
+    &nbsp;
+
+    <button mat-stroked-button
+        type="button"
+        class="fill-remaining"
+        (click)="navigateNext()"
+        matTooltip="Forward in time"
+        matTooltipPosition="above">
+        &gt;&gt;
+    </button>
+</div>
