@@ -48,9 +48,11 @@ button.trade {
 .counterpart { flex: 3 3 0; }
 .technology { flex: 1 1 0; }
 .facility { flex: 2 2 0; }
+.priority { flex: 2 2 0; text-align: center; }
 .amount { flex: 1 1 0; }
 .status { flex: 3 3 0; }
 .period { flex: 2 2 0; }
+.icon { flex: 1 1 0; }
 
 .name {
     display: block;

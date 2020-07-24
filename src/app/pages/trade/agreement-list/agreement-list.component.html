@@ -64,52 +64,63 @@
             <div class="table-row table-legend">
                 <span class="counterpart">Receiver Name &amp; ID</span>
                 <span class="technology">Technology</span>
-                <span class="facility">Facility</span>
+                <span class="priority">Priority</span>
                 <span class="amount">Amount</span>
                 <span class="period">Period</span>
+                <span class="icon"></span>
             </div>
 
-            <div class="table-row empty" *ngIf="outbound.length == 0">
-                <div>
-                    <b>No outbound agreements</b>
-                    <br><br>
-                    Outbound agreements transfers GGOs from your facilities to your partner's account.
+                        
+            <div cdkDropList matRipple
+                #activeList="cdkDropList"
+                cdkDropListOrientation="vertical"
+                [cdkDropListData]="outbound"
+                (cdkDropListDropped)="drop($event)">
+
+                <div class="table-row empty" *ngIf="outbound.length == 0">
+                    <div>
+                        <b>No outbound agreements</b>
+                        <br><br>
+                        Outbound agreements transfers GGOs from your facilities to your partner's account.
+                    </div>
+                </div>
+
+                <div cdkDrag matRipple class="table-row table-item"
+                    *ngFor="let agreement of outbound"
+                    (click)="select(agreement)"
+                    [class.selected]="isSelected(agreement)">
+
+                    <span class="counterpart">
+                        <span class="name">
+                            {{ agreement.counterpart }}
+                            <span *ngIf="agreement.limitToConsumption">
+                                <img
+                                    matTooltip="This agreement is limited to the recipient's consumption" matTooltipPosition="above"
+                                    src="/assets/icon_limited_to_consumption.png">
+                            </span>
+                        </span>
+                        {{ agreement.reference }}
+                    </span>
+                    <span class="technology">
+                        <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
+                    </span>
+                    <span class="priority">
+                        {{ getPriority(agreement) + 1 }}
+                    </span>
+                    <span class="amount">
+                        <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
+                    </span>
+                    <span class="period">
+                        Start: {{ agreement.dateFrom | date }}<br>
+                        Stop: {{ agreement.dateTo | date }}
+                    </span>
+                    <span class="icon">
+                        <img src="/assets/icon_sort.png">
+                    </span>
                 </div>
             </div>
-            
-            <div matRipple class="table-row table-item"
-                *ngFor="let agreement of outbound"
-                (click)="select(agreement)"
-                [class.selected]="isSelected(agreement)">
-
-                <span class="counterpart">
-                    <span class="name">
-                        {{ agreement.counterpart }}
-                        <span *ngIf="agreement.limitToConsumption">
-                            <img
-                                matTooltip="This agreement is limited to the recipient's consumption" matTooltipPosition="above"
-                                src="/assets/icon_limited_to_consumption.png">
-                        </span>
-                    </span>
-                    {{ agreement.reference }}
-                </span>
-                <span class="technology">
-                    <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
-                </span>
-                <span class="facility">
-                    <div *ngFor="let facility of agreement.facilities">
-                        {{ facility.name }}
-                    </div>
-                </span>
-                <span class="amount">
-                    <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
-                </span>
-                <span class="period">
-                    Start: {{ agreement.dateFrom | date }}<br>
-                    Stop: {{ agreement.dateTo | date }}
-                </span>
             </div>
-        </div>
+            
 
 
         <!-- Inbound -->

@@ -196,6 +196,17 @@ export class CountPendingProposalsResponse extends ApiResponse {
 }
 
 
+// -- setTransferPriority request & response ------------------------------ //
+
+
+export interface ISSetTransferPriorityRequest {
+  idsPrioritized: string[];
+}
+
+
+export class SetTransferPriorityResponse extends ApiResponse {}
+
+
 // -- Service ----------------------------------------------------------------
 
 
@@ -244,6 +255,11 @@ export class AgreementService {
 
   countPendingProposalt() : Observable<CountPendingProposalsResponse> {
     return this.api.invoke('/agreements/propose/pending-count', CountPendingProposalsResponse);
+  }
+
+
+  setTransferPriority(request: ISSetTransferPriorityRequest) : Observable<SetTransferPriorityResponse> {
+    return this.api.invoke('/agreements/set-transfer-priority', SetTransferPriorityResponse, request);
   }
 
 
