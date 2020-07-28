@@ -1,0 +1,53 @@
+
+.transfer {
+    display: flex;
+    flex-direction: row;
+}
+
+.summary {
+    flex: 2 2 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.details {
+    flex: 1 1 0;
+    margin-right: 10px;
+}
+
+
+
+.field {
+    flex: 9 9 0;
+    width: calc(100% - 32px);
+    min-width: 100px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    background-color: white;
+    
+    font-size: 1em;
+    font-weight: bold;
+    color: #a6a6a6;
+    
+    outline: none;
+    border: #c1c1c1 solid 2px;
+    border-radius: 20px;
+}
+
+.field.error {
+    border-color: red;
+}
+
+.field:disabled,
+.disabled {
+    opacity: 0.5;
+}
+
+input::placeholder,
+::ng-deep .mat-select-placeholder {
+    color: #ccc !important;
+}
+
+::ng-deep .mat-select-value {
+    color: #a6a6a6 !important;
+}

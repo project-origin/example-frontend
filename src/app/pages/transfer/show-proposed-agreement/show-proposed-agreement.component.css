@@ -1,6 +1,4 @@
 
-
-
 button {
     border: none;
     border-radius: 30px;
@@ -13,8 +11,7 @@ button.cancel {
     color: #797979;
 }
 
-button.withdraw {
+button.send {
     background-color: #4d8a8b; 
     color: white;
 }
-

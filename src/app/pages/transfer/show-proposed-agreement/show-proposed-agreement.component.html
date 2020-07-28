@@ -1,0 +1,38 @@
+
+<div class="dialog-header">
+    <h1>SENT PROPOSAL</h1>
+    <h2>This is a pending proposal you have sent</h2>
+</div>
+
+
+<div class="dialog-body">
+
+    <app-agreement-details-table
+        [agreement]="agreement">
+    </app-agreement-details-table>
+
+
+    <div>&nbsp;</div>
+
+
+    <!-- Buttons -->
+    <div class="legend">
+        <button mat-button
+            type="button"
+            class="cancel"
+            (click)="closeDialog()">
+            CLOSE
+        </button>
+
+        <div class="fill-remaining"></div>
+
+        <button mat-button
+            type="button"
+            class="send"
+            [disabled]="loading"
+            (click)="withdrawProposal()">
+            {{ loading ? 'WITHDRAWING..' : 'WITHDRAW PROPOSAL' }}
+        </button>
+    </div>
+
+</div>

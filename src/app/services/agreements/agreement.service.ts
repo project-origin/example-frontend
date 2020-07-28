@@ -109,6 +109,7 @@ export class SubmitProposalRequest {
   technology: string;
   amount: number;
   unit: string;
+  amountPercent: number;
   limitToConsumption: boolean;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
@@ -125,6 +126,7 @@ export class SubmitProposalRequest {
     facilityIds: string[],
     amount: number,
     unit: string,
+    amountPercent: number,
     date: DateRange,
     limitToConsumption: boolean,
   }) {
@@ -138,6 +140,7 @@ export class SubmitProposalErrors {
   counterpartId: string[] = [];
   amount: string[] = [];
   date: string[] = [];
+  amountPercent: string[] = [];
   limitToConsumption: string[] = [];
 }
 
@@ -155,6 +158,7 @@ export class RespondToProposalRequest {
   id: string;
   accept: boolean;
   technology: string;
+  amountPercent: number;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
   facilityIds: string[];
@@ -164,6 +168,7 @@ export class RespondToProposalRequest {
     accept: boolean,
     technology?: string,
     facilityIds?: string[],
+    amountPercent?: number,
   }) {
     Object.assign(this, args);
   }
@@ -205,6 +210,18 @@ export interface ISSetTransferPriorityRequest {
 
 
 export class SetTransferPriorityResponse extends ApiResponse {}
+
+
+// -- setFacilities request & response ------------------------------ //
+
+
+export interface ISetFacilitiesRequest {
+  id: string;
+  facilityIds: string[];
+}
+
+
+export class SetFacilitiesResponse extends ApiResponse {}
 
 
 // -- Service ----------------------------------------------------------------
@@ -260,6 +277,11 @@ export class AgreementService {
 
   setTransferPriority(request: ISSetTransferPriorityRequest) : Observable<SetTransferPriorityResponse> {
     return this.api.invoke('/agreements/set-transfer-priority', SetTransferPriorityResponse, request);
+  }
+
+
+  setFacilities(request: ISetFacilitiesRequest) : Observable<SetFacilitiesResponse> {
+    return this.api.invoke('/agreements/set-facilities', SetFacilitiesResponse, request);
   }
 
 

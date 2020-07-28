@@ -1,7 +1,7 @@
 
 <div class="dialog-header">
-    <h1>{{ headline1 }}</h1>
-    <h2>{{ headline2 }}</h2>
+    <h1>NEW GGO TRANSFER AGREEMENT</h1>
+    <h2>Submit a transfer proposal to a partner</h2>
 </div>
 
 
@@ -14,9 +14,9 @@
             <div class="fill-remaining"></div>
 
             <mat-button-toggle-group formControlName="direction">
-                <mat-button-toggle value="outbound">Outbound</mat-button-toggle>
+                <mat-button-toggle [value]="OUTBOUND">Outbound</mat-button-toggle>
                 <div class="space"></div>
-                <mat-button-toggle value="inbound">Inbound</mat-button-toggle>
+                <mat-button-toggle [value]="INBOUND">Inbound</mat-button-toggle>
             </mat-button-toggle-group>
 
             <div class="fill-remaining"></div>
@@ -24,25 +24,25 @@
 
 
         <!-- Reference ID -->
-        <div style="color: red;" *ngFor="let error of errors.reference">- {{ error }}</div>
+        <div style="color: red;" *ngFor="let error of submitErrors.reference">- {{ error }}</div>
         <input matInput
             type="text"
             placeholder="Enter subject of your own choosing"
             class="field"
-            [class.error]="errors.reference.length > 0"
+            [class.error]="submitErrors.reference.length > 0"
             (input)="resetErrorsFor('reference')"
             formControlName="reference">
         
 
         <!-- Counterpart -->
-        <div style="color: red;" *ngFor="let error of errors.counterpartId">- {{ error }}</div>
+        <div style="color: red;" *ngFor="let error of submitErrors.counterpartId">- {{ error }}</div>
 
         <div *ngIf="!hasCounterpart()">
             <input 
                 matInput type="text"
                 placeholder="Enter counterpart name"
                 class="field"
-                [class.error]="errors.counterpartId.length > 0"
+                [class.error]="submitErrors.counterpartId.length > 0"
                 [matAutocomplete]="auto"
                 (input)="resetErrorsFor('counterpartId')"
                 formControlName="counterpart">
@@ -57,12 +57,12 @@
         <div *ngIf="hasCounterpart()" class="field disabled legend">
             <div>{{ counterpart }}</div>
             <div class="fill-remaining"></div>
-            <a mat-button (click)="resetCounterpart()" *ngIf="canSelectCounterpart">X</a>
+            <a mat-button (click)="resetCounterpart()">X</a>
         </div>
 
 
         <!-- Technology -->
-        <div class="field" [class.disabled]="!canSelectTechnology">
+        <div class="field">
             <mat-select
                 formControlName="technology" 
                 [placeholder]="loadingFilteringOptions ? 'Loading...' : 'Select energy category (optional)'">
@@ -77,7 +77,7 @@
 
 
         <!-- Facilities -->
-        <div class="field" [class.disabled]="!canSelectFacilities" *ngIf="showFacilities">
+        <div class="field" *ngIf="canSelectFacilities">
             <mat-select
                 formControlName="facilityIds"
                 [placeholder]="loadingFacilities ? 'Loading...' : 'All facilities'"
@@ -91,20 +91,20 @@
 
 
         <!-- Date period -->
-        <div style="color: red;" *ngFor="let error of errors.date">- {{ error }}</div>
+        <div style="color: red;" *ngFor="let error of submitErrors.date">- {{ error }}</div>
         <div class="date">
             <input matInput
                 class="field value"
                 placeholder="Choose a period"
                 formControlName="date"
-                [class.error]="errors.date.length > 0"
+                [class.error]="submitErrors.date.length > 0"
                 [satDatepicker]="datePicker"
                 (input)="resetErrorsFor('date')"
                 (change)="resetErrorsFor('date')"
                 [min]="minDate"
                 [max]="maxDate">
 
-            <div class="picker" [style.display]="canSelectDates ? 'block' : 'none'">
+            <div class="picker" style="display: block;">
                 <sat-datepicker #datePicker [rangeMode]="true"></sat-datepicker>
                 <sat-datepicker-toggle  [for]="datePicker"></sat-datepicker-toggle>
             </div>
@@ -112,13 +112,13 @@
 
 
         <!-- Amount -->
-        <div style="color: red;" *ngFor="let error of errors.amount">- {{ error }}</div>
+        <div style="color: red;" *ngFor="let error of submitErrors.amount">- {{ error }}</div>
         <div class="amount">
             <input matInput
                 type="text"
                 placeholder="Enter max. amount"
                 class="field value"
-                [class.error]="errors.amount.length > 0"
+                [class.error]="submitErrors.amount.length > 0"
                 (input)="resetErrorsFor('amount')"
                 formControlName="amount">
             
@@ -132,8 +132,27 @@
         </div>
 
 
+        <!-- Transfer percentage -->
+        <div class="field" [class.disabled]="isDisabled" *ngIf="showAmountPercent">
+            <mat-checkbox formControlName="showTransferPercent" (change)="resetErrorsFor('amountPercent')">
+                Transfer percentage of GGO's amount
+            </mat-checkbox>
+
+            <div style="color: red;" *ngFor="let error of submitErrors.amountPercent">- {{ error }}</div>
+
+            <input matInput
+                type="text"
+                placeholder="Enter percent (1-100)"
+                class="field value"
+                [class.error]="submitErrors.amountPercent.length > 0"
+                (input)="resetErrorsFor('amountPercent')"
+                *ngIf="expandAmountPercent"
+                formControlName="amountPercent">
+        </div>
+
+
         <!-- Limit amount to recipient's consumption -->
-        <div style="color: red;" *ngFor="let error of errors.limitToConsumption">- {{ error }}</div>
+        <div style="color: red;" *ngFor="let error of submitErrors.limitToConsumption">- {{ error }}</div>
         <div class="field" [class.disabled]="isDisabled">
             <mat-checkbox formControlName="limitToConsumption">
                 Limit transfers to recipient's consumption
@@ -149,18 +168,8 @@
             <button mat-button
                 type="button"
                 class="cancel"
-                (click)="closeDialog()"
-                *ngIf="showCancelButton">
+                (click)="closeDialog()">
                 CANCEL
-            </button>
-
-            <button mat-button
-                type="button"
-                class="cancel"
-                [disabled]="loadingSubmitting"
-                (click)="declineProposal()"
-                *ngIf="showDeclineButton">
-                {{ loadingSubmitting ? 'DECLINING..' : 'DECLINE' }}
             </button>
 
             <div class="fill-remaining"></div>
@@ -168,28 +177,9 @@
             <button mat-button
                 type="button"
                 class="send"
-                [disabled]="loadingSubmitting"
-                (click)="acceptProposal()"
-                *ngIf="showAcceptButton">
-                {{ loadingSubmitting ? 'ACCEPTING..' : 'ACCEPT' }}
-            </button>
-
-            <button mat-button
-                type="button"
-                class="send"
-                [disabled]="loadingSubmitting"
-                (click)="submitProposal()"
-                *ngIf="showSubmitButton">
-                {{ loadingSubmitting ? 'SENDING..' : 'SUBMIT PROPOSAL' }}
-            </button>
-
-            <button mat-button
-                type="button"
-                class="send"
-                [disabled]="loadingSubmitting"
-                (click)="withdrawProposal()"
-                *ngIf="showWithdrawButton">
-                {{ loadingSubmitting ? 'WITHDRAWING..' : 'WITHDRAW PROPOSAL' }}
+                [disabled]="submitting"
+                (click)="submitProposal()">
+                {{ submitting ? 'SENDING..' : 'SUBMIT PROPOSAL' }}
             </button>
         </div>
 

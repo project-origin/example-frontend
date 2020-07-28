@@ -26,10 +26,23 @@ export class Agreement {
   technology: string;
   amount: number;
   unit: string;
+  amountPercent: number | null;
   dateFrom: Date;
   dateTo: Date;
   limitToConsumption: boolean;
 
   @Type(() => Facility)
   facilities: Facility[] = [];
+
+  get isOutbound() : boolean {
+    return this.direction == AgreementDirection.outbound;
+  }
+
+  get isInbound() : boolean {
+    return this.direction == AgreementDirection.inbound;
+  }
+
+  get directionString() : string {
+    return this.direction.toString();
+  }
 }

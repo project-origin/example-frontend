@@ -40,16 +40,12 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';
 import { GgoDoughnotChartComponent } from './widgets/ggo-doughnot-chart/ggo-doughnot-chart.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { TradeComponent } from './pages/trade/trade.component';
 import { RetireComponent } from './pages/retire/retire.component';
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 import { ToolbarComponent } from './pages/main/toolbar/toolbar.component';
 import { LoadingButtonComponent } from './widgets/loading-button/loading-button.component';
 import { CommodityPlotComponent } from './widgets/commodity-plot/commodity-plot.component';
-import { AgreementListComponent } from './pages/trade/agreement-list/agreement-list.component';
-import { CreateAgreementComponent } from './pages/trade/create-agreement/create-agreement.component';
 import { SigninComponent } from './pages/signin/signin.component';
-import { AgreementSummaryComponent } from './pages/trade/agreement-summary/agreement-summary.component';
 import { GgoSummaryComponent } from './pages/dashboard/ggo-summary/ggo-summary.component';
 import { FacilitiesComponent } from './pages/facilities/facilities.component';
 import { DisclosureComponent } from './pages/disclosure/disclosure.component';
@@ -58,8 +54,6 @@ import { LoadingViewComponent } from './widgets/loading-view/loading-view/loadin
 import { SpinnerTextComponent } from './widgets/spinner-text/spinner-text.component';
 import { SelectUserDialogComponent } from './widgets/select-user-dialog/select-user-dialog.component';
 import { EditFacilityDialogComponent } from './pages/facilities/edit-facility-dialog/edit-facility-dialog.component';
-import { ViewSentProposalComponent } from './pages/trade/view-sent-proposal/view-sent-proposal.component';
-import { ViewReceivedProposalComponent } from './pages/trade/view-received-proposal/view-received-proposal.component';
 import { CommoditiesComponent } from './pages/commodities/commodities.component';
 import { CommoditiesFiltersComponent } from './pages/commodities/commodities-filters/commodities-filters.component';
 import { formatAmountTransformer } from './pipes/unitamount';
@@ -81,6 +75,13 @@ import { ForecastComponent } from './pages/forecast/forecast.component';
 import { ForecastDetailsComponent } from './pages/forecast/forecast-details/forecast-details/forecast-details.component';
 import { ZoomNavigateBarComponent } from './widgets/zoom-navigate-bar/zoom-navigate-bar/zoom-navigate-bar.component';
 import { ForecastHistoryComponent } from './pages/forecast/forecast-history/forecast-history/forecast-history.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
+import { AgreementListComponentNEW } from './pages/transfer/agreement-list/agreement-list.component';
+import { ProposeAgreementComponent } from './pages/transfer/propose-agreement/propose-agreement.component';
+import { AgreementDetailsComponent } from './pages/transfer/agreement-details/agreement-details.component';
+import { ShowProposedAgreementComponent } from './pages/transfer/show-proposed-agreement/show-proposed-agreement.component';
+import { ResponseToProposedAgreementComponent } from './pages/transfer/response-to-proposed-agreement/response-to-proposed-agreement.component';
+import { AgreementDetailsTableComponent } from './pages/transfer/agreement-details-table/agreement-details-table.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -97,8 +98,8 @@ const appRoutes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'commodities', component: CommoditiesComponent },
-      { path: 'transfer/:agreementId', component: TradeComponent },
-      { path: 'transfer', component: TradeComponent },
+      { path: 'transfer', component: TransferComponent },
+      { path: 'transfer/:agreementId', component: AgreementDetailsComponent },
       { path: 'retire', component: RetireComponent },
       { path: 'facilities', component: FacilitiesComponent },
       { path: 'disclosure', component: DisclosureComponent },
@@ -115,16 +116,12 @@ const appRoutes: Routes = [
     AppComponent,
     MainComponent,
     ToolbarComponent,
-    TradeComponent,
     DashboardComponent,
     RetireComponent,
     GgoDoughnotChartComponent,
     LoadingButtonComponent,
     CommodityPlotComponent,
-    AgreementListComponent,
-    CreateAgreementComponent,
     SigninComponent,
-    AgreementSummaryComponent,
     GgoSummaryComponent,
     FacilitiesComponent,
     DisclosureComponent,
@@ -133,8 +130,6 @@ const appRoutes: Routes = [
     SpinnerTextComponent,
     SelectUserDialogComponent,
     EditFacilityDialogComponent,
-    ViewSentProposalComponent,
-    ViewReceivedProposalComponent,
     CommoditiesComponent,
     CommoditiesFiltersComponent,
     formatAmountTransformer,
@@ -152,6 +147,13 @@ const appRoutes: Routes = [
     ForecastDetailsComponent,
     ZoomNavigateBarComponent,
     ForecastHistoryComponent,
+    TransferComponent,
+    ProposeAgreementComponent,
+    AgreementDetailsComponent,
+    ShowProposedAgreementComponent,
+    AgreementListComponentNEW,
+    ResponseToProposedAgreementComponent,
+    AgreementDetailsTableComponent,
   ],
   imports: [
     RouterModule.forRoot(

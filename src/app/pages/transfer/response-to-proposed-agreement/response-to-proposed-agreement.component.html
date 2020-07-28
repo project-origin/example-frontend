@@ -1,0 +1,76 @@
+
+<div class="dialog-header">
+    <h1>RECEIVED PROPOSAL</h1>
+    <h2>This is a pending proposal you have received</h2>
+</div>
+
+
+<div class="dialog-body">
+
+    <app-agreement-details-table
+        [agreement]="agreement"
+        [showTechnology]="!canSelectTechnology">
+    </app-agreement-details-table>
+
+    <div>&nbsp;</div>
+
+
+    <form [formGroup]="form">
+
+        <!-- Technology -->
+        <div class="field" *ngIf="canSelectTechnology">
+            <mat-select
+                formControlName="technology" 
+                [placeholder]="loadingTechnologies ? 'Loading...' : 'Select energy category (optional)'">
+
+                <mat-option [value]="null">Any</mat-option>
+                <mat-option *ngFor="let technology of availableTechnologies" [value]="technology">
+                    {{technology}}
+                </mat-option>
+
+            </mat-select>
+        </div>
+
+
+        <!-- Transfer percentage -->
+        <div class="field" *ngIf="canSelectAmountPercent">
+            <mat-checkbox formControlName="showTransferPercent">
+                Transfer percentage of GGO's amount
+            </mat-checkbox>
+
+            <input matInput
+                type="text"
+                placeholder="Enter percent (1-100)"
+                class="field value"
+                *ngIf="expandAmountPercent"
+                formControlName="amountPercent">
+        </div>
+
+    </form>
+
+
+    <div>&nbsp;</div>
+
+
+    <!-- Buttons -->
+    <div class="legend">
+        <button mat-button
+            type="button"
+            class="cancel"
+            [disabled]="submitting"
+            (click)="declineProposal()">
+            {{ declining ? 'DECLINING..' : 'DECLINE' }}
+        </button>
+
+        <div class="fill-remaining"></div>
+
+        <button mat-button
+            type="button"
+            class="send"
+            [disabled]="submitting"
+            (click)="acceptProposal()">
+            {{ accepting ? 'ACCEPTING..' : 'ACCEPT' }}
+        </button>
+    </div>
+
+</div>
