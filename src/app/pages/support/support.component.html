@@ -1,51 +1,43 @@
+<div class="page">
 
-<div class="support">
-
+    <!-- Left column -->
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>Contact EnergiNet</h1>
-                <p>
-                    If your are experiencing problems or have questions or feedback, please don't hesitate to contact us.
-                </p>
+                <h1>{{ 'SUPPORT.ABOUT.HEADLINE' | translate }}</h1>
 
-                <p>
-                    Please use this form on the right, and we will contact you as soon as possibly.
+                <p style="white-space: pre-wrap;">
+                    {{ 'SUPPORT.ABOUT.TEXT' | translate }}
                 </p>
 
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
 
-    <div class="list">
-        
+    <!-- Right column -->
+    <div class="content">
         <mat-card>
             <mat-card-content>
 
-                <h1>Submit a Support Enquiry</h1>
-                <p>
-                    The easiest way to get support is by filling out the form below.
-                </p>
-
+                <h1>{{ 'SUPPORT.HEADLINE' | translate }}</h1>
+                <p>{{ 'SUPPORT.TEXT' | translate }}</p>
 
                 <br>
 
+                <p *ngIf="errors" style="color: red">
+                    <b>{{ 'SUPPORT.ERROR-TEXT' | translate }}</b>
+                </p>
 
-                <div *ngIf="errors">
-                    <p style="color: red"><b>Please fill out all the required fields</b></p>
-                </div>
-
-
-                <div *ngIf="submitted">
-                    <p class="success"><b>Your enquiry has been submitted</b></p>
-                </div>
-
+                <p *ngIf="submitted" class="success">
+                    <b>{{ 'SUPPORT.SUBMITTED-TEXT' | translate }}</b>
+                </p>
 
                 <form [formGroup]="form" *ngIf="!submitted">
                     <table width="100%">
                         <tr valign="top">
-                            <td><b>Enquiry type:</b></td>
+                            <td><b>{{ 'SUPPORT.ENQUIRY-TYPE' | translate }}:</b></td>
                             <td>
                                 <div class="field">
                                     <mat-select formControlName="subjectType" >
@@ -58,63 +50,63 @@
                         </tr>
                         <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('email')">
                             <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
+                            <td><p style="color: red"><b>{{ 'SUPPORT.FIELD-IS-REQUIRED' | translate }}</b></p></td>
                         </tr>
                         <tr valign="top">
-                            <td><b>E-mail:</b></td>
+                            <td><b>{{ 'SUPPORT.EMAIL' | translate }}:</b></td>
                             <td>
                                 <input matInput
                                     type="text"
-                                    placeholder="Enter your E-mail"
+                                    placeholder="{{ 'SUPPORT.EMAIL-PLACEHOLDER' | translate }}"
                                     class="field"
                                     formControlName="email">
                             </td>
                         </tr>
                         <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('phone')">
                             <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
+                            <td><p style="color: red"><b>{{ 'SUPPORT.FIELD-IS-REQUIRED' | translate }}</b></p></td>
                         </tr>
                         <tr valign="top">
-                            <td><b>Phone:</b></td>
+                            <td><b>{{ 'SUPPORT.PHONE' | translate }}:</b></td>
                             <td>
                                 <input matInput
                                     type="text"
-                                    placeholder="Enter your Phone number"
+                                    placeholder="{{ 'SUPPORT.PHONE-PLACEHOLDER' | translate }}"
                                     class="field"
                                     formControlName="phone">
                             </td>
                         </tr>
                         <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('subject')">
                             <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
+                            <td><p style="color: red"><b>{{ 'SUPPORT.FIELD-IS-REQUIRED' | translate }}</b></p></td>
                         </tr>
                         <tr valign="top">
-                            <td><b>Subject:</b></td>
+                            <td><b>{{ 'SUPPORT.SUBJECT' | translate }}:</b></td>
                             <td>
                                 <input matInput
                                     type="text"
-                                    placeholder="Enter a subject"
+                                    placeholder="{{ 'SUPPORT.SUBJECT-PLACEHOLDER' | translate }}"
                                     class="field"
                                     formControlName="subject">
                             </td>
                         </tr>
                         <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('message')">
                             <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
+                            <td><p style="color: red"><b>{{ 'SUPPORT.FIELD-IS-REQUIRED' | translate }}</b></p></td>
                         </tr>
                         <tr valign="top">
-                            <td><b>Message:</b></td>
+                            <td><b>{{ 'SUPPORT.MESSAGE' | translate }}:</b></td>
                             <td>
                                 <textarea matInput
                                     type="text"
-                                    placeholder="Enter a message"
+                                    placeholder="{{ 'SUPPORT.MESSAGE-PLACEHOLDER' | translate }}"
                                     class="field"
                                     rows="10"
                                     formControlName="message"></textarea>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <td><b>Upload file:</b></td>
+                            <td><b>{{ 'SUPPORT.UPLOAD-FILE' | translate }}:</b></td>
                             <td>
                                 <input 
                                     class="ng-hide"
@@ -132,7 +124,7 @@
                             <td></td>
                             <td>
                                 <mat-checkbox formControlName="recipe">
-                                    Send me a copy
+                                    {{ 'SUPPORT.SEND-ME-A-COPY' | translate }}
                                 </mat-checkbox>
                             </td>
                         </tr>
@@ -148,17 +140,16 @@
                                     class="send"
                                     [disabled]="loading"
                                     (click)="submit()">
-                                    SUBMIT ENQUIRY
+                                    {{ 'SUPPORT.SUBMIT-ENQUIRY' | translate }}
                                 </button>
                             </td>
                         </tr>
                     </table>
                 </form>
 
-
             </mat-card-content>
         </mat-card>
-
     </div>
-</div>
+    <!-- /Right column -->
 
+</div>

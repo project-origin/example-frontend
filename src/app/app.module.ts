@@ -2,7 +2,9 @@ import "reflect-metadata";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { RouterModule, Routes } from '@angular/router';
@@ -93,6 +95,12 @@ registerLocaleData(localeDa, 'da');
 const DEBUG = false;
 
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+
 const appRoutes: Routes = [
   { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
   { path: 'signin', component: SigninComponent },
@@ -166,6 +174,15 @@ const appRoutes: Routes = [
     ShowPeakMeasurementDialogComponent,
   ],
   imports: [
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: DEBUG }

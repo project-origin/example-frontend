@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SupportService, SubmitSupportEnquiryRequest, SubmitSupportEnquiryResponse } from 'src/app/services/support.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,11 +13,19 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class SupportComponent implements OnInit {
 
+  // subjectTypes = [
+  //   {value: 'Spørgsmål', label: 'Question'},
+  //   {value: 'Ændringsønske', label: 'Feature request'},
+  //   {value: 'Fejl', label: 'Bug or error'},
+  // ];
   subjectTypes = [
-    {value: 'Spørgsmål', label: 'Question'},
-    {value: 'Ændringsønske', label: 'Feature request'},
-    {value: 'Fejl', label: 'Bug or error'},
+    {value: 'Spørgsmål', label: ''},
+    {value: 'Ændringsønske', label: ''},
+    {value: 'Fejl', label: ''},
   ];
+
+
+  translateSubscription: Subscription;
 
 
   loading: boolean = false;
@@ -35,18 +45,34 @@ export class SupportComponent implements OnInit {
 
 
   constructor(
+    private translate: TranslateService,
     private authService: AuthService,
     private supportService: SupportService,
   ) { }
 
 
   ngOnInit() {
+    this.translate.get('SUPPORT.ENQUIRY-TYPES.QUESTION').subscribe((s: string) => {
+      this.subjectTypes[0].label = s;
+    });
+    this.translate.get('SUPPORT.ENQUIRY-TYPES.FEATURE-REQUEST').subscribe((s: string) => {
+      this.subjectTypes[1].label = s;
+    });
+    this.translate.get('SUPPORT.ENQUIRY-TYPES.BUG').subscribe((s: string) => {
+      this.subjectTypes[2].label = s;
+    });
+
     this.form.patchValue({
       subjectType: 'Spørgsmål',
       email: this.authService.user.email,
       phone: this.authService.user.phone,
       recipe: true,
     });
+  }
+
+
+  onLanguageChanged(event: LangChangeEvent) {
+
   }
 
 

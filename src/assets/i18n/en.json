@@ -1,0 +1,199 @@
+{
+    "COMMON": {
+        "FILTER": "Filter",
+        "RESET-FILTERS": "Reset all filters",
+        "EXPORT-CSV": "Export CSV",
+        "INBOUND": "Inbound",
+        "STORED": "Stored",
+        "OUTBOUND": "Outbound",
+        "ISSUED": "Issued",
+        "RETIRED": "Retired",
+        "EXPIRED": "Expired",
+        "ALL": "All",
+        "PRODUCTION": "Production",
+        "CONSUMPTION": "Consumption",
+        "TRY-AGAIN": "Try again",
+        "NAME": "Name",
+        "ADDRESS": "Address",
+        "TAGS": "Tags",
+        "PRIORITY": "Priority",
+        "TECHNOLOGY": "Technology",
+        "DATES": "Dates",
+        "BEGIN": "Begin",
+        "END": "End",
+        "DELETE": "Delete",
+        "VIEW": "View",
+        "LOADING": "Loading",
+        "FILTERS": {
+            "DATE": "Date",
+            "TYPE": "Type",
+            "TAGS": "Tags",
+            "SECTOR": "Sector",
+            "SEARCH": "Search"
+        }
+    },
+
+    "MAIN": {
+        "PERFORM-ONBOARDING": "Perform onboarding via ElOverblik to import your facilities, measurements and GGOs",
+        "START-ONBOARDING": "Start onboarding",
+        "TOOLBAR": {
+            "DASHBOARD": "DASHBOARD",
+            "COMMODITIES": "COMMODITIES",
+            "TRANSFER": "TRANSFER",
+            "RETIRE": "RETIRE",
+            "FACILITIES": "FACILITIES",
+            "DISCLOSURE": "DISCLOSURE",
+            "FORECAST": "FORECAST",
+            "SUPPORT": "SUPPORT",
+            "PENDING-PROPOSALS": "Pending proposals",
+            "EDIT-PROFILE": "Edit profile",
+            "ACCOUNT-DETAILS": "Account details",
+            "LOG-OUT": "Log out"
+        }
+    },
+
+    "DASHBOARD": {
+        "GGO-OVERVIEW": "GGO Overview",
+        "STORED-GGOS": "Stored GGOs",
+        "PRODUCTION-CONSUMPTION-FACILITIES": "Production and consumption facilities",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
+        "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs",
+        "TRANSFER": "Transfers",
+        "INBOUND-GGOS": "Inbound GGOs",
+        "OUTBOUND-GGOS": "Outbound GGOs",
+        "ABOUT": {
+            "HEADLINE": "About",
+            "INTRO": "The dashboard gives you an overview of all the GGOs (Granular Guarantees of Origin). You can modify the overview by choosing a date or period in the filter below. This filter is applied to all graphs on this page.",
+            "INBOUND-TEXT": "The sum of GGOs transferred into your account.",
+            "STORED-TEXT": "The sum of GGOs available for trade or retirement (=consumption).",
+            "OUTBOUND-TEXT": "The sum of GGOs transferred from your account to others.",
+            "ISSUED-TEXT": "he sum of GGOs issued by Eloprindelse correlated to your own electricity production as registered on the \"Facilities\"-page.",
+            "RETIRED-TEXT": "The sum of GGOs correlated to your own electricity consumption as registered on the \"Facilities\"-page. Retired means that a GGO has been used/paired with consumption.",
+            "EXPIRED-TEXT": "The sum of GGOs that is too old and has expired. A GGO expires after xx months."
+        }
+    },
+
+    "COMMODITIES": {
+        "ABOUT": "The filter on the Commodities page allows you modify the data displayed in the graphs. The chosen parameters will be applied if you choose to export data to CSV or disclose data.",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
+        "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs",
+        "EXPORT-CSV": {
+            "BUTTON-TEXT": "Export CSV",
+            "TOOLTIP": "You can export the data shown in the graphs to a CSV-file",
+            "MEASUREMENTS": "Measurements",
+            "GGO-SUMMARY": "GGO Summary",
+            "GGO-LIST": "GGO List"
+        },
+        "DISCLOSE-DATA": {
+            "BUTTON-TEXT": "Disclose data",
+            "TOOLTIP": "You can generate a link that allows you to share the displayed graphs with others. You can always delete a link on the Disclosure page. Your data will not be accessible to others after deletion"
+        },
+        "FACILITIES": {
+            "HEADLINE": "Specific facilities",
+            "RESET": "Reset selected facilities",
+            "LOADING-FAILED": "Failed to load facilities",
+            "TOOLTIP": "Choose one or more facilities, that you have onboarded. Chosen facilities turn green. You can onboard further facilities on the Facilities page"
+        }
+    },
+
+    "RETIRE": {
+        "HEADLINE": "GGO Retire Priority",
+        "SAVING-CHANGES": "Saving changes...",
+        "FACILITIES-RECEIVING-GGOS": "Receiving Facilities",
+        "FACILITIES-NOT-RECEIVING-GGOS": "Facilities not receiving GGOs",
+        "FACILITIES": "",
+        "ABOUT": {
+            "HEADLINE": "About",
+            "TEXT": "On this page you can chose which of your consumption facilities should get your GGOs.\n\nTo change the priority drag you facilities to the correct order. The top one is the highest priority to guarantee the origin of. The system will now automatically retire new GGOs to these facilities.\n\nFacilities in the lower part will not receive any GGOs."
+        },
+        "RETIRE-BACK-IN-TIME": {
+            "HEADLINE": "Retire back in time",
+            "TEXT": "If you have moved a facility into \"Receiving facilities\" and want to retire previous stored GGOs to them, click this button bellow. The process may take a while to complete.",
+            "BUTTON-TEXT": "Retire now",
+            "IN-PROGRESS": "Retiring in progress...",
+            "FAILED": "Failed to start retiring, please try again"
+        },
+        "CONSUMING-FACILITIES-EMPTY": {
+            "HEADLINE": "No consuming facilities are set to receive GGOs when transferring",
+            "TEXT": "Drag facilities up here for them to receive GGOs in the prioritized order GGOs should be distributed"
+        },
+        "NOT-CONSUMING-FACILITIES-EMPTY": {
+            "HEADLINE": "All consuming facilities are set to receive GGOs when transferring",
+            "TEXT": "Drag facilities down here to disable receiving of GGOs"
+        }
+    },
+
+    "FACILITIES": {
+        "HEADLINE": "Facilities",
+        "NO-FACILITIES-FOUND": {
+            "HEADLINE": "No facilities found",
+            "TEXT": "Start onboarding from ElOverblik by clicking the button to the left to import your facilities"
+        },
+        "ABOUT": {
+            "HEADLINE": "About",
+            "TEXT": "On this page you have an overview of the facilities (metering points) you have onboarded into your account.\n\nThese facilities are split into two categories, production facilities that produce electricity, and consumption facilities that use electricity.\n\nIf you click on a facility, you can change the name of a facility or add tags to better enable filtering the facilities."
+        },
+        "IMPORT-FACILITIES": {
+            "HEADLINE": "Import facilities",
+            "TEXT": "By clicking the button below you are redirected to Energinet's DataHub where you can authorize this application to pull data on your facilities.",
+            "BUTTON-TEXT": "Start onboarding"
+        },
+        "EDIT-DETAILS-DIALOG": {
+            "HEADLINE": "Edit facility details",
+            "ENTER-FACILITY-NAME": "Enter facility name",
+            "ADD-TAG": "Add tag",
+            "TAGS-APPEAR-HERE": "Tags will appear here once added (above)"
+        }
+    },
+
+    "DISCLOSURE": {
+        "HEADLINE": "Data Disclosure",
+        "ABOUT": {
+            "HEADLINE": "About",
+            "TEXT": "On this page you can see a list of your current public disclosures. A link to them, as well as delete them.\n\nTo create a new disclosure go to the Commodities tab. Select the facilities and time frame you wish to disclosure, and press the disclosure button.\n\nA disclosure is the part of your consumption you have chosen to make publicly available for other people to verify and see."
+        },
+        "EMPTY": {
+            "HEADLINE": "No disclosures found",
+            "TEXT": "Create disclosures by navigating to Commodities, then filtering the data you want to disclose, and then click the DISCLOSE DATA button."
+        }
+    },
+
+    "SUPPORT": {
+        "HEADLINE": "Submit a Support Enquiry",
+        "TEXT": "The easiest way to get support is by filling out the form below.",
+        "ERROR-TEXT": "Please fill out all the required fields",
+        "SUBMITTED-TEXT": "Your enquiry has been submitted",
+        "FIELD-IS-REQUIRED": "This field is required",
+        "ENQUIRY-TYPE": "Enquiry type",
+        "EMAIL": "E-mail",
+        "EMAIL-PLACEHOLDER": "Enter your E-mail",
+        "PHONE": "Phone",
+        "PHONE-PLACEHOLDER": "Enter your Phone number",
+        "SUBJECT": "Subject",
+        "SUBJECT-PLACEHOLDER": "Enter a subject",
+        "MESSAGE": "Message",
+        "MESSAGE-PLACEHOLDER": "Enter a message",
+        "UPLOAD-FILE": "Upload file",
+        "SEND-ME-A-COPY": "Send me a copy",
+        "SUBMIT-ENQUIRY": "Submit enquiry",
+        "ABOUT": {
+            "HEADLINE": "Contact EnergiNet",
+            "TEXT": "If your are experiencing problems or have questions or feedback, please don't hesitate to contact us.\n\nPlease use this form on the right, and we will contact you as soon as possibly."
+        },
+        "ENQUIRY-TYPES": {
+            "QUESTION": "Question",
+            "FEATURE-REQUEST": "Feature request",
+            "BUG": "Bug or error"
+        }
+    },
+
+    "PLOTS": {
+        "BACK-IN-TIME": "Back in time",
+        "FORWARD-IN-TIME": "Forward in time",
+        "ZOOM-IN": "Zoom in",
+        "ZOOM-OUT": "Zoom out",
+        "RESET-DATES": "Reset dates",
+        "FAILED-TO-LOAD": "FAILED TO LOAD PLOT DATA"
+    }
+
+}

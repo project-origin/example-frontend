@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SettingsService } from 'src/app/services/settings.service';
 import { User } from 'src/app/services/auth/models';
 import { AgreementService, CountPendingProposalsResponse } from 'src/app/services/agreements/agreement.service';
-import { SettingsService } from 'src/app/services/settings.service';
 import { AccountDetailsDialogComponent } from 'src/app/pages/account/account-details-dialog/account-details-dialog.component';
+
 
 
 @Component({
@@ -22,6 +24,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private translate: TranslateService,
     private dialog: MatDialog,
     private settings: SettingsService,
     private router: Router,
@@ -84,36 +87,59 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
 
-  isDashboard() : boolean {
+  get isDashboard() : boolean {
     return this.router.url.startsWith('/app/dashboard');
   }
 
-  isCommodities() : boolean {
+  get isCommodities() : boolean {
     return this.router.url.startsWith('/app/commodities');
   }
 
-  isTransfer() : boolean {
+  get isTransfer() : boolean {
     return this.router.url.startsWith('/app/transfer');
   }
 
-  isRetire() : boolean {
+  get isRetire() : boolean {
     return this.router.url.startsWith('/app/retire');
   }
 
-  isFacilities() : boolean {
+  get isFacilities() : boolean {
     return this.router.url.startsWith('/app/facilities');
   }
 
-  isDisclosure() : boolean {
+  get isDisclosure() : boolean {
     return this.router.url.startsWith('/app/disclosure');
   }
 
-  isForecast() : boolean {
+  get isForecast() : boolean {
     return this.router.url.startsWith('/app/forecast');
   }
 
-  isSupport() : boolean {
+  get isSupport() : boolean {
     return this.router.url.startsWith('/app/support');
+  }
+
+
+  // Translation -------------------------------------------------------------
+
+
+  get currentLang() : string {
+    return this.translate.currentLang;
+  }
+
+
+  get isEnglish() : boolean {
+    return this.currentLang == 'en';
+  }
+
+
+  get isDanish() : boolean {
+    return this.currentLang == 'da';
+  }
+
+
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
   }
 
 }

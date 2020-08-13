@@ -1,6 +1,6 @@
 
 <div class="dialog-header">
-    <h1>Edit facility details</h1>
+    <h1>{{ 'FACILITIES.EDIT-DETAILS-DIALOG.HEADLINE' | translate }}</h1>
     <h2>{{facility.address}}, {{facility.postcode}} {{facility.cityName}}</h2>
     <h2>GSRN: {{facility.gsrn}}</h2>
 </div>
@@ -11,12 +11,15 @@
     <input matInput
         type="text"
         class="field" 
-        placeholder="Enter facility name"
+        [placeholder]="'FACILITIES.EDIT-DETAILS-DIALOG.ENTER-FACILITY-NAME' | translate"
         [value]="name"
         (input)="name = $event.target.value">
 
     
-    <input matInput type="text" placeholder="Add tag" class="field"
+    <input matInput
+        type="text"
+        class="field"
+        [placeholder]="'FACILITIES.EDIT-DETAILS-DIALOG.ADD-TAG' | translate"
         [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         [matChipInputAddOnBlur]="addOnBlur"
@@ -24,19 +27,18 @@
 
     <div class="field">
         <div *ngIf="tags.length === 0">
-            Tags will appear here once added (above)<br>&nbsp;
+            {{ 'FACILITIES.EDIT-DETAILS-DIALOG.TAGS-APPEAR-HERE' | translate }}<br>&nbsp;
         </div>
 
         <mat-chip-list #chipList>
-            <mat-chip *ngFor="let tag of tags"
+            <mat-chip
+                *ngFor="let tag of tags"
                 [selectable]="selectable"
                 [removable]="removable"
                 (removed)="removeTag(tag)">
-
                 {{tag}}
-
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
         </mat-chip-list>
     </div>
     

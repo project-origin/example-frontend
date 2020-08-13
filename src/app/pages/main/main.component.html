@@ -13,9 +13,11 @@
 
     <div class="content-container">
         <div class="legend onboarding" *ngIf="showOnboardingMessage">
-            <span>Perform onboarding via ElOverblik to import your facilities, measurements and GGOs</span>
+            <span>{{ 'MAIN.PERFORM-ONBOARDING' | translate }}</span>
             <span class="fill-remaining"></span>
-            <span><button mat-button (click)="startOnboarding()">START ONBOARDING</button></span>
+            <span><button mat-button (click)="startOnboarding()">
+                {{ 'MAIN.START-ONBOARDING' | translate }}
+            </button></span>
         </div>
 
         <div class="content">

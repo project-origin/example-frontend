@@ -74,3 +74,8 @@ p.name {
     font-weight: bold;
     background-color: #f4d34f;
 }
+
+
+.selected {
+    font-weight: bold;
+}

@@ -74,7 +74,8 @@ export class CommodityPlotComponent implements OnChanges {
     if(response.success) {
       if(!this.labels || this.labels.length == 0 && response.labels)
         this.labels = response.labels;
-      this.lines = [response.measurements];
+      if(response.measurements)
+        this.lines = [response.measurements];
     }
     this.onLoadComplete();
   }
@@ -103,7 +104,8 @@ export class CommodityPlotComponent implements OnChanges {
     if(response.success) {
       if(!this.labels || this.labels.length == 0 && response.labels)
         this.labels = response.labels;
-      this.bars = response.ggos;
+      if(response.ggos)
+        this.bars = response.ggos;
     }
     this.onLoadComplete();
   }

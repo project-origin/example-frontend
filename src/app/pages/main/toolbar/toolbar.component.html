@@ -4,21 +4,37 @@
 
         <div class="fill-remaining"></div>
 
-        <a mat-button routerLink="/app/dashboard" [class.current]="isDashboard()">DASHBOARD</a>
+        <a mat-button routerLink="/app/dashboard" [class.current]="isDashboard">
+            {{ 'MAIN.TOOLBAR.DASHBOARD' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/commodities" [class.current]="isCommodities()">COMMODITIES</a>
+        <a mat-button routerLink="/app/commodities" [class.current]="isCommodities">
+            {{ 'MAIN.TOOLBAR.COMMODITIES' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/transfer" [class.current]="isTransfer()">TRANSFER</a>
+        <a mat-button routerLink="/app/transfer" [class.current]="isTransfer">
+            {{ 'MAIN.TOOLBAR.TRANSFER' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/retire" [class.current]="isRetire()">RETIRE</a>
+        <a mat-button routerLink="/app/retire" [class.current]="isRetire">
+            {{ 'MAIN.TOOLBAR.RETIRE' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/facilities" [class.current]="isFacilities()">FACILITIES</a>
+        <a mat-button routerLink="/app/facilities" [class.current]="isFacilities">
+            {{ 'MAIN.TOOLBAR.FACILITIES' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/disclosure" [class.current]="isDisclosure()">DISCLOSURE</a>
+        <a mat-button routerLink="/app/disclosure" [class.current]="isDisclosure">
+            {{ 'MAIN.TOOLBAR.DISCLOSURE' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/forecast" [class.current]="isForecast()">FORECAST</a>
+        <a mat-button routerLink="/app/forecast" [class.current]="isForecast">
+            {{ 'MAIN.TOOLBAR.FORECAST' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/support" [class.current]="isSupport()">SUPPORT</a>
+        <a mat-button routerLink="/app/support" [class.current]="isSupport">
+            {{ 'MAIN.TOOLBAR.SUPPORT' | translate }}
+        </a>
 
         <div class="fill-remaining"></div>
 
@@ -39,13 +55,26 @@
 
         <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/app/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
-                Pending proposals ({{ pendingProposals }})
+                {{ 'MAIN.TOOLBAR.PENDING-PROPOSALS' | translate }} ({{ pendingProposals }})
             </button>
 
-            <button mat-menu-item (click)="editProfil()">Edit profile</button>
-            <button mat-menu-item (click)="showAccountDetails()">Account details</button>
+            <button mat-menu-item (click)="editProfil()">
+                {{ 'MAIN.TOOLBAR.EDIT-PROFILE' | translate }}
+            </button>
+            <button mat-menu-item (click)="showAccountDetails()">
+                {{ 'MAIN.TOOLBAR.ACCOUNT-DETAILS' | translate }}
+            </button>
             <mat-divider></mat-divider>
-            <button mat-menu-item (click)="logOut()">Log out</button>
+            <button mat-menu-item (click)="changeLanguage('en')" [class.selected]="isEnglish">
+                English
+            </button>
+            <button mat-menu-item (click)="changeLanguage('da')" [class.selected]="isDanish">
+                Dansk
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logOut()">
+                {{ 'MAIN.TOOLBAR.LOG-OUT' | translate }}
+            </button>
         </mat-menu>
     </mat-toolbar-row>
 </mat-toolbar>

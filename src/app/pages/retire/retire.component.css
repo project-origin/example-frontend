@@ -1,83 +1,63 @@
+.facility-table {
+    margin-bottom: 30px;
+}
 
-.retire {
+.table-row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10px;
+}
+
+.table-legend {
+    margin: 10px 0;
+    padding: 10px 20px;
+    color: #363636;
+    background-color: #f0efef;
+}
+
+.table-item {
+    cursor: row-resize;
+    padding: 17px 20px;
+    margin-bottom: 2px;
+    border: #d2d2d2 solid 2px;
+}
+
+.table-item.selected {
+    background-color: #f0efef;
+    border: #61ac95 solid 2px;
+}
+
+
+.name-gsrn { flex: 2 2 0; }
+.type { flex: 1 1 0; }
+.address { flex: 2 2 0; }
+.tags { flex: 2 2 0; }
+.priority { 
+    flex: 1 1 0;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+.priority mat-spinner { margin-left: 8px; }
+.icon { flex: 1 1 0; text-align: right; }
+
+.name {
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 
 
-.about {
-    flex: 1 1 0;
-    margin-right: 10px;
+.inactive {
+    opacity: 0.5;
 }
 
-
-.list {
-    flex: 2 2 0;
-    display: flex;
-    flex-direction: column;
+.empty {
+    padding: 40px 0;
+    margin-bottom: 2px;
+    justify-content: center;
+    text-align: center;
+    border: #d2d2d2 solid 2px;
 }
-
-
-    .list .facility-table {
-        margin-bottom: 30px;
-    }
-
-    .list .table-row {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        border-radius: 10px;
-    }
-
-    .list .table-legend {
-        margin: 10px 0;
-        padding: 10px 20px;
-        color: #363636;
-        background-color: #f0efef;
-    }
-
-    .list .table-item {
-        cursor: row-resize;
-        padding: 17px 20px;
-        margin-bottom: 2px;
-        border: #d2d2d2 solid 2px;
-    }
-
-    .list .table-item.selected {
-        background-color: #f0efef;
-        border: #61ac95 solid 2px;
-    }
-
-
-    .list .name-gsrn { flex: 2 2 0; }
-    .list .type { flex: 1 1 0; }
-    .list .address { flex: 2 2 0; }
-    .list .tags { flex: 2 2 0; }
-    .list .priority { 
-        flex: 1 1 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    .list .priority mat-spinner { margin-left: 8px; }
-    .list .icon { flex: 1 1 0; text-align: right; }
-
-    .list .name {
-        display: block;
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 4px;
-    }
-
-
-    .inactive {
-        opacity: 0.5;
-    }
-
-    .list .empty {
-        padding: 40px 0;
-        margin-bottom: 2px;
-        justify-content: center;
-        text-align: center;
-        border: #d2d2d2 solid 2px;
-    }

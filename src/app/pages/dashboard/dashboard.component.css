@@ -1,28 +1,17 @@
 
-.dashboard {
-    display: flex;
-    flex-direction: row;
-}
-
-.filters {
-    flex: 1 1 0;
-    margin-right: 10px;
-}
-
-
-.filters .filter {
+.filter {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 20px;
 }
 
-.filters .icon {
+.icon {
     flex: 1 1 0;
     min-width: 26px;
 }
 
-.filters .label {
+.label {
     flex: 3 3 0;
     min-width: 60px;
     font-size: 16px;
@@ -30,7 +19,7 @@
     color: #2b505d;
 }
 
-.filters .field {
+.field {
     flex: 9 9 0;
     display: flex;
     min-width: 100px;
@@ -42,7 +31,7 @@
     color: #a6a6a6;
 }
 
-.filters .field input {
+.field input {
     flex-grow: 1;
     outline: none;
     border: none;
@@ -56,23 +45,17 @@ input:disabled {
 }
 
 
-.filters .field.daterange {
+.field.daterange {
     padding-top: 6px;
     padding-bottom: 5px;
 }
 
-.filters .field.daterange sat-datepicker-toggle {
+.field.daterange sat-datepicker-toggle {
     flex-grow: 0;
 }
 
-::ng-deep .filters  .daterange .mat-icon-button {
+::ng-deep .daterange .mat-icon-button {
     width: 24px !important;
     height: 24px !important;
     line-height: 24px;
-}
-
-.details {
-    flex: 2 2 0;
-    display: flex;
-    flex-direction: column;
 }

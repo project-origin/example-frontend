@@ -1,63 +1,53 @@
+<div class="page">
 
-<div class="retire">
-
+    <!-- Left column -->
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>About</h1>
-                
-                <p>
-                    On this page you can chose which of your consumption facilities should get your GGOs.
-                </p>
-                <p>
-                    To change the priority drag you facilities to the correct order. <br>
-                    The top one is the highest priority to guarantee the origin of. <br>
-                    The system will now automatically retire new GGOs to these facilities.
-                </p>
-                <p>
-                    Facilities in the lower part will not receive any GGOs.
+                <h1>{{ 'RETIRE.ABOUT.HEADLINE' | translate }}</h1>
+
+                <p style="white-space: pre-wrap;">
+                    {{ 'RETIRE.ABOUT.TEXT' | translate }}
                 </p>
             </mat-card-content>
         </mat-card>
 
-        
         <mat-card>
             <mat-card-content>
-                <h1>Retire back in time</h1>
-                <p>
-                    If you have moved a facility into "Receiving facilities" and want to retire previous stored GGOs to them, click this button bellow. <br>
-                    The process may take a while to complete.
-                </p>
+                <h1>{{ 'RETIRE.RETIRE-BACK-IN-TIME.HEADLINE' | translate }}</h1>
+                <p>{{ 'RETIRE.RETIRE-BACK-IN-TIME.TEXT' | translate }}</p>
                 
                 <p *ngIf="!retiringBackInTime">
                     <button type="button" mat-flat-button color="primary" (click)="retireBackInTime()">
-                        RETIRE NOW
+                        {{ 'RETIRE.RETIRE-BACK-IN-TIME.BUTTON-TEXT' | translate }}
                     </button>
                 </p>
 
                 <p *ngIf="retiringBackInTime">
-                    Retiring in progress...
+                    {{ 'RETIRE.RETIRE-BACK-IN-TIME.IN-PROGRESS' | translate }}
                 </p>
 
                 <p *ngIf="retiringBackInTimeError" style="color:red">
-                    Failed to start retiring, please try again
+                    {{ 'RETIRE.RETIRE-BACK-IN-TIME.FAILED' | translate }}
                 </p>
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
 
-    <div class="list">
-        
+    <!-- Right column -->
+    <div class="content">
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <h1>GGO Retire Priority</h1>
+                    <h1>{{ 'RETIRE.HEADLINE' | translate }}</h1>
                     <div class="fill-remaining"></div>
                     <app-spinner-text
-                        text="Saving changes..."
+                        *ngIf="submitting"
                         [diameter]="16"
-                        *ngIf="submitting"></app-spinner-text>
+                        [text]="'RETIRE.SAVING-CHANGES' | translate">
+                    </app-spinner-text>
                 </div>
         
 
@@ -66,15 +56,15 @@
 
                 <div *ngIf="!loadingFacilities">
 
-                    <!-- Active -->
+                    <!-- Active (receiving GGOs) -->
                     <div class="facility-table">
-                        <h2>Receiving Facilities</h2>
+                        <h2>{{ 'RETIRE.FACILITIES-RECEIVING-GGOS' | translate }}</h2>
                         <div class="table-row table-legend">
-                            <span class="name-gsrn">Name</span>
+                            <span class="name-gsrn">{{ 'COMMON.NAME' | translate }}</span>
                             <span class="type"></span>
-                            <span class="address">Address</span>
-                            <span class="tags">Tags</span>
-                            <span class="priority">Priority</span>
+                            <span class="address">{{ 'COMMON.ADDRESS' | translate }}</span>
+                            <span class="tags">{{ 'COMMON.TAGS' | translate }}</span>
+                            <span class="priority">{{ 'COMMON.PRIORITY' | translate }}</span>
                             <span class="icon"></span>
                         </div>
                         
@@ -87,10 +77,9 @@
 
                             <div class="table-row empty" *ngIf="active.length == 0">
                                 <div>
-                                    <b>No consuming facilities are set to receive GGOs when transferring</b>
+                                    <b>{{ 'RETIRE.CONSUMING-FACILITIES-EMPTY.HEADLINE' | translate }}</b>
                                     <br><br>
-                                    Drag facilities up here for them to receive GGOs in the prioritized
-                                    order GGOs should be distributed
+                                    {{ 'RETIRE.CONSUMING-FACILITIES-EMPTY.TEXT' | translate }}
                                 </div>
                             </div>
 
@@ -100,7 +89,9 @@
                                     {{ facility.gsrn }}
                                 </span>
                                 <span class="type">
-                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                    <app-facility-type-badge
+                                        [facilityType]="facility.facilityType">
+                                    </app-facility-type-badge>
                                 </span>
                                 <span class="address">
                                     {{ facility.address }}<br>
@@ -111,7 +102,6 @@
                                 </span>
                                 <span class="priority">
                                     {{ getPriority(facility) + 1 }}
-                                    <!-- <mat-spinner [diameter]="24" *ngIf="isLoading(facility)"></mat-spinner> -->
                                 </span>
                                 <span class="icon">
                                     <img src="/assets/icon_sort.png">
@@ -119,16 +109,17 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /Active (receiving GGOs) -->
             
 
-                    <!-- Inactive -->
+                    <!-- Inactive (not receiving GGOs) -->
                     <div class="facility-table">
-                        <h2>Facilities not receiving GGOs</h2>
+                        <h2>{{ 'RETIRE.FACILITIES-NOT-RECEIVING-GGOS' | translate }}</h2>
                         <div class="table-row table-legend">
-                            <span class="name-gsrn">Name</span>
+                            <span class="name-gsrn">{{ 'COMMON.NAME' | translate }}</span>
                             <span class="type"></span>
-                            <span class="address">Address</span>
-                            <span class="tags">Tags</span>
+                            <span class="address">{{ 'COMMON.ADDRESS' | translate }}</span>
+                            <span class="tags">{{ 'COMMON.TAGS' | translate }}</span>
                             <span class="priority"></span>
                             <span class="icon"></span>
                         </div>
@@ -146,7 +137,9 @@
                                     {{ facility.gsrn }}
                                 </span>
                                 <span class="type">
-                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                    <app-facility-type-badge
+                                        [facilityType]="facility.facilityType">
+                                    </app-facility-type-badge>
                                 </span>
                                 <span class="address">
                                     {{ facility.address }}<br>
@@ -155,9 +148,7 @@
                                 <span class="tags">
                                     {{ facility.tags.join(', ') }}
                                 </span>
-                                <span class="priority">
-                                    <!-- <mat-spinner [diameter]="24" *ngIf="isLoading(facility)"></mat-spinner> -->
-                                </span>
+                                <span class="priority"></span>
                                 <span class="icon">
                                     <img src="/assets/icon_sort.png">
                                 </span>
@@ -165,20 +156,20 @@
 
                             <div class="table-row empty" *ngIf="inactive.length == 0">
                                 <div>
-                                    <b>All consuming facilities are set to receive GGOs when transferring</b>
+                                    <b>{{ 'RETIRE.NOT-CONSUMING-FACILITIES-EMPTY.HEADLINE' | translate }}</b>
                                     <br><br>
-                                    Drag facilities down here to disable receiving of GGOs
+                                    {{ 'RETIRE.NOT-CONSUMING-FACILITIES-EMPTY.TEXT' | translate }}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /Inactive (not receiving GGOs) -->
 
                 </div>
 
-
             </mat-card-content>
         </mat-card>
-
     </div>
-</div>
+    <!-- /Right column -->
 
+</div>

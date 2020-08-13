@@ -1,22 +1,4 @@
 
-.support {
-    display: flex;
-    flex-direction: row;
-}
-
-
-.about {
-    flex: 1 1 0;
-    margin-right: 10px;
-}
-
-
-.list {
-    flex: 2 2 0;
-    display: flex;
-    flex-direction: column;
-}
-
 
 .field {
     flex: 9 9 0;
