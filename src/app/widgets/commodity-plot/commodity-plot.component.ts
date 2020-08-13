@@ -14,8 +14,8 @@ export class CommodityPlotComponent implements OnChanges {
   @Input() dateFrom: Date;
   @Input() dateTo: Date;
   @Input() filters: IFacilityFilters;
-  @Input() measurementType: MeasurementType;
-  @Input() ggoCategory: GgoCategory;
+  @Input() measurementType: MeasurementType = null;
+  @Input() ggoCategory: GgoCategory = null;
 
   // Loading state
   measurementsLoading: boolean = false;
@@ -43,8 +43,10 @@ export class CommodityPlotComponent implements OnChanges {
     this.labels = [];
     this.lines = [];
     this.bars = [];
-    this.loadMeasurements();
-    this.loadGgos();
+    if(this.measurementType !== null)
+      this.loadMeasurements();
+    if(this.ggoCategory !== null)
+      this.loadGgos();
   }
 
 

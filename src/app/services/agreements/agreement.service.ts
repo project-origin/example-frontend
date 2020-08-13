@@ -106,11 +106,12 @@ export class SubmitProposalRequest {
   direction: AgreementDirection;
   reference: string;
   counterpartId: string;
-  technology: string;
+  technologies: string[];
   amount: number;
   unit: string;
   amountPercent: number;
   limitToConsumption: boolean;
+  proposalNote: string;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
   facilityIds: string[];
@@ -122,13 +123,14 @@ export class SubmitProposalRequest {
     direction: AgreementDirection,
     reference: string,
     counterpartId: string,
-    technology: string,
-    facilityIds: string[],
+    technologies: string[],
+    facilityIds?: string[],
     amount: number,
     unit: string,
     amountPercent: number,
     date: DateRange,
     limitToConsumption: boolean,
+    proposalNote: string,
   }) {
     Object.assign(this, args);
   }
@@ -157,7 +159,7 @@ export class SubmitProposalResponse extends ApiResponse {
 export class RespondToProposalRequest {
   id: string;
   accept: boolean;
-  technology: string;
+  technologies: string[];
   amountPercent: number;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
@@ -166,7 +168,7 @@ export class RespondToProposalRequest {
   constructor(args: {
     id: string,
     accept: boolean,
-    technology?: string,
+    technologies?: string[],
     facilityIds?: string[],
     amountPercent?: number,
   }) {

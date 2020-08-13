@@ -25,7 +25,7 @@ export class ResponseToProposedAgreementComponent implements OnInit {
 
   // Form
   form: FormGroup = new FormGroup({
-    technology: new FormControl(),
+    technologies: new FormControl(),
     facilityIds: new FormControl(),
     amountPercent: new FormControl(),
     showTransferPercent: new FormControl(),
@@ -33,8 +33,8 @@ export class ResponseToProposedAgreementComponent implements OnInit {
   });
 
 
-  get canSelectTechnology() : boolean {
-    return this.agreement.technology == null;
+  get canSelectTechnologies() : boolean {
+    return this.agreement.technologies == null;
   }
 
 
@@ -71,7 +71,7 @@ export class ResponseToProposedAgreementComponent implements OnInit {
 
 
   ngOnInit() {
-    if(this.canSelectTechnology) {
+    if(this.canSelectTechnologies) {
       this.loadTechnologies();
     }
   }
@@ -115,8 +115,8 @@ export class ResponseToProposedAgreementComponent implements OnInit {
     let request = new RespondToProposalRequest({
       id: this.agreement.id,
       accept: accept,
-      technology: (accept && this.canSelectTechnology)
-          ? this.form.get('technology').value
+      technologies: (accept && this.canSelectTechnologies)
+          ? this.form.get('technologies').value
           : null,
       amountPercent: (accept && this.canSelectAmountPercent)
           ? this.form.get('amountPercent').value

@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
 import { MatDividerModule } from '@angular/material/divider';
+import { MatStepperModule } from '@angular/material/stepper'; 
 
 
 // Origin
@@ -82,6 +83,10 @@ import { AgreementDetailsComponent } from './pages/transfer/agreement-details/ag
 import { ShowProposedAgreementComponent } from './pages/transfer/show-proposed-agreement/show-proposed-agreement.component';
 import { ResponseToProposedAgreementComponent } from './pages/transfer/response-to-proposed-agreement/response-to-proposed-agreement.component';
 import { AgreementDetailsTableComponent } from './pages/transfer/agreement-details-table/agreement-details-table.component';
+import { CreateAgreementComponent } from './pages/transfer/create-agreement/create-agreement/create-agreement.component';
+import { CounterpartDropdownDialogComponent } from './pages/transfer/create-agreement/counterpart-dropdown-dialog/counterpart-dropdown-dialog.component';
+import { CounterpartListDialogComponent } from './pages/transfer/create-agreement/counterpart-list-dialog/counterpart-list-dialog.component';
+import { ShowPeakMeasurementDialogComponent } from './pages/transfer/create-agreement/show-peak-measurement-dialog/show-peak-measurement-dialog/show-peak-measurement-dialog.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -99,6 +104,7 @@ const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'commodities', component: CommoditiesComponent },
       { path: 'transfer', component: TransferComponent },
+      { path: 'transfer/propose', component: CreateAgreementComponent },
       { path: 'transfer/:agreementId', component: AgreementDetailsComponent },
       { path: 'retire', component: RetireComponent },
       { path: 'facilities', component: FacilitiesComponent },
@@ -154,6 +160,10 @@ const appRoutes: Routes = [
     AgreementListComponentNEW,
     ResponseToProposedAgreementComponent,
     AgreementDetailsTableComponent,
+    CreateAgreementComponent,
+    CounterpartDropdownDialogComponent,
+    CounterpartListDialogComponent,
+    ShowPeakMeasurementDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -190,6 +200,7 @@ const appRoutes: Routes = [
     MatRadioModule,
     MatTooltipModule,
     MatDividerModule,
+    MatStepperModule,
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],

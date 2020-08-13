@@ -4,7 +4,14 @@
     <div class="details">
         <mat-card>
             <mat-card-content>
-                <h1>Agreement details</h1>
+                <div class="legend">
+                    <button mat-icon-button [routerLink]="['/app/transfer']" style="padding: 2px;" matTooltip="Go back to Transfer">
+                        <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                    <div style="width: 6px;"></div>
+                    <h1>Agreement details</h1>
+                    <div class="fill-remaining"></div>
+                </div>
 
 
                 <app-loading-view *ngIf="loadingAgreement"></app-loading-view>
@@ -27,7 +34,7 @@
 
                     <br><br>
 
-                    <div *ngIf="isOutbound">
+                    <!-- <div *ngIf="isOutbound">
                         <h2>Outbound facilities</h2>
                         <p>
                             Optionally select the facilities to transfer GGOs from.
@@ -52,7 +59,7 @@
                         <span *ngIf="errorSubmittingFacilities" style="color: red">
                             Failed to save facilities. Please try again.
                         </span>
-                    </div>
+                    </div> -->
                 </div>
 
             </mat-card-content>
@@ -66,41 +73,46 @@
 
                 <h1>Transfer summary</h1>
 
-                <div class="legend">
-                    <div class="daterange">
-                        <input matInput disabled
-                            class="dateinput"
-                            [satDatepicker]="datePicker"
-                            (dateChange)="onUserPickedDate($event)"
-                            [value]="pickerValue"
-                            [min]="minDate"
-                            [max]="maxDate">
 
-                        <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                        <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                <app-loading-view *ngIf="loadingAgreement"></app-loading-view>
+
+
+                <div *ngIf="!loadingAgreement">
+                    <div class="legend">
+                        <div class="daterange">
+                            <input matInput disabled
+                                class="dateinput"
+                                [satDatepicker]="datePicker"
+                                (dateChange)="onUserPickedDate($event)"
+                                [value]="pickerValue"
+                                [min]="minDate"
+                                [max]="maxDate">
+
+                            <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                            <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                        </div>
+
+                        <div class="fill-remaining"></div>
+
+                        <div>
+                            <app-zoom-navigate-bar
+                                [dateFrom]="dateFrom"
+                                [dateTo]="dateTo"
+                                (dateChange)="onUserNavigated($event)"
+                                (dateReset)="onReset()">
+                            </app-zoom-navigate-bar>
+                        </div>
                     </div>
 
-                    <div class="fill-remaining"></div>
 
-                    <div>
-                        <app-zoom-navigate-bar
-                            [dateFrom]="dateFrom"
-                            [dateTo]="dateTo"
-                            (dateChange)="onUserNavigated($event)"
-                            (dateReset)="onReset()">
-                        </app-zoom-navigate-bar>
-                    </div>
+                    <app-energy-plot
+                        [loading]="loadingSummary"
+                        [error]="errorLoadingSummary"
+                        [lines]="chartData"
+                        [labels]="chartLabels"
+                        (reload)="loadSummaryData()">
+                    </app-energy-plot>
                 </div>
-
-
-
-                <app-energy-plot
-                    [loading]="loadingSummary"
-                    [error]="errorLoadingSummary"
-                    [lines]="chartData"
-                    [labels]="chartLabels"
-                    (reload)="loadSummaryData()">
-                </app-energy-plot>
 
             </mat-card-content>
         </mat-card>

@@ -91,6 +91,7 @@ export class TransferComponent implements OnInit {
     this.dialog
       .open(ResponseToProposedAgreementComponent, { 
         width: '560px',
+        maxHeight: '90vh',
         panelClass: 'dialog',
         data: { agreement: agreement },
       })
@@ -103,6 +104,7 @@ export class TransferComponent implements OnInit {
     this.dialog
       .open(ShowProposedAgreementComponent, {
         width: '560px',
+        maxHeight: '90vh',
         panelClass: 'dialog',
         data: { agreement: agreement },
       })

@@ -7,6 +7,11 @@
 
 <div class="dialog-body">
 
+
+    <p *ngIf="agreement.proposalNote">
+        <b>Note from sender:</b> {{ agreement.proposalNote }}
+    </p>
+
     <app-agreement-details-table
         [agreement]="agreement">
     </app-agreement-details-table>

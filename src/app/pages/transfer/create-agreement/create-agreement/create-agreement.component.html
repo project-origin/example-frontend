@@ -1,0 +1,432 @@
+
+<div class="page">
+
+    <div class="about">
+        
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <button mat-icon-button [routerLink]="['/app/transfer']" style="padding: 2px;" matTooltip="Go back to Transfer">
+                        <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                    <div style="width: 6px;"></div>
+                    <h1>Propose an agreement</h1>
+                    <div class="fill-remaining"></div>
+                </div>
+                <p>
+                    This formular lets you propose a new GGO transfer agreement
+                    to a trading partner.
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="content">
+        <mat-card>
+            <mat-card-content>
+                <mat-horizontal-stepper linear #stepper *ngIf="!completed">
+
+                    <!-- Direction -->
+                    <mat-step [stepControl]="directionForm">
+                        <ng-template matStepLabel>Direction</ng-template>
+                        
+                        <div style="text-align: center; margin: 50px 0;">
+                            <h2>What would you like to do?</h2>
+
+                            <div style="margin: 50px 0; display: flex; flex-direction: row;">
+                                <div style="flex: 2 2 0"></div>
+                                <div style="flex: 10 10 0; text-align: center;">
+                                    <mat-card matRipple class="option" [class.selected]="isOutbound" (click)="selectOutbound()">
+                                        <mat-card-content>
+                                            <h3>SEND GGOs</h3>
+                                            <p>I want to send GGOs to a trading partner</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 1 1 0"></div>
+                                <div style="flex: 10 10 0; text-align: center;">
+                                    <mat-card matRipple class="option" [class.selected]="isInbound" (click)="selectInbound()">
+                                        <mat-card-content>
+                                            <h3>RECEIVE GGOs</h3>
+                                            <p>I want to receive GGOs from a trading partner</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 2 2 0"></div>
+                            </div>
+                        </div>
+                    </mat-step>
+                
+                
+                    <!-- Period -->
+                    <mat-step [stepControl]="periodForm">
+                        <ng-template matStepLabel>Period</ng-template>
+                        
+                        <form [formGroup]="periodForm">
+                            <div style="text-align: center; margin: 50px 0;">
+                                <h2>When should the agreement begin and end?</h2>
+                                <p>
+                                    This is the period in which GGOs are issued.
+                                    It is possible to transfer back in time.
+                                </p>
+
+                                <div style="margin-top: 50px; display: flex; flex-direction: row; align-items: center;">
+                                    <div style="flex: 2 2 0;"></div>
+                                    <div style="flex: 3 3 0; display: flex; flex-direction: row;">
+                                        <input matInput disabled
+                                            class="field"
+                                            [satDatepicker]="datePicker"
+                                            (dateChange)="onUserPickedDate()"
+                                            formControlName="date"
+                                            [min]="minDate"
+                                            [max]="maxDate">
+        
+                                        <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
+                                        <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                                    </div>
+                                    <div style="flex: 2 2 0;"></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; PREVIOUS
+                            </button>
+
+                            <div class="fill-remaining"></div>
+
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!periodForm.valid" (click)="stepNext()">
+                                NEXT &raquo;
+                            </button>
+                        </div>
+                    </mat-step>
+                
+                
+                    <!-- Amount -->
+                    <mat-step [stepControl]="amountForm">
+                        <ng-template matStepLabel>Amount</ng-template>
+                        
+                        <form [formGroup]="amountForm">
+                            <div style="text-align: center; margin: 50px 0;">
+                                <h2 *ngIf="isInbound">How much energy would you like to receive?</h2>
+                                <h2 *ngIf="isOutbound">How much energy would you like to send?</h2>
+                                <p>
+                                    GGO transfers are measured in Watt-hours (Wh), and are transferred
+                                    on an per-hour basis.<br>You set an upper limit on the number of Wh to
+                                    transfer each hour within the period defined in the previous step.
+                                </p>
+
+                                <div style="margin-top: 50px;">
+                                    <h3 *ngIf="isInbound">Enter the maximum amount of GGOs to receive:</h3>
+                                    <h3 *ngIf="isOutbound">Enter the maximum amount of GGOs to send:</h3>
+
+                                    <div style="display: flex; flex-direction: row; align-items: center;">
+                                        <div style="flex: 10 10 0;"></div>
+
+                                        <input matInput formControlName="amount" class="field" style="flex: 4 4 0;">
+
+                                        <div style="flex: 1 1 0;"></div>
+
+                                        <mat-select formControlName="unit" class="field" style="flex: 4 4 0;">
+                                            <mat-option value="Wh">Wh</mat-option>
+                                            <mat-option value="kWh">kWh</mat-option>
+                                            <mat-option value="MWh">MWh</mat-option>
+                                            <mat-option value="GWh">GWh</mat-option>
+                                        </mat-select>
+                                        
+                                        <div style="flex: 1 1 0;"></div>
+                                        <div style="flex: 4 4 0;">per hour</div>
+                                        <div style="flex: 10 10 0;"></div>
+                                    </div>
+
+                                    <div *ngIf="hasRecommendedAmount" style="margin-top: 25px; text-align: center;">
+                                        <p *ngIf="isInbound">
+                                            {{ recommendedAmount }} {{ recommendedAmountUnit }} is calculated 
+                                            based on your peak consumption for one hour in the selected period
+                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">inspect</a>).
+                                        </p>
+                                        <p *ngIf="isOutbound">
+                                            {{ recommendedAmount }} {{ recommendedAmountUnit }} is calculated 
+                                            based on your peak production for one hour in the selected period
+                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">inspect</a>).
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div style="display: inline-block; text-align: left; margin-top: 50px;">
+                                    <div *ngIf="isOutbound" style="margin-bottom: 30px;">
+                                        <mat-checkbox [(ngModel)]="showAmountPercentage" (change)="onToggleAmountPercent()" [ngModelOptions]="{standalone: true}">
+                                            <h3 style="margin: 0">Transfer percentage of GGOs amount</h3>
+                                        </mat-checkbox>
+                                        <div>
+                                            <p>Always transfer a certain percentage of a GGO</p>
+                                        </div>
+
+                                        <div *ngIf="showAmountPercentage" style="display: flex; flex-direction: row; align-items: center;">
+                                            <input matInput formControlName="amountPercent" class="field" style="flex: 4 4 0;">
+                                            <div style="flex: 1 1 0;"></div>
+                                            <div style="flex: 10 10 0;">percent (%)</div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <mat-checkbox formControlName="limitToConsumption">
+                                            <h3 *ngIf="isInbound" style="margin: 0">Limit transfer to my consumption</h3>
+                                            <h3 *ngIf="isOutbound" style="margin: 0">Limit transfer to recipient's consumption</h3>
+                                        </mat-checkbox>
+                                        <div>
+                                            <p *ngIf="isInbound" >
+                                                If my consumption is low at specific hours, I never<br>
+                                                receive more GGOs than the energy I have consumed
+                                            </p>
+                                            <p *ngIf="isOutbound" >
+                                                If the recipient's consumption is low at specific hours, they<br>
+                                                never receive more GGOs than the energy they have consumed
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; PREVIOUS
+                            </button>
+
+                            <div class="fill-remaining"></div>
+
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!amountForm.valid" (click)="stepNext()">
+                                NEXT &raquo;
+                            </button>
+                        </div>
+                    </mat-step>
+                
+                
+                    <!-- Technologies -->
+                    <mat-step [stepControl]="technologiesForm">
+                        <ng-template matStepLabel>Technologies</ng-template>
+
+
+                        <app-loading-view *ngIf="loadingTechnologies" style="margin-top: 50px;"></app-loading-view>
+
+
+                        <div *ngIf="errorLoadingTechnologies" style="margin-top: 50px; text-align: center;">
+                            <h2>Failed to load technologies</h2>
+                            <button mat-button type="button" class="send" style="margin-top: 25px;"(click)="loadFilteringOptions()">
+                                TRYA GAIN
+                            </button>
+                        </div>
+                        
+
+                        <form [formGroup]="technologiesForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
+                            <div style="text-align: center; margin: 50px 0;">
+                                <h2 *ngIf="isInbound">Which source technologies would you like to receive?</h2>
+                                <h2 *ngIf="isOutbound">Which source technologies would you like to send?</h2>
+
+                                <h3 style="margin-top: 50px;">Select at least one source technology</h3>
+
+                                <!-- Check/uncheck all -->
+                                <div style="text-align: center; margin: 20px 0;">
+                                    <mat-checkbox
+                                        [checked]="allTechnologiesSelected"
+                                        [indeterminate]="checkUncheckAllIsIndeterminate"
+                                        (click)="onCheckUncheckAllTechnologiesChanged($event)">
+                                        Check/uncheck all
+                                    </mat-checkbox>
+                                </div>
+
+                                <!-- Check technologies -->
+                                <div class="legend" style="display: flex; flex-direction: row;">
+                                    <div style="flex: 1 1 0;"></div>
+                                    <mat-selection-list formControlName="technologies" class="list-horizontal technologies-list" style="flex: 3 3 0;">
+                                        <mat-list-option [value]="technology" *ngFor="let technology of availableTechnologies">
+                                            <div style="display: flex; flex-direction: row; align-items: center;">
+                                                <div class="energy-type-avatar {{ technology }}" [class.almost-transparent]="!technologyIsSelected(technology)"></div>
+                                                <div>&nbsp;&nbsp;</div>
+                                                <div>{{ technology }}</div>
+                                            </div>
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    <div style="flex: 1 1 0;"></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; PREVIOUS
+                            </button>
+
+                            <div class="fill-remaining"></div>
+
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!technologiesForm.valid" (click)="stepNext()">
+                                NEXT &raquo;
+                            </button>
+                        </div>
+                    </mat-step>
+                
+                
+                    <!-- Counterpart -->
+                    <mat-step [stepControl]="counterpartForm">
+                        <ng-template matStepLabel>Counterpart</ng-template>
+
+                        <div style="text-align: center; margin: 50px 0;" *ngIf="!hasCounterpart">
+                            <h2 *ngIf="isInbound">How would you like to find a supplier?</h2>
+                            <h2 *ngIf="isOutbound">How would you like to find a recipient?</h2>
+                            
+                            <div style="margin: 50px 0; display: flex; flex-direction: row;" *ngIf="isInbound">
+                                <div style="flex: 1 1 0"></div>
+                                <div style="flex: 5 5 0; text-align: center;">
+                                    <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartDropdownDialog()">
+                                        <mat-card-content>
+                                            <h3>I KNOW MY SUPPLIER</h3>
+                                            <p>I know the name of the company I want to receive GGOs from</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 1 1 0"></div>
+                                <div style="flex: 5 5 0; text-align: center;">
+                                    <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartListDialogDialog()">
+                                        <mat-card-content *ngIf="isInbound">
+                                            <h3>SEARCH FOR A SUPPLIER</h3>
+                                            <p>I want to search for companies that can supply me with GGOs</p>
+                                        </mat-card-content>
+                                        <mat-card-content *ngIf="isOutbound">
+                                            <h3>SEARCH FOR A RECIPIENT</h3>
+                                            <p>I want to search for companies that can supply me with GGOs</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 1 1 0"></div>
+                            </div>
+
+                            <div style="margin: 50px 0; display: flex; flex-direction: row;" *ngIf="isOutbound">
+                                <div style="flex: 4 4 0"></div>
+                                <div style="flex: 5 5 0; text-align: center;">
+                                    <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartDropdownDialog()">
+                                        <mat-card-content>
+                                            <h3>I KNOW MY RECIPIENT</h3>
+                                            <p>I know the name of the company I want to send GGOs to</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 4 4 0"></div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin: 50px 0;" *ngIf="hasCounterpart">
+                            <h2 *ngIf="isInbound">Your have chosen to receive GGOs from {{ counterpartName }}</h2>
+                            <h2 *ngIf="isOutbound">Your have chosen to send GGOs to {{ counterpartName }}</h2>
+
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" (click)="resetCounterpart()" *ngIf="isInbound">
+                                CHOOSE ANOTHER SUPPLIER
+                            </button>
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" (click)="resetCounterpart()" *ngIf="isOutbound">
+                                CHOOSE ANOTHER RECIPIENT
+                            </button>
+                        </div>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; PREVIOUS
+                            </button>
+
+                            <div class="fill-remaining"></div>
+
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!counterpartForm.valid" (click)="stepNext()">
+                                NEXT &raquo;
+                            </button>
+                        </div>
+                        
+                    </mat-step>
+                
+                
+                    <!-- Confirm -->
+                    <mat-step [stepControl]="confirmForm">
+                        <ng-template matStepLabel>Confirm</ng-template>
+                        
+                        <form [formGroup]="confirmForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
+                            <div style="text-align: center; margin-top: 50px;">
+                                <h2 *ngIf="isInbound">Agreement proposal to receive GGOs from {{ counterpartName }}</h2>
+                                <h2 *ngIf="isOutbound">Agreement proposal to send GGOs to {{ counterpartName }}</h2>
+
+                                <p>
+                                    Runs from <b>{{ begin | date }}</b> to <b>{{ end | date }}</b>
+                                </p>
+
+                                <p>
+                                    Transfers
+                                    <span *ngIf="showAmountPercentage">{{ amountPercent }}% of GGOs</span>
+                                    up to <b>{{ amount }} {{ unit }}</b> per hour.
+                                </p>
+
+                                <p *ngIf="isLimitedToConsumption && isInbound">
+                                    Is limited to your consumption: If your consumption is low at specific hours,<br>
+                                    you never receive more GGOs than the energy you have consumed.
+                                </p>
+                                <p *ngIf="isLimitedToConsumption && isOutbound">
+                                    Is limited to the recipient's consumption: If the recipient's consumption is
+                                    low at specific hours,<br>they never receive more GGOs than the energy they have consumed .
+                                </p>
+
+                                <p>
+                                    Only the following source technologies are transferred:<br>
+                                    {{ technologiesString }}
+                                </p>
+                            </div>
+                            
+
+                            <h3 style="text-align: center; margin-top: 50px;">Enter a subject for future reference:</h3>
+
+
+                            <div class="legend" style="margin-top: 20px;">
+                                <div class="fill-remaining"></div>
+                                <input matInput formControlName="reference" class="field" style="width: 350px;">
+                                <div class="fill-remaining"></div>
+                            </div>
+                            
+
+                            <div class="legend" style="margin-top: 50px;">
+                                <div class="fill-remaining"></div>
+                                <div class="field" style="width: 350px; height: 120px">
+                                    <textarea matInput formControlName="proposalNote" [disabled]="submitting" placeholder="Enter a note to the recipient (optional)" style="width: 100%; height: 100%"></textarea>
+                                </div>
+                                <div class="fill-remaining"></div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 50px;">
+                                <button mat-button type="button" class="send" [disabled]="!confirmForm.valid || submitting" (click)="submitProposal()">
+                                    <span *ngIf="!submitting">SUBMIT PROPOSAL</span>
+                                    <span *ngIf="submitting">SUBMITING...</span>
+                                </button>
+                            </div>
+                        </form>
+
+                    </mat-step>
+                
+                </mat-horizontal-stepper>
+
+
+                <div *ngIf="completed">
+                    <div style="text-align: center; margin: 50px 0;">
+                        <h2>Proposal sent</h2>
+
+                        <p>
+                            {{ counterpartName }} has received your agreement proposal.
+                        </p>
+
+                        <p>
+                            You will be able to see the agreement on the Transfer page
+                            as soon as they accept or decline the proposal.
+                        </p>
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

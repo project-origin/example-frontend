@@ -49,11 +49,13 @@ export class AgreementDetailsComponent implements OnInit {
 
 
   get defaultDateFrom() : Date {
+    return this.agreement.dateFrom;
     return moment().subtract(3, 'months').toDate();
   }
 
 
   get defaultDateTo() : Date {
+    return this.agreement.dateTo;
     return moment().toDate();
   }
 
@@ -96,9 +98,6 @@ export class AgreementDetailsComponent implements OnInit {
       if(params.get('dateFrom') && params.get('dateTo')) {
         this.dateFrom = moment(params.get('dateFrom'), 'YYYY-MM-DD').toDate();
         this.dateTo = moment(params.get('dateTo'), 'YYYY-MM-DD').toDate();
-      } else {
-        this.dateFrom = this.defaultDateFrom;
-        this.dateTo = this.defaultDateTo;
       }
       this.loadSummaryData();
     });
@@ -106,7 +105,6 @@ export class AgreementDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.agreementId = params.agreementId || null;
       if(this.agreementId) {
-        this.loadSummaryData();
         this.loadAgreement();
       }
     });
@@ -163,10 +161,12 @@ export class AgreementDetailsComponent implements OnInit {
     this.agreement = response.agreement;
 
     if(response.success) {
-      this.selectedFacilityIds = this.agreement.facilities.map(
-        (facility: Facility) => facility.id);
-
-      this.loadFacilities();
+      this.dateFrom = this.defaultDateFrom;
+      this.dateTo = this.defaultDateTo;
+      this.loadSummaryData();
+      // this.selectedFacilityIds = this.agreement.facilities.map(
+      //   (facility: Facility) => facility.id);
+      // this.loadFacilities();
     }
   }
 
@@ -263,29 +263,29 @@ export class AgreementDetailsComponent implements OnInit {
   // -- Loading available facilities -----------------------------------------
 
 
-  loadFacilities() {
-    this.availableFacilities = [];
-    this.loadingFacilities = true;
-    // this.form.get('facilityIds').reset();
+  // loadFacilities() {
+  //   this.availableFacilities = [];
+  //   this.loadingFacilities = true;
+  //   // this.form.get('facilityIds').reset();
 
-    let request = {
-      filters: {
-        technology: this.agreement.technology,
-        facilityType: FacilityType.production,
-      }
-    };
+  //   let request = {
+  //     filters: {
+  //       technology: this.agreement.technology,
+  //       facilityType: FacilityType.production,
+  //     }
+  //   };
 
-    this.facilityService
-        .getFacilityList(request)
-        .subscribe(this.onFacilitiesLoaded.bind(this));
-  }
+  //   this.facilityService
+  //       .getFacilityList(request)
+  //       .subscribe(this.onFacilitiesLoaded.bind(this));
+  // }
 
 
-  onFacilitiesLoaded(response: GetFacilityListResponse) {
-    this.loadingFacilities = false;
-    if(response.success) {
-      this.availableFacilities = response.facilities;
-    }
-  }
+  // onFacilitiesLoaded(response: GetFacilityListResponse) {
+  //   this.loadingFacilities = false;
+  //   if(response.success) {
+  //     this.availableFacilities = response.facilities;
+  //   }
+  // }
 
 }

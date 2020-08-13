@@ -43,6 +43,19 @@ export enum MeasurementType {
 }
 
 
+export class Measurement {
+  address: string;
+  gsrn: string;
+  type: MeasurementType;
+  sector: string;
+  amount: number;
+  @Type(() => Date)
+  begin: Date;
+  @Type(() => Date)
+  end: Date;
+}
+
+
 export enum GgoCategory {
   issued = 'issued',
   stored = 'stored',

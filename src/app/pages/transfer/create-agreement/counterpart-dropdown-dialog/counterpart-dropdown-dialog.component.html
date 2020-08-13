@@ -1,0 +1,44 @@
+
+<div class="dialog-header">
+    <h1>SELECT COUNTERPART</h1>
+    <h2 style="text-align: center;">
+        Enter name of the company to supply you with GGOs,
+        and select the company in the dropdown.
+    </h2>
+</div>
+
+
+<div class="dialog-body">
+    <form [formGroup]="form">
+
+        <div>
+            <input 
+                matInput type="text"
+                placeholder="Enter counterpart name"
+                class="field"
+                [matAutocomplete]="auto"
+                formControlName="counterpart">
+            
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCounterpartSelected($event)">
+                <mat-option *ngFor="let user of (filteredCounterparts | async)" [value]="user">
+                    {{ user.company }} ({{ user.name }})
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+
+
+        <div>&nbsp;</div>
+
+
+        <!-- Buttons -->
+        <div class="legend">
+            <div class="fill-remaining"></div>
+            <button mat-button type="button" class="cancel" (click)="closeDialog()">
+                CANCEL
+            </button>
+            <div class="fill-remaining"></div>
+
+        </div>
+
+    </form>
+</div>

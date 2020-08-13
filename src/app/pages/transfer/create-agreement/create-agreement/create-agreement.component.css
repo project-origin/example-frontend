@@ -1,0 +1,79 @@
+
+.field {
+    width: calc(100% - 32px);
+    min-width: 100px;
+    padding: 8px 16px;
+    background-color: white;
+    
+    font-size: 1em;
+    font-weight: bold;
+    color: #a6a6a6;
+    
+    outline: none;
+    border: #c1c1c1 solid 2px;
+    border-radius: 20px;
+}
+
+input:focus {
+    color: #4d8a8b;
+    border: #4d8a8b solid 2px;
+}
+
+
+textarea {
+    border: none;
+}
+
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 2px 50px;
+    cursor: pointer;
+}
+
+button.cancel {
+    background-color: #d2d2d2; 
+    color: #797979;
+}
+
+button.send {
+    background-color: #4d8a8b; 
+    color: white;
+}
+
+.list-horizontal {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.list-horizontal mat-list-option {
+    display: inline-block;
+    width: calc(50% - 1px);
+    text-align: left;
+}
+
+.technologies-list mat-list-option:nth-child(odd) {
+    border-right: #e1e1e1 solid 1px;
+}
+
+.almost-transparent {
+    opacity: 0.35;
+    filter: grayscale(100%);
+}
+
+
+.option {
+    cursor: pointer;
+    background-color: e1e1e1;
+}
+
+.option.selected {
+    background-color: #4d8a8b;
+    color: white;
+}
+
+.option.selected * {
+    color: white;
+}

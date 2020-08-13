@@ -23,13 +23,14 @@ export class Agreement {
   id: string;
   reference: string;
   counterpart: string;
-  technology: string;
+  technologies: string[];
   amount: number;
   unit: string;
   amountPercent: number | null;
   dateFrom: Date;
   dateTo: Date;
   limitToConsumption: boolean;
+  proposalNote: string;
 
   @Type(() => Facility)
   facilities: Facility[] = [];
@@ -44,5 +45,9 @@ export class Agreement {
 
   get directionString() : string {
     return this.direction.toString();
+  }
+
+  get technologiesString() : string {
+    return this.technologies.join(', ');
   }
 }

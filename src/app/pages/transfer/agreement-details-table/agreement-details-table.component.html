@@ -2,7 +2,7 @@
 <table width="100%" cellpadding="8" cellspan="2" class="agreement">
     <tr>
         <td>Direction:</td>
-        <td style="text-transform: capitalize;">
+        <td style="display: flex; flex-direction: row; align-items: center; text-transform: capitalize;">
             <mat-icon *ngIf="agreement.isOutbound" style="color: red">north_east</mat-icon>
             <mat-icon *ngIf="agreement.isInbound" style="color: green">south_west</mat-icon>
             <b>{{ agreement.directionString }}</b>
@@ -24,19 +24,10 @@
         <td>End:</td>
         <td><b>{{ agreement.dateTo | date }}</b></td>
     </tr>
-    <tr *ngIf="showTechnology">
-        <td>Technology:</td>
-        <td *ngIf="!agreement.technology"><b>Any</b></td>
-        <td *ngIf="agreement.technology" style="display: flex; flex-direction: row; align-items: center;">
-            <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
-            <div>&nbsp;</div>
-            <div><b>{{ agreement.technology }}</b></div>
-        </td>
-    </tr>
     <tr>
         <td>Max. amount:</td>
         <td>
-            <b>{{ agreement.amount }} {{ agreement.unit }}</b>
+            <b>{{ agreement.amount }} {{ agreement.unit }} per hour</b>
             <span *ngIf="agreement.amountPercent && agreement.isOutbound">
                 (or up to {{ agreement.amountPercent }}% of GGOs)
             </span>
@@ -48,6 +39,19 @@
             This agreement is limited to the recipient's consumption.
             GGOs are only transferred as long as the recipient has
             consumption which is not coved by GGOs.
+        </td>
+    </tr>
+    <tr *ngIf="showTechnology" valign="top">
+        <td>Technologies:</td>
+        <td *ngIf="!agreement.technologies"><b>Any</b></td>
+        <td *ngIf="agreement.technologies" style="display: flex; flex-direction: row; flex-wrap: wrap;">
+            <div *ngFor="let technology of agreement.technologies"
+                 style="display: flex; flex-direction: row; align-items: center; margin: 0 8px 8px 0;">
+
+                <div class="energy-type-avatar {{ technology }}"></div>
+                <div>&nbsp;</div>
+                <div><b>{{ technology }}</b></div>
+            </div>
         </td>
     </tr>
 </table>
