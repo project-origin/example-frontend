@@ -396,8 +396,14 @@
                                 </div>
                                 <div class="fill-remaining"></div>
                             </div>
-                            
-                            <div style="text-align: center; margin-top: 50px;">
+
+                            <div class="legend" style="text-align: center; margin-top: 50px;">
+                                <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                    &laquo; PREVIOUS
+                                </button>
+    
+                                <div class="fill-remaining"></div>
+    
                                 <button mat-button type="button" class="send" [disabled]="!confirmForm.valid || submitting" (click)="submitProposal()">
                                     <span *ngIf="!submitting">SUBMIT PROPOSAL</span>
                                     <span *ngIf="submitting">SUBMITING...</span>
