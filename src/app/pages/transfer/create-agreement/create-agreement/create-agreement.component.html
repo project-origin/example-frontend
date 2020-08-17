@@ -118,8 +118,14 @@
                                 </p>
 
                                 <div style="margin-top: 50px;">
-                                    <h3 *ngIf="isInbound">Enter the maximum amount of GGOs to receive:</h3>
-                                    <h3 *ngIf="isOutbound">Enter the maximum amount of GGOs to send:</h3>
+                                    <h3 *ngIf="isInbound">
+                                        <span class="required">*</span>
+                                        Enter the maximum amount of GGOs to receive:
+                                    </h3>
+                                    <h3 *ngIf="isOutbound">
+                                        <span class="required">*</span>
+                                        Enter the maximum amount of GGOs to send:
+                                    </h3>
 
                                     <div style="display: flex; flex-direction: row; align-items: center;">
                                         <div style="flex: 10 10 0;"></div>
@@ -379,7 +385,10 @@
                             </div>
                             
 
-                            <h3 style="text-align: center; margin-top: 50px;">Enter a subject for future reference:</h3>
+                            <h3 style="text-align: center; margin-top: 50px;">
+                                <span class="required">*</span>
+                                Enter a subject for future reference:
+                            </h3>
 
 
                             <div class="legend" style="margin-top: 20px;">

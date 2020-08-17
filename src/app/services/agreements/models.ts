@@ -51,3 +51,9 @@ export class Agreement {
     return this.technologies.join(', ');
   }
 }
+
+
+export class GgoSupplier {
+  id: string;
+  company: string;
+}

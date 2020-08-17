@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Type, Transform } from "class-transformer";
-import * as moment from 'moment';
 import { ApiService, ApiResponse } from '../api.service';
-import { Agreement, AgreementDirection } from './models';
+import { Agreement, AgreementDirection, GgoSupplier } from './models';
 import { MeasurementDataSet } from '../commodities/models';
 import { DateRange } from '../common';
 
@@ -226,6 +225,29 @@ export interface ISetFacilitiesRequest {
 export class SetFacilitiesResponse extends ApiResponse {}
 
 
+// -- setFacilities request & response ------------------------------ //
+
+
+export class FindSuppliersRequest {
+  @Type(() => DateRange)
+  dateRange: DateRange;
+  minAmount: number;
+
+  constructor(args: {
+    dateRange: DateRange,
+    minAmount: number,
+  }) {
+    Object.assign(this, args);
+  }
+}
+
+
+export class FindSuppliersResponse extends ApiResponse {
+  @Type(() => GgoSupplier)
+  suppliers: GgoSupplier[];
+}
+
+
 // -- Service ----------------------------------------------------------------
 
 
@@ -279,6 +301,11 @@ export class AgreementService {
 
   setTransferPriority(request: ISSetTransferPriorityRequest) : Observable<SetTransferPriorityResponse> {
     return this.api.invoke('/agreements/set-transfer-priority', SetTransferPriorityResponse, request);
+  }
+
+
+  findSuppliers(request: FindSuppliersRequest) : Observable<FindSuppliersResponse> {
+    return this.api.invoke('/agreements/find-suppliers', FindSuppliersResponse, request);
   }
 
 
