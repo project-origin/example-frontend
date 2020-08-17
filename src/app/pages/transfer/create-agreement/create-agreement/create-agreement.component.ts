@@ -139,6 +139,8 @@ export class CreateAgreementComponent implements OnInit {
 
   selectInbound() {
     this.directionForm.patchValue({direction: AgreementDirection.inbound});
+    this.amountForm.patchValue({amountPercent: 100});
+    this.showAmountPercentage = false;
     this.loadRecommendedAmount();
     this.stepTo(1);
   }
@@ -156,6 +158,11 @@ export class CreateAgreementComponent implements OnInit {
 
   get date() : {begin: Date, end: Date} {
     return this.periodForm.get('date').value;
+  }
+
+
+  get dateRange() : DateRange {
+    return new DateRange({begin: this.begin, end: this.end});
   }
 
 
@@ -228,7 +235,7 @@ export class CreateAgreementComponent implements OnInit {
     if(this.shouldLoadRecommendedAmount()) {
       let request = new GetPeakMeasurementRequest({
         measurementType: this.isInbound ? MeasurementType.consumption : MeasurementType.production,
-        dateRange: new DateRange({ begin: this.date.begin, end: this.date.end }),
+        dateRange: this.dateRange,
       });
 
       this.loadingRecommendedAmount = true;
@@ -409,6 +416,10 @@ export class CreateAgreementComponent implements OnInit {
       .open(CounterpartListDialogComponent, { 
         width: '750px',
         panelClass: 'dialog',
+        data: {
+          dateRange: this.dateRange,
+          minAmount: this.amount,
+        },
       })
       .beforeClosed()
       .subscribe(this.onCounterpartChosen.bind(this));

@@ -1,7 +1,8 @@
 
 <div class="dialog-header">
     <h1>RECEIVED PROPOSAL</h1>
-    <h2>This is a pending proposal you have received</h2>
+    <h2 *ngIf="agreement.isInbound">Agreement proposal to receive GGOs from {{ agreement.counterpart }}</h2>
+    <h2 *ngIf="agreement.isOutbound">Agreement proposal to send GGOs to {{ agreement.counterpart }}</h2>
 </div>
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MeasurementType } from 'src/app/services/commodities/models';
 
 
@@ -17,6 +17,7 @@ export class ShowPeakMeasurementDialogComponent {
 
 
   constructor(
+    private dialogRef: MatDialogRef<ShowPeakMeasurementDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: {
       measurementType: MeasurementType,
       dateFrom: Date,
@@ -28,6 +29,11 @@ export class ShowPeakMeasurementDialogComponent {
     this.dateFrom = data.dateFrom;
     this.dateTo = data.dateTo;
     this.highlighted = data.highlighted;
+  }
+
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
 }

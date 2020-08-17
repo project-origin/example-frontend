@@ -1,1 +1,42 @@
-<p>counterpart-list-dialog works!</p>
+
+<div class="dialog-header">
+    <h1>SELECT SUPPLIER</h1>
+    <h2 style="text-align: center;">
+        The list shows companies which may be able to meet
+        your GGO requirements.
+    </h2>
+</div>
+
+
+<div class="dialog-body">
+
+
+    <app-loading-view *ngIf="loading" style="margin: 50px;"></app-loading-view>
+
+
+    <div class="supplier" *ngIf="!loading && suppliers.length == 0">
+        No suppliers found that matches your requirements.
+    </div>
+
+
+    <div class="supplier legend" *ngFor="let supplier of suppliers">
+        <h3>{{ supplier.company }}</h3>
+        <div class="fill-remaining"></div>
+        <button mat-button type="button" class="send" (click)="selectSupplier(supplier)">
+            CHOOSE THIS
+        </button>
+    </div>
+
+
+    <div>&nbsp;</div>
+
+
+    <!-- Buttons -->
+    <div class="legend">
+        <div class="fill-remaining"></div>
+        <button mat-button type="button" class="cancel" (click)="closeDialog()">
+            CLOSE
+        </button>
+        <div class="fill-remaining"></div>
+    </div>
+</div>
