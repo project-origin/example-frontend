@@ -12,7 +12,7 @@
             {{ inbound.total | formatAmount }}
         </div>
 
-        <div class="label">Inbound</div>
+        <div class="label">{{ 'COMMON.INBOUND' | translate }}</div>
     </div>
 
 
@@ -26,7 +26,7 @@
             {{ stored.total | formatAmount }}
         </div>
 
-        <div class="label">Stored</div>
+        <div class="label">{{ 'COMMON.STORED' | translate }}</div>
     </div>
 
 
@@ -40,7 +40,7 @@
             {{ outbound.total | formatAmount }}
         </div>
 
-        <div class="label">Outbound</div>
+        <div class="label">{{ 'COMMON.OUTBOUND' | translate }}</div>
     </div>
 
 
@@ -57,7 +57,7 @@
             {{ issued.total | formatAmount }}
         </div>
 
-        <div class="label">Issued</div>
+        <div class="label">{{ 'COMMON.ISSUED' | translate }}</div>
     </div>
 
 
@@ -71,7 +71,7 @@
             {{ retired.total | formatAmount }}
         </div>
 
-        <div class="label">Retired</div>
+        <div class="label">{{ 'COMMON.RETIRED' | translate }}</div>
     </div>
 
 
@@ -85,7 +85,7 @@
             {{ expired.total | formatAmount }}
         </div>
 
-        <div class="label">Expired</div>
+        <div class="label">{{ 'COMMON.EXPIRED' | translate }}</div>
     </div>
 
 
@@ -94,8 +94,10 @@
         <app-loading-view *ngIf="loading"></app-loading-view>
 
         <div *ngIf="error" class="error">
-            FAILED TO LOAD PLOT DATA<br><br>
-            <button mat-flat-button color="primary" (click)="loadData()">TRY AGAIN</button>
+            {{ 'PLOTS.FAILED-TO-LOAD' | translate }}<br><br>
+            <button mat-flat-button color="primary" (click)="loadData()">
+                {{ 'COMMON.TRY-AGAIN' | translate }}
+            </button>
         </div>
     </div>
 

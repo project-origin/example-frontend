@@ -1,27 +1,19 @@
-
 <div class="transfer">
-    
     <div class="details">
         <mat-card>
             <mat-card-content>
-                <h1>About</h1>
-                <p>
-                    This page gives you an overview of all your current GGO transfer agreements.
-                </p>
-                <p>
-                    Each agreement is automatically processed when you receive new GGOs.
-                </p>
-                <p>
-                    Each transfer agreement has an amount. This is the maximum amount of Wh, that will be transferred per hour. 
+                <h1>{{ 'TRANSFER.ABOUT.ABOUT' | translate }}</h1>
+                <p style="white-space: pre-wrap;">
+                    {{ 'TRANSFER.ABOUT.ABOUT-TEXT' | translate }}
                 </p>
 
-                <h2>Propose new agreement</h2>
-                <p>
-                    TODO foo bar
+                <h2>{{ 'TRANSFER.ABOUT.PROPOSE-NEW-AGREEMENT' | translate }}</h2>
+                <p style="white-space: pre-wrap;">
+                    {{ 'TRANSFER.ABOUT.PROPOSE-NEW-AGREEMENT-TEXT' | translate }}
                 </p>
 
                 <button type="button" mat-flat-button color="primary" [routerLink]="['/app/transfer/propose']">
-                    CREATE NEW AGREEMENT
+                    {{ 'TRANSFER.ABOUT.PROPOSE-NEW-AGREEMENT-BUTTON-TEXT' | translate }}
                 </button>
             </mat-card-content>
         </mat-card>
@@ -29,14 +21,14 @@
 
     <div class="agreements">
         <app-agreement-list-new
-            headline="Received proposals (awaiting your response)"
+            [headline]="'TRANSFER.RECEIVED-PROPOSALS' | translate"
             [agreements]="pending"
             (clicked)="onClickReceivedProposal($event)"
             *ngIf="pending.length > 0">
         </app-agreement-list-new>
 
         <app-agreement-list-new
-            headline="Sent proposals (awaiting response)"
+            [headline]="'TRANSFER.SENT-PROPOSALS' | translate"
             [agreements]="sent"
             (clicked)="onClickSentProposal($event)"
             *ngIf="sent.length > 0">
@@ -45,9 +37,9 @@
         <app-agreement-list-new
             icon="north_east"
             iconColor="red"
-            headline="Outbound agreements"
-            emptyHeadline="No outbound agreements"
-            emptyText="Outbound agreements transfers GGOs from your facilities to your partner's account."
+            [headline]="'TRANSFER.OUTBOUND-AGREEMENTS' | translate"
+            [emptyHeadline]="'TRANSFER.OUTBOUND-AGREEMENTS-EMPTY-HEADLINE' | translate"
+            [emptyText]="'TRANSFER.OUTBOUND-AGREEMENTS-EMPTY-TEXT' | translate"
             [agreements]="outbound"
             [sortable]="true"
             (clicked)="onClickAgreement($event)"
@@ -57,14 +49,15 @@
         <app-agreement-list-new
             icon="south_west"
             iconColor="green"
-            headline="Inbound agreements"
-            emptyHeadline="No inbound agreements found"
-            emptyText="Inbound agreements transfers GGOs from your partner's facilities to your account,<br>and optionally retires the GGOs to one or more of your facilities."
+            [headline]="'TRANSFER.INBOUND-AGREEMENTS' | translate"
+            [emptyHeadline]="'TRANSFER.INBOUND-AGREEMENTS-EMPTY-HEADLINE' | translate"
+            [emptyText]="'TRANSFER.INBOUND-AGREEMENTS-EMPTY-TEXT' | translate"
             [agreements]="inbound"
             (clicked)="onClickAgreement($event)">
         </app-agreement-list-new>
 
         <app-agreement-list-new
+            [headline]="'TRANSFER.CANCELLED-AGREEMENTS' | translate"
             headline="Cancelled recently"
             [agreements]="cancelled"
             (clicked)="onClickAgreement($event)"
@@ -72,11 +65,10 @@
         </app-agreement-list-new>
 
         <app-agreement-list-new
-            headline="Declined recently"
+            [headline]="'TRANSFER.DECLINED-AGREEMENTS' | translate"
             [agreements]="declined"
             (clicked)="onClickAgreement($event)"
             *ngIf="declined.length > 0">
         </app-agreement-list-new>
     </div>
-
 </div>

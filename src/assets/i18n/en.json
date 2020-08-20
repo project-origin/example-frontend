@@ -22,15 +22,45 @@
         "BEGIN": "Begin",
         "END": "End",
         "DELETE": "Delete",
+        "CANCEL": "Cancel",
         "VIEW": "View",
         "LOADING": "Loading",
+        "FROM": "From",
+        "TO": "To",
+        "CLOSE": "Close",
+        "PREVIOUS": "Previous",
+        "NEXT": "Next",
         "FILTERS": {
             "DATE": "Date",
             "TYPE": "Type",
             "TAGS": "Tags",
             "SECTOR": "Sector",
             "SEARCH": "Search"
+        },
+        "RESOLUTIONS": {
+            "ALL": "All",
+            "YEAR": "Year",
+            "MONTH": "Month",
+            "DAY": "Day",
+            "HOUR": "Hour"
         }
+    },
+
+    "PLOTS": {
+        "BACK-IN-TIME": "Back in time",
+        "FORWARD-IN-TIME": "Forward in time",
+        "ZOOM-IN": "Zoom in",
+        "ZOOM-OUT": "Zoom out",
+        "RESET-DATES": "Reset dates",
+        "FAILED-TO-LOAD": "FAILED TO LOAD PLOT DATA"
+    },
+
+
+    "SIGN-IN": {
+        "HEADLINE": "Hello and welcome to ElOprindelse",
+        "BUTTON-TEXT": "Sign in",
+        "SIGNING-IN": "Signing in...",
+        "REDIRECTING": "Redirecting..."
     },
 
     "MAIN": {
@@ -49,6 +79,12 @@
             "EDIT-PROFILE": "Edit profile",
             "ACCOUNT-DETAILS": "Account details",
             "LOG-OUT": "Log out"
+        },
+        "ONBOARDING-DIALOG": {
+            "HEADLINE": "Welcome",
+            "INTRO": "Please onboard your meteringpoints to ElOprindelse",
+            "TEXT": "Before you can start using this application, we must be able to import your consumption and production measurements from ElOprindelse.\n\nThis process takes 2 minutes to complete, and requires you to have your NemID at hand.",
+            "BUTTON-TEXT": "Start onboarding now"
         }
     },
 
@@ -77,6 +113,7 @@
         "ABOUT": "The filter on the Commodities page allows you modify the data displayed in the graphs. The chosen parameters will be applied if you choose to export data to CSV or disclose data.",
         "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
         "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs",
+        "TAGS-TOOLTIP": "Filter the commodities based on your own tags. You can define tags on the Facilities page",
         "EXPORT-CSV": {
             "BUTTON-TEXT": "Export CSV",
             "TOOLTIP": "You can export the data shown in the graphs to a CSV-file",
@@ -125,6 +162,7 @@
 
     "FACILITIES": {
         "HEADLINE": "Facilities",
+        "SAVE-BUTTON-TEXT": "Save facility",
         "NO-FACILITIES-FOUND": {
             "HEADLINE": "No facilities found",
             "TEXT": "Start onboarding from ElOverblik by clicking the button to the left to import your facilities"
@@ -155,6 +193,23 @@
         "EMPTY": {
             "HEADLINE": "No disclosures found",
             "TEXT": "Create disclosures by navigating to Commodities, then filtering the data you want to disclose, and then click the DISCLOSE DATA button."
+        },
+        "CREATE-DISCLOSURE": {
+            "HEADLINE": "SHARE INFORMATION",
+            "INTRO": "You are about to make consumption and retired GGOs for the following facilities public",
+            "NAME-PLACEHOLDER": "Enter a name for reference",
+            "DESCRIPTION-PLACEHOLDER": "Enter an optional description",
+            "MAX-DATA-RESOLUTION": "Maximum visible data resolution",
+            "DISCLOSE-AGGREGATED-DATA": "Disclose aggregated data for all facilities together",
+            "DISCLOSE-FACILITIES-SEPERATELY": "Disclose data for each facility seperately",
+            "DISCLOSE-GSRN": "Disclose GSRN number",
+            "DISCLOSE-PHYSICAL-ADDRESS": "Disclose physical address",
+            "NO-FACILITIES-CHOSEN": "No consuming facilities chosen",
+            "NO-FACILITIES-CHOSEN-TEXT": "Close this dialog and select one or more consuming facilities in the filters to the left",
+            "BUTTON-TEXT": "Create disclosure",
+            "DISCLOSURE-CREATED": "Disclosure created successfully",
+            "DISCLOSURE-CREATED-TEXT": "The disclosure is now publicly available.\n\nIt may take a little while for the data to be available via the link.\n\nThe disclosure data is updated once a day.",
+            "OPEN-DISCLOSURE": "OPEN DISCLOSURE"
         }
     },
 
@@ -187,13 +242,96 @@
         }
     },
 
-    "PLOTS": {
-        "BACK-IN-TIME": "Back in time",
-        "FORWARD-IN-TIME": "Forward in time",
-        "ZOOM-IN": "Zoom in",
-        "ZOOM-OUT": "Zoom out",
-        "RESET-DATES": "Reset dates",
-        "FAILED-TO-LOAD": "FAILED TO LOAD PLOT DATA"
+    "TRANSFER": {
+        "RECEIVED-PROPOSALS": "Received proposals (awaiting your response)",
+        "SENT-PROPOSALS": "Sent proposals (awaiting response)",
+        "OUTBOUND-AGREEMENTS": "Outbound agreements",
+        "OUTBOUND-AGREEMENTS-EMPTY-HEADLINE": "No outbound agreements",
+        "OUTBOUND-AGREEMENTS-EMPTY-TEXT": "Outbound agreements transfers GGOs from your facilities to your partner's account.",
+        "INBOUND-AGREEMENTS": "Inbound agreements",
+        "INBOUND-AGREEMENTS-EMPTY-HEADLINE": "No inbound agreements found",
+        "INBOUND-AGREEMENTS-EMPTY-TEXT": "Inbound agreements transfers GGOs from your partner's facilities to your account,\nand optionally retires the GGOs to one or more of your facilities.",
+        "CANCELLED-AGREEMENTS": "Cancelled recently",
+        "DECLINED-AGREEMENTS": "Declined recently",
+        "ABOUT": {
+            "ABOUT": "About",
+            "ABOUT-TEXT": " This page gives you an overview of all your current GGO transfer agreements.\n\nEach agreement is automatically processed when you receive new GGOs.\n\nEach transfer agreement has an amount. This is the maximum amount of Wh, that will be transferred per hour. ",
+            "PROPOSE-NEW-AGREEMENT": "Propose new agreement",
+            "PROPOSE-NEW-AGREEMENT-TEXT": "TODO write me!",
+            "PROPOSE-NEW-AGREEMENT-BUTTON-TEXT": "Create new agreement"
+        }
+
+    },
+
+    "AGREEMENT-DETAILS": {
+        "GO-BACK-TOOLTIP": "Go back to Transfer",
+        "AGREEMENT-DETAILS": "Agreement details",
+        "CANCEL-AGREEMENT": "Cancel agreement",
+        "TRANSFER-SUMMARY": "Transfer summary",
+        "DIRECTION": "Direction",
+        "COUNTERPART": "Counterpart",
+        "SUBJECT": "Subject",
+        "BEGIN": "Begin",
+        "END": "End",
+        "MAX-AMOUNT": "Max. amount",
+        "PER-HOUR": "per hour",
+        "UP-TO-PERCENT": "or up to {{percent}}% of GGOs",
+        "LIMITED-TO-CONSUMPTION": "This agreement is limited to the recipient's consumption. GGOs are only transferred as long as the recipient has consumption which is not coved by GGOs.",
+        "TECHNOLOGIES": "Technologies"
+    },
+
+    "AGREEMENT-LIST": {
+        "RECIPIENT-NAME-AND-ID": "Receiver Name & ID",
+        "AMOUNT": "Amount",
+        "PERIOD": "Period",
+        "LIMITED-TO-CONSUMPTION": "This agreement is limited to the recipient's consumption"
+    },
+
+    "CREATE-AGREEMENT": {
+        "ABOUT": {
+            "HEADLINE": "Propose an agreement",
+            "INTRO": "This formular lets you propose a new GGO transfer agreement to a trading partner.",
+            "BACK-TOOLTIP": "Go back to Transfer"
+        },
+        "SENT-PROPOSAL": "Sent proposal",
+        "RECEIVED-PROPOSAL": "Received proposal",
+        "PROPOSAL-TO-SEND-GGOS": "Agreement proposal to send GGOs to {{company}}",
+        "PROPOSAL-TO-RECEIVE-GGOS": "Agreement proposal to receive GGOs from {{company}}",
+        "WITHDRAW-PROPOSAL": "Withdraw proposal",
+        "WITHDRAWING": "Withdrawing...",
+        "ACCEPT-PROPOSAL": "Accept",
+        "ACCEPTING": "Accepting...",
+        "DECLINE-PROPOSAL": "Decline",
+        "DECLINING": "Declining...",
+        "NOTE-FROM-SENDER": "Note from sender",
+        "TRANSFER-PERCENT-OF-GGO": "Transfer percentage of GGOs",
+        "TRANSFER-PERCENT-OF-GGO-TEXT": "Always transfer a certain percentage of a GGO",
+        "TRANSFER-PERCENT-OF-GGO-PLACEHOLDER": "Enter percent (1-100)",
+        "DIRECTION": {
+            "LABEL": "Direction",
+            "HEADLINE": "What would you like to do?",
+            "SEND-GGOS": "SEND GGOs",
+            "SEND-GGOS-TEXT": "I want to send GGOs to a trading partner",
+            "RECEIVE-GGOS": "RECEIVE GGOs",
+            "RECEIVE-GGOS-TEXT": "I want to receive GGOs from a trading partner"
+        },
+        "PERIOD": {
+            "LABEL": "Period",
+            "HEADLINE": "When should the agreement begin and end?",
+            "TEXT": "This is the period in which GGOs are issued. It is possible to transfer back in time."
+        },
+        "AMOUNT": {
+            "LABEL": "Amount"
+        },
+        "TECHNOLOGIES": {
+            "LABEL": "Technologies"
+        },
+        "COUNTERPART": {
+            "LABEL": "Counterpart"
+        },
+        "CONFIRM": {
+            "LABEL": "Confirm"
+        }
     }
 
 }

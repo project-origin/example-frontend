@@ -1,48 +1,46 @@
-
 <table width="100%" cellpadding="8" cellspan="2" class="agreement">
     <tr>
-        <td>Direction:</td>
+        <td>{{ 'AGREEMENT-DETAILS.DIRECTION' | translate }}:</td>
         <td style="display: flex; flex-direction: row; align-items: center; text-transform: capitalize;">
             <mat-icon *ngIf="agreement.isOutbound" style="color: red">north_east</mat-icon>
             <mat-icon *ngIf="agreement.isInbound" style="color: green">south_west</mat-icon>
-            <b>{{ agreement.directionString }}</b>
+            <b *ngIf="agreement.isOutbound">{{ 'COMMON.OUTBOUND' | translate }}</b>
+            <b *ngIf="agreement.isInbound">{{ 'COMMON.INBOUND' | translate }}</b>
         </td>
     </tr>
     <tr>
-        <td>Counterpart:</td>
+        <td>{{ 'AGREEMENT-DETAILS.COUNTERPART' | translate }}:</td>
         <td><b>{{ agreement.counterpart }}</b></td>
     </tr>
     <tr>
-        <td width="30%">Subject:</td>
+        <td width="30%">{{ 'AGREEMENT-DETAILS.SUBJECT' | translate }}:</td>
         <td><b>{{ agreement.reference }}</b></td>
     </tr>
     <tr>
-        <td>Begin:</td>
+        <td>{{ 'AGREEMENT-DETAILS.BEGIN' | translate }}:</td>
         <td><b>{{ agreement.dateFrom | date }}</b></td>
     </tr>
     <tr>
-        <td>End:</td>
+        <td>{{ 'AGREEMENT-DETAILS.END' | translate }}:</td>
         <td><b>{{ agreement.dateTo | date }}</b></td>
     </tr>
     <tr>
-        <td>Max. amount:</td>
+        <td>{{ 'AGREEMENT-DETAILS.MAX-AMOUNT' | translate }}:</td>
         <td>
-            <b>{{ agreement.amount }} {{ agreement.unit }} per hour</b>
+            <b>{{ agreement.amount }} {{ agreement.unit }} {{ 'AGREEMENT-DETAILS.PER-HOUR' | translate }}</b>
             <span *ngIf="agreement.amountPercent && agreement.isOutbound">
-                (or up to {{ agreement.amountPercent }}% of GGOs)
+                (<span [translate]="'AGREEMENT-DETAILS.UP-TO-PERCENT'" [translateParams]="{percent: agreement.amountPercent}"></span>)
             </span>
         </td>
     </tr>
     <tr *ngIf="agreement.limitToConsumption">
         <td colspan="2">
             <img src="/assets/icon_limited_to_consumption.png">
-            This agreement is limited to the recipient's consumption.
-            GGOs are only transferred as long as the recipient has
-            consumption which is not coved by GGOs.
+            {{ 'AGREEMENT-DETAILS.LIMITED-TO-CONSUMPTION' | translate }}
         </td>
     </tr>
     <tr *ngIf="showTechnology" valign="top">
-        <td>Technologies:</td>
+        <td>{{ 'AGREEMENT-DETAILS.TECHNOLOGIES' | translate }}:</td>
         <td *ngIf="!agreement.technologies"><b>Any</b></td>
         <td *ngIf="agreement.technologies" style="display: flex; flex-direction: row; flex-wrap: wrap;">
             <div *ngFor="let technology of agreement.technologies"

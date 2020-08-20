@@ -47,8 +47,12 @@
 
 
     <div class="legend">
-        <button mat-button type="button" (click)="closeDialog()" class="cancel">CANCEL</button>
+        <button mat-button type="button" (click)="closeDialog()" class="cancel">
+            {{ 'COMMON.CANCEL' | translate }}
+        </button>
         <div class="fill-remaining"></div>
-        <button mat-button type="submit" (click)="submitForm()" class="send">SAVE FACILITY</button>
+        <button mat-button type="submit" (click)="submitForm()" class="send">
+            {{ 'FACILITIES.SAVE-BUTTON-TEXT' | translate }}
+        </button>
     </div>
 </div>

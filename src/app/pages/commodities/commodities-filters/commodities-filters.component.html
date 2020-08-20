@@ -43,12 +43,12 @@
     <!-- Tags -->
     <div class="filter">
         <div class="icon"><img src="/assets/icon_tags.png"></div>
-        <div class="label">{{ 'COMMON.FILTERS.DATE' | translate }}:</div>
+        <div class="label">{{ 'COMMON.FILTERS.TAGS' | translate }}:</div>
         <div class="field">
             <mat-select multiple
                 formControlName="tags"
                 matTooltipPosition="above"
-                matTooltip="Filter the commodities based on your own tags. You can define tags on the Facilities page">
+                matTooltip="{{ 'COMMODITIES.TAGS-TOOLTIP' | translate }}">
                 <mat-option *ngFor="let tag of availableTags" [value]="tag">{{tag}}</mat-option>
             </mat-select>
         </div>
@@ -58,7 +58,7 @@
     <!-- Type (production/consumption) -->
     <div class="filter">
         <div class="icon"><img src="/assets/icon_prod_con.png"></div>
-        <div class="label">{{ 'COMMON.FILTERS.TAGS' | translate }}:</div>
+        <div class="label">{{ 'COMMON.FILTERS.TYPE' | translate }}:</div>
         <div class="field">
             <mat-select formControlName="facilityType">
                 <mat-option value="">{{ 'COMMON.ALL' | translate }}</mat-option>

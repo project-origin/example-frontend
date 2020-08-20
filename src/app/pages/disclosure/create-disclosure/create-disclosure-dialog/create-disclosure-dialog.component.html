@@ -1,10 +1,7 @@
 
 <div class="dialog-header">
-    <h1>SHARE INFORMATION</h1>
-    <h2>
-        You are about to make consumption and retired GGOs
-        for the following facilities public
-    </h2>
+    <h1>{{ 'DISCLOSURE.CREATE-DISCLOSURE.HEADLINE' | translate }}</h1>
+    <h2>{{ 'DISCLOSURE.CREATE-DISCLOSURE.INTRO' | translate }}</h2>
 </div>
 
 
@@ -16,22 +13,26 @@
 
         <!-- Dates -->
         <div class="legend">
+            <div><img src="/assets/icon_date.png"></div>
             <div>
-                <img src="/assets/icon_date.png">
+                &nbsp;
+                {{ 'COMMON.FROM' | translate }}:
+                <b>{{ dateFrom | date }}</b>
             </div>
-            <div>&nbsp;From: <b>{{ dateFrom | date }}</b></div>
             <div class="fill-remaining"></div>
+            <div><img src="/assets/icon_date.png"></div>
             <div>
-                <img src="/assets/icon_date.png">
+                &nbsp;
+                {{ 'COMMON.TO' | translate }}:
+                <b>{{ dateTo | date }}</b>
             </div>
-            <div>&nbsp;To: <b>{{ dateTo | date }}</b></div>
         </div>
 
 
         <!-- Name -->
         <input matInput
             type="text"
-            placeholder="Enter a name for reference"
+            placeholder="{{ 'DISCLOSURE.CREATE-DISCLOSURE.NAME-PLACEHOLDER' | translate }}"
             class="field"
             [(ngModel)]="name">
 
@@ -39,7 +40,7 @@
         <!-- Description -->
         <input matInput
             type="text"
-            placeholder="Enter an optional description"
+            placeholder="{{ 'DISCLOSURE.CREATE-DISCLOSURE.DESCRIPTION-PLACEHOLDER' | translate }}"
             class="field"
             [(ngModel)]="description">
 
@@ -48,12 +49,11 @@
         <div class="field">
             <mat-select
                 [(ngModel)]="maxResolution" 
-                placeholder="Maximum visible data resolution">
+                placeholder="{{ 'DISCLOSURE.CREATE-DISCLOSURE.MAX-DATA-RESOLUTION' | translate }}">
 
-                <mat-option *ngFor="let technology of possibleResolutions()" [value]="technology">
-                    {{technology}}
+                <mat-option *ngFor="let resolution of possibleResolutions" [value]="resolution">
+                    {{ getResolutionLabel(resolution) }}
                 </mat-option>
-
             </mat-select>
         </div>
 
@@ -62,28 +62,30 @@
         <div class="table-item" *ngIf="previewFacilities.length > 0">
             <mat-radio-group aria-label="Select an option" [(ngModel)]="publicizeMeteringpoints">
                 <mat-radio-button [value]="false">
-                    Disclose aggregated data for all facilities together
+                    {{ 'DISCLOSURE.CREATE-DISCLOSURE.DISCLOSE-AGGREGATED-DATA' | translate }}
                 </mat-radio-button>
                 <br><br>
                 <mat-radio-button [value]="true">
-                    Disclose data for each facility seperately
+                    {{ 'DISCLOSURE.CREATE-DISCLOSURE.DISCLOSE-FACILITIES-SEPERATELY' | translate }}
                 </mat-radio-button>
             </mat-radio-group>
 
             
             <div *ngIf="publicizeMeteringpoints" style="margin-top: 10px; padding-left: 30px;">
-                <mat-checkbox [(ngModel)]="publicizeGsrn">Disclose GSRN number</mat-checkbox><br>
-                <mat-checkbox [(ngModel)]="publicizePhysicalAddress">Disclose physical address</mat-checkbox>
+                <mat-checkbox [(ngModel)]="publicizeGsrn">
+                    {{ 'DISCLOSURE.CREATE-DISCLOSURE.DISCLOSE-GSRN' | translate }}
+                </mat-checkbox><br>
+                <mat-checkbox [(ngModel)]="publicizePhysicalAddress">
+                    {{ 'DISCLOSURE.CREATE-DISCLOSURE.DISCLOSE-PHYSICAL-ADDRESS' | translate }}
+                </mat-checkbox>
             </div>
         </div>
 
 
         <!-- No facilities available -->
         <div class="table-item" style="text-align: center;" *ngIf="previewFacilities.length == 0">
-            <p><b>No consuming facilities chosen</b></p>
-            <p>
-                Close this dialog and select one or more consuming facilities in the filters to the left
-            </p>
+            <p><b>{{ 'DISCLOSURE.CREATE-DISCLOSURE.NO-FACILITIES-CHOSEN' | translate }}</b></p>
+            <p>{{ 'DISCLOSURE.CREATE-DISCLOSURE.NO-FACILITIES-CHOSEN-TEXT' | translate }}</p>
         </div>
 
 
@@ -111,7 +113,7 @@
                 type="button"
                 class="cancel"
                 (click)="closeDialog()">
-                CANCEL
+                {{ 'COMMON.CANCEL' | translate }}
             </button>
 
             <div class="fill-remaining"></div>
@@ -121,7 +123,7 @@
                 class="send"
                 [disabled]="!canSubmit()"
                 (click)="createDisclosure()">
-                CREATE DISCLOSURE
+                {{ 'DISCLOSURE.CREATE-DISCLOSURE.BUTTON-TEXT' | translate }}
             </button>
         </div>
     </div>
@@ -130,17 +132,17 @@
     <!-- Submitted confirmation -->
     <div *ngIf="!loadingPreview && submitted" class="list">
         <div class="table-item" style="text-align: center;">
-            <b>DISCLOSURE CREATED SUCCESSFULLY</b>
-            <p>The disclosure is now publicly available.</p>
-            <p>It may take a little while for the data to be available via the link.</p>
-            <p>The disclosure data is updated once a day.</p>
+            <b>{{ 'DISCLOSURE.CREATE-DISCLOSURE.DISCLOSURE-CREATED' | translate }}</b>
+            <p style="white-space: pre-wrap;">
+                {{ 'DISCLOSURE.CREATE-DISCLOSURE.DISCLOSURE-CREATED-TEXT' | translate }}
+            </p>
 
             <a mat-button
                 type="button"
                 class="send"
                 target="_blank"
                 routerLink="/disclosure/{{ submittedId }}">
-                OPEN DISCLOSURE
+                {{ 'DISCLOSURE.CREATE-DISCLOSURE.OPEN-DISCLOSURE' | translate }}
             </a>
         </div>
 
@@ -150,7 +152,7 @@
                 type="button"
                 class="cancel"
                 (click)="closeDialog()">
-                CLOSE WINDOW
+                {{ 'COMMON.CLOSE' | translate }}
             </button>
             <div class="fill-remaining"></div>
         </div>

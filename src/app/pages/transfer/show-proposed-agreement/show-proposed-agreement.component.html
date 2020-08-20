@@ -1,25 +1,27 @@
 
 <div class="dialog-header">
-    <h1>SENT PROPOSAL</h1>
-    <h2 *ngIf="agreement.isInbound">Agreement proposal to receive GGOs from {{ agreement.counterpart }}</h2>
-    <h2 *ngIf="agreement.isOutbound">Agreement proposal to send GGOs to {{ agreement.counterpart }}</h2>
+    <h1>{{ 'CREATE-AGREEMENT.SENT-PROPOSAL' | translate }}</h1>
+
+    <h2 *ngIf="agreement.isInbound"
+        [translate]="'CREATE-AGREEMENT.PROPOSAL-TO-RECEIVE-GGOS'"
+        [translateParams]="{company: agreement.counterpart}"></h2>
+    <h2 *ngIf="agreement.isOutbound"
+        [translate]="'CREATE-AGREEMENT.PROPOSAL-TO-SEND-GGOS'"
+        [translateParams]="{company: agreement.counterpart}"></h2>
 </div>
 
 
 <div class="dialog-body">
-
-
     <p *ngIf="agreement.proposalNote">
-        <b>Note from sender:</b> {{ agreement.proposalNote }}
+        <b>{{ 'CREATE-AGREEMENT.NOTE-FROM-SENDER' | translate }}:</b>
+        {{ agreement.proposalNote }}
     </p>
 
     <app-agreement-details-table
         [agreement]="agreement">
     </app-agreement-details-table>
 
-
     <div>&nbsp;</div>
-
 
     <!-- Buttons -->
     <div class="legend">
@@ -27,7 +29,7 @@
             type="button"
             class="cancel"
             (click)="closeDialog()">
-            CLOSE
+            {{ 'COMMON.CLOSE' | translate }}
         </button>
 
         <div class="fill-remaining"></div>
@@ -37,8 +39,7 @@
             class="send"
             [disabled]="loading"
             (click)="withdrawProposal()">
-            {{ loading ? 'WITHDRAWING..' : 'WITHDRAW PROPOSAL' }}
+            {{ loading ? ('CREATE-AGREEMENT.WITHDRAWING' | translate) : ('CREATE-AGREEMENT.WITHDRAW-PROPOSAL' | translate) }}
         </button>
     </div>
-
 </div>

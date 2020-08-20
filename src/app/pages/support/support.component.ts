@@ -13,11 +13,6 @@ import { Subscription } from 'rxjs';
 })
 export class SupportComponent implements OnInit {
 
-  // subjectTypes = [
-  //   {value: 'Spørgsmål', label: 'Question'},
-  //   {value: 'Ændringsønske', label: 'Feature request'},
-  //   {value: 'Fejl', label: 'Bug or error'},
-  // ];
   subjectTypes = [
     {value: 'Spørgsmål', label: ''},
     {value: 'Ændringsønske', label: ''},

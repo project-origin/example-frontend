@@ -1,18 +1,21 @@
 
 <div class="dialog-header">
-    <h1>RECEIVED PROPOSAL</h1>
-    <h2 *ngIf="agreement.isInbound">Agreement proposal to receive GGOs from {{ agreement.counterpart }}</h2>
-    <h2 *ngIf="agreement.isOutbound">Agreement proposal to send GGOs to {{ agreement.counterpart }}</h2>
+    <h1>{{ 'CREATE-AGREEMENT.RECEIVED-PROPOSAL' | translate }}</h1>
+
+    <h2 *ngIf="agreement.isInbound"
+        [translate]="'CREATE-AGREEMENT.PROPOSAL-TO-RECEIVE-GGOS'"
+        [translateParams]="{company: agreement.counterpart}"></h2>
+    <h2 *ngIf="agreement.isOutbound"
+        [translate]="'CREATE-AGREEMENT.PROPOSAL-TO-SEND-GGOS'"
+        [translateParams]="{company: agreement.counterpart}"></h2>
 </div>
 
 
 <div class="dialog-body">
-
-
     <p *ngIf="agreement.proposalNote">
-        <b>Note from sender:</b> {{ agreement.proposalNote }}
+        <b>{{ 'CREATE-AGREEMENT.NOTE-FROM-SENDER' | translate }}:</b>
+        {{ agreement.proposalNote }}
     </p>
-
 
     <app-agreement-details-table
         [agreement]="agreement"
@@ -21,14 +24,13 @@
 
     <div>&nbsp;</div>
 
-
     <form [formGroup]="form">
 
         <!-- Technology -->
-        <div class="field" *ngIf="canSelectTechnologies">
+        <!-- <div class="field" *ngIf="canSelectTechnologies">
             <mat-select
                 formControlName="technology" 
-                [placeholder]="loadingTechnologies ? 'Loading...' : 'Select energy category (optional)'">
+                [placeholder]="loadingTechnologies ? ('COMMON.LOADING' | translate) : 'Select energy category (optional)'">
 
                 <mat-option [value]="null">Any</mat-option>
                 <mat-option *ngFor="let technology of availableTechnologies" [value]="technology">
@@ -36,18 +38,18 @@
                 </mat-option>
 
             </mat-select>
-        </div>
+        </div> -->
 
 
         <!-- Transfer percentage -->
         <div class="field" *ngIf="canSelectAmountPercent">
             <mat-checkbox formControlName="showTransferPercent">
-                Transfer percentage of GGO's amount
+                {{ 'CREATE-AGREEMENT.TRANSFER-PERCENT-OF-GGO' | translate }}
             </mat-checkbox>
 
             <input matInput
                 type="text"
-                placeholder="Enter percent (1-100)"
+                placeholder="{{ 'CREATE-AGREEMENT.TRANSFER-PERCENT-OF-GGO-PLACEHOLDER' | translate }}"
                 class="field value"
                 *ngIf="expandAmountPercent"
                 formControlName="amountPercent">
@@ -66,7 +68,7 @@
             class="cancel"
             [disabled]="submitting"
             (click)="declineProposal()">
-            {{ declining ? 'DECLINING..' : 'DECLINE' }}
+            {{ declining ? ('CREATE-AGREEMENT.DECLINING' | translate) : ('CREATE-AGREEMENT.DECLINE-PROPOSAL' | translate) }}
         </button>
 
         <div class="fill-remaining"></div>
@@ -76,7 +78,7 @@
             class="send"
             [disabled]="submitting"
             (click)="acceptProposal()">
-            {{ accepting ? 'ACCEPTING..' : 'ACCEPT' }}
+            {{ accepting ? ('CREATE-AGREEMENT.ACCEPTING' | translate) : ('CREATE-AGREEMENT.ACCEPT-PROPOSAL' | translate) }}
         </button>
     </div>
 

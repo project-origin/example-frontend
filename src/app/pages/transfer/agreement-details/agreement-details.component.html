@@ -1,15 +1,17 @@
-
-<div class="transfer">
+<div class="page">
     
-    <div class="details">
+    <div class="about">
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <button mat-icon-button [routerLink]="['/app/transfer']" style="padding: 2px;" matTooltip="Go back to Transfer">
+                    <button mat-icon-button
+                        style="padding: 2px;"
+                        matTooltip="{{ 'AGREEMENT-DETAILS.GO-BACK-TOOLTIP' | translate }}"
+                        [routerLink]="['/app/transfer']">
                         <mat-icon>keyboard_backspace</mat-icon>
                     </button>
                     <div style="width: 6px;"></div>
-                    <h1>Agreement details</h1>
+                    <h1>{{ 'AGREEMENT-DETAILS.AGREEMENT-DETAILS' | translate }}</h1>
                     <div class="fill-remaining"></div>
                 </div>
 
@@ -18,7 +20,6 @@
 
 
                 <div *ngIf="!loadingAgreement">
-
                     <app-agreement-details-table
                         [agreement]="agreement">
                     </app-agreement-details-table>
@@ -29,7 +30,7 @@
                         color="warn"
                         *ngIf="userCanCancelAgreement"
                         (click)="cancelAgreement()">
-                        CANCEL AGREEMENT
+                        {{ 'AGREEMENT-DETAILS.CANCEL-AGREEMENT' | translate }}
                     </button>
 
                     <br><br>
@@ -67,11 +68,11 @@
     </div>
 
 
-    <div class="summary">
+    <div class="content">
         <mat-card>
             <mat-card-content>
 
-                <h1>Transfer summary</h1>
+                <h1>{{ 'AGREEMENT-DETAILS.TRANSFER-SUMMARY' | translate }}</h1>
 
 
                 <app-loading-view *ngIf="loadingAgreement"></app-loading-view>
@@ -88,8 +89,14 @@
                                 [min]="minDate"
                                 [max]="maxDate">
 
-                            <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                            <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                            <sat-datepicker #datePicker
+                                [rangeMode]="true"
+                                disabled="false">
+                            </sat-datepicker>
+                            <sat-datepicker-toggle matSuffix
+                                [for]="datePicker"
+                                class="datepicker">
+                            </sat-datepicker-toggle>
                         </div>
 
                         <div class="fill-remaining"></div>

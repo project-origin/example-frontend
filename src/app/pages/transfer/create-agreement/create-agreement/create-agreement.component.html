@@ -1,45 +1,48 @@
-
 <div class="page">
 
+    <!-- Left column -->
     <div class="about">
-        
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <button mat-icon-button [routerLink]="['/app/transfer']" style="padding: 2px;" matTooltip="Go back to Transfer">
+                    <button mat-icon-button
+                        style="padding: 2px;"
+                        matTooltip="Go back to Transfer"
+                        [routerLink]="['/app/transfer']">
                         <mat-icon>keyboard_backspace</mat-icon>
                     </button>
                     <div style="width: 6px;"></div>
-                    <h1>Propose an agreement</h1>
+                    <h1>{{ 'CREATE-AGREEMENT.ABOUT.HEADLINE' | translate }}</h1>
                     <div class="fill-remaining"></div>
                 </div>
-                <p>
-                    This formular lets you propose a new GGO transfer agreement
-                    to a trading partner.
-                </p>
+                <p style="white-space: pre-wrap;">{{ 'CREATE-AGREEMENT.ABOUT.INTRO' | translate }}</p>
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
+
+    <!-- Right column -->
     <div class="content">
         <mat-card>
             <mat-card-content>
                 <mat-horizontal-stepper linear #stepper *ngIf="!completed">
 
+
                     <!-- Direction -->
                     <mat-step [stepControl]="directionForm">
-                        <ng-template matStepLabel>Direction</ng-template>
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.DIRECTION.LABEL' | translate }}</ng-template>
                         
                         <div style="text-align: center; margin: 50px 0;">
-                            <h2>What would you like to do?</h2>
+                            <h2>{{ 'CREATE-AGREEMENT.DIRECTION.HEADLINE' | translate }}</h2>
 
                             <div style="margin: 50px 0; display: flex; flex-direction: row;">
                                 <div style="flex: 2 2 0"></div>
                                 <div style="flex: 10 10 0; text-align: center;">
                                     <mat-card matRipple class="option" [class.selected]="isOutbound" (click)="selectOutbound()">
                                         <mat-card-content>
-                                            <h3>SEND GGOs</h3>
-                                            <p>I want to send GGOs to a trading partner</p>
+                                            <h3>{{ 'CREATE-AGREEMENT.DIRECTION.SEND-GGOS' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.DIRECTION.SEND-GGOS-TEXT' | translate }}</p>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
@@ -47,8 +50,8 @@
                                 <div style="flex: 10 10 0; text-align: center;">
                                     <mat-card matRipple class="option" [class.selected]="isInbound" (click)="selectInbound()">
                                         <mat-card-content>
-                                            <h3>RECEIVE GGOs</h3>
-                                            <p>I want to receive GGOs from a trading partner</p>
+                                            <h3>{{ 'CREATE-AGREEMENT.DIRECTION.RECEIVE-GGOS' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.DIRECTION.RECEIVE-GGOS-TEXT' | translate }}</p>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
@@ -56,19 +59,17 @@
                             </div>
                         </div>
                     </mat-step>
+                    <!-- /Direction -->
                 
                 
                     <!-- Period -->
                     <mat-step [stepControl]="periodForm">
-                        <ng-template matStepLabel>Period</ng-template>
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.PERIOD.LABEL' | translate }}</ng-template>
                         
                         <form [formGroup]="periodForm">
                             <div style="text-align: center; margin: 50px 0;">
-                                <h2>When should the agreement begin and end?</h2>
-                                <p>
-                                    This is the period in which GGOs are issued.
-                                    It is possible to transfer back in time.
-                                </p>
+                                <h2>{{ 'CREATE-AGREEMENT.PERIOD.HEADLINE' | translate }}</h2>
+                                <p>{{ 'CREATE-AGREEMENT.PERIOD.TEXT' | translate }}</p>
 
                                 <div style="margin-top: 50px; display: flex; flex-direction: row; align-items: center;">
                                     <div style="flex: 2 2 0;"></div>
@@ -81,8 +82,14 @@
                                             [min]="minDate"
                                             [max]="maxDate">
         
-                                        <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                                        <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                                        <sat-datepicker #datePicker
+                                            [rangeMode]="true"
+                                            disabled="false">
+                                        </sat-datepicker>
+                                        <sat-datepicker-toggle matSuffix
+                                            [for]="datePicker"
+                                            class="datepicker">
+                                        </sat-datepicker-toggle>
                                     </div>
                                     <div style="flex: 2 2 0;"></div>
                                 </div>
@@ -91,21 +98,20 @@
 
                         <div class="legend" style="text-align: center; margin-top: 50px;">
                             <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
-                                &laquo; PREVIOUS
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
                             </button>
-
                             <div class="fill-remaining"></div>
-
                             <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!periodForm.valid" (click)="stepNext()">
-                                NEXT &raquo;
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
                             </button>
                         </div>
                     </mat-step>
+                    <!-- /Period -->
                 
                 
                     <!-- Amount -->
                     <mat-step [stepControl]="amountForm">
-                        <ng-template matStepLabel>Amount</ng-template>
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.AMOUNT.LABEL' | translate }}</ng-template>
                         
                         <form [formGroup]="amountForm">
                             <div style="text-align: center; margin: 50px 0;">
@@ -199,13 +205,11 @@
 
                         <div class="legend" style="text-align: center; margin-top: 50px;">
                             <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
-                                &laquo; PREVIOUS
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
                             </button>
-
                             <div class="fill-remaining"></div>
-
                             <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!amountForm.valid" (click)="stepNext()">
-                                NEXT &raquo;
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
                             </button>
                         </div>
                     </mat-step>
@@ -213,7 +217,7 @@
                 
                     <!-- Technologies -->
                     <mat-step [stepControl]="technologiesForm">
-                        <ng-template matStepLabel>Technologies</ng-template>
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.LABEL' | translate }}</ng-template>
 
 
                         <app-loading-view *ngIf="loadingTechnologies" style="margin-top: 50px;"></app-loading-view>
@@ -263,13 +267,11 @@
 
                         <div class="legend" style="text-align: center; margin-top: 50px;">
                             <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
-                                &laquo; PREVIOUS
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
                             </button>
-
                             <div class="fill-remaining"></div>
-
                             <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!technologiesForm.valid" (click)="stepNext()">
-                                NEXT &raquo;
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
                             </button>
                         </div>
                     </mat-step>
@@ -277,7 +279,7 @@
                 
                     <!-- Counterpart -->
                     <mat-step [stepControl]="counterpartForm">
-                        <ng-template matStepLabel>Counterpart</ng-template>
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.COUNTERPART.LABEL' | translate }}</ng-template>
 
                         <div style="text-align: center; margin: 50px 0;" *ngIf="!hasCounterpart">
                             <h2 *ngIf="isInbound">How would you like to find a supplier?</h2>
@@ -337,13 +339,11 @@
 
                         <div class="legend" style="text-align: center; margin-top: 50px;">
                             <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
-                                &laquo; PREVIOUS
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
                             </button>
-
                             <div class="fill-remaining"></div>
-
                             <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!counterpartForm.valid" (click)="stepNext()">
-                                NEXT &raquo;
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
                             </button>
                         </div>
                         
@@ -352,7 +352,7 @@
                 
                     <!-- Confirm -->
                     <mat-step [stepControl]="confirmForm">
-                        <ng-template matStepLabel>Confirm</ng-template>
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.CONFIRM.LABEL' | translate }}</ng-template>
                         
                         <form [formGroup]="confirmForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
                             <div style="text-align: center; margin-top: 50px;">
@@ -443,5 +443,6 @@
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Right column -->
 
 </div>
