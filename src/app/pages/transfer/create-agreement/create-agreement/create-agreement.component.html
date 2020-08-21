@@ -7,7 +7,7 @@
                 <div class="legend">
                     <button mat-icon-button
                         style="padding: 2px;"
-                        matTooltip="Go back to Transfer"
+                        matTooltip="{{ 'CREATE-AGREEMENT.ABOUT.BACK-TOOLTIP' | translate }}"
                         [routerLink]="['/app/transfer']">
                         <mat-icon>keyboard_backspace</mat-icon>
                     </button>
@@ -115,22 +115,18 @@
                         
                         <form [formGroup]="amountForm">
                             <div style="text-align: center; margin: 50px 0;">
-                                <h2 *ngIf="isInbound">How much energy would you like to receive?</h2>
-                                <h2 *ngIf="isOutbound">How much energy would you like to send?</h2>
-                                <p>
-                                    GGO transfers are measured in Watt-hours (Wh), and are transferred
-                                    on an per-hour basis.<br>You set an upper limit on the number of Wh to
-                                    transfer each hour within the period defined in the previous step.
-                                </p>
+                                <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.AMOUNT.HEADLINE-RECEIVING' | translate }}</h2>
+                                <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.AMOUNT.HEADLINE-SENDING' | translate }}</h2>
+                                <p style="white-space: pre-wrap;">{{ 'CREATE-AGREEMENT.AMOUNT.TEXT' | translate }}</p>
 
                                 <div style="margin-top: 50px;">
                                     <h3 *ngIf="isInbound">
                                         <span class="required">*</span>
-                                        Enter the maximum amount of GGOs to receive:
+                                        {{ 'CREATE-AGREEMENT.AMOUNT.ENTER-MAX-AMOUNT-RECEIVING' | translate }}
                                     </h3>
                                     <h3 *ngIf="isOutbound">
                                         <span class="required">*</span>
-                                        Enter the maximum amount of GGOs to send:
+                                        {{ 'CREATE-AGREEMENT.AMOUNT.ENTER-MAX-AMOUNT-SENDING' | translate }}
                                     </h3>
 
                                     <div style="display: flex; flex-direction: row; align-items: center;">
@@ -148,20 +144,18 @@
                                         </mat-select>
                                         
                                         <div style="flex: 1 1 0;"></div>
-                                        <div style="flex: 4 4 0;">per hour</div>
+                                        <div style="flex: 4 4 0;">{{ 'CREATE-AGREEMENT.AMOUNT.PER-HOUR' | translate }}</div>
                                         <div style="flex: 10 10 0;"></div>
                                     </div>
 
                                     <div *ngIf="hasRecommendedAmount" style="margin-top: 25px; text-align: center;">
                                         <p *ngIf="isInbound">
-                                            {{ recommendedAmount }} {{ recommendedAmountUnit }} is calculated 
-                                            based on your peak consumption for one hour in the selected period
-                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">inspect</a>).
+                                            {{ 'CREATE-AGREEMENT.AMOUNT.CALCULATED-PEAK-CONSUMPTION' | translate:{'amount': recommendedAmount, 'unit': recommendedAmountUnit} }}
+                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">{{ 'CREATE-AGREEMENT.AMOUNT.INSPECT' | translate }}</a>).
                                         </p>
                                         <p *ngIf="isOutbound">
-                                            {{ recommendedAmount }} {{ recommendedAmountUnit }} is calculated 
-                                            based on your peak production for one hour in the selected period
-                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">inspect</a>).
+                                            {{ 'CREATE-AGREEMENT.AMOUNT.CALCULATED-PEAK-PRODUCTION' | translate:{'amount': recommendedAmount, 'unit': recommendedAmountUnit} }}
+                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">{{ 'CREATE-AGREEMENT.AMOUNT.INSPECT' | translate }}</a>).
                                         </p>
                                     </div>
                                 </div>
@@ -169,32 +163,34 @@
                                 <div style="display: inline-block; text-align: left; margin-top: 50px;">
                                     <div *ngIf="isOutbound" style="margin-bottom: 30px;">
                                         <mat-checkbox [(ngModel)]="showAmountPercentage" (change)="onToggleAmountPercent()" [ngModelOptions]="{standalone: true}">
-                                            <h3 style="margin: 0">Transfer percentage of GGOs amount</h3>
+                                            <h3 style="margin: 0">{{ 'CREATE-AGREEMENT.AMOUNT.TRANSFER-PERCENTAGE-OF-GGOS' | translate }}</h3>
                                         </mat-checkbox>
                                         <div>
-                                            <p>Always transfer a certain percentage of a GGO</p>
+                                            <p>{{ 'CREATE-AGREEMENT.AMOUNT.TRANSFER-PERCENTAGE-OF-GGOS-TEXT' | translate }}</p>
                                         </div>
 
                                         <div *ngIf="showAmountPercentage" style="display: flex; flex-direction: row; align-items: center;">
                                             <input matInput formControlName="amountPercent" class="field" style="flex: 4 4 0;">
                                             <div style="flex: 1 1 0;"></div>
-                                            <div style="flex: 10 10 0;">percent (%)</div>
+                                            <div style="flex: 10 10 0;">{{ 'CREATE-AGREEMENT.AMOUNT.PERCENT' | translate }} (%)</div>
                                         </div>
                                     </div>
 
                                     <div>
                                         <mat-checkbox formControlName="limitToConsumption">
-                                            <h3 *ngIf="isInbound" style="margin: 0">Limit transfer to my consumption</h3>
-                                            <h3 *ngIf="isOutbound" style="margin: 0">Limit transfer to recipient's consumption</h3>
+                                            <h3 *ngIf="isInbound" style="margin: 0">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-RECEIVING' | translate }}
+                                            </h3>
+                                            <h3 *ngIf="isOutbound" style="margin: 0">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-SENDING' | translate }}
+                                            </h3>
                                         </mat-checkbox>
                                         <div>
-                                            <p *ngIf="isInbound" >
-                                                If my consumption is low at specific hours, I never<br>
-                                                receive more GGOs than the energy I have consumed
+                                            <p *ngIf="isInbound" style="white-space: pre-wrap;">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-RECEIVING-TEXT' | translate }}
                                             </p>
-                                            <p *ngIf="isOutbound" >
-                                                If the recipient's consumption is low at specific hours, they<br>
-                                                never receive more GGOs than the energy they have consumed
+                                            <p *ngIf="isOutbound" style="white-space: pre-wrap;">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-SENDING-TEXT' | translate }}
                                             </p>
                                         </div>
                                     </div>
@@ -213,6 +209,7 @@
                             </button>
                         </div>
                     </mat-step>
+                    <!-- /Amount -->
                 
                 
                     <!-- Technologies -->
@@ -224,19 +221,19 @@
 
 
                         <div *ngIf="errorLoadingTechnologies" style="margin-top: 50px; text-align: center;">
-                            <h2>Failed to load technologies</h2>
+                            <h2>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.FAILED-TO-LOAD' | translate }}</h2>
                             <button mat-button type="button" class="send" style="margin-top: 25px;"(click)="loadFilteringOptions()">
-                                TRYA GAIN
+                                {{ 'COMMON.TRY-AGAIN' | translate }}
                             </button>
                         </div>
-                        
+
 
                         <form [formGroup]="technologiesForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
                             <div style="text-align: center; margin: 50px 0;">
-                                <h2 *ngIf="isInbound">Which source technologies would you like to receive?</h2>
-                                <h2 *ngIf="isOutbound">Which source technologies would you like to send?</h2>
+                                <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.TECHNOLOGIES.HEADLINE-RECEIVING' | translate }}</h2>
+                                <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.TECHNOLOGIES.HEADLINE-SENDING' | translate }}</h2>
 
-                                <h3 style="margin-top: 50px;">Select at least one source technology</h3>
+                                <h3 style="margin-top: 50px;">{{ 'CREATE-AGREEMENT.TECHNOLOGIES.TEXT' | translate }}</h3>
 
                                 <!-- Check/uncheck all -->
                                 <div style="text-align: center; margin: 20px 0;">
@@ -244,7 +241,7 @@
                                         [checked]="allTechnologiesSelected"
                                         [indeterminate]="checkUncheckAllIsIndeterminate"
                                         (click)="onCheckUncheckAllTechnologiesChanged($event)">
-                                        Check/uncheck all
+                                        {{ 'CREATE-AGREEMENT.TECHNOLOGIES.CHECK-UNCHECK-ALL' | translate }}
                                     </mat-checkbox>
                                 </div>
 
@@ -275,23 +272,23 @@
                             </button>
                         </div>
                     </mat-step>
-                
-                
+
+
                     <!-- Counterpart -->
                     <mat-step [stepControl]="counterpartForm">
                         <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.COUNTERPART.LABEL' | translate }}</ng-template>
 
                         <div style="text-align: center; margin: 50px 0;" *ngIf="!hasCounterpart">
-                            <h2 *ngIf="isInbound">How would you like to find a supplier?</h2>
-                            <h2 *ngIf="isOutbound">How would you like to find a recipient?</h2>
+                            <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.COUNTERPART.HEADLINE-RECEIVING' | translate }}</h2>
+                            <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.COUNTERPART.HEADLINE-SENDING' | translate }}</h2>
                             
                             <div style="margin: 50px 0; display: flex; flex-direction: row;" *ngIf="isInbound">
                                 <div style="flex: 1 1 0"></div>
                                 <div style="flex: 5 5 0; text-align: center;">
                                     <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartDropdownDialog()">
                                         <mat-card-content>
-                                            <h3>I KNOW MY SUPPLIER</h3>
-                                            <p>I know the name of the company I want to receive GGOs from</p>
+                                            <h3>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-SUPPLIER' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-SUPPLIER-TEXT' | translate }}</p>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
@@ -299,12 +296,8 @@
                                 <div style="flex: 5 5 0; text-align: center;">
                                     <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartListDialogDialog()">
                                         <mat-card-content *ngIf="isInbound">
-                                            <h3>SEARCH FOR A SUPPLIER</h3>
-                                            <p>I want to search for companies that can supply me with GGOs</p>
-                                        </mat-card-content>
-                                        <mat-card-content *ngIf="isOutbound">
-                                            <h3>SEARCH FOR A RECIPIENT</h3>
-                                            <p>I want to search for companies that can supply me with GGOs</p>
+                                            <h3>{{ 'CREATE-AGREEMENT.COUNTERPART.SEARCH-FOR-SUPPLIER' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.COUNTERPART.SEARCH-FOR-SUPPLIER-TEXT' | translate }}</p>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
@@ -316,8 +309,8 @@
                                 <div style="flex: 5 5 0; text-align: center;">
                                     <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartDropdownDialog()">
                                         <mat-card-content>
-                                            <h3>I KNOW MY RECIPIENT</h3>
-                                            <p>I know the name of the company I want to send GGOs to</p>
+                                            <h3>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-RECIPIENT' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-RECIPIENT-TEXT' | translate }}</p>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
@@ -326,14 +319,14 @@
                         </div>
 
                         <div style="text-align: center; margin: 50px 0;" *ngIf="hasCounterpart">
-                            <h2 *ngIf="isInbound">Your have chosen to receive GGOs from {{ counterpartName }}</h2>
-                            <h2 *ngIf="isOutbound">Your have chosen to send GGOs to {{ counterpartName }}</h2>
+                            <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.COUNTERPART.CHOSEN-TO-RECEIVE-GGOS-FROM' | translate:{'counterpart': counterpartName} }}</h2>
+                            <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.COUNTERPART.CHOSEN-TO-SEND-GGOS-TO' | translate:{'counterpart': counterpartName} }}</h2>
 
                             <button mat-button type="button" class="send" style="margin-top: 50px;" (click)="resetCounterpart()" *ngIf="isInbound">
-                                CHOOSE ANOTHER SUPPLIER
+                                {{ 'CREATE-AGREEMENT.COUNTERPART.CHOOSE-ANOTHER-SUPPLIER' | translate }}
                             </button>
                             <button mat-button type="button" class="send" style="margin-top: 50px;" (click)="resetCounterpart()" *ngIf="isOutbound">
-                                CHOOSE ANOTHER RECIPIENT
+                                {{ 'CREATE-AGREEMENT.COUNTERPART.CHOOSE-ANOTHER-RECIPIENT' | translate }}
                             </button>
                         </div>
 
@@ -356,30 +349,32 @@
                         
                         <form [formGroup]="confirmForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
                             <div style="text-align: center; margin-top: 50px;">
-                                <h2 *ngIf="isInbound">Agreement proposal to receive GGOs from {{ counterpartName }}</h2>
-                                <h2 *ngIf="isOutbound">Agreement proposal to send GGOs to {{ counterpartName }}</h2>
+                                <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.CONFIRM.HEADLINE-RECEIVING' | translate:{'counterpart': counterpartName} }}</h2>
+                                <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.CONFIRM.HEADLINE-SENDING' | translate:{'counterpart': counterpartName} }}</h2>
 
                                 <p>
-                                    Runs from <b>{{ begin | date }}</b> to <b>{{ end | date }}</b>
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.RUNS-FROM' | translate }}
+                                    <b>{{ begin | date }}</b>
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.TO' | translate }}
+                                    <b>{{ end | date }}</b>
+                                </p>
+
+                                <p *ngIf="showAmountPercentage">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.TRANSFERS-AMOUNT-WITH-PERCENT' | translate:{'percent':amountPercent, 'amount':amount, 'unit':unit} }}
+                                </p>
+                                <p *ngIf="!showAmountPercentage">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.TRANSFERS-AMOUNT' | translate:{'amount':amount, 'unit':unit} }}
+                                </p>
+
+                                <p *ngIf="isLimitedToConsumption && isInbound" style="white-space: pre-wrap;">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.LIMITED-TO-YOUR-CONSUMPTION' | translate }}
+                                </p>
+                                <p *ngIf="isLimitedToConsumption && isOutbound" style="white-space: pre-wrap;">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.LIMITED-TO-RECIPIENTS-CONSUMPTION' | translate }}
                                 </p>
 
                                 <p>
-                                    Transfers
-                                    <span *ngIf="showAmountPercentage">{{ amountPercent }}% of GGOs</span>
-                                    up to <b>{{ amount }} {{ unit }}</b> per hour.
-                                </p>
-
-                                <p *ngIf="isLimitedToConsumption && isInbound">
-                                    Is limited to your consumption: If your consumption is low at specific hours,<br>
-                                    you never receive more GGOs than the energy you have consumed.
-                                </p>
-                                <p *ngIf="isLimitedToConsumption && isOutbound">
-                                    Is limited to the recipient's consumption: If the recipient's consumption is
-                                    low at specific hours,<br>they never receive more GGOs than the energy they have consumed .
-                                </p>
-
-                                <p>
-                                    Only the following source technologies are transferred:<br>
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.SOURCE-TECHNOLOGIES' | translate }}:<br>
                                     {{ technologiesString }}
                                 </p>
                             </div>
@@ -387,7 +382,7 @@
 
                             <h3 style="text-align: center; margin-top: 50px;">
                                 <span class="required">*</span>
-                                Enter a subject for future reference:
+                                {{ 'CREATE-AGREEMENT.CONFIRM.ENTER-SUBJECT' | translate }}:
                             </h3>
 
 
@@ -401,21 +396,21 @@
                             <div class="legend" style="margin-top: 50px;">
                                 <div class="fill-remaining"></div>
                                 <div class="field" style="width: 350px; height: 120px">
-                                    <textarea matInput formControlName="proposalNote" [disabled]="submitting" placeholder="Enter a note to the recipient (optional)" style="width: 100%; height: 100%"></textarea>
+                                    <textarea matInput formControlName="proposalNote" [disabled]="submitting" placeholder="{{ 'CREATE-AGREEMENT.CONFIRM.ENTER-NOTE-PLACEHOLDER' | translate }}" style="width: 100%; height: 100%"></textarea>
                                 </div>
                                 <div class="fill-remaining"></div>
                             </div>
 
                             <div class="legend" style="text-align: center; margin-top: 50px;">
                                 <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
-                                    &laquo; PREVIOUS
+                                    &laquo; {{ 'COMMON.PREVIOUS' | translate }}
                                 </button>
     
                                 <div class="fill-remaining"></div>
     
                                 <button mat-button type="button" class="send" [disabled]="!confirmForm.valid || submitting" (click)="submitProposal()">
-                                    <span *ngIf="!submitting">SUBMIT PROPOSAL</span>
-                                    <span *ngIf="submitting">SUBMITING...</span>
+                                    <span *ngIf="!submitting">{{ 'CREATE-AGREEMENT.CONFIRM.SUBMIT-PROPOSAL' | translate }}</span>
+                                    <span *ngIf="submitting">{{ 'CREATE-AGREEMENT.CONFIRM.SUBMITTING' | translate }}</span>
                                 </button>
                             </div>
                         </form>
@@ -427,16 +422,9 @@
 
                 <div *ngIf="completed">
                     <div style="text-align: center; margin: 50px 0;">
-                        <h2>Proposal sent</h2>
-
-                        <p>
-                            {{ counterpartName }} has received your agreement proposal.
-                        </p>
-
-                        <p>
-                            You will be able to see the agreement on the Transfer page
-                            as soon as they accept or decline the proposal.
-                        </p>
+                        <h2>{{ 'CREATE-AGREEMENT.CONFIRM.PROPOSAL-SENT' | translate }}</h2>
+                        <p>{{ 'CREATE-AGREEMENT.CONFIRM.PROPOSAL-RECEIVED' | translate:{'counterpart':counterpartName} }}</p>
+                        <p>{{ 'CREATE-AGREEMENT.CONFIRM.ACCEPT-DECLINE' | translate }}</p>
                     </div>
                 </div>
 

@@ -1,21 +1,16 @@
 
 <div class="dialog-header">
-    <h1>SELECT SUPPLIER</h1>
-    <h2 style="text-align: center;">
-        The list shows companies which may be able to meet
-        your GGO requirements.
-    </h2>
+    <h1>{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.HEADLINE' | translate }}</h1>
+    <h2 style="text-align: center;">{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.TEXT' | translate }}</h2>
 </div>
 
 
 <div class="dialog-body">
-
-
     <app-loading-view *ngIf="loading" style="margin: 50px;"></app-loading-view>
 
 
     <div class="supplier" *ngIf="!loading && suppliers.length == 0">
-        No suppliers found that matches your requirements.
+        {{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.NO-SUPPLIERS-FOUND' | translate }}
     </div>
 
 
@@ -23,7 +18,7 @@
         <h3>{{ supplier.company }}</h3>
         <div class="fill-remaining"></div>
         <button mat-button type="button" class="send" (click)="selectSupplier(supplier)">
-            CHOOSE THIS
+            {{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.CHOOSE-THIS' | translate }}
         </button>
     </div>
 
@@ -35,7 +30,7 @@
     <div class="legend">
         <div class="fill-remaining"></div>
         <button mat-button type="button" class="cancel" (click)="closeDialog()">
-            CLOSE
+            {{ 'COMMON.CLOSE' | translate }}
         </button>
         <div class="fill-remaining"></div>
     </div>
