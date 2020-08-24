@@ -4,7 +4,6 @@
     <h2>TODO WRITE SOMETHING HERE</h2>
 </div>
 
-
 <div class="dialog-body">
 
     
@@ -42,5 +41,40 @@
             </td>
         </tr>
     </table>
+
+
+
+
+                <div>
+                    <br><br>
+
+                    <h1>Total emissions</h1>
+                    
+                    <canvas baseChart
+                        width="2"
+                        height="1"
+                        [datasets]="totalEmissionsChartData"
+                        [labels]="totalEmissionsChartLabels"
+                        [options]="totalEmissionsChartOptions"
+                        [legend]="totalEmissionsChartLegend"
+                        [chartType]="totalEmissionsChartType">
+                    </canvas>
+
+
+                    <br><br>
+
+
+                    <h1>Relative emissions (gram/kWh)</h1>
+                    
+                    <canvas baseChart
+                        width="2"
+                        height="1"
+                        [datasets]="relativeEmissionsChartData"
+                        [labels]="relativeEmissionsChartLabels"
+                        [options]="relativeEmissionsChartOptions"
+                        [legend]="relativeEmissionsChartLegend"
+                        [chartType]="relativeEmissionsChartType">
+                    </canvas>
+                </div>
 
 </div>

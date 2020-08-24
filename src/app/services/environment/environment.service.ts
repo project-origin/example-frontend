@@ -48,6 +48,7 @@ export class EcoDeclaration {
   totalEmissions: Map<string, number>;
   totalEmissionsPerWh: Map<string, number>;
   totalConsumedAmount: number;
+  totalRetiredAmount: number;
   totalTechnologies: Map<string, number>;
 }
 

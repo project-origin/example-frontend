@@ -29,6 +29,9 @@ type Technology = {
 })
 export class EnvironmentComponent implements OnInit {
 
+
+  expandTechnologies: boolean = false;
+
   // Loading state
   loading: boolean = false;
   error: boolean = false;
@@ -40,7 +43,8 @@ export class EnvironmentComponent implements OnInit {
   hasData: boolean = false;
   individual: EcoDeclaration;
   general: EcoDeclaration;
-  technologies: Technology[] = [];
+  // technologies: Technology[] = [];
+  technologiesMapped: {[technology: string]: Technology};
 
   emissions = {
     'CO2': {
@@ -145,71 +149,71 @@ export class EnvironmentComponent implements OnInit {
   };
 
 
-  // TOTAL EMISSIONS LINE CHART
-  totalEmissionsChartLabels: string[] = [];
-  totalEmissionsChartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
-  totalEmissionsChartLegend = true;
-  totalEmissionsChartType: ChartType = 'line';
-  totalEmissionsChartOptions: ChartOptions = {
-    responsive: true,
-    aspectRatio: 3,
-    maintainAspectRatio: true,
-    legend: {
-      align: 'end',
-      position: 'top'
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem:ChartTooltipItem, data) {
-          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
-        }
-      }
-    },
-    scales: {
-      xAxes: [{ stacked: true }],
-      yAxes: [{ 
-        // stacked: true,
-        ticks: {
-          beginAtZero: true,
-          callback: label => FormatEmission.format(Number(label))
-        }
-      }],
-    },
-  };
+  // // TOTAL EMISSIONS LINE CHART
+  // totalEmissionsChartLabels: string[] = [];
+  // totalEmissionsChartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
+  // totalEmissionsChartLegend = true;
+  // totalEmissionsChartType: ChartType = 'line';
+  // totalEmissionsChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   aspectRatio: 3,
+  //   maintainAspectRatio: true,
+  //   legend: {
+  //     align: 'end',
+  //     position: 'top'
+  //   },
+  //   tooltips: {
+  //     callbacks: {
+  //       label: function(tooltipItem:ChartTooltipItem, data) {
+  //         return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
+  //       }
+  //     }
+  //   },
+  //   scales: {
+  //     xAxes: [{ stacked: true }],
+  //     yAxes: [{ 
+  //       // stacked: true,
+  //       ticks: {
+  //         beginAtZero: true,
+  //         callback: label => FormatEmission.format(Number(label))
+  //       }
+  //     }],
+  //   },
+  // };
 
 
-  // RELATIVE EMISSIONS LINE CHART
-  relativeEmissionsChartLabels: string[] = [];
-  relativeEmissionsChartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
-  relativeEmissionsChartLegend = true;
-  relativeEmissionsChartType: ChartType = 'line';
-  relativeEmissionsChartOptions: ChartOptions = {
-    responsive: true,
-    aspectRatio: 3,
-    maintainAspectRatio: true,
-    legend: {
-      align: 'end',
-      position: 'top'
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem:ChartTooltipItem, data) {
-          return data.datasets[tooltipItem.datasetIndex].label + ': ' + formatNumber(Number(tooltipItem.value), 'da', '1.0-2') + ' g/kWh';
-          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
-        }
-      }
-    },
-    scales: {
-      xAxes: [{ stacked: true }],
-      yAxes: [{ 
-        // stacked: true,
-        ticks: {
-          beginAtZero: true,
-          callback: label => formatNumber(parseFloat(label), 'da', '1.0-2') + ' g/kWh'
-        }
-      }],
-    },
-  };
+  // // RELATIVE EMISSIONS LINE CHART
+  // relativeEmissionsChartLabels: string[] = [];
+  // relativeEmissionsChartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
+  // relativeEmissionsChartLegend = true;
+  // relativeEmissionsChartType: ChartType = 'line';
+  // relativeEmissionsChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   aspectRatio: 3,
+  //   maintainAspectRatio: true,
+  //   legend: {
+  //     align: 'end',
+  //     position: 'top'
+  //   },
+  //   tooltips: {
+  //     callbacks: {
+  //       label: function(tooltipItem:ChartTooltipItem, data) {
+  //         return data.datasets[tooltipItem.datasetIndex].label + ': ' + formatNumber(Number(tooltipItem.value), 'da', '1.0-2') + ' g/kWh';
+  //         return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
+  //       }
+  //     }
+  //   },
+  //   scales: {
+  //     xAxes: [{ stacked: true }],
+  //     yAxes: [{ 
+  //       // stacked: true,
+  //       ticks: {
+  //         beginAtZero: true,
+  //         callback: label => formatNumber(parseFloat(label), 'da', '1.0-2') + ' g/kWh'
+  //       }
+  //     }],
+  //   },
+  // };
 
 
   constructor(
@@ -257,10 +261,10 @@ export class EnvironmentComponent implements OnInit {
     this.techChartLabels = [];
     this.techChartData = [];
     this.techChartColors = [];
-    this.totalEmissionsChartLabels = [];
-    this.totalEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
-    this.relativeEmissionsChartLabels = [];
-    this.relativeEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
+    // this.totalEmissionsChartLabels = [];
+    // this.totalEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
+    // this.relativeEmissionsChartLabels = [];
+    // this.relativeEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
 
     this.loading = true;
     this.environmentService
@@ -277,21 +281,21 @@ export class EnvironmentComponent implements OnInit {
     if(response.success) {
       this.individual = response.individual;
       this.general = response.general;
-      this.technologies = this.buildTechnologies(response.individual);
+      this.technologiesMapped = this.buildTechnologies(response.individual);
       
-      this.buildEmissionsChart(
-        response.individual.emissions,
-        this.totalEmissionsChartLabels,
-        this.totalEmissionsChartData,
-        (value) => value,
-      );
+      // this.buildEmissionsChart(
+      //   response.individual.emissions,
+      //   this.totalEmissionsChartLabels,
+      //   this.totalEmissionsChartData,
+      //   (value) => value,
+      // );
       
-      this.buildEmissionsChart(
-        response.individual.emissionsPerWh,
-        this.relativeEmissionsChartLabels,
-        this.relativeEmissionsChartData,
-        (value) => value * 1000,
-      );
+      // this.buildEmissionsChart(
+      //   response.individual.emissionsPerWh,
+      //   this.relativeEmissionsChartLabels,
+      //   this.relativeEmissionsChartData,
+      //   (value) => value * 1000,
+      // );
 
       this.buildTechnologyChart();
     } else {
@@ -340,20 +344,24 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  showEmissionDetailsPopup(key: string) {
+  showEmissionDetailsPopup(emission: string) {
     let data = {
-      key: key,
-      plainLabel: this.getPlainLabel(key),
-      htmlLabel: this.getHtmlLabel(key),
+      declaration: this.individual,
+      emission: emission,
+      plainLabel: this.getPlainLabel(emission),
+      htmlLabel: this.getHtmlLabel(emission),
       totalConsumedAmount: this.individual.totalConsumedAmount,
-      totalEmission: this.individual.totalEmissions[key],
-      totalEmissionPerWh: this.individual.totalEmissionsPerWh[key],
+      totalEmission: this.individual.totalEmissions[emission],
+      totalEmissionPerWh: this.individual.totalEmissionsPerWh[emission],
+      emissions: this.emissions,
+      resolution: this.getResolution(),
     };
 
     this.dialog.open(EmissionDetailsDialogComponent, { 
       data: data,
       width: '800px',
       panelClass: 'dialog',
+      maxHeight: '90vh',
     });
   }
 
@@ -391,68 +399,88 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  buildTechnologies(declaration: EcoDeclaration) : Technology[] {
-    let technologies: Technology[] = [];
+  // buildTechnologies(declaration: EcoDeclaration) : Technology[] {
+  //   let technologies: Technology[] = [];
+
+  //   for(var technology in declaration.totalTechnologies) {
+  //     technologies.push({
+  //       technology: technology,
+  //       amount: declaration.totalTechnologies[technology],
+  //       percent: declaration.totalTechnologies[technology] / declaration.totalConsumedAmount * 100,
+  //     });
+  //   }
+
+  //   return technologies;
+  // }
+
+
+  buildTechnologies(declaration: EcoDeclaration) : {[technology: string]: Technology} {
+    let technologies: {[technology: string]: Technology} = {};
 
     for(var technology in declaration.totalTechnologies) {
-      technologies.push({
+      technologies[technology] = {
         technology: technology,
         amount: declaration.totalTechnologies[technology],
         percent: declaration.totalTechnologies[technology] / declaration.totalConsumedAmount * 100,
-      });
+      };
     }
 
     return technologies;
   }
 
 
-  buildEmissionsChart(
-    emissions: Map<Date, Map<string, number>>,
-    targetLabels: string[],
-    targetData: ChartDataSets[],
-    transform: (value: number) => number,
-  ) {
-    let data = {};
-    let formatBegin = (begin: moment.Moment) : string => {
-      switch(this.getResolution()) {
-        case EcoDeclarationResolution.year:
-          return moment(begin).format('YYYY');
-        case EcoDeclarationResolution.month:
-          return moment(begin).format('YYYY-MM');
-        case EcoDeclarationResolution.day:
-          return moment(begin).format('YYYY-MM-DD');
-        case EcoDeclarationResolution.hour:
-          return moment(begin).format('YYYY-MM-DD HH:mm');
-      }
-    };
-
-    for(var begin in emissions) {
-      targetLabels.push(formatBegin(moment(begin)));
-
-      for(var key in emissions[begin]) {
-        if(!(key in data)) {
-          data[key] = [];
-        }
-        data[key].push(transform(emissions[begin][key]));
-      }
-    }
-
-    for(var key in data) {
-      let color = EmissionColor.get(key);
-
-      targetData.push(<ChartDataSets>{
-        label: this.getPlainLabel(key),
-        fill: false,
-        borderColor: color,
-        backgroundColor: color,
-        hoverBorderColor: color,
-        hoverBackgroundColor: color,
-        pointBorderColor: color,
-        pointBackgroundColor: color,
-        data: data[key],
-      });
-    }
+  get technologies(): Technology[] {
+    return Object.values(this.technologiesMapped);
   }
+
+
+  // buildEmissionsChart(
+  //   emissions: Map<Date, Map<string, number>>,
+  //   targetLabels: string[],
+  //   targetData: ChartDataSets[],
+  //   transform: (value: number) => number,
+  // ) {
+  //   let data = {};
+  //   let formatBegin = (begin: moment.Moment) : string => {
+  //     switch(this.getResolution()) {
+  //       case EcoDeclarationResolution.year:
+  //         return moment(begin).format('YYYY');
+  //       case EcoDeclarationResolution.month:
+  //         return moment(begin).format('YYYY-MM');
+  //       case EcoDeclarationResolution.day:
+  //         return moment(begin).format('YYYY-MM-DD');
+  //       case EcoDeclarationResolution.hour:
+  //         return moment(begin).format('YYYY-MM-DD HH:mm');
+  //     }
+  //   };
+
+  //   for(var begin in emissions) {
+  //     targetLabels.push(formatBegin(moment(begin)));
+
+  //     for(var key in emissions[begin]) {
+  //       if(!(key in data)) {
+  //         data[key] = [];
+  //       }
+  //       data[key].push(transform(emissions[begin][key]));
+  //     }
+  //   }
+
+  //   for(var key in data) {
+  //     let color = EmissionColor.get(key);
+
+  //     targetData.push(<ChartDataSets>{
+  //       label: this.getPlainLabel(key),
+  //       fill: false,
+  //       borderColor: color,
+  //       backgroundColor: color,
+  //       hoverBorderColor: color,
+  //       hoverBackgroundColor: color,
+  //       pointBorderColor: color,
+  //       pointBackgroundColor: color,
+  //       data: data[key],
+  //     });
+  //   }
+  // }
 
 
   buildTechnologyChart() {
@@ -499,6 +527,36 @@ export class EnvironmentComponent implements OnInit {
     } else {
       return 0;
     }
+  }
+
+
+  get co2Total(): number {
+    return this.getTotalEmissions(this.individual, 'CO2') / 1000;
+  }
+
+  get co2Relative(): number {
+    return this.getEmissionsPerkWh(this.individual, 'CO2');
+  }
+
+  get co2Compared(): number {
+    return this.getDeltaEmissionsPerkWh(this.individual, this.general, 'CO2');
+  }
+
+  get cleanEnergyPercentage(): number {
+    let percent: number = 0;
+
+    if('Wind' in this.technologiesMapped)
+      percent += this.technologiesMapped['Wind'].percent;
+    if('Solar' in this.technologiesMapped)
+      percent += this.technologiesMapped['Solar'].percent;
+    if('Hydro' in this.technologiesMapped)
+      percent += this.technologiesMapped['Hydro'].percent;
+
+    return percent;
+  }
+
+  get ggoPercentage(): number {
+    return this.individual.totalRetiredAmount / this.individual.totalConsumedAmount * 100;
   }
 
 }
