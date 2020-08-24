@@ -55,7 +55,7 @@
         </mat-card>
 
 
-        <div *ngIf="!loading" class="legend" style="margin: 0">
+        <div *ngIf="hasData && !loading" class="legend" style="margin: 0">
             <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
                 <mat-card-content style="text-align: center;">
                     <h2><b>Renewable energy</b></h2>
@@ -148,7 +148,7 @@
     </mat-card>
 
 
-        <mat-card>
+        <mat-card *ngIf="hasData && !loading">
             <mat-card-content>
             <div class="legend">
                 <h1>All Emissions</h1>
