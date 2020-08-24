@@ -1,5 +1,4 @@
 import { Type } from "class-transformer";
-import { formatNumber } from '@angular/common';
 
 
 export class CommodityColor {
@@ -41,6 +40,19 @@ export class CommodityColor {
 export enum MeasurementType {
   production = 'production',
   consumption = 'consumption'
+}
+
+
+export class Measurement {
+  address: string;
+  gsrn: string;
+  type: MeasurementType;
+  sector: string;
+  amount: number;
+  @Type(() => Date)
+  begin: Date;
+  @Type(() => Date)
+  end: Date;
 }
 
 
@@ -97,6 +109,14 @@ export class MeasurementDataSet {
   label: string;
   values: number[] = [];
   unit: string;
+
+  constructor(args: {
+    label?: string,
+    values?: number[],
+    unit?: string,
+  }) {
+    Object.assign(this, args);
+  }
 
   get color() : string {
     return CommodityColor.get(this.label);

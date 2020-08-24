@@ -1,67 +1,86 @@
+<div class="page">
 
-<div class="dashboard">
-
-    <div class="filters">
-        <app-commodities-filters
-            [dateFrom]="dateFrom"
-            [dateTo]="dateTo"
-            [filters]="filters">
-        </app-commodities-filters>
+    <!-- Left column -->
+    <div class="about">
+        <mat-card>
+            <mat-card-content>
+                <app-commodities-filters
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    [filters]="filters">
+                </app-commodities-filters>
+            </mat-card-content>
+        </mat-card>
     </div>
+    <!-- /Left column -->
 
-    <div class="details">
-      <mat-card>
-          <mat-card-content>
+
+    <!-- Right column -->
+    <div class="content">
+        <mat-card>
+            <mat-card-content>
                 <div class="legend">
-                    <h1>Produced power and issued GGOs</h1>
+                    <h1>{{ 'COMMODITIES.PRODUCED-POWER-ISSUED-GGOS' | translate }}</h1>
                     <div class="fill-remaining"></div>
+
                     <button mat-flat-button
                         color="primary"
                         [matMenuTriggerFor]="menu"
-                        matTooltip="You can export the data shown in the graphs to a CSV-file"
+                        matTooltip="{{ 'COMMODITIES.EXPORT-CSV.TOOLTIP' | translate }}"
                         matTooltipPosition="above">
-                        EXPORT CSV
+                        {{ 'COMMODITIES.EXPORT-CSV.BUTTON-TEXT' | translate }}
                     </button>
+
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
-                        <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
-                        <button mat-menu-item (click)="exportGgoList()">GGO List</button>
+                        <button mat-menu-item (click)="exportMeasurements()">
+                            {{ 'COMMODITIES.EXPORT-CSV.MEASUREMENTS' | translate }}
+                        </button>
+                        <button mat-menu-item (click)="exportGgoSummary()">
+                            {{ 'COMMODITIES.EXPORT-CSV.GGO-SUMMARY' | translate }}
+                        </button>
+                        <button mat-menu-item (click)="exportGgoList()">
+                            {{ 'COMMODITIES.EXPORT-CSV.GGO-LIST' | translate }}
+                        </button>
                     </mat-menu>
                 </div>
 
-              <app-commodity-plot
-                  [dateFrom]="dateFrom"
-                  [dateTo]="dateTo"
-                  [filters]="filters"
-                  measurementType="production">
-              </app-commodity-plot>
-          </mat-card-content>
-          
-          <br><br>
+                <app-commodity-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    [filters]="filters"
+                    measurementType="production"
+                    ggoCategory="issued">
+                </app-commodity-plot>
+            </mat-card-content>
 
-          <mat-card-content>
+            <br><br>
+
+            <mat-card-content>
                 <div class="legend">
-                    <h1>Consumed power and retired GGOs</h1>
+                    <h1>{{ 'COMMODITIES.CONSUMED-POWER-RETIRED-GGOS' | translate }}</h1>
+
                     <div class="fill-remaining"></div>
+
                     <button mat-flat-button
                         type="button"
                         color="primary"
                         (click)="createDisclosure()"
-                        matTooltip="You can generate a link that allows you to share the displayed graphs with others. You can always delete a link on the Disclosure page. Your data will not be accessible to others after deletion"
+                        matTooltip="{{ 'COMMODITIES.DISCLOSE-DATA.TOOLTIP' | translate }}"
                         matTooltipPosition="above">
-                        DISCLOSE DATA
+                        {{ 'COMMODITIES.DISCLOSE-DATA.BUTTON-TEXT' | translate }}
                     </button>
                 </div>
 
-              <app-commodity-plot
-                  [dateFrom]="dateFrom"
-                  [dateTo]="dateTo"
-                  [filters]="filters"
-                  measurementType="consumption">
-              </app-commodity-plot>
-          </mat-card-content>
-      </mat-card>
-
+                <app-commodity-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    [filters]="filters"
+                    measurementType="consumption"
+                    ggoCategory="retired">
+                </app-commodity-plot>
+            </mat-card-content>
+        </mat-card>
     </div>
+    <!-- /Right column -->
 
 </div>

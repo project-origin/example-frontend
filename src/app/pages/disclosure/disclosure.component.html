@@ -1,47 +1,38 @@
+<div class="page">
 
-<div class="retire">
-
+    <!-- Left column -->
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>About</h1>
-                <p>
-                    On this page you can see a list of your current public disclosures. A link to them, as well as delete them.
-                </p>
-                <p>
-                    To create a new disclosure go to the Commodities tab. Select the facilities and time frame you wish to disclosure, and press the disclosure button.
-                </p>
-                <p>
-                    A disclosure is the part of your consumption you have chosen to make publicly available for other people to verify and see.
+                <h1>{{ 'DISCLOSURE.ABOUT.HEADLINE' | translate }}</h1>
+
+                <p style="white-space: pre-wrap;">
+                    {{ 'DISCLOSURE.ABOUT.TEXT' | translate }}
                 </p>
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
 
-    <div class="list">
-        
+    <!-- Right column -->
+    <div class="content">
         <mat-card>
             <mat-card-content>
-                <h1>Data Disclosure</h1>
-                <h2>Public datasets</h2>
-
-                <div class="table-row table-legend">
-                    <span class="name">Name</span>
-                    <span class="dates">Dates</span>
-                    <span class="buttons"></span>
-                </div>
-                
+                <h1>{{ 'DISCLOSURE.HEADLINE' | translate }}</h1>
 
                 <div class="table-row empty" *ngIf="disclosures.length == 0">
                     <div>
-                        <b>No disclosured found</b>
+                        <b>{{ 'DISCLOSURE.EMPTY.HEADLINE' | translate }}</b>
                         <br><br>
-                        Create disclosures by navigating to 
-                        <a routerLink="/app/commodities/">Commodities</a>,
-                        then filtering the data you want to disclose,
-                        and then click the DISCLOSE DATA button.
+                        {{ 'DISCLOSURE.EMPTY.TEXT' | translate }}
                     </div>
+                </div>
+
+                <div class="table-row table-legend" *ngIf="disclosures.length > 0">
+                    <span class="name">{{ 'COMMON.NAME' | translate }}</span>
+                    <span class="dates">{{ 'COMMON.DATES' | translate }}</span>
+                    <span class="buttons"></span>
                 </div>
 
                 <div class="table-row table-item" *ngFor="let disclosure of disclosures">
@@ -50,24 +41,28 @@
                         {{ disclosure.description }}
                     </span>
                     <span class="dates">
-                        Begin: <b>{{ disclosure.begin | date}}</b><br>
-                        End: <b>{{ disclosure.end | date}}</b>
+                        {{ 'COMMON.BEGIN' | translate }}: <b>{{ disclosure.begin | date}}</b><br>
+                        {{ 'COMMON.END' | translate }}: <b>{{ disclosure.end | date}}</b>
                     </span>
                     <span class="buttons">
-                        <button mat-flat-button color="warn" (click)="deleteDisclosure(disclosure)">DELETE</button> &nbsp;
-                        <a
-                            mat-flat-button
+                        <button mat-flat-button color="warn" (click)="deleteDisclosure(disclosure)">
+                            {{ 'COMMON.DELETE' | translate }}
+                        </button>
+                        
+                        &nbsp;
+                        
+                        <a mat-flat-button
                             color="primary"
                             target="_blank"
                             routerLink="/disclosure/{{ disclosure.id }}">
-                            VIEW
+                            {{ 'COMMON.VIEW' | translate }}
                         </a>
                     </span>
                 </div>
                 
             </mat-card-content>
         </mat-card>
-        
     </div>
+    <!-- /Right column -->
 
 </div>
