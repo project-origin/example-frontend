@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
-import { ChartType, ChartOptions, ChartTooltipItem, ChartDataSets } from 'chart.js';
+import { ChartType, ChartOptions } from 'chart.js';
 import * as moment from 'moment';
 import { IFacilityFilters } from 'src/app/services/facilities/models';
 import { MatDialog } from '@angular/material/dialog';
 import { DateRange } from 'src/app/services/common';
 import { EnvironmentService, GetEcoDeclarationRequest, EcoDeclarationResolution, GetEcoDeclarationResponse, EcoDeclaration, EmissionColor } from 'src/app/services/environment/environment.service';
 import { CommodityColor } from 'src/app/services/commodities/models';
-import { FormatAmount, FormatEmission } from 'src/app/pipes/unitamount';
+import { FormatAmount } from 'src/app/pipes/unitamount';
 import { EmissionDetailsDialogComponent } from './emission-details-dialog/emission-details-dialog/emission-details-dialog.component';
-import { formatNumber } from '@angular/common';
 import { ExportEcoDeclarationPdfDialogComponent } from './export-pdf-dialog/export-eco-declaration-pdf-dialog/export-eco-declaration-pdf-dialog.component';
 
 
@@ -29,9 +28,6 @@ type Technology = {
 })
 export class EnvironmentComponent implements OnInit {
 
-
-  expandTechnologies: boolean = false;
-
   // Loading state
   loading: boolean = false;
   error: boolean = false;
@@ -40,11 +36,10 @@ export class EnvironmentComponent implements OnInit {
   dateTo: moment.Moment = moment().subtract(1, 'months');
   filters: IFacilityFilters;
 
-  hasData: boolean = false;
   individual: EcoDeclaration;
   general: EcoDeclaration;
-  // technologies: Technology[] = [];
   technologiesMapped: {[technology: string]: Technology};
+  expandTechnologies: boolean = false;
 
   emissions = {
     'CO2': {
@@ -149,73 +144,6 @@ export class EnvironmentComponent implements OnInit {
   };
 
 
-  // // TOTAL EMISSIONS LINE CHART
-  // totalEmissionsChartLabels: string[] = [];
-  // totalEmissionsChartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
-  // totalEmissionsChartLegend = true;
-  // totalEmissionsChartType: ChartType = 'line';
-  // totalEmissionsChartOptions: ChartOptions = {
-  //   responsive: true,
-  //   aspectRatio: 3,
-  //   maintainAspectRatio: true,
-  //   legend: {
-  //     align: 'end',
-  //     position: 'top'
-  //   },
-  //   tooltips: {
-  //     callbacks: {
-  //       label: function(tooltipItem:ChartTooltipItem, data) {
-  //         return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
-  //       }
-  //     }
-  //   },
-  //   scales: {
-  //     xAxes: [{ stacked: true }],
-  //     yAxes: [{ 
-  //       // stacked: true,
-  //       ticks: {
-  //         beginAtZero: true,
-  //         callback: label => FormatEmission.format(Number(label))
-  //       }
-  //     }],
-  //   },
-  // };
-
-
-  // // RELATIVE EMISSIONS LINE CHART
-  // relativeEmissionsChartLabels: string[] = [];
-  // relativeEmissionsChartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
-  // relativeEmissionsChartLegend = true;
-  // relativeEmissionsChartType: ChartType = 'line';
-  // relativeEmissionsChartOptions: ChartOptions = {
-  //   responsive: true,
-  //   aspectRatio: 3,
-  //   maintainAspectRatio: true,
-  //   legend: {
-  //     align: 'end',
-  //     position: 'top'
-  //   },
-  //   tooltips: {
-  //     callbacks: {
-  //       label: function(tooltipItem:ChartTooltipItem, data) {
-  //         return data.datasets[tooltipItem.datasetIndex].label + ': ' + formatNumber(Number(tooltipItem.value), 'da', '1.0-2') + ' g/kWh';
-  //         return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
-  //       }
-  //     }
-  //   },
-  //   scales: {
-  //     xAxes: [{ stacked: true }],
-  //     yAxes: [{ 
-  //       // stacked: true,
-  //       ticks: {
-  //         beginAtZero: true,
-  //         callback: label => formatNumber(parseFloat(label), 'da', '1.0-2') + ' g/kWh'
-  //       }
-  //     }],
-  //   },
-  // };
-
-
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -245,6 +173,42 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
+  getResolution() : EcoDeclarationResolution {
+    let deltaDays = this.dateTo.diff(this.dateFrom, 'days');
+
+    if(deltaDays >= 365 * 3) {
+      return EcoDeclarationResolution.year;
+    } else if(deltaDays >= 60) {
+      return EcoDeclarationResolution.month;
+    } else if(deltaDays >= 3) {
+      return EcoDeclarationResolution.day;
+    } else {
+      return EcoDeclarationResolution.hour;
+    }
+  }
+
+
+  getPlainLabel(key: string) : string {
+    if(key in this.emissions) {
+      return this.emissions[key].plain;
+    } else {
+      return key;
+    }
+  }
+
+
+  getHtmlLabel(key: string) : string {
+    if(key in this.emissions) {
+      return this.emissions[key].html;
+    } else {
+      return key;
+    }
+  }
+
+
+  // -- Loading data ---------------------------------------------------------
+
+
   get request() : GetEcoDeclarationRequest {
     return new GetEcoDeclarationRequest({
       filters: this.filters,
@@ -261,11 +225,6 @@ export class EnvironmentComponent implements OnInit {
     this.techChartLabels = [];
     this.techChartData = [];
     this.techChartColors = [];
-    // this.totalEmissionsChartLabels = [];
-    // this.totalEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
-    // this.relativeEmissionsChartLabels = [];
-    // this.relativeEmissionsChartData = [{ label: '', data: [], backgroundColor: 'transparent' }];
-
     this.loading = true;
     this.environmentService
         .getEcoDeclaration(this.request)
@@ -275,34 +234,21 @@ export class EnvironmentComponent implements OnInit {
 
   onLoadEnvironmentDeclaration(response: GetEcoDeclarationResponse) {
     this.loading = false;
-    this.hasData = response.success;
     this.error = !response.success;
 
     if(response.success) {
       this.individual = response.individual;
       this.general = response.general;
       this.technologiesMapped = this.buildTechnologies(response.individual);
-      
-      // this.buildEmissionsChart(
-      //   response.individual.emissions,
-      //   this.totalEmissionsChartLabels,
-      //   this.totalEmissionsChartData,
-      //   (value) => value,
-      // );
-      
-      // this.buildEmissionsChart(
-      //   response.individual.emissionsPerWh,
-      //   this.relativeEmissionsChartLabels,
-      //   this.relativeEmissionsChartData,
-      //   (value) => value * 1000,
-      // );
-
       this.buildTechnologyChart();
     } else {
       this.individual = null;
       this.general = null;
     }
   }
+
+
+  // -- Export PDF/CSV -------------------------------------------------------
 
 
   exportPDF() {
@@ -351,8 +297,8 @@ export class EnvironmentComponent implements OnInit {
       plainLabel: this.getPlainLabel(emission),
       htmlLabel: this.getHtmlLabel(emission),
       totalConsumedAmount: this.individual.totalConsumedAmount,
-      totalEmission: this.individual.totalEmissions[emission],
-      totalEmissionPerWh: this.individual.totalEmissionsPerWh[emission],
+      totalEmission: this.individual.totalEmissions[emission] || 0,
+      totalEmissionPerWh: this.individual.totalEmissionsPerWh[emission] || 0,
       emissions: this.emissions,
       resolution: this.getResolution(),
     };
@@ -366,52 +312,7 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  getResolution() : EcoDeclarationResolution {
-    let deltaDays = this.dateTo.diff(this.dateFrom, 'days');
-
-    if(deltaDays >= 365 * 3) {
-      return EcoDeclarationResolution.year;
-    } else if(deltaDays >= 60) {
-      return EcoDeclarationResolution.month;
-    } else if(deltaDays >= 3) {
-      return EcoDeclarationResolution.day;
-    } else {
-      return EcoDeclarationResolution.hour;
-    }
-  }
-
-
-  getPlainLabel(key: string) : string {
-    if(key in this.emissions) {
-      return this.emissions[key].plain;
-    } else {
-      return key;
-    }
-  }
-
-
-  getHtmlLabel(key: string) : string {
-    if(key in this.emissions) {
-      return this.emissions[key].html;
-    } else {
-      return key;
-    }
-  }
-
-
-  // buildTechnologies(declaration: EcoDeclaration) : Technology[] {
-  //   let technologies: Technology[] = [];
-
-  //   for(var technology in declaration.totalTechnologies) {
-  //     technologies.push({
-  //       technology: technology,
-  //       amount: declaration.totalTechnologies[technology],
-  //       percent: declaration.totalTechnologies[technology] / declaration.totalConsumedAmount * 100,
-  //     });
-  //   }
-
-  //   return technologies;
-  // }
+  // -- Technologies ---------------------------------------------------------
 
 
   buildTechnologies(declaration: EcoDeclaration) : {[technology: string]: Technology} {
@@ -434,55 +335,6 @@ export class EnvironmentComponent implements OnInit {
   }
 
 
-  // buildEmissionsChart(
-  //   emissions: Map<Date, Map<string, number>>,
-  //   targetLabels: string[],
-  //   targetData: ChartDataSets[],
-  //   transform: (value: number) => number,
-  // ) {
-  //   let data = {};
-  //   let formatBegin = (begin: moment.Moment) : string => {
-  //     switch(this.getResolution()) {
-  //       case EcoDeclarationResolution.year:
-  //         return moment(begin).format('YYYY');
-  //       case EcoDeclarationResolution.month:
-  //         return moment(begin).format('YYYY-MM');
-  //       case EcoDeclarationResolution.day:
-  //         return moment(begin).format('YYYY-MM-DD');
-  //       case EcoDeclarationResolution.hour:
-  //         return moment(begin).format('YYYY-MM-DD HH:mm');
-  //     }
-  //   };
-
-  //   for(var begin in emissions) {
-  //     targetLabels.push(formatBegin(moment(begin)));
-
-  //     for(var key in emissions[begin]) {
-  //       if(!(key in data)) {
-  //         data[key] = [];
-  //       }
-  //       data[key].push(transform(emissions[begin][key]));
-  //     }
-  //   }
-
-  //   for(var key in data) {
-  //     let color = EmissionColor.get(key);
-
-  //     targetData.push(<ChartDataSets>{
-  //       label: this.getPlainLabel(key),
-  //       fill: false,
-  //       borderColor: color,
-  //       backgroundColor: color,
-  //       hoverBorderColor: color,
-  //       hoverBackgroundColor: color,
-  //       pointBorderColor: color,
-  //       pointBackgroundColor: color,
-  //       data: data[key],
-  //     });
-  //   }
-  // }
-
-
   buildTechnologyChart() {
     let techColors: string[] = [];
     for(var technology in this.individual.totalTechnologies) {
@@ -491,6 +343,18 @@ export class EnvironmentComponent implements OnInit {
       techColors.push(CommodityColor.get(technology));
     }
     this.techChartColors = [ {backgroundColor: techColors} ];
+  }
+
+
+  // -- Emissions data -------------------------------------------------------
+
+
+  get hasData(): boolean {
+    return this.individual && !this.individual.isEmpty;
+  }
+
+  get showData(): boolean {
+    return !this.loading && this.hasData;
   }
 
 

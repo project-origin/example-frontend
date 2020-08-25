@@ -50,6 +50,10 @@ export class EcoDeclaration {
   totalConsumedAmount: number;
   totalRetiredAmount: number;
   totalTechnologies: Map<string, number>;
+
+  get isEmpty(): boolean {
+    return this.totalConsumedAmount == 0;
+  }
 }
 
 
