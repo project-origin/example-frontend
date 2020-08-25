@@ -403,7 +403,7 @@ export class EnvironmentComponent implements OnInit {
   }
 
   get co2Compared(): number {
-    return this.getDeltaEmissionsPerkWh(this.individual, this.general, 'CO2');
+    return this.getDeltaEmissionsPerkWh(this.individual, this.general, 'CO2') || -100;
   }
 
   get cleanEnergyPercentage(): number {
