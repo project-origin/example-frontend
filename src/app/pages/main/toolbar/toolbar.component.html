@@ -8,8 +8,8 @@
             {{ 'MAIN.TOOLBAR.DASHBOARD' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/commodities" [class.current]="isCommodities">
-            {{ 'MAIN.TOOLBAR.COMMODITIES' | translate }}
+        <a mat-button [matMenuTriggerFor]="ggoMenu">
+            GGOs
         </a>
         <div class="space"></div>
         <a mat-button routerLink="/app/emissions" [class.current]="isEmissions">
@@ -20,20 +20,8 @@
             {{ 'MAIN.TOOLBAR.TRANSFER' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/retire" [class.current]="isRetire">
-            {{ 'MAIN.TOOLBAR.RETIRE' | translate }}
-        </a>
-        <div class="space"></div>
         <a mat-button routerLink="/app/facilities" [class.current]="isFacilities">
             {{ 'MAIN.TOOLBAR.FACILITIES' | translate }}
-        </a>
-        <div class="space"></div>
-        <a mat-button routerLink="/app/disclosure" [class.current]="isDisclosure">
-            {{ 'MAIN.TOOLBAR.DISCLOSURE' | translate }}
-        </a>
-        <div class="space"></div>
-        <a mat-button routerLink="/app/forecast" [class.current]="isForecast">
-            {{ 'MAIN.TOOLBAR.FORECAST' | translate }}
         </a>
         <div class="space"></div>
         <a mat-button routerLink="/app/support" [class.current]="isSupport">
@@ -57,6 +45,30 @@
             </div>
         </button>
 
+
+
+        <!-- GGOs dropdown -->
+        <mat-menu #ggoMenu="matMenu">
+            <button mat-menu-item routerLink="/app/ggo-overview">
+                Overview
+            </button>
+            <button mat-menu-item routerLink="/app/commodities">
+                {{ 'MAIN.TOOLBAR.COMMODITIES' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/app/retire">
+                {{ 'MAIN.TOOLBAR.RETIRE' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/app/disclosure">
+                {{ 'MAIN.TOOLBAR.DISCLOSURE' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/app/forecast">
+                {{ 'MAIN.TOOLBAR.FORECAST' | translate }}
+            </button>
+        </mat-menu>
+        <!-- /GGOs dropdown -->
+
+
+        <!-- User dropdown -->
         <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/app/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
                 {{ 'MAIN.TOOLBAR.PENDING-PROPOSALS' | translate }} ({{ pendingProposals }})
@@ -80,5 +92,7 @@
                 {{ 'MAIN.TOOLBAR.LOG-OUT' | translate }}
             </button>
         </mat-menu>
+        <!-- /User dropdown -->
+
     </mat-toolbar-row>
 </mat-toolbar>

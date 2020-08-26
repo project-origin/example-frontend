@@ -51,7 +51,7 @@ import { ToolbarComponent } from './pages/main/toolbar/toolbar.component';
 import { LoadingButtonComponent } from './widgets/loading-button/loading-button.component';
 import { CommodityPlotComponent } from './widgets/commodity-plot/commodity-plot.component';
 import { SigninComponent } from './pages/signin/signin.component';
-import { GgoSummaryComponent } from './pages/dashboard/ggo-summary/ggo-summary.component';
+import { GgoSummaryComponent } from './pages/ggo-overview/ggo-summary/ggo-summary.component';
 import { FacilitiesComponent } from './pages/facilities/facilities.component';
 import { DisclosureComponent } from './pages/disclosure/disclosure.component';
 import { TradingPlotComponent } from './widgets/trading-plot/trading-plot.component';
@@ -98,6 +98,7 @@ import { ShowPeakMeasurementDialogComponent } from './pages/transfer/create-agre
 import { EmissionOverviewComponent } from './pages/environment/emission-overview/emission-overview/emission-overview.component';
 import { OriginOfTechnologyComponent } from './pages/environment/origin-of-technology/origin-of-technology/origin-of-technology.component';
 import { EmissionTableComponent } from './pages/environment/emission-table/emission-table/emission-table.component';
+import { GgoOverviewComponent } from './pages/ggo-overview/ggo-overview/ggo-overview.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -119,6 +120,7 @@ const appRoutes: Routes = [
     component: MainComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'ggo-overview', component: GgoOverviewComponent },
       { path: 'commodities', component: CommoditiesComponent },
       { path: 'emissions', component: EnvironmentComponent },
       { path: 'transfer', component: TransferComponent },
@@ -191,6 +193,7 @@ const appRoutes: Routes = [
     EmissionOverviewComponent,
     OriginOfTechnologyComponent,
     EmissionTableComponent,
+    GgoOverviewComponent,
   ],
   imports: [
     TranslateModule.forRoot({

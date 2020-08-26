@@ -60,20 +60,46 @@
 
     <!-- Right column -->
     <div class="content">
+        <mat-card>
+            <mat-card-content class="overview">
+                <div class="data-overview">
+                    <h1>{{ 'DASHBOARD.GGO-OVERVIEW' | translate }}</h1>
 
+                    <app-ggo-summary
+                        [dateFrom]="dateFrom"
+                        [dateTo]="dateTo">
+                    </app-ggo-summary>
+                </div>
+            </mat-card-content>
+        </mat-card>
 
-        <app-emission-overview
-            *ngIf="!loading"
-            [dateFrom]="dateFrom"
-            [dateTo]="dateTo"
-            [individual]="individual"
-            [general]="general">
-        </app-emission-overview>
-
-        
         <mat-card>
             <mat-card-content>
-                <h1>{{ 'DASHBOARD.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>
+                <h1>{{ 'DASHBOARD.STORED-GGOS' | translate }}</h1>
+
+                <app-ggo-summary-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    category="stored">
+                </app-ggo-summary-plot>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <h1>{{ 'DASHBOARD.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+                        {{ 'COMMON.EXPORT-CSV' | translate }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
+                        <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
+                        <button mat-menu-item (click)="exportGgoList()">GGO List</button>
+                    </mat-menu>
+                </div>
+
                 <h2>{{ 'DASHBOARD.PRODUCED-POWER-ISSUED-GGOS' | translate }}</h2>
 
                 <app-commodity-plot
@@ -96,6 +122,37 @@
             </mat-card-content>
         </mat-card>
 
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <h1>{{ 'DASHBOARD.TRANSFER' | translate }}</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">
+                        {{ 'COMMON.EXPORT-CSV' | translate }}
+                    </button>
+                </div>
+
+                <h2>{{ 'DASHBOARD.INBOUND-GGOS' | translate }}</h2>
+
+                <app-trading-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    direction="inbound"
+                    display="bars">
+                </app-trading-plot>
+
+                &nbsp;<br>
+                
+                <h2>{{ 'DASHBOARD.OUTBOUND-GGOS' | translate }}</h2>
+
+                <app-trading-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    direction="outbound"
+                    display="bars">
+                </app-trading-plot>
+            </mat-card-content>
+        </mat-card>
     </div>
     <!-- /Right column -->
 
