@@ -50,7 +50,7 @@ export class EmissionOverviewComponent implements OnInit {
     if(value == 0) {
       options['arcColors'] = ['black', 'black'];
       options['arcDelimiters'] = [1];
-    } else if(value == 1000) {
+    } else if(value == 100) {
       options['arcColors'] = ['green', 'green'];
       options['arcDelimiters'] = [1];
     } else {
