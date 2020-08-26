@@ -80,29 +80,53 @@
             <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
                 <mat-card-content style="text-align: center;">
                     <h2><b>Renewable energy</b></h2>
-                    <p>{{ cleanEnergyPercentage | formatNumber : 1  }}% electricity from Wind, Solar, and Hydro</p>
-                    <mat-progress-bar
+                    <p>Electricity from Wind, Solar, and Hydro</p>
+
+                    <div class="legend">
+                        <div class="fill-remaining"></div>
+                        <rg-gauge-chart
+                            [canvasWidth]="250"
+                            [needleValue]="cleanEnergyPercentage"
+                            [centralLabel]="cleanEnergyPercentage + '%'"
+                            [options]="renewableEnergyGaugeOptions">
+                        </rg-gauge-chart>
+                        <div class="fill-remaining"></div>
+                    </div>
+
+                    <!-- <mat-progress-bar
                         mode="true"
                         color="warn"
                         [value]="cleanEnergyPercentage">
                     </mat-progress-bar>
                     <br>
-                    <button mat-button>CLICK FOR DETAILS</button>
+                    <button mat-button>CLICK FOR DETAILS</button> -->
                 </mat-card-content>
             </mat-card>
             <div style="width: 10px"></div>
             <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
                 <mat-card-content style="text-align: center;">
                     <h2><b>GGO share</b></h2>
-                    <p>{{ ggoPercentage | formatNumber : 1  }}% electricity from GGOs</p>
-                    <mat-progress-bar
+                    <p>Electricity from GGOs</p>
+
+                    <div class="legend">
+                        <div class="fill-remaining"></div>
+                        <rg-gauge-chart
+                            [canvasWidth]="250"
+                            [needleValue]="ggoPercentage"
+                            [centralLabel]="ggoPercentage + '%'"
+                            [options]="ggoShareGaugeOptions">
+                        </rg-gauge-chart>
+                        <div class="fill-remaining"></div>
+                    </div>
+
+                    <!-- <mat-progress-bar
                         mode="true"
                         color="warn"
                         [value]="ggoPercentage">
                     </mat-progress-bar>
                     <br>
                     <button mat-button>CLICK FOR DETAILS</button>
-                    <p *ngIf="false">** mix er den resterende andel af energi i nettet der ikke er dokumenteret ved hjælp af GGOer</p>
+                    <p *ngIf="false">** mix er den resterende andel af energi i nettet der ikke er dokumenteret ved hjælp af GGOer</p> -->
                 </mat-card-content>
             </mat-card>
         </div>

@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
 import { MomentDateAdapter } from '@angular/material-moment-adapter'
+import { GaugeChartModule } from 'angular-gauge-chart'
 
 // Angular Material Design
 import { MatCardModule } from '@angular/material/card';
@@ -231,6 +232,7 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatDividerModule,
     MatStepperModule,
+    GaugeChartModule,
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],

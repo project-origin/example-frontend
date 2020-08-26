@@ -87,7 +87,6 @@ export class EmissionDetailsDialogComponent {
       callbacks: {
         label: function(tooltipItem:ChartTooltipItem, data) {
           return data.datasets[tooltipItem.datasetIndex].label + ': ' + formatNumber(Number(tooltipItem.value), 'da', '1.0-2') + ' g/kWh';
-          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatEmission.format(Number(tooltipItem.value));
         }
       }
     },

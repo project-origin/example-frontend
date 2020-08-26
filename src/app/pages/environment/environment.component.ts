@@ -144,6 +144,30 @@ export class EnvironmentComponent implements OnInit {
   };
 
 
+  // RENEWABLE ENERGY PERCENT GAUGE CHART
+  renewableEnergyGaugeOptions = {
+    hasNeedle: true,
+    needleColor: 'gray',
+    needleUpdateSpeed: 0,
+    arcColors: ['green', 'black'],
+    arcDelimiters: [50],
+    rangeLabel: ['0%', '100%'],
+    needleStartValue: 0,
+  }
+
+
+  // GGO SHARE PERCENT GAUGE CHART
+  ggoShareGaugeOptions = {
+    hasNeedle: true,
+    needleColor: 'gray',
+    needleUpdateSpeed: 0,
+    arcColors: ['green', 'black'],
+    arcDelimiters: [50],
+    rangeLabel: ['0%', '100%'],
+    needleStartValue: 0,
+  }
+
+
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -233,18 +257,21 @@ export class EnvironmentComponent implements OnInit {
 
 
   onLoadEnvironmentDeclaration(response: GetEcoDeclarationResponse) {
-    this.loading = false;
-    this.error = !response.success;
-
     if(response.success) {
       this.individual = response.individual;
       this.general = response.general;
       this.technologiesMapped = this.buildTechnologies(response.individual);
       this.buildTechnologyChart();
+      console.log('this.cleanEnergyPercentage', this.cleanEnergyPercentage);
+      this.buildGaugeChart(this.renewableEnergyGaugeOptions, this.cleanEnergyPercentage);
+      this.buildGaugeChart(this.ggoShareGaugeOptions, this.ggoPercentage);
     } else {
       this.individual = null;
       this.general = null;
     }
+
+    this.loading = false;
+    this.error = !response.success;
   }
 
 
@@ -309,6 +336,23 @@ export class EnvironmentComponent implements OnInit {
       panelClass: 'dialog',
       maxHeight: '90vh',
     });
+  }
+
+
+  // -- Gauge charts ---------------------------------------------------------
+
+
+  buildGaugeChart(options: any, value: number) {
+    if(value == 0) {
+      options['arcColors'] = ['black', 'black'];
+      options['arcDelimiters'] = [1];
+    } else if(value == 1000) {
+      options['arcColors'] = ['green', 'green'];
+      options['arcDelimiters'] = [1];
+    } else {
+      options['arcColors'] = ['green', 'black'];
+      options['arcDelimiters'] = [value];
+    }
   }
 
 
@@ -416,11 +460,11 @@ export class EnvironmentComponent implements OnInit {
     if('Hydro' in this.technologiesMapped)
       percent += this.technologiesMapped['Hydro'].percent;
 
-    return percent;
+    return Math.floor(percent);
   }
 
   get ggoPercentage(): number {
-    return this.individual.totalRetiredAmount / this.individual.totalConsumedAmount * 100;
+    return Math.floor(this.individual.totalRetiredAmount / this.individual.totalConsumedAmount * 100);
   }
 
 }
