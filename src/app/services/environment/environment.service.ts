@@ -4,6 +4,7 @@ import { Type } from "class-transformer";
 import { ApiService, ApiResponse } from '../api.service';
 import { IFacilityFilters } from '../facilities/models';
 import { DateRange } from '../common';
+import { NullAstVisitor } from '@angular/compiler';
 
 
 export class EmissionColor {
@@ -41,6 +42,13 @@ export class EmissionColor {
 
 
 
+type Technology = {
+  technology: string,
+  amount: number,
+  percent: number,
+};
+
+
 export class EcoDeclaration {
   emissions: Map<Date, Map<string, number>>;
   emissionsPerWh: Map<Date, Map<string, number>>;
@@ -51,8 +59,65 @@ export class EcoDeclaration {
   totalRetiredAmount: number;
   totalTechnologies: Map<string, number>;
 
+  _technologiesMapped: {[technology: string]: Technology} = null;
+
   get isEmpty(): boolean {
     return this.totalConsumedAmount == 0;
+  }
+
+  get technologiesMapped(): {[technology: string]: Technology} {
+    if(this._technologiesMapped === null) {
+      this._technologiesMapped = {};
+      
+      for(var technology in this.totalTechnologies) {
+        this._technologiesMapped[technology] = {
+          technology: technology,
+          amount: this.totalTechnologies[technology],
+          percent: this.totalTechnologies[technology] / this.totalConsumedAmount * 100,
+        };
+      }
+    }
+
+    return this._technologiesMapped;
+  }
+
+  get technologiesList(): Technology[] {
+    return Object.values(this.technologiesMapped);
+  }
+
+  getTotalEmissions(key: string) : number {
+    if(key in this.totalEmissions) {
+      return this.totalEmissions[key];
+    } else {
+      return 0;
+    }
+  }
+
+  getEmissionsPerkWh(key: string) : number {
+    if(key in this.totalEmissionsPerWh) {
+      return this.totalEmissionsPerWh[key] * 1000;
+    } else {
+      return 0;
+    }
+  }
+
+  getDeltaEmissionsPerkWh(other: EcoDeclaration, key: string) : number {
+    let e1 = this.getEmissionsPerkWh(key);
+    let e2 = other.getEmissionsPerkWh(key);
+
+    if(e1 == 0 || e2 == 0) {
+      return 0;
+    }
+
+    let delta = (1 - (e1 / e2)) * 100;
+
+    if(delta > 1) {
+      return delta;
+    } else if(delta < 1) {
+      return -1 * delta;
+    } else {
+      return 0;
+    }
   }
 }
 

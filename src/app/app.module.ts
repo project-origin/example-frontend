@@ -95,6 +95,9 @@ import { CreateAgreementComponent } from './pages/transfer/create-agreement/crea
 import { CounterpartDropdownDialogComponent } from './pages/transfer/create-agreement/counterpart-dropdown-dialog/counterpart-dropdown-dialog.component';
 import { CounterpartListDialogComponent } from './pages/transfer/create-agreement/counterpart-list-dialog/counterpart-list-dialog.component';
 import { ShowPeakMeasurementDialogComponent } from './pages/transfer/create-agreement/show-peak-measurement-dialog/show-peak-measurement-dialog/show-peak-measurement-dialog.component';
+import { EmissionOverviewComponent } from './pages/environment/emission-overview/emission-overview/emission-overview.component';
+import { OriginOfTechnologyComponent } from './pages/environment/origin-of-technology/origin-of-technology/origin-of-technology.component';
+import { EmissionTableComponent } from './pages/environment/emission-table/emission-table/emission-table.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -185,6 +188,9 @@ const appRoutes: Routes = [
     CounterpartDropdownDialogComponent,
     CounterpartListDialogComponent,
     ShowPeakMeasurementDialogComponent,
+    EmissionOverviewComponent,
+    OriginOfTechnologyComponent,
+    EmissionTableComponent,
   ],
   imports: [
     TranslateModule.forRoot({
