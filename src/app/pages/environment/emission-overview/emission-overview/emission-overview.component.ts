@@ -85,7 +85,10 @@ export class EmissionOverviewComponent implements OnInit {
   }
 
   get ggoPercentage(): number {
-    return Math.floor(this.individual.totalRetiredAmount / this.individual.totalConsumedAmount * 100);
+    if(this.individual.totalConsumedAmount > 0)
+      return Math.floor(this.individual.totalRetiredAmount / this.individual.totalConsumedAmount * 100);
+    else
+      return 0;
   }
 
 }

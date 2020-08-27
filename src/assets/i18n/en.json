@@ -68,12 +68,15 @@
         "START-ONBOARDING": "Start onboarding",
         "TOOLBAR": {
             "DASHBOARD": "DASHBOARD",
-            "COMMODITIES": "COMMODITIES",
+            "GGOS": "GGOs",
+            "GGO-OVERVIEW": "Overview",
+            "COMMODITIES": "Production/Consumption",
+            "RETIRE": "Retire",
+            "DISCLOSURE": "Disclosure",
+            "FORECAST": "Forecast",
+            "EMISSIONS": "EMISSIONS",
             "TRANSFER": "TRANSFER",
-            "RETIRE": "RETIRE",
             "FACILITIES": "FACILITIES",
-            "DISCLOSURE": "DISCLOSURE",
-            "FORECAST": "FORECAST",
             "SUPPORT": "SUPPORT",
             "PENDING-PROPOSALS": "Pending proposals",
             "EDIT-PROFILE": "Edit profile",
@@ -238,7 +241,8 @@
         "ENQUIRY-TYPES": {
             "QUESTION": "Question",
             "FEATURE-REQUEST": "Feature request",
-            "BUG": "Bug or error"
+            "BUG": "Bug or error",
+            "FEEDBACK": "Feedback"
         }
     },
 

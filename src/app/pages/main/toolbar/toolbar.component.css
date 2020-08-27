@@ -25,6 +25,10 @@ a.current {
 
 /* -- User name and avatar -- */
 
+button {
+    text-transform: none;
+}
+
 button.user {
     padding: 0;
     height: 100%;

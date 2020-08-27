@@ -62,6 +62,13 @@
     <div class="content">
 
 
+        <mat-card *ngIf="loading" style="height: 454px;">
+            <mat-card-content>
+                <app-loading-view></app-loading-view>
+            </mat-card-content>
+        </mat-card>
+
+
         <app-emission-overview
             *ngIf="!loading"
             [dateFrom]="dateFrom"
@@ -70,7 +77,7 @@
             [general]="general">
         </app-emission-overview>
 
-        
+
         <mat-card>
             <mat-card-content>
                 <h1>{{ 'DASHBOARD.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>

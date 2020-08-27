@@ -9,11 +9,11 @@
         </a>
         <div class="space"></div>
         <a mat-button [matMenuTriggerFor]="ggoMenu">
-            GGOs
+            {{ 'MAIN.TOOLBAR.GGOS' | translate }}
         </a>
         <div class="space"></div>
         <a mat-button routerLink="/app/emissions" [class.current]="isEmissions">
-            EMISSIONS
+            {{ 'MAIN.TOOLBAR.EMISSIONS' | translate }}
         </a>
         <div class="space"></div>
         <a mat-button routerLink="/app/transfer" [class.current]="isTransfer">
@@ -50,7 +50,7 @@
         <!-- GGOs dropdown -->
         <mat-menu #ggoMenu="matMenu">
             <button mat-menu-item routerLink="/app/ggo-overview">
-                Overview
+                {{ 'MAIN.TOOLBAR.GGO-OVERVIEW' | translate }}
             </button>
             <button mat-menu-item routerLink="/app/commodities">
                 {{ 'MAIN.TOOLBAR.COMMODITIES' | translate }}

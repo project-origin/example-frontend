@@ -47,6 +47,16 @@ export class EnvironmentFiltersComponent implements OnInit {
   errorFacilities: boolean = false;
 
 
+  get defaultDateFrom() : Date {
+    return moment().subtract(1, 'months').toDate();
+  }
+
+
+  get defaultDateTo() : Date {
+    return moment().toDate();
+  }
+
+
   constructor(
     private router: Router,
     private facilityService: FacilityService,
@@ -116,6 +126,29 @@ export class EnvironmentFiltersComponent implements OnInit {
   resetFacilitySelection() {
     this.form.patchValue({
       gsrn: [],
+    });
+  }
+
+
+  // -- Dates ----------------------------------------------------------------
+
+
+  onUserNavigatedDates(event: {dateFrom: Date, dateTo: Date}) {
+    this.form.patchValue({
+      date: {
+        begin: event.dateFrom,
+        end: event.dateTo,
+      }
+    });
+  }
+
+
+  onResetDates() {
+    this.form.patchValue({
+      date: {
+        begin: this.defaultDateFrom,
+        end: this.defaultDateTo,
+      }
     });
   }
 

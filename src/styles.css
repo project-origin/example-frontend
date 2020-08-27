@@ -158,6 +158,10 @@ mat-card {
 
 /* -- Buttons -- */
 
+button {
+    text-transform: uppercase;
+}
+
 button.trade {
     height: 30px;
     border: #679b9c solid 2px;

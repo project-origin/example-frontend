@@ -99,6 +99,8 @@ import { EmissionOverviewComponent } from './pages/environment/emission-overview
 import { OriginOfTechnologyComponent } from './pages/environment/origin-of-technology/origin-of-technology/origin-of-technology.component';
 import { EmissionTableComponent } from './pages/environment/emission-table/emission-table/emission-table.component';
 import { GgoOverviewComponent } from './pages/ggo-overview/ggo-overview/ggo-overview.component';
+import { SupportFormComponent } from './pages/support/support-form/support-form.component';
+import { FeedbackDialogComponent } from './pages/support/feedback-dialog/feedback-dialog.component';
 
 registerLocaleData(localeDa, 'da');
 
@@ -194,6 +196,8 @@ const appRoutes: Routes = [
     OriginOfTechnologyComponent,
     EmissionTableComponent,
     GgoOverviewComponent,
+    SupportFormComponent,
+    FeedbackDialogComponent,
   ],
   imports: [
     TranslateModule.forRoot({
