@@ -4,27 +4,27 @@
 
         <div class="fill-remaining"></div>
 
-        <a mat-button routerLink="/app/dashboard" [class.current]="isDashboard">
+        <a mat-button routerLink="/app/dashboard" [class.current]="isDashboard" class="main">
             {{ 'MAIN.TOOLBAR.DASHBOARD' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button [matMenuTriggerFor]="ggoMenu">
+        <a mat-button [matMenuTriggerFor]="ggoMenu" [class.current]="isGgos" class="main">
             {{ 'MAIN.TOOLBAR.GGOS' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/emissions" [class.current]="isEmissions">
+        <a mat-button routerLink="/app/emissions" [class.current]="isEmissions" class="main">
             {{ 'MAIN.TOOLBAR.EMISSIONS' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/transfer" [class.current]="isTransfer">
+        <a mat-button routerLink="/app/transfer" [class.current]="isTransfer" class="main">
             {{ 'MAIN.TOOLBAR.TRANSFER' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/facilities" [class.current]="isFacilities">
+        <a mat-button routerLink="/app/facilities" [class.current]="isFacilities" class="main">
             {{ 'MAIN.TOOLBAR.FACILITIES' | translate }}
         </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/support" [class.current]="isSupport">
+        <a mat-button routerLink="/app/support" [class.current]="isSupport" class="main">
             {{ 'MAIN.TOOLBAR.SUPPORT' | translate }}
         </a>
 
@@ -49,21 +49,21 @@
 
         <!-- GGOs dropdown -->
         <mat-menu #ggoMenu="matMenu">
-            <button mat-menu-item routerLink="/app/ggo-overview">
+            <a mat-menu-item routerLink="/app/ggo-overview">
                 {{ 'MAIN.TOOLBAR.GGO-OVERVIEW' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/app/commodities">
+            </a>
+            <a mat-menu-item routerLink="/app/commodities">
                 {{ 'MAIN.TOOLBAR.COMMODITIES' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/app/retire">
+            </a>
+            <a mat-menu-item routerLink="/app/retire">
                 {{ 'MAIN.TOOLBAR.RETIRE' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/app/disclosure">
+            </a>
+            <a mat-menu-item routerLink="/app/disclosure">
                 {{ 'MAIN.TOOLBAR.DISCLOSURE' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/app/forecast">
+            </a>
+            <a mat-menu-item routerLink="/app/forecast">
                 {{ 'MAIN.TOOLBAR.FORECAST' | translate }}
-            </button>
+            </a>
         </mat-menu>
         <!-- /GGOs dropdown -->
 

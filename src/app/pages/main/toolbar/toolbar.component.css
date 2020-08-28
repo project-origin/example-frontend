@@ -13,7 +13,7 @@ mat-toolbar-row {
 
 /* -- Menu navigation -- */
 
-a {
+a.main {
     color: white;
     border-radius: 20px;
 }

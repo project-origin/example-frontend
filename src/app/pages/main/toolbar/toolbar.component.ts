@@ -91,7 +91,19 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this.router.url.startsWith('/app/dashboard');
   }
 
-  get isCommodities() : boolean {
+  get isGgos() : boolean {
+    return this.isGgoOverview
+      || this.isProductionConsumption
+      || this.isRetire
+      || this.isDisclosure
+      || this.isForecast;
+  }
+
+  get isGgoOverview() : boolean {
+    return this.router.url.startsWith('/app/ggo-overview');
+  }
+
+  get isProductionConsumption() : boolean {
     return this.router.url.startsWith('/app/commodities');
   }
 
