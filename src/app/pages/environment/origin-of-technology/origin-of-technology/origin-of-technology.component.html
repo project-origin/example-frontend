@@ -1,0 +1,55 @@
+<mat-card>
+    <mat-card-content>
+        <h1>Origin of Technology</h1>
+
+        <canvas baseChart
+            *ngIf="techChartData"
+            [width]="400"
+            [height]="200"
+            [chartType]="techChartType"
+            [data]="techChartData"
+            [labels]="techChartLabels"
+            [options]="techChartOptions"
+            [colors]="techChartColors">
+        </canvas>
+
+        <br><br>
+
+        <div class="legend">
+            <div class="fill-remaining"></div>
+            <button mat-button class="send" *ngIf="!expandTechnologies" (click)="toggleExpand()">
+                Show detailed technologies
+            </button>
+            <div class="fill-remaining"></div>
+        </div>
+
+        <table width="100%" cellpadding="10" cellspacing="2" *ngIf="expandTechnologies">
+            <tr style="background-color: #f1f1f1;">
+                <th colspan="2">Technology</th>
+                <th style="text-align: right; background-color: #e1e1e1;">Usage</th>
+                <th colspan="2">Percent of overall usage</th>
+            </tr>
+            <tr style="background-color: #f1f1f1;" *ngFor="let technology of individual.technologiesList">
+                <td style="width: 32px;">
+                    <div class="energy-type-avatar {{ technology.technology }}"></div>
+                </td>
+                <td>
+                    <div>{{ technology.technology }}</div>
+                </td>
+                <td style="width: 25%; text-align: right; background-color: #e1e1e1;">
+                    {{ technology.amount | formatAmount }}
+                </td>
+                <td style="width: 25%; text-align: right;">
+                    {{ technology.percent | formatNumber : 2 }}%
+                </td>
+                <td style="width: 25%">
+                    <mat-progress-bar
+                        mode="determinate"
+                        color="warn"
+                        [value]="technology.percent">
+                    </mat-progress-bar>
+                </td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>

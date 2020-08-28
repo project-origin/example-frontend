@@ -13,7 +13,7 @@ mat-toolbar-row {
 
 /* -- Menu navigation -- */
 
-a {
+a.main {
     color: white;
     border-radius: 20px;
 }
@@ -24,6 +24,10 @@ a.current {
 
 
 /* -- User name and avatar -- */
+
+button {
+    text-transform: none;
+}
 
 button.user {
     padding: 0;
@@ -74,3 +78,9 @@ p.name {
     font-weight: bold;
     background-color: #f4d34f;
 }
+
+
+.selected {
+    font-weight: bold;
+}
+

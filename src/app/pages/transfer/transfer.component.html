@@ -1,0 +1,74 @@
+<div class="transfer">
+    <div class="details">
+        <mat-card>
+            <mat-card-content>
+                <h1>{{ 'TRANSFER.ABOUT.ABOUT' | translate }}</h1>
+                <p style="white-space: pre-wrap;">
+                    {{ 'TRANSFER.ABOUT.ABOUT-TEXT' | translate }}
+                </p>
+
+                <h2>{{ 'TRANSFER.ABOUT.PROPOSE-NEW-AGREEMENT' | translate }}</h2>
+                <p style="white-space: pre-wrap;">
+                    {{ 'TRANSFER.ABOUT.PROPOSE-NEW-AGREEMENT-TEXT' | translate }}
+                </p>
+
+                <button type="button" mat-flat-button color="primary" [routerLink]="['/app/transfer/propose']">
+                    {{ 'TRANSFER.ABOUT.PROPOSE-NEW-AGREEMENT-BUTTON-TEXT' | translate }}
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="agreements">
+        <app-agreement-list-new
+            [headline]="'TRANSFER.RECEIVED-PROPOSALS' | translate"
+            [agreements]="pending"
+            (clicked)="onClickReceivedProposal($event)"
+            *ngIf="pending.length > 0">
+        </app-agreement-list-new>
+
+        <app-agreement-list-new
+            [headline]="'TRANSFER.SENT-PROPOSALS' | translate"
+            [agreements]="sent"
+            (clicked)="onClickSentProposal($event)"
+            *ngIf="sent.length > 0">
+        </app-agreement-list-new>
+
+        <app-agreement-list-new
+            icon="north_east"
+            iconColor="red"
+            [headline]="'TRANSFER.OUTBOUND-AGREEMENTS' | translate"
+            [emptyHeadline]="'TRANSFER.OUTBOUND-AGREEMENTS-EMPTY-HEADLINE' | translate"
+            [emptyText]="'TRANSFER.OUTBOUND-AGREEMENTS-EMPTY-TEXT' | translate"
+            [agreements]="outbound"
+            [sortable]="true"
+            (clicked)="onClickAgreement($event)"
+            (priorityChanged)="onOutboundAgreementsPrioritiesChanged($event)">
+        </app-agreement-list-new>
+
+        <app-agreement-list-new
+            icon="south_west"
+            iconColor="green"
+            [headline]="'TRANSFER.INBOUND-AGREEMENTS' | translate"
+            [emptyHeadline]="'TRANSFER.INBOUND-AGREEMENTS-EMPTY-HEADLINE' | translate"
+            [emptyText]="'TRANSFER.INBOUND-AGREEMENTS-EMPTY-TEXT' | translate"
+            [agreements]="inbound"
+            (clicked)="onClickAgreement($event)">
+        </app-agreement-list-new>
+
+        <app-agreement-list-new
+            [headline]="'TRANSFER.CANCELLED-AGREEMENTS' | translate"
+            headline="Cancelled recently"
+            [agreements]="cancelled"
+            (clicked)="onClickAgreement($event)"
+            *ngIf="cancelled.length > 0">
+        </app-agreement-list-new>
+
+        <app-agreement-list-new
+            [headline]="'TRANSFER.DECLINED-AGREEMENTS' | translate"
+            [agreements]="declined"
+            (clicked)="onClickAgreement($event)"
+            *ngIf="declined.length > 0">
+        </app-agreement-list-new>
+    </div>
+</div>

@@ -8,6 +8,7 @@ import { DateRange } from 'src/app/services/common';
 import { AgreementService, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
+import { EcoDeclaration, EnvironmentService, GetEcoDeclarationRequest, GetEcoDeclarationResponse, EcoDeclarationResolution } from 'src/app/services/environment/environment.service';
 
 
 @Component({
@@ -22,6 +23,12 @@ export class DashboardComponent implements OnInit {
 
   dateFrom: Date = moment().toDate();
   dateTo: Date = moment().subtract(1, 'months').toDate();
+
+  // Enviroment declaration
+  loading: boolean = false;
+  error: boolean = false;
+  individual: EcoDeclaration;
+  general: EcoDeclaration;
 
 
   get defaultDateFrom() : Date {
@@ -45,8 +52,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private commodityService: CommodityService,
-    private agreementService: AgreementService,
+    private environmentService: EnvironmentService,
     settingsService: SettingsService,
   ) {
     this.minDate = settingsService.minDate;
@@ -63,7 +69,39 @@ export class DashboardComponent implements OnInit {
         this.dateFrom = this.defaultDateFrom;
         this.dateTo = this.defaultDateTo;
       }
+
+      this.loadEnvironmentDeclaration();
     });
+  }
+
+
+  loadEnvironmentDeclaration() {
+    let request = new GetEcoDeclarationRequest({
+      filters: {},
+      resolution: EcoDeclarationResolution.day,
+      dateRange: new DateRange({
+        begin: this.dateFrom,
+        end: this.dateTo,
+      }),
+    });
+
+    this.loading = true;
+    this.environmentService
+        .getEcoDeclaration(request)
+        .subscribe(this.onLoadEnvironmentDeclaration.bind(this));
+  }
+
+
+  onLoadEnvironmentDeclaration(response: GetEcoDeclarationResponse) {
+    if(response.success) {
+      this.individual = response.individual;
+      this.general = response.general;
+    } else {
+      this.individual = null;
+      this.general = null;
+    }
+    this.loading = false;
+    this.error = !response.success;
   }
 
 
@@ -92,37 +130,6 @@ export class DashboardComponent implements OnInit {
 
   onReset() {
     this.changeDate(this.defaultDateFrom, this.defaultDateTo);
-  }
-
-
-  // -- Export data ----------------------------------------------------------
-
-
-  exportMeasurements() {
-    this.commodityService.exportMeasurements(new GetMeasurementsRequest({
-      dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-    }));
-  }
-
-
-  exportGgoSummary() {
-    this.commodityService.exportGgoSummary(new GetMeasurementsRequest({
-      dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-    }));
-  }
-
-
-  exportGgoList() {
-    this.commodityService.exportGgoList(new GetMeasurementsRequest({
-      dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-    }));
-  }
-
-
-  exportTransferGgoSummary() {
-    this.agreementService.exportGgoSummary(new GetAgreementSummaryRequest({
-      dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-    }));
   }
 
 }

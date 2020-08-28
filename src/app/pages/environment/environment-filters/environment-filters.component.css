@@ -1,0 +1,172 @@
+
+
+button.reset {
+    height: 30px;
+    background-image: url(/assets/icon_reset_filters.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.icon {
+    flex: 1 1 0;
+    min-width: 26px;
+}
+
+.label {
+    flex: 3 3 0;
+    min-width: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2b505d;
+}
+
+.field {
+    flex: 9 9 0;
+    display: flex;
+    min-width: 100px;
+    padding: 8px 15px;
+    border: #679b9c solid 2px;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #a6a6a6;
+}
+
+
+.divider {
+    margin: 40px 0;
+    height: 2px;
+    background-color: #d2d2d2;
+}
+
+input:disabled {
+    background-color: white;
+    font-size: 1em;
+    font-weight: bold;
+    color: #a6a6a6;
+}
+
+
+
+
+/* .facilities .table-row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10px;
+}
+
+.facilities .table-item {
+    cursor: pointer;
+    padding: 17px 20px;
+    margin-bottom: 2px;
+    border: #d2d2d2 solid 2px;
+}
+
+.facilities .table-item.selected {
+    background-color: #f0efef;
+    border: #61ac95 solid 2px;
+} */
+
+
+.facilities-container {
+    position: relative;
+    min-height: 100px;
+}
+
+.facilities-container .overlay {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.facilities-container .error {
+    text-align: center;
+    font-weight: bold;
+    color: #ba0000;
+}
+
+
+.facilities.overlayed {
+    background-color: white;
+    opacity: 0.3;
+}
+
+.facilities .table-row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10px;
+}
+
+.facilities .table-legend {
+    margin: 10px 0;
+    padding: 10px 20px;
+    color: #363636;
+    background-color: #f0efef;
+}
+
+.facilities .table-item {
+    cursor: pointer;
+    padding: 17px 20px;
+    margin-bottom: 2px;
+    border: #d2d2d2 solid 2px;
+}
+
+.facilities .table-item.selected {
+    background-color: #f0efef;
+    border: #61ac95 solid 2px;
+}
+
+
+.facilities .name-gsrn { flex: 2 2 0; }
+.facilities .address { flex: 2 2 0; }
+.facilities .tags { flex: 2 2 0; }
+.facilities .technology { 
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.facilities .name {
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+
+.field.daterange {
+    padding-top: 6px;
+    padding-bottom: 5px;
+}
+
+.field.daterange sat-datepicker-toggle {
+    flex-grow: 0;
+}
+
+::ng-deep .daterange .mat-icon-button {
+    width: 24px !important;
+    height: 24px !important;
+    line-height: 24px;
+}
+
+.field input {
+    flex-grow: 1;
+    outline: none;
+    border: none;
+}

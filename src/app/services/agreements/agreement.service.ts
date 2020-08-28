@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Type, Transform } from "class-transformer";
-import * as moment from 'moment';
 import { ApiService, ApiResponse } from '../api.service';
-import { Agreement, AgreementDirection } from './models';
+import { Agreement, AgreementDirection, GgoSupplier } from './models';
 import { MeasurementDataSet } from '../commodities/models';
 import { DateRange } from '../common';
 
@@ -106,10 +105,12 @@ export class SubmitProposalRequest {
   direction: AgreementDirection;
   reference: string;
   counterpartId: string;
-  technology: string;
+  technologies: string[];
   amount: number;
   unit: string;
+  amountPercent: number;
   limitToConsumption: boolean;
+  proposalNote: string;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
   facilityIds: string[];
@@ -121,12 +122,14 @@ export class SubmitProposalRequest {
     direction: AgreementDirection,
     reference: string,
     counterpartId: string,
-    technology: string,
-    facilityIds: string[],
+    technologies: string[],
+    facilityIds?: string[],
     amount: number,
     unit: string,
+    amountPercent: number,
     date: DateRange,
     limitToConsumption: boolean,
+    proposalNote: string,
   }) {
     Object.assign(this, args);
   }
@@ -138,6 +141,7 @@ export class SubmitProposalErrors {
   counterpartId: string[] = [];
   amount: string[] = [];
   date: string[] = [];
+  amountPercent: string[] = [];
   limitToConsumption: string[] = [];
 }
 
@@ -154,7 +158,8 @@ export class SubmitProposalResponse extends ApiResponse {
 export class RespondToProposalRequest {
   id: string;
   accept: boolean;
-  technology: string;
+  technologies: string[];
+  amountPercent: number;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
   facilityIds: string[];
@@ -162,8 +167,9 @@ export class RespondToProposalRequest {
   constructor(args: {
     id: string,
     accept: boolean,
-    technology?: string,
+    technologies?: string[],
     facilityIds?: string[],
+    amountPercent?: number,
   }) {
     Object.assign(this, args);
   }
@@ -205,6 +211,41 @@ export interface ISSetTransferPriorityRequest {
 
 
 export class SetTransferPriorityResponse extends ApiResponse {}
+
+
+// -- setFacilities request & response ------------------------------ //
+
+
+export interface ISetFacilitiesRequest {
+  id: string;
+  facilityIds: string[];
+}
+
+
+export class SetFacilitiesResponse extends ApiResponse {}
+
+
+// -- setFacilities request & response ------------------------------ //
+
+
+export class FindSuppliersRequest {
+  @Type(() => DateRange)
+  dateRange: DateRange;
+  minAmount: number;
+
+  constructor(args: {
+    dateRange: DateRange,
+    minAmount: number,
+  }) {
+    Object.assign(this, args);
+  }
+}
+
+
+export class FindSuppliersResponse extends ApiResponse {
+  @Type(() => GgoSupplier)
+  suppliers: GgoSupplier[];
+}
 
 
 // -- Service ----------------------------------------------------------------
@@ -260,6 +301,16 @@ export class AgreementService {
 
   setTransferPriority(request: ISSetTransferPriorityRequest) : Observable<SetTransferPriorityResponse> {
     return this.api.invoke('/agreements/set-transfer-priority', SetTransferPriorityResponse, request);
+  }
+
+
+  findSuppliers(request: FindSuppliersRequest) : Observable<FindSuppliersResponse> {
+    return this.api.invoke('/agreements/find-suppliers', FindSuppliersResponse, request);
+  }
+
+
+  setFacilities(request: ISetFacilitiesRequest) : Observable<SetFacilitiesResponse> {
+    return this.api.invoke('/agreements/set-facilities', SetFacilitiesResponse, request);
   }
 
 

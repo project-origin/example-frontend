@@ -1,135 +1,156 @@
+<div class="legend">
+    <h1>{{ 'COMMON.FILTER' | translate }}</h1>
+    <div class="fill-remaining"></div>
+    <button mat-icon-button
+        class="reset"
+        (click)="resetFilters()" 
+        matTooltip="{{ 'COMMON.RESET-FILTERS' | translate }}"
+        matTooltipPosition="above">
+        &nbsp;
+    </button>
+</div>
 
-<mat-card>
-    <mat-card-content>
 
+<p>{{ 'COMMODITIES.ABOUT' | translate }}</p>
+
+
+<form [formGroup]="form">
+
+    <!-- Date -->
+    <div class="filter">
+        <div class="icon"><img src="/assets/icon_date.png"></div>
+        <div class="label">{{ 'COMMON.FILTERS.DATE' | translate }}:</div>
+        <div class="field daterange">
+            <input matInput disabled
+                class="dateinput"
+                formControlName="date"
+                [satDatepicker]="datePicker"
+                [min]="minDate"
+                [max]="maxDate">
+
+            <sat-datepicker #datePicker
+                [rangeMode]="true"
+                disabled="false">
+            </sat-datepicker>
+            <sat-datepicker-toggle matSuffix
+                [for]="datePicker"
+                class="datepicker">
+            </sat-datepicker-toggle>
+        </div>
+    </div>
+
+
+    <!-- Tags -->
+    <div class="filter">
+        <div class="icon"><img src="/assets/icon_tags.png"></div>
+        <div class="label">{{ 'COMMON.FILTERS.TAGS' | translate }}:</div>
+        <div class="field">
+            <mat-select multiple
+                formControlName="tags"
+                matTooltipPosition="above"
+                matTooltip="{{ 'COMMODITIES.TAGS-TOOLTIP' | translate }}">
+                <mat-option *ngFor="let tag of availableTags" [value]="tag">{{tag}}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+
+
+    <!-- Type (production/consumption) -->
+    <div class="filter">
+        <div class="icon"><img src="/assets/icon_prod_con.png"></div>
+        <div class="label">{{ 'COMMON.FILTERS.TYPE' | translate }}:</div>
+        <div class="field">
+            <mat-select formControlName="facilityType">
+                <mat-option value="">{{ 'COMMON.ALL' | translate }}</mat-option>
+                <mat-option value="production">{{ 'COMMON.PRODUCTION' | translate }}</mat-option>
+                <mat-option value="consumption">{{ 'COMMON.CONSUMPTION' | translate }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+
+
+    <!-- Sector -->
+    <div class="filter">
+        <div class="icon"><img src="/assets/icon_sector.png"></div>
+        <div class="label">{{ 'COMMON.FILTERS.SECTOR' | translate }}:</div>
+        <div class="field">
+            <mat-select multiple formControlName="sectors">
+                <mat-option *ngFor="let sector of availableSectors" [value]="sector">{{sector}}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+
+
+    <!-- Freetext search -->
+    <div class="filter">
+        <div class="icon"><img src="/assets/icon_search_2.png"></div>
+        <div class="label">{{ 'COMMON.FILTERS.SEARCH' | translate }}:</div>
+        <div class="field">
+            <input formControlName="text">
+        </div>
+    </div>
+
+
+    <br><br>
+
+
+    <!-- Graph navigate/zoom -->
+    <app-zoom-navigate-bar
+        [dateFrom]="dateFrom"
+        [dateTo]="dateTo"
+        (dateChange)="onUserNavigatedDates($event)"
+        (dateReset)="onResetDates()">
+    </app-zoom-navigate-bar>
+
+
+    <div class="divider"></div>
+
+
+    <!-- Specific facilities -->
+    <div matTooltip="{{ 'COMMODITIES.FACILITIES.TOOLTIP' | translate }}" matTooltipPosition="above">
         <div class="legend">
-            <h1>Filter</h1>
+            <h2>{{ 'COMMODITIES.FACILITIES.HEADLINE' | translate }}</h2>
             <div class="fill-remaining"></div>
-            <button mat-icon-button class="reset" (click)="resetFilters()" matTooltip="Reset all filters" matTooltipPosition="above">&nbsp;</button>
+            <button mat-icon-button
+                class="reset"
+                matTooltipPosition="above"
+                matTooltip="{{ 'COMMODITIES.FACILITIES.RESET' | translate }}"
+                (click)="resetFacilitySelection()">
+                &nbsp;
+            </button>
         </div>
 
-        <p>
-            The filter on the Commodities page allows you modify the data displayed in the graphs.
-            The chosen parameters will be applied if you choose to export data to CSV or disclose data.
-        </p>
+        <div class="facilities-container">
+            <div class="facilities" [class.overlayed]="loadingFacilities || errorFacilities">
+                <div matRipple
+                    class="table-row table-item"
+                    *ngFor="let facility of availableFacilities"
+                    (click)="selectFacilitiy(facility)"
+                    [class.selected]="isSelected(facility)">
 
-
-        <form [formGroup]="form">
-
-            <div class="filter">
-                <div class="icon">
-                    <img src="/assets/icon_date.png">
-                </div>
-                <div class="label">Date:</div>
-                <div class="field daterange">
-                    <input matInput class="dateinput" [satDatepicker]="datePicker" disabled formControlName="date"
-                        [min]="minDate"
-                        [max]="maxDate">
-                    <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                    <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                    <span class="counterpart">
+                        <span class="name">
+                            {{ facility.name }}
+                            <app-facility-type-badge
+                                [facilityType]="facility.facilityType">
+                            </app-facility-type-badge>
+                        </span>
+                        {{ facility.gsrn }}
+                    </span>
                 </div>
             </div>
 
-            <div class="filter">
-                <div class="icon">
-                    <img src="/assets/icon_tags.png">
-                </div>
-                <div class="label">Tags:</div>
-                <div class="field">
-                    <mat-select formControlName="tags" multiple matTooltip="Filter the commodities based on your own tags. You can define tags on the Facilities page" matTooltipPosition="above">
-                        <mat-option *ngFor="let tag of availableTags" [value]="tag">{{tag}}</mat-option>
-                    </mat-select>
-                </div>
-            </div>
+            <div class="overlay" *ngIf="loadingFacilities || errorFacilities">
+                <app-loading-view *ngIf="loadingFacilities"></app-loading-view>
 
-            <div class="filter">
-                <div class="icon">
-                    <img src="/assets/icon_prod_con.png">
-                </div>
-                <div class="label">Type:</div>
-                <div class="field">
-                    <mat-select formControlName="facilityType">
-                        <mat-option value="">All</mat-option>
-                        <mat-option value="production">Production</mat-option>
-                        <mat-option value="consumption">Consumption</mat-option>
-                    </mat-select>
+                <div *ngIf="errorFacilities" class="error">
+                    {{ 'COMMODITIES.FACILITIES.LOADING-FAILED' | translate }}<br><br>
+                    <button mat-flat-button color="primary" (click)="loadFacilities()">
+                        {{ 'COMMON.TRY-AGAIN' | translate }}
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="filter">
-                <div class="icon">
-                    <img src="/assets/icon_sector.png">
-                </div>
-                <div class="label">Sector:</div>
-                <div class="field">
-                    <mat-select formControlName="sectors" multiple>
-                        <mat-option *ngFor="let sector of availableSectors" [value]="sector">{{sector}}</mat-option>
-                    </mat-select>
-                </div>
-            </div>
-
-            <div class="filter">
-                <div class="icon">
-                    <img src="/assets/icon_search_2.png">
-                </div>
-                <div class="label">Search:</div>
-                <div class="field">
-                    <input formControlName="text">
-                </div>
-            </div>
-
-            <br><br>
-
-            <app-zoom-navigate-bar
-                [dateFrom]="dateFrom"
-                [dateTo]="dateTo"
-                (dateChange)="onUserNavigatedDates($event)"
-                (dateReset)="onResetDates()">
-            </app-zoom-navigate-bar>
-
-
-            <div class="divider"></div>
-
-
-            <div matTooltip="Choose one or more facilities, that you have onboarded. Chosen facilities turn green. You can onboard further facilities on the Facilities page" matTooltipPosition="above">
-                <div class="legend">
-                    <h2>Specific facilities</h2>
-                    <div class="fill-remaining"></div>
-                    <button mat-icon-button class="reset" (click)="resetFacilitySelection()" matTooltip="Reset selected facilities" matTooltipPosition="above">&nbsp;</button>
-                </div>
-
-
-                <div class="facilities-container">
-                    <div class="facilities" [class.overlayed]="loadingFacilities || errorFacilities">
-                        <div matRipple class="table-row table-item"
-                            *ngFor="let facility of availableFacilities"
-                            (click)="selectFacilitiy(facility)"
-                            [class.selected]="isSelected(facility)">
-
-                            
-
-                            <span class="counterpart">
-                                <span class="name">
-                                    {{ facility.name }}
-                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
-                                </span>
-                                {{ facility.gsrn }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="overlay" *ngIf="loadingFacilities || errorFacilities">
-                        <app-loading-view *ngIf="loadingFacilities"></app-loading-view>
-
-                        <div *ngIf="errorFacilities" class="error">
-                            FAILED TO FACILITIES<br><br>
-                            <button mat-flat-button color="primary" (click)="loadFacilities()">TRY AGAIN</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-
-    </mat-card-content>
-</mat-card>
+</form>

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { IFacilityFilters, Facility } from 'src/app/services/facilities/models';
 import { DisclosureService, GetDisclosurePreviewRequest, GetDisclosurePreviewResponse, CreateDisclosureResponse, CreateDisclosureRequest, SummaryResolution } from 'src/app/services/disclosures/disclosures.service';
 import { DateRange } from 'src/app/services/common';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -12,6 +13,9 @@ import { DateRange } from 'src/app/services/common';
   styleUrls: ['./create-disclosure-dialog.component.css']
 })
 export class CreateDisclosureDialogComponent implements OnInit {
+
+
+  resolutionLabels: any = {};
 
 
   dateFrom: Date = moment().toDate();
@@ -37,6 +41,7 @@ export class CreateDisclosureDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<CreateDisclosureDialogComponent>,
     private disclosureService: DisclosureService,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) data: {
       dateFrom: Date,
       dateTo: Date,
@@ -50,6 +55,22 @@ export class CreateDisclosureDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPreview();
+
+    this.translate.get('COMMON.RESOLUTIONS.ALL').subscribe((s: string) => {
+      this.resolutionLabels['all'] = s;
+    });
+    this.translate.get('COMMON.RESOLUTIONS.YEAR').subscribe((s: string) => {
+      this.resolutionLabels['year'] = s;
+    });
+    this.translate.get('COMMON.RESOLUTIONS.MONTH').subscribe((s: string) => {
+      this.resolutionLabels['month'] = s;
+    });
+    this.translate.get('COMMON.RESOLUTIONS.DAY').subscribe((s: string) => {
+      this.resolutionLabels['day'] = s;
+    });
+    this.translate.get('COMMON.RESOLUTIONS.HOUR').subscribe((s: string) => {
+      this.resolutionLabels['hour'] = s;
+    });
   }
 
 
@@ -58,8 +79,17 @@ export class CreateDisclosureDialogComponent implements OnInit {
   }
 
 
-  possibleResolutions() : string[] {
+  get possibleResolutions() : string[] {
     return Object.keys(SummaryResolution);
+  }
+
+
+  getResolutionLabel(resolution: string) {
+    if(resolution in this.resolutionLabels) {
+      return this.resolutionLabels[resolution];
+    } else {
+      return resolution;
+    }
   }
 
 

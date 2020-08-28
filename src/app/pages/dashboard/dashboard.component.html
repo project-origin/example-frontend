@@ -1,39 +1,29 @@
+<div class="page">
 
-<div class="dashboard">
-
-    <div class="filters">
+    <!-- Left column -->
+    <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>About</h1>
+                <h1>{{ 'DASHBOARD.ABOUT.HEADLINE' | translate }}</h1>
                 <div>
-                    <p>
-                        The dashboard gives you an overview of all the GGOs (Granular Guarantees of Origin). 
-                        You can modify the overview by choosing a date or period in the filter below. 
-                        This filter is applied to all graphs on this page. 
-                    </p>
-                    
-                    <p><b>Inbound:</b> The sum of GGOs transferred into your account. </p>
-                    <p><b>Stored:</b> The sum of GGOs available for trade or retirement (=consumption). </p>
-                    <p><b>Outbound:</b> The sum of GGOs transferred from your account to others. </p>
-                    <p><b>Issued:</b> The sum of GGOs issued by Eloprindelse correlated to your own electricity production as registered on the <a routerLink="/app/facilities">"Facilities"-page</a>. </p>
-                    <p><b>Retired:</b> The sum of GGOs correlated to your own electricity consumption as registered on the <a routerLink="/app/facilities">"Facilities"-page</a>. Retired means that a GGO has been used/paired with consumption. </p>
-                    <p><b>Expired:</b> The sum of GGOs that is too old and has expired. A GGO expires after xx months. </p>
+                    <p>{{ 'DASHBOARD.ABOUT.INTRO' | translate }}</p>
+                    <p><b>{{ 'COMMON.INBOUND' | translate }}:</b> {{ 'DASHBOARD.ABOUT.INBOUND-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.STORED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.STORED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.OUTBOUND' | translate }}:</b> {{ 'DASHBOARD.ABOUT.OUTBOUND-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.ISSUED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.ISSUED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.RETIRED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.RETIRED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.EXPIRED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.EXPIRED-TEXT' | translate }}</p>
                 </div>
-
             </mat-card-content>
         </mat-card>
 
-
         <mat-card>
             <mat-card-content>
-
-                <h1>Filter</h1>
+                <h1>{{ 'COMMON.FILTER' | translate }}</h1>
 
                 <div class="filter">
-                    <div class="icon">
-                        <img src="/assets/icon_date.png">
-                    </div>
-                    <div class="label">Date:</div>
+                    <div class="icon"><img src="/assets/icon_date.png"></div>
+                    <div class="label">{{ 'COMMON.FILTERS.DATE' | translate }}:</div>
                     <div class="field daterange">
                         <input matInput disabled
                             class="dateinput"
@@ -43,8 +33,14 @@
                             [min]="minDate"
                             [max]="maxDate">
 
-                        <sat-datepicker #datePicker [rangeMode]="true" disabled="false"></sat-datepicker>
-                        <sat-datepicker-toggle matSuffix [for]="datePicker" class="datepicker"></sat-datepicker-toggle>
+                        <sat-datepicker #datePicker
+                            [rangeMode]="true"
+                            disabled="false">
+                        </sat-datepicker>
+                        <sat-datepicker-toggle matSuffix
+                            [for]="datePicker"
+                            class="datepicker">
+                        </sat-datepicker-toggle>
                     </div>
                 </div>
 
@@ -56,59 +52,36 @@
                     (dateChange)="onUserNavigated($event)"
                     (dateReset)="onReset()">
                 </app-zoom-navigate-bar>
-
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
-    <div class="details">
 
-        <mat-card>
-            <mat-card-content class="overview">
+    <!-- Right column -->
+    <div class="content">
 
-                <div class="data-overview">
-                    <h1>GGO Overview</h1>
 
-                    <app-ggo-summary
-                        [dateFrom]="dateFrom"
-                        [dateTo]="dateTo">
-                    </app-ggo-summary>
-                </div>
-
+        <mat-card *ngIf="loading" style="height: 454px;">
+            <mat-card-content>
+                <app-loading-view></app-loading-view>
             </mat-card-content>
         </mat-card>
 
 
-        <mat-card>
-            <mat-card-content>
-
-                <h1>Stored GGOs</h1>
-
-                <app-ggo-summary-plot
-                    [dateFrom]="dateFrom"
-                    [dateTo]="dateTo"
-                    category="stored">
-                </app-ggo-summary-plot>
-
-            </mat-card-content>
-        </mat-card>
+        <app-emission-overview
+            *ngIf="!loading"
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [individual]="individual"
+            [general]="general">
+        </app-emission-overview>
 
 
         <mat-card>
             <mat-card-content>
-
-                <div class="legend">
-                    <h1>Production and consumption facilities</h1>
-                    <div class="fill-remaining"></div>
-                    <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">EXPORT CSV</button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
-                        <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
-                        <button mat-menu-item (click)="exportGgoList()">GGO List</button>
-                    </mat-menu>
-                </div>
-
-                <h2>Produced power and issued GGOs</h2>
+                <h1>{{ 'DASHBOARD.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>
+                <h2>{{ 'DASHBOARD.PRODUCED-POWER-ISSUED-GGOS' | translate }}</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
@@ -119,7 +92,7 @@
 
                 &nbsp;<br>
 
-                <h2>Consumed power and retired GGOs</h2>
+                <h2>{{ 'DASHBOARD.CONSUMED-POWER-RETIRED-GGOS' | translate }}</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
@@ -127,46 +100,10 @@
                     measurementType="consumption"
                     ggoCategory="retired">
                 </app-commodity-plot>
-
             </mat-card-content>
         </mat-card>
-
-
-                
-        <mat-card>
-            <mat-card-content>
-                
-                <div class="legend">
-                    <h1>Transfer</h1>
-                    <div class="fill-remaining"></div>
-                    <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">EXPORT CSV</button>
-                </div>
-
-                <h2>Inbound GGOs</h2>
-
-                <app-trading-plot
-                    [dateFrom]="dateFrom"
-                    [dateTo]="dateTo"
-                    direction="inbound"
-                    display="bars">
-                </app-trading-plot>
-
-                &nbsp;<br>
-                
-                <h2>Outbound GGOs</h2>
-
-                <app-trading-plot
-                    [dateFrom]="dateFrom"
-                    [dateTo]="dateTo"
-                    direction="outbound"
-                    display="bars">
-                </app-trading-plot>
-
-            </mat-card-content>
-        </mat-card>
-   
-
 
     </div>
+    <!-- /Right column -->
 
 </div>

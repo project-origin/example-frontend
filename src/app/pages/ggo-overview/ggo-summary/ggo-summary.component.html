@@ -1,0 +1,104 @@
+
+<div class="container">
+
+
+    <!-- Inbound -->
+    <div class="item">
+        <app-ggo-doughnot-chart
+            [distribution]="inbound">
+        </app-ggo-doughnot-chart>
+
+        <div class="amount">
+            {{ inbound.total | formatAmount }}
+        </div>
+
+        <div class="label">{{ 'COMMON.INBOUND' | translate }}</div>
+    </div>
+
+
+    <!-- Stored -->
+    <div class="item">
+        <app-ggo-doughnot-chart
+            [distribution]="stored">
+        </app-ggo-doughnot-chart>
+
+        <div class="amount">
+            {{ stored.total | formatAmount }}
+        </div>
+
+        <div class="label">{{ 'COMMON.STORED' | translate }}</div>
+    </div>
+
+
+    <!-- Outbound -->
+    <div class="item">
+        <app-ggo-doughnot-chart
+            [distribution]="outbound">
+        </app-ggo-doughnot-chart>
+
+        <div class="amount">
+            {{ outbound.total | formatAmount }}
+        </div>
+
+        <div class="label">{{ 'COMMON.OUTBOUND' | translate }}</div>
+    </div>
+
+
+    <div class="item-divider"></div>
+
+
+    <!-- Issued -->
+    <div class="item">
+        <app-ggo-doughnot-chart
+            [distribution]="issued">
+        </app-ggo-doughnot-chart>
+
+        <div class="amount">
+            {{ issued.total | formatAmount }}
+        </div>
+
+        <div class="label">{{ 'COMMON.ISSUED' | translate }}</div>
+    </div>
+
+
+    <!-- Retired -->
+    <div class="item">
+        <app-ggo-doughnot-chart
+            [distribution]="retired">
+        </app-ggo-doughnot-chart>
+
+        <div class="amount">
+            {{ retired.total | formatAmount }}
+        </div>
+
+        <div class="label">{{ 'COMMON.RETIRED' | translate }}</div>
+    </div>
+
+
+    <!-- Expired -->
+    <div class="item">
+        <app-ggo-doughnot-chart
+            [distribution]="expired">
+        </app-ggo-doughnot-chart>
+
+        <div class="amount">
+            {{ expired.total | formatAmount }}
+        </div>
+
+        <div class="label">{{ 'COMMON.EXPIRED' | translate }}</div>
+    </div>
+
+
+
+    <div class="overlay" *ngIf="loading || error">
+        <app-loading-view *ngIf="loading"></app-loading-view>
+
+        <div *ngIf="error" class="error">
+            {{ 'PLOTS.FAILED-TO-LOAD' | translate }}<br><br>
+            <button mat-flat-button color="primary" (click)="loadData()">
+                {{ 'COMMON.TRY-AGAIN' | translate }}
+            </button>
+        </div>
+    </div>
+
+</div>

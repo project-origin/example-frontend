@@ -1,10 +1,9 @@
-
 <div class="legend">
     <button mat-stroked-button
         type="button"
         class="fill-remaining"
         (click)="navigatePrevious()"
-        matTooltip="Back in time"
+        matTooltip="{{ 'PLOTS.BACK-IN-TIME' | translate }}"
         matTooltipPosition="above">
         &lt;&lt;
     </button>
@@ -16,7 +15,7 @@
         class="fill-remaining"
         [disabled]="!canZoomOut"
         (click)="zoomOut()"
-        matTooltip="Zoom out"
+        matTooltip="{{ 'PLOTS.ZOOM-OUT' | translate }}"
         matTooltipPosition="above">
         <mat-icon>zoom_out</mat-icon>
     </button>
@@ -27,7 +26,7 @@
         type="button"
         class="fill-remaining"
         (click)="reset()"
-        matTooltip="Reset dates"
+        matTooltip="{{ 'PLOTS.RESET-DATES' | translate }}"
         matTooltipPosition="above">
         <mat-icon>refresh</mat-icon>
     </button>
@@ -39,7 +38,7 @@
         class="fill-remaining"
         [disabled]="!canZoomIn"
         (click)="zoomIn()"
-        matTooltip="Zoom in"
+        matTooltip="{{ 'PLOTS.ZOOM-IN' | translate }}"
         matTooltipPosition="above">
         <mat-icon>zoom_in</mat-icon>
     </button>
@@ -49,7 +48,7 @@
         type="button"
         class="fill-remaining"
         (click)="navigateNext()"
-        matTooltip="Forward in time"
+        matTooltip="{{ 'PLOTS.FORWARD-IN-TIME' | translate }}"
         matTooltipPosition="above">
         &gt;&gt;
     </button>

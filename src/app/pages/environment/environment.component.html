@@ -1,0 +1,67 @@
+<div class="page">
+
+    <!-- Left column -->
+    <div class="about">
+        <app-environment-filters
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [filters]="filters">
+        </app-environment-filters>
+    </div>
+    <!-- !Left column -->
+
+
+    <!-- Right column -->
+    <div class="content">
+
+
+        <!-- Loading indicator -->
+        <mat-card *ngIf="loading">
+            <mat-card-content>
+                <app-loading-view></app-loading-view>
+            </mat-card-content>
+        </mat-card>
+        <!-- /Loading indicator -->
+
+
+        <!-- No data available -->
+        <mat-card *ngIf="!loading && !hasData">
+            <mat-card-content style="text-align: center;">
+                <h1>No data available</h1>
+                <p>
+                    You have not had any electricity consumption in the selected period.
+                </p>
+            </mat-card-content>
+        </mat-card>
+        <!-- /No data available -->
+
+
+        <app-emission-overview
+            *ngIf="showData"
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [individual]="individual"
+            [general]="general">
+        </app-emission-overview>
+
+        
+        <app-origin-of-technology
+            *ngIf="showData"
+            [individual]="individual">
+        </app-origin-of-technology>
+
+        
+        <app-emission-table
+            *ngIf="showData"
+            [individual]="individual"
+            [general]="general"
+            (exportPdf)="exportPdf()"
+            (exportEmissionsCSV)="exportEmissionsCsv()"
+            (exportTechnologiesCSV)="exportTechnologiesCsv()">
+        </app-emission-table>
+
+
+    </div>
+    <!-- /Right column -->
+
+</div>

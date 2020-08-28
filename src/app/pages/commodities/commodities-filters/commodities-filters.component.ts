@@ -61,7 +61,7 @@ export class CommoditiesFiltersComponent implements OnInit {
   constructor(
     private router: Router,
     private facilityService: FacilityService,
-    private settingsService: SettingsService,
+    settingsService: SettingsService,
   ) {
     this.minDate = settingsService.minDate;
     this.maxDate = settingsService.maxDate;

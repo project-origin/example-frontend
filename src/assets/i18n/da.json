@@ -1,0 +1,13 @@
+{
+    "COMMON": {
+        "ABOUT": "Om",
+        "FILTER": "Filtre"
+    },
+    "DASHBOARD": {
+        "GGO-OVERVIEW": "GGO Overblik",
+        "STORED-GGOS": "Lagrede GGO'er",
+        "PRODUCTION-CONSUMPTION-FACILITIES": "Produktions- og forbrugspunkter",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
+        "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs"
+    }
+}

@@ -41,6 +41,28 @@ a:hover { color: #882416; }
 .success { color: #168818; }
 
 
+/* -- Page layout -- */
+
+    .page {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .about {
+        flex: 1 1 0;
+        margin-right: 10px;
+    }
+
+    .content {
+        flex: 2 2 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+
+
+
 mat-card {
     margin-bottom: 10px;
 }
@@ -74,6 +96,25 @@ mat-card {
 .full-width {
     width: 100%;
 }
+
+
+
+.page {
+    display: flex;
+    flex-direction: row;
+}
+
+.content {
+    flex: 2 2 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.about {
+    flex: 1 1 0;
+    margin-right: 10px;
+}
+
 
 
 .production { background-color: #0073a0; }
@@ -116,6 +157,10 @@ mat-card {
 
 
 /* -- Buttons -- */
+
+button {
+    text-transform: uppercase;
+}
 
 button.trade {
     height: 30px;
@@ -167,7 +212,6 @@ button.text.primary {
     padding: 0;
     border-radius: 10px;
     background-color: #e9e9e9;
-    overflow-x: hidden;
 }
 
 .dialog-header {
@@ -194,3 +238,24 @@ button.text.primary {
 .dialog-body {
     padding: 30px 70px;
 }
+
+
+
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 2px 50px;
+    cursor: pointer;
+}
+
+button.cancel {
+    background-color: #d2d2d2; 
+    color: #797979;
+}
+
+button.send {
+    background-color: #4d8a8b; 
+    color: white;
+}
+

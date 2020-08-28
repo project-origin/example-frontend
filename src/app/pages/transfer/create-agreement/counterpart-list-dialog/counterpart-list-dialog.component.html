@@ -1,0 +1,37 @@
+
+<div class="dialog-header">
+    <h1>{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.HEADLINE' | translate }}</h1>
+    <h2 style="text-align: center;">{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.TEXT' | translate }}</h2>
+</div>
+
+
+<div class="dialog-body">
+    <app-loading-view *ngIf="loading" style="margin: 50px;"></app-loading-view>
+
+
+    <div class="supplier" *ngIf="!loading && suppliers.length == 0">
+        {{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.NO-SUPPLIERS-FOUND' | translate }}
+    </div>
+
+
+    <div class="supplier legend" *ngFor="let supplier of suppliers">
+        <h3>{{ supplier.company }}</h3>
+        <div class="fill-remaining"></div>
+        <button mat-button type="button" class="send" (click)="selectSupplier(supplier)">
+            {{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-LIST-DIALOG.CHOOSE-THIS' | translate }}
+        </button>
+    </div>
+
+
+    <div>&nbsp;</div>
+
+
+    <!-- Buttons -->
+    <div class="legend">
+        <div class="fill-remaining"></div>
+        <button mat-button type="button" class="cancel" (click)="closeDialog()">
+            {{ 'COMMON.CLOSE' | translate }}
+        </button>
+        <div class="fill-remaining"></div>
+    </div>
+</div>

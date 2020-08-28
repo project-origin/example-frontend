@@ -74,6 +74,7 @@ export class EnergyPlotComponent implements OnChanges {
 
     // Lines
     if(this.lines && this.lines.length > 0) {
+      console.log('this.lines', this.lines)
       dataSets = dataSets.concat(this.lines.map((data: MeasurementDataSet) => <ChartDataSets>{
         label: data.label,
         type: 'line',

@@ -1,0 +1,159 @@
+<div class="page">
+
+    <!-- Left column -->
+    <div class="about">
+        <mat-card>
+            <mat-card-content>
+                <h1>{{ 'DASHBOARD.ABOUT.HEADLINE' | translate }}</h1>
+                <div>
+                    <p>{{ 'DASHBOARD.ABOUT.INTRO' | translate }}</p>
+                    <p><b>{{ 'COMMON.INBOUND' | translate }}:</b> {{ 'DASHBOARD.ABOUT.INBOUND-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.STORED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.STORED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.OUTBOUND' | translate }}:</b> {{ 'DASHBOARD.ABOUT.OUTBOUND-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.ISSUED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.ISSUED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.RETIRED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.RETIRED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.EXPIRED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.EXPIRED-TEXT' | translate }}</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <h1>{{ 'COMMON.FILTER' | translate }}</h1>
+
+                <div class="filter">
+                    <div class="icon"><img src="/assets/icon_date.png"></div>
+                    <div class="label">{{ 'COMMON.FILTERS.DATE' | translate }}:</div>
+                    <div class="field daterange">
+                        <input matInput disabled
+                            class="dateinput"
+                            [satDatepicker]="datePicker"
+                            (dateChange)="onUserPickedDate($event)"
+                            [value]="pickerValue"
+                            [min]="minDate"
+                            [max]="maxDate">
+
+                        <sat-datepicker #datePicker
+                            [rangeMode]="true"
+                            disabled="false">
+                        </sat-datepicker>
+                        <sat-datepicker-toggle matSuffix
+                            [for]="datePicker"
+                            class="datepicker">
+                        </sat-datepicker-toggle>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <app-zoom-navigate-bar
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    (dateChange)="onUserNavigated($event)"
+                    (dateReset)="onReset()">
+                </app-zoom-navigate-bar>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- /Left column -->
+
+
+    <!-- Right column -->
+    <div class="content">
+        <mat-card>
+            <mat-card-content class="overview">
+                <div class="data-overview">
+                    <h1>{{ 'DASHBOARD.GGO-OVERVIEW' | translate }}</h1>
+
+                    <app-ggo-summary
+                        [dateFrom]="dateFrom"
+                        [dateTo]="dateTo">
+                    </app-ggo-summary>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <h1>{{ 'DASHBOARD.STORED-GGOS' | translate }}</h1>
+
+                <app-ggo-summary-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    category="stored">
+                </app-ggo-summary-plot>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <h1>{{ 'DASHBOARD.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+                        {{ 'COMMON.EXPORT-CSV' | translate }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="exportMeasurements()">Measurements</button>
+                        <button mat-menu-item (click)="exportGgoSummary()">GGO Summary</button>
+                        <button mat-menu-item (click)="exportGgoList()">GGO List</button>
+                    </mat-menu>
+                </div>
+
+                <h2>{{ 'DASHBOARD.PRODUCED-POWER-ISSUED-GGOS' | translate }}</h2>
+
+                <app-commodity-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    measurementType="production"
+                    ggoCategory="issued">
+                </app-commodity-plot>
+
+                &nbsp;<br>
+
+                <h2>{{ 'DASHBOARD.CONSUMED-POWER-RETIRED-GGOS' | translate }}</h2>
+
+                <app-commodity-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    measurementType="consumption"
+                    ggoCategory="retired">
+                </app-commodity-plot>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <h1>{{ 'DASHBOARD.TRANSFER' | translate }}</h1>
+                    <div class="fill-remaining"></div>
+                    <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">
+                        {{ 'COMMON.EXPORT-CSV' | translate }}
+                    </button>
+                </div>
+
+                <h2>{{ 'DASHBOARD.INBOUND-GGOS' | translate }}</h2>
+
+                <app-trading-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    direction="inbound"
+                    display="bars">
+                </app-trading-plot>
+
+                &nbsp;<br>
+                
+                <h2>{{ 'DASHBOARD.OUTBOUND-GGOS' | translate }}</h2>
+
+                <app-trading-plot
+                    [dateFrom]="dateFrom"
+                    [dateTo]="dateTo"
+                    direction="outbound"
+                    display="bars">
+                </app-trading-plot>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- /Right column -->
+
+</div>

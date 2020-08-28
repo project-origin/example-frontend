@@ -1,0 +1,76 @@
+<mat-card>
+    <mat-card-content>
+
+        <h2 [class.icon]="icon">
+            <mat-icon *ngIf="icon" [style.color]="iconColor ? iconColor : null">{{ icon }}</mat-icon>
+            {{ headline }}
+        </h2>
+
+        <!-- Header -->
+        <div class="table-row table-legend">
+            <span class="counterpart">{{ 'AGREEMENT-LIST.RECIPIENT-NAME-AND-ID' | translate }}</span>
+            <span class="technology">{{ 'COMMON.TECHNOLOGY' | translate }}</span>
+            <span class="amount">{{ 'AGREEMENT-LIST.AMOUNT' | translate }}</span>
+            <span class="period">{{ 'AGREEMENT-LIST.PERIOD' | translate }}</span>
+            <span class="priority" *ngIf="sortable">{{ 'COMMON.PRIORITY' | translate }}</span>
+        </div>
+
+        <!-- Message if empty -->
+        <div class="table-row empty" *ngIf="agreements.length == 0">
+            <div>
+                <b>{{ emptyHeadline }}</b>
+                <br><br>
+                <p style="white-space: pre-wrap;" [innerHTML]="emptyText"></p>
+            </div>
+        </div>
+
+        <!-- Drag/drop container -->
+        <div cdkDropList
+            #activeList="cdkDropList"
+            cdkDropListOrientation="vertical"
+            [cdkDropListData]="agreements"
+            (cdkDropListDropped)="drop($event)">
+
+            <!-- Agreement list items -->
+            <div cdkDrag matRipple
+                class="table-row table-item"
+                *ngFor="let agreement of agreements"
+                [cdkDragDisabled]="!sortable"
+                (click)="select(agreement)">
+
+                <span class="counterpart">
+                    <mat-icon *ngIf="agreement.isOutbound" style="color: red">north_east</mat-icon>
+                    <mat-icon *ngIf="agreement.isInbound" style="color: green">south_west</mat-icon>
+                    <div>&nbsp;</div>
+                    <div>
+                        <span class="name">
+                            {{ agreement.counterpart }}
+                            <span *ngIf="agreement.limitToConsumption">
+                                <img src="/assets/icon_limited_to_consumption.png"
+                                    matTooltip="{{ 'AGREEMENT-LIST.LIMITED-TO-CONSUMPTION' | translate }}"
+                                    matTooltipPosition="above">
+                            </span>
+                        </span>
+                        {{ agreement.reference }}
+                    </div>
+                </span>
+                <span class="technology">
+                    <div class="energy-type-avatar {{ agreement.technology }}" *ngIf="agreement.technology"></div>
+                </span>
+                <span class="amount">
+                    <span class="value">{{ agreement.amount }}</span> {{ agreement.unit }}
+                </span>
+                <span class="period">
+                    {{ 'COMMON.BEGIN' | translate }}: {{ agreement.dateFrom | date }}<br>
+                    {{ 'COMMON.END' | translate }}: {{ agreement.dateTo | date }}
+                </span>
+                <span class="priority" *ngIf="sortable">
+                    <img src="/assets/icon_sort.png">
+                    &nbsp;
+                    {{ getPriority(agreement) + 1 }}
+                </span>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>

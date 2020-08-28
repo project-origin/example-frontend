@@ -1,0 +1,79 @@
+
+<!-- My CO2 emission -->
+<mat-card>
+    <mat-card-content>
+        <h1 style="text-align: center;">What is my CO2 emission?</h1>
+        <p style="text-align: center;">
+            {{ dateFrom | date }} to {{ dateTo | date }}
+        </p>
+        <mat-divider></mat-divider>
+        &nbsp;<br>
+
+        <div class="legend" style="padding: 15px 0">
+            <div class="fill-remaining">
+                <h2 style="text-align: center;">
+                    Total:<br>
+                    <b>{{ co2Total | formatNumber : 2 }} kg.</b>
+                </h2>
+            </div>
+            <div class="fill-remaining">
+                <h2 style="text-align: center;">
+                    Relative:<br>
+                    <b>{{ co2Relative | formatNumber : 2 }} g/kWh</b>
+                </h2>
+            </div>
+            <div class="fill-remaining">
+                <h2 style="text-align: center;">
+                    Compared to general:<br>
+                    <b>
+                        <span *ngIf="co2Compared > 0" style="color: red;">+{{ co2Compared | formatNumber : 1 }}%</span>
+                        <span *ngIf="co2Compared < 0" style="color: green;">{{ co2Compared | formatNumber : 1 }}%</span>
+                    </b>
+                </h2>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+<!-- /My CO2 emission -->
+
+
+<!-- Renewable energy & GGO share -->
+<div class="legend" style="margin: 0">
+    <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
+        <mat-card-content style="text-align: center;">
+            <h2><b>Renewable energy</b></h2>
+            <p>Electricity from Wind, Solar, and Hydro</p>
+
+            <div class="legend">
+                <div class="fill-remaining"></div>
+                <rg-gauge-chart
+                    [canvasWidth]="250"
+                    [needleValue]="cleanEnergyPercentage"
+                    [centralLabel]="cleanEnergyPercentage + '%'"
+                    [options]="renewableEnergyGaugeOptions">
+                </rg-gauge-chart>
+                <div class="fill-remaining"></div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div style="width: 10px"></div>
+    <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
+        <mat-card-content style="text-align: center;">
+            <h2><b>GGO share</b></h2>
+            <p>Electricity from GGOs</p>
+
+            <div class="legend">
+                <div class="fill-remaining"></div>
+                <rg-gauge-chart
+                    [canvasWidth]="250"
+                    [needleValue]="ggoPercentage"
+                    [centralLabel]="ggoPercentage + '%'"
+                    [options]="ggoShareGaugeOptions">
+                </rg-gauge-chart>
+                <div class="fill-remaining"></div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+<!-- /Renewable energy & GGO share -->
