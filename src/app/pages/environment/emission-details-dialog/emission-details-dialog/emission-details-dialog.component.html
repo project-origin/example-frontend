@@ -1,20 +1,19 @@
 
 <div class="dialog-header">
     <h1 [innerHTML]="htmlLabel"></h1>
-    <h2>TODO WRITE SOMETHING HERE</h2>
+    <h2>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.HEADLINE' | translate }}</h2>
 </div>
 
-<div class="dialog-body">
 
-    
+<div class="dialog-body">
     <table width="100%" cellpadding="10" cellspacing="2">
         <tr>
             <td></td>
-            <th>Rounded</th>
-            <th>Actual</th>
+            <th>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.ROUNDED' | translate }}</th>
+            <th>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.ACTUAL' | translate }}</th>
         </tr>
         <tr style="background-color: #fff;">
-            <td>Consumed energy</td>
+            <td>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.CONSUMED-ENERGY' | translate }}</td>
             <td style="text-align: right;">
                 {{ totalConsumedAmount | formatAmount }}
             </td>
@@ -23,7 +22,7 @@
             </td>
         </tr>
         <tr style="background-color: #fff;">
-            <td>Relative emission</td>
+            <td>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.RELATIVE-EMISSIONS' | translate }}</td>
             <td style="text-align: right;">
                 {{ totalEmissionPerkWh | formatNumber : 2 }} g/kWh
             </td>
@@ -32,7 +31,7 @@
             </td>
         </tr>
         <tr style="background-color: #fff;">
-            <td>Total emission</td>
+            <td>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.TOTAL-EMISSIONS' | translate }}</td>
             <td style="text-align: right;">
                 {{ totalEmission | formatEmission }}
             </td>
@@ -43,38 +42,35 @@
     </table>
 
 
+    <div>
+        <br><br>
+
+        <h1>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.TOTAL-EMISSIONS' | translate }}</h1>
+        
+        <canvas baseChart
+            width="2"
+            height="1"
+            [datasets]="totalEmissionsChartData"
+            [labels]="totalEmissionsChartLabels"
+            [options]="totalEmissionsChartOptions"
+            [legend]="totalEmissionsChartLegend"
+            [chartType]="totalEmissionsChartType">
+        </canvas>
 
 
-                <div>
-                    <br><br>
-
-                    <h1>Total emissions</h1>
-                    
-                    <canvas baseChart
-                        width="2"
-                        height="1"
-                        [datasets]="totalEmissionsChartData"
-                        [labels]="totalEmissionsChartLabels"
-                        [options]="totalEmissionsChartOptions"
-                        [legend]="totalEmissionsChartLegend"
-                        [chartType]="totalEmissionsChartType">
-                    </canvas>
+        <br><br>
 
 
-                    <br><br>
-
-
-                    <h1>Relative emissions (gram/kWh)</h1>
-                    
-                    <canvas baseChart
-                        width="2"
-                        height="1"
-                        [datasets]="relativeEmissionsChartData"
-                        [labels]="relativeEmissionsChartLabels"
-                        [options]="relativeEmissionsChartOptions"
-                        [legend]="relativeEmissionsChartLegend"
-                        [chartType]="relativeEmissionsChartType">
-                    </canvas>
-                </div>
-
+        <h1>{{ 'ENVIRONMENT.EMISSION-DETAILS-DIALOG.RELATIVE-EMISSIONS' | translate }} (gram/kWh)</h1>
+        
+        <canvas baseChart
+            width="2"
+            height="1"
+            [datasets]="relativeEmissionsChartData"
+            [labels]="relativeEmissionsChartLabels"
+            [options]="relativeEmissionsChartOptions"
+            [legend]="relativeEmissionsChartLegend"
+            [chartType]="relativeEmissionsChartType">
+        </canvas>
+    </div>
 </div>

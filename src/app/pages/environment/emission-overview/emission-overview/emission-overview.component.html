@@ -2,9 +2,9 @@
 <!-- My CO2 emission -->
 <mat-card>
     <mat-card-content>
-        <h1 style="text-align: center;">What is my CO2 emission?</h1>
+        <h1 style="text-align: center;">{{ 'ENVIRONMENT.OVERVIEW.HEADLINE' | translate }}</h1>
         <p style="text-align: center;">
-            {{ dateFrom | date }} to {{ dateTo | date }}
+            {{ 'ENVIRONMENT.OVERVIEW.DATE-FROM-TO' | translate:{dateFrom:(dateFrom | date), dateTo:(dateTo | date)} }}
         </p>
         <mat-divider></mat-divider>
         &nbsp;<br>
@@ -12,19 +12,19 @@
         <div class="legend" style="padding: 15px 0">
             <div class="fill-remaining">
                 <h2 style="text-align: center;">
-                    Total:<br>
+                    {{ 'ENVIRONMENT.OVERVIEW.TOTAL' | translate }}:<br>
                     <b>{{ co2Total | formatNumber : 2 }} kg.</b>
                 </h2>
             </div>
             <div class="fill-remaining">
                 <h2 style="text-align: center;">
-                    Relative:<br>
+                    {{ 'ENVIRONMENT.OVERVIEW.RELATIVE' | translate }}:<br>
                     <b>{{ co2Relative | formatNumber : 2 }} g/kWh</b>
                 </h2>
             </div>
             <div class="fill-remaining">
                 <h2 style="text-align: center;">
-                    Compared to general:<br>
+                    {{ 'ENVIRONMENT.OVERVIEW.COMPARED' | translate }}:<br>
                     <b>
                         <span *ngIf="co2Compared > 0" style="color: red;">+{{ co2Compared | formatNumber : 1 }}%</span>
                         <span *ngIf="co2Compared < 0" style="color: green;">{{ co2Compared | formatNumber : 1 }}%</span>
@@ -42,8 +42,8 @@
 <div class="legend" style="margin: 0">
     <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
         <mat-card-content style="text-align: center;">
-            <h2><b>Renewable energy</b></h2>
-            <p>Electricity from Wind, Solar, and Hydro</p>
+            <h2><b>{{ 'ENVIRONMENT.OVERVIEW.RENEWABLE-ENERGY' | translate }}</b></h2>
+            <p>{{ 'ENVIRONMENT.OVERVIEW.RENEWABLE-ENERGY-TEXT' | translate }}</p>
 
             <div class="legend">
                 <div class="fill-remaining"></div>
@@ -60,8 +60,8 @@
     <div style="width: 10px"></div>
     <mat-card class="fill-remaining" style="width: calc(50% - 5px);">
         <mat-card-content style="text-align: center;">
-            <h2><b>GGO share</b></h2>
-            <p>Electricity from GGOs</p>
+            <h2><b>{{ 'ENVIRONMENT.OVERVIEW.GGO-SHARE' | translate }}</b></h2>
+            <p>{{ 'ENVIRONMENT.OVERVIEW.GGO-SHARE-TEXT' | translate }}</p>
 
             <div class="legend">
                 <div class="fill-remaining"></div>

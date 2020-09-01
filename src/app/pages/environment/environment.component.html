@@ -26,16 +26,15 @@
 
         <!-- No data available -->
         <mat-card *ngIf="!loading && !hasData">
-            <mat-card-content style="text-align: center;">
-                <h1>No data available</h1>
-                <p>
-                    You have not had any electricity consumption in the selected period.
-                </p>
+            <mat-card-content style="text-align: center; padding: 50px 0">
+                <h1>{{ 'ENVIRONMENT.NO-DATA-HEADLINE' | translate }}</h1>
+                <p>{{ 'ENVIRONMENT.NO-DATA-TEXT' | translate }}</p>
             </mat-card-content>
         </mat-card>
         <!-- /No data available -->
 
 
+        <!-- CO2/overview -->
         <app-emission-overview
             *ngIf="showData"
             [dateFrom]="dateFrom"
@@ -43,14 +42,18 @@
             [individual]="individual"
             [general]="general">
         </app-emission-overview>
+        <!-- /CO2/overview -->
 
         
+        <!-- Origin of technology -->
         <app-origin-of-technology
             *ngIf="showData"
             [individual]="individual">
         </app-origin-of-technology>
+        <!-- /Origin of technology -->
 
         
+        <!-- Emissions table -->
         <app-emission-table
             *ngIf="showData"
             [individual]="individual"
@@ -60,6 +63,7 @@
             (exportEmissionsCSV)="exportEmissionsCsv()"
             (exportTechnologiesCSV)="exportTechnologiesCsv()">
         </app-emission-table>
+        <!-- /Emissions table -->
 
 
     </div>

@@ -3,6 +3,7 @@
         "FILTER": "Filter",
         "RESET-FILTERS": "Reset all filters",
         "EXPORT-CSV": "Export CSV",
+        "EXPORT-PDF": "Export PDF",
         "INBOUND": "Inbound",
         "STORED": "Stored",
         "OUTBOUND": "Outbound",
@@ -213,6 +214,49 @@
             "DISCLOSURE-CREATED": "Disclosure created successfully",
             "DISCLOSURE-CREATED-TEXT": "The disclosure is now publicly available.\n\nIt may take a little while for the data to be available via the link.\n\nThe disclosure data is updated once a day.",
             "OPEN-DISCLOSURE": "OPEN DISCLOSURE"
+        }
+    },
+
+    "ENVIRONMENT": {
+        "NO-DATA-HEADLINE": "No data available",
+        "NO-DATA-TEXT": "Emission data could not be calculated for the selected period.",
+        "OVERVIEW": {
+            "HEADLINE": "What is my CO2 emission?",
+            "DATE-FROM-TO": "{{dateFrom}} to {{dateTo}}",
+            "TOTAL": "Total",
+            "RELATIVE": "Relative",
+            "COMPARED": "Compared to general",
+            "RENEWABLE-ENERGY": "Renewable energy",
+            "RENEWABLE-ENERGY-TEXT": "Electricity from Wind, Solar, and Hydro",
+            "GGO-SHARE": "GGO share",
+            "GGO-SHARE-TEXT": "Electricity from GGOs"
+        },
+        "ORIGIN-OF-TECHNOLOGY": {
+            "HEADLINE": "Origin of Technology",
+            "SHOW-DETAILED-TECHNOLOGIES": "Show detailed technologies",
+            "USAGE": "Usage",
+            "PERCENT-OVERALL-USAGE": "Percent of overall usage"
+        },
+        "EMISSION-TABLE": {
+            "HEADLINE": "All Emissions",
+            "EXPORT-EMISSIONS": "Emissions (g)",
+            "EXPORT-TECHNOLOGIES": "Technologies (Wh)",
+            "TOTAL-CONSUMPTION": "Total consumption",
+            "MY-EMISSIONS": "My emissions",
+            "GENERAL-MIX": "Generelt mix (Danmark)",
+            "DIFFERENCE": "Difference",
+            "EMISSIONS-IN-AIR": "Emissions in air",
+            "TOTAL": "Total",
+            "PERCENT": "Percent",
+            "RESIDUES": "Redisues"
+        },
+        "EMISSION-DETAILS-DIALOG": {
+            "HEADLINE": "TODO WRITE SOMETHING HERE",
+            "ROUNDED": "Rounded",
+            "ACTUAL": "Actual",
+            "CONSUMED-ENERGY": "Consumed energy",
+            "RELATIVE-EMISSIONS": "Relative emission",
+            "TOTAL-EMISSIONS": "Total emission"
         }
     },
 
