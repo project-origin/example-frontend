@@ -227,6 +227,7 @@
     },
 
     "ENVIRONMENT": {
+        "ABOUT": "On this page you can get an overview of the emissions based on your consumption and GGOs",
         "NO-DATA-HEADLINE": "No data available",
         "NO-DATA-TEXT": "Emission data could not be calculated for the selected period.",
         "OVERVIEW": {
@@ -260,7 +261,7 @@
             "RESIDUES": "Redisues"
         },
         "EMISSION-DETAILS-DIALOG": {
-            "HEADLINE": "On this page you can get an overview of the emissions based on your consumption and GGOs",
+            "HEADLINE": "This is a details view for a specific emissions type for the selected period.",
             "ROUNDED": "Rounded",
             "ACTUAL": "Actual",
             "CONSUMED-ENERGY": "Consumed energy",

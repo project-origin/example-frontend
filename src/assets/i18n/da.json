@@ -227,6 +227,7 @@
     },
 
     "ENVIRONMENT": {
+        "ABOUT": "På denne side kan du få et overblik over dine udledninger baseret på dit forbrug og GGO'er",
         "NO-DATA-HEADLINE": "Ingen data tilgængelig",
         "NO-DATA-TEXT": "Udlednings data kunne ikke beregnes for den valge periode",
         "OVERVIEW": {
@@ -260,7 +261,7 @@
             "RESIDUES": "Restaffald"
         },
         "EMISSION-DETAILS-DIALOG": {
-            "HEADLINE": "På denne side kan du få et overblik over dine udledninger baseret på dit forbrug og GGO'er",
+            "HEADLINE": "Dette vindue viser en specifik udledning mere detaljeret for den valge periode.",
             "ROUNDED": "Afrundet",
             "ACTUAL": "Faktisk",
             "CONSUMED-ENERGY": "Forbrugt energi",
