@@ -1,13 +1,445 @@
 {
     "COMMON": {
-        "ABOUT": "Om",
-        "FILTER": "Filtre"
+        "FILTER": "Filter",
+        "RESET-FILTERS": "Nulstil alle filters",
+        "EXPORT-CSV": "Exporter til CSV",
+        "EXPORT-PDF": "Exporter til PDF",
+        "INBOUND": "Indgående",
+        "STORED": "Gemte",
+        "OUTBOUND": "Udegående",
+        "ISSUED": "udstedt",
+        "RETIRED": "Forbrugte",
+        "EXPIRED": "Forældet",
+        "ALL": "Alle",
+        "PRODUCTION": "Produktion",
+        "CONSUMPTION": "Forbrug",
+        "TRY-AGAIN": "Prøv igen",
+        "NAME": "Navn",
+        "ADDRESS": "Addresse",
+        "TAGS": "Tags",
+        "PRIORITY": "Prioritet",
+        "TECHNOLOGY": "Teknologi",
+        "DATES": "Datum",
+        "BEGIN": "Start",
+        "END": "Slut",
+        "DELETE": "Slette",
+        "CANCEL": "Afbryd",
+        "VIEW": "Visning",
+        "LOADING": "Loading",
+        "FROM": "Fra",
+        "TO": "Til",
+        "CLOSE": "lukke",
+        "PREVIOUS": "Tidligere",
+        "NEXT": "Næste",
+        "FILTERS": {
+            "DATE": "Datum",
+            "TYPE": "Type",
+            "TAGS": "Tags",
+            "SECTOR": "Sektor",
+            "SEARCH": "Søg"
+        },
+        "RESOLUTIONS": {
+            "ALL": "Alle",
+            "YEAR": "År",
+            "MONTH": "Måned",
+            "DAY": "Dag",
+            "HOUR": "Time"
+        }
     },
+
+    "PLOTS": {
+        "BACK-IN-TIME": "Tilbage i tiden",
+        "FORWARD-IN-TIME": "Frem i tiden",
+        "ZOOM-IN": "Zoome in",
+        "ZOOM-OUT": "Zoome ude",
+        "RESET-DATES": "Nulstil datoer",
+        "FAILED-TO-LOAD": "Fejl ved indlæsning af data til grafen"
+    },
+
+    "SIGN-IN": {
+        "HEADLINE": "Hej og velkommen til ElOprindelse",
+        "BUTTON-TEXT": "Log på",
+        "SIGNING-IN": "Logger på...",
+        "REDIRECTING": "Vidresender..."
+    },
+
+    "MAIN": {
+        "PERFORM-ONBOARDING": "Tilføj måledata via ElOverblik for at importere dine bygninger/anlæg, målinger og GGO'er",
+        "START-ONBOARDING": "Tilføj måledata",
+        "TOOLBAR": {
+            "DASHBOARD": "DASHBOARD",
+            "GGOS": "GGO'er",
+            "GGO-OVERVIEW": "Overview",
+            "COMMODITIES": "Produktion/Forbrug",
+            "RETIRE": "Forbruge",
+            "DISCLOSURE": "Offentliggørelser",
+            "FORECAST": "Prognose",
+            "EMISSIONS": "UDLEDNINGER",
+            "TRANSFER": "OVERFØRE",
+            "FACILITIES": "BYGNINGER/ANLÆG",
+            "SUPPORT": "SUPPORT",
+            "PENDING-PROPOSALS": "Afventende handlingsforslag",
+            "EDIT-PROFILE": "Redigere profil",
+            "ACCOUNT-DETAILS": "Konto detaljer",
+            "LOG-OUT": "Log ud"
+        },
+        "ONBOARDING-DIALOG": {
+            "HEADLINE": "Velkommen",
+            "INTRO": "Venligst tilføj dine målepunkter via ElOpridnelse",
+            "TEXT": "Før du kan bruge dette portal, skal du give os adgang til dine forbrugs- og produktionsdata via ElOprindelse. \n\nDette proces tager ca. 2 min - Du skal bruge NemID.",
+            "BUTTON-TEXT": "Begynde at tilføje måledata"
+        }
+    },
+
     "DASHBOARD": {
         "GGO-OVERVIEW": "GGO Overblik",
-        "STORED-GGOS": "Lagrede GGO'er",
-        "PRODUCTION-CONSUMPTION-FACILITIES": "Produktions- og forbrugspunkter",
-        "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
-        "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs"
+        "STORED-GGOS": "Gemte GGO'er",
+        "PRODUCTION-CONSUMPTION-FACILITIES": "Produktions- og forbrugsenheder",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produceret energi og udstedte GGO'er",
+        "CONSUMED-POWER-RETIRED-GGOS": "Forbrugt energi og brugte GGO'er",
+        "TRANSFER": "Overførelser",
+        "INBOUND-GGOS": "Indgående GGO'er",
+        "OUTBOUND-GGOS": "Udgående GGO'er",
+        "ABOUT": {
+            "HEADLINE": "Om",
+            "INTRO": "Denne dashboard giver dig et overblik over alle dine GGO'er (Granular Guarantees of Origin). Du kan vælge tidsperioden i filterne nedenfor. Denne filter anvendes på alle grafer på denne side.",
+            "INBOUND-TEXT": "Summen af GGO'er, som blev overført til din konto.",
+            "STORED-TEXT": "Summen af GGO'er, som enten kan handles eller forbruges.",
+            "OUTBOUND-TEXT": "Summen af GGO'er som du har coverført til andre.",
+            "ISSUED-TEXT": "Summen af GGO'er, som blev udstedt på baggrund af din egen energiproduktion (på de produktionsmålepunkter du har tilføjet til platformen).",
+            "RETIRED-TEXT": "Summen af de GGO'er du har forbrugt på de målepunkter, som er registreret på \"Bygninger/Anlæg\"-siden. Forbrugt betyder at en GGO er blevet forbrugt/koblet med dit forbrug.",
+            "EXPIRED-TEXT": "Summen af GGO'er, som er for gamle og derfor blev markeret som \"forældet\". en GGO er forældet efter xx måneder."
+        }
+    },
+
+    "COMMODITIES": {
+        "ABOUT": "Med hjælp af filterne på \"Bygninger/Anlæg\"-siden kan du tilpasse visningen af data i de enkelte grafer. De valgte parametre bliver ligeledes brugt når du vælger at eksportere dine data til CSV eller når du offentliggør din visning.",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produceret energi og udstedte GGO'er",
+        "CONSUMED-POWER-RETIRED-GGOS": "Forbrugt energi og brugte GGO'er",
+        "TAGS-TOOLTIP": "Filtrere dine \"Bygninger/Anlæg\" ud fra dine egne tags. Du kan definere dine egne tags på \"Bygninger/Anlæg\"-siden",
+        "EXPORT-CSV": {
+            "BUTTON-TEXT": "Eksportere til CSV",
+            "TOOLTIP": "Du kan eksportere de data, der bliver vist i graferne som csv-fil",
+            "MEASUREMENTS": "Målinger",
+            "GGO-SUMMARY": "Oversigt over dine GGO'er",
+            "GGO-LIST": "GGO Liste"
+        },
+        "DISCLOSE-DATA": {
+            "BUTTON-TEXT": "Offentliggør data",
+            "TOOLTIP": "Du kan genere et link, som giver dig mulighed for at dele de grafer du ser med andre. Du kan til en hver tid slette linket igen på "\Offentliggørelser\"-siden. Efter du har slettet linket, ville dine data ikke være tilgængeligt for andre længere."
+        },
+        "FACILITIES": {
+            "HEADLINE": "Specifikke Bygninger/Anlæg",
+            "RESET": "Nulstil valgte Bygninger/Anlæg",
+            "LOADING-FAILED": "Fejl ved at indlæse Bygninger/Anlæg",
+            "TOOLTIP": "Bælge en eller flere Bygninger/Anlæg, som du har tilføjet. Valgte Bygninger/Anlæg markeres grønt. Du kan tilføje flere Bygninger/Anlæg på \"Bygninger/Anlæg\"-siden"
+        }
+    },
+
+    "RETIRE": {
+        "HEADLINE": "GGO forbrugs prioritet",
+        "SAVING-CHANGES": "Gemmer ændringerne...",
+        "FACILITIES-RECEIVING-GGOS": "Bygninger/Anlæg, som modtager GGO'er",
+        "FACILITIES-NOT-RECEIVING-GGOS": "Bygninger/Anlæg, som ikke modtager GGO'er",
+        "FACILITIES": "",
+        "ABOUT": {
+            "HEADLINE": "Om",
+            "TEXT": "På denne side kan du vælge hvilke af dine Bygninger/Anlæg skal forbruge dine GGO'er.\n\nFor at ændre prioriteten kan du trække dine Bygninger/Anlæg indtil de står i den korrekte rækkefølge. Den øverste har den højeste prioritet for at modtage GGO'er. Systemet forbruger GGO'er automatisk til dine Bygninger/anlæg.\n\nBygninger/Anlæg i bunden modtager ingen GGO'er."
+        },
+        "RETIRE-BACK-IN-TIME": {
+            "HEADLINE": "Forbrug tilbage i tiden",
+            "TEXT": "Hvis du har flyttet en Bygning/et Anlæg til \"Bygninger/Anlæg, som modtager GGO'er\" og gerne vil forbruge tidligere udstedte GGO'er hos disse, tryk på knappen herunder. Denne proces kan tage lidt tid.",
+            "BUTTON-TEXT": "Forbruge nu",
+            "IN-PROGRESS": "Forbrug af GGO'er er i gang...",
+            "FAILED": "Forbrug af GGO'er fejlede, prøv venligst igen"
+        },
+        "CONSUMING-FACILITIES-EMPTY": {
+            "HEADLINE": "Ingen forbrugsenhed er sat til at modtage GGOer ved overførelsen",
+            "TEXT": "Trække en Bygning/et Anlæg hertil for at modtage GGO'er og give dem en prioriteret rækkefølge for at modtage GGO'er"
+        },
+        "NOT-CONSUMING-FACILITIES-EMPTY": {
+            "HEADLINE": "Alle forbrugsenheder, som er sat til at modtage GGO'er når de overføres.",
+            "TEXT": "Trække Bygninger/Anlæg hertil, når du vil afbryde modtagelsen af GGO'er"
+        }
+    },
+
+    "FACILITIES": {
+        "HEADLINE": "Bygninger/Anlæg",
+        "SAVE-BUTTON-TEXT": "Gem Bygningen/Anlæg",
+        "NO-FACILITIES-FOUND": {
+            "HEADLINE": "Ingen Bygning/Anlæg fundet",
+            "TEXT": "Start med at tilføje Bygninger/Anlæg fra ElOverblik ved at klikke på knappen til venstre for at importere dine Bygninger/Anlæg"
+        },
+        "ABOUT": {
+            "HEADLINE": "Om",
+            "TEXT": "På denne side kan du få et overblik over de Bygninger/Anlæg (målepunkter) du har tilføjet til din konto.\n\nBygninger/Anlæg er delt op i to kategorier, produktion er anlæg, som producerer energi og forbrug er Bygninger eller Anlæg, som forbruger energi.\n\nNår du klikker på en Bygning/et Anlæg kan du ændre navnet eller give dem en tag for at få bedre muligheder for filtrering og søgning af disse."
+        },
+        "IMPORT-FACILITIES": {
+            "HEADLINE": "Importer Bygning/Anlæg",
+            "TEXT": "Ved at klikke på knappen herunder bliver du videresendt til Energinets DataHub og får mulighed for at give denne platform ret til at trække data på dine Bygninger/Anlæg.",
+            "BUTTON-TEXT": "Tilføje Bygninger/Anlæg"
+        },
+        "EDIT-DETAILS-DIALOG": {
+            "HEADLINE": "Redigere Bygningnes/Anlæggets detaljer",
+            "ENTER-FACILITY-NAME": "Tilføj et navnet på Bygningen/Anlægget",
+            "ADD-TAG": "Tilføj tag",
+            "TAGS-APPEAR-HERE": "Tags will appear here once added (above)"
+        }
+    },
+
+    "DISCLOSURE": {
+        "HEADLINE": "Offentliggør data",
+        "ABOUT": {
+            "HEADLINE": "Om",
+            "TEXT": "På denne side kan du se en liste af de data du på nuværende tidspunkt har offentliggjort. Du kan ligeledes finde et link til dem og har mulighed for at slette dem\n\nHvis du ønsker at offentliggøre yderligere data, skal du gør det på \"Bygninger/Anlæg\"-siden. Vælge de bygninger/anlæg og den tidsperiode du ønsker at offentliggør og klikke på OFFENTLIGGØR knappen.\n\nEn offentliggørelse viser de data du har valgt i filtreringen inden du har trykken på OFFENTLIGØR knappen."
+        },
+        "EMPTY": {
+            "HEADLINE": "Du offentliggør ingen data",
+            "TEXT": "Offentliggør data ved at klikke på \"Bygningen/Anlægget\"-siden. Filtrere de data du vil offentliggør og klikke på OFFENTLIGGØR DATA knappen."
+        },
+        "CREATE-DISCLOSURE": {
+            "HEADLINE": "DEL INFORMATIONER",
+            "INTRO": "Du er ved at offentliggøre informationer om dit elforbrug og dit forbrug af GGO'er for de følgende bygninger/anlæg",
+            "NAME-PLACEHOLDER": "Indtast et navn som reference",
+            "DESCRIPTION-PLACEHOLDER": "Indtast en beskrivelse (valgfri)",
+            "MAX-DATA-RESOLUTION": "Maksimal data opløsning, som vises",
+            "DISCLOSE-AGGREGATED-DATA": "Offentliggør aggregerede data for alle bygninger/anlæg",
+            "DISCLOSE-FACILITIES-SEPERATELY": "Offentliggør data for alle bygninger/anlæg enkeltvis",
+            "DISCLOSE-GSRN": "Offentliggør GSRN nummer",
+            "DISCLOSE-PHYSICAL-ADDRESS": "Offentliggør den fysiske adresse",
+            "NO-FACILITIES-CHOSEN": "Du har ikke valgt nogen forbrugsmålere",
+            "NO-FACILITIES-CHOSEN-TEXT": "Lukke denne dialog og vælge en eller flere bygninger/anlæg (elforbrug) ved hjælp af filtrene på venstre side",
+            "BUTTON-TEXT": "Oprette offentliggørelse",
+            "DISCLOSURE-CREATED": "Din offentliggørelse er blevet oprettet",
+            "DISCLOSURE-CREATED-TEXT": "Din offentliggørelse er nu tilgængeligt for andre.\n\nDet kan lidt tid før dine data kan tilgås via linket. \n\nDin offentliggørelse bliver opdateret en gang i døgnet.",
+            "OPEN-DISCLOSURE": "Åben offentliggørelse"
+        }
+    },
+
+    "ENVIRONMENT": {
+        "NO-DATA-HEADLINE": "Ingen data tilgængelig",
+        "NO-DATA-TEXT": "Udlednings data kunne ikke beregnes for den valge periode",
+        "OVERVIEW": {
+            "HEADLINE": "Hvad er min CO2 udledning?",
+            "DATE-FROM-TO": "{{dateFrom}} til {{dateTo}}",
+            "TOTAL": "Total",
+            "RELATIVE": "Relative",
+            "COMPARED": "Sammenlignet med generel",
+            "RENEWABLE-ENERGY": "Vedvarende energy",
+            "RENEWABLE-ENERGY-TEXT": "Elektricitet from Vind, Sol og Hydro",
+            "GGO-SHARE": "GGO andel",
+            "GGO-SHARE-TEXT": "Elektricitet fra GGO'er"
+        },
+        "ORIGIN-OF-TECHNOLOGY": {
+            "HEADLINE": "Oprindelse fra teknologi",
+            "SHOW-DETAILED-TECHNOLOGIES": "Vis detaljeret teknologier",
+            "USAGE": "Forbrug",
+            "PERCENT-OVERALL-USAGE": "Procent af total forbrug"
+        },
+        "EMISSION-TABLE": {
+            "HEADLINE": "Alle Udledninger",
+            "EXPORT-EMISSIONS": "udledning (g)",
+            "EXPORT-TECHNOLOGIES": "Teknologi (Wh)",
+            "TOTAL-CONSUMPTION": "Total forburg",
+            "MY-EMISSIONS": "Min udledning",
+            "GENERAL-MIX": "Generelt mix (Danmark)",
+            "DIFFERENCE": "Difference",
+            "EMISSIONS-IN-AIR": "Udledning til luften",
+            "TOTAL": "Total",
+            "PERCENT": "Procent",
+            "RESIDUES": "Restaffald"
+        },
+        "EMISSION-DETAILS-DIALOG": {
+            "HEADLINE": "På denne side kan du få et overblik over dine udledninger baseret på dit forbrug og GGO'er",
+            "ROUNDED": "Afrundet",
+            "ACTUAL": "Faktisk",
+            "CONSUMED-ENERGY": "Forbrugt energi",
+            "RELATIVE-EMISSIONS": "Relative udledning",
+            "TOTAL-EMISSIONS": "Total udledning"
+        }
+    },
+
+    "SUPPORT": {
+        "HEADLINE": "Send en forespørgsel til support teamet",
+        "TEXT": "Den nemmeste måde for at få hjælp er at udfylde support formularen herunder.",
+        "ERROR-TEXT": "Venligst udfylde alle nødvendige felter",
+        "SUBMITTED-TEXT": "Din forespørgsel er blevet sendt",
+        "FIELD-IS-REQUIRED": "Dette felt skal udfyldes",
+        "ENQUIRY-TYPE": "Forespørgsels emne",
+        "EMAIL": "E-mail",
+        "EMAIL-PLACEHOLDER": "Indtast din emailadresse",
+        "PHONE": "Telefon",
+        "PHONE-PLACEHOLDER": "Indtast dit telefonnummer",
+        "SUBJECT": "Emne",
+        "SUBJECT-PLACEHOLDER": "Indtast et emne",
+        "MESSAGE": "Besked",
+        "MESSAGE-PLACEHOLDER": "Indtast din besked",
+        "UPLOAD-FILE": "Uploade fil",
+        "SEND-ME-A-COPY": "Send mig en kopi",
+        "SUBMIT-ENQUIRY": "Send forespørgsel",
+        "ABOUT": {
+            "HEADLINE": "Kontakte Energinet",
+            "TEXT": "Hvis du oplever problemer eller har et spørgsmål eller feedback er du velkommen til at kontakte os. \n\nBrug venligst kontakt formularen til højre og vi kontakter dig så hurtigt som muligt."
+        },
+        "ENQUIRY-TYPES": {
+            "QUESTION": "Spørgsmål",
+            "FEATURE-REQUEST": "Funktionsanmodning",
+            "BUG": "Bug eller fejl",
+            "FEEDBACK": "Feedback"
+        }
+    },
+
+    "TRANSFER": {
+        "RECEIVED-PROPOSALS": "Modtaget forslag (venter på dit svar)",
+        "SENT-PROPOSALS": "Sendte forslag (venter på svar)",
+        "OUTBOUND-AGREEMENTS": "Aftaler for udgående GGO'er",
+        "OUTBOUND-AGREEMENTS-EMPTY-HEADLINE": "Ingen aftale for udgående GGO'er",
+        "OUTBOUND-AGREEMENTS-EMPTY-TEXT": "Aftaler for udgående GGO'er sender GGO'er fra dine produktionsenheder til dine partners kontoer",
+        "INBOUND-AGREEMENTS": "Aftaler for indgående GGO'er",
+        "INBOUND-AGREEMENTS-EMPTY-HEADLINE": "Ingen aftale for indgående GGO'er",
+        "INBOUND-AGREEMENTS-EMPTY-TEXT": "Aftaler for indgående GGO'er modtager GGO'er fra dine partners produktionsenheder, \n og kan forbruge disse til en eller flere af dine målepunkter (valgfri mulighed).",
+        "CANCELLED-AGREEMENTS": "Afbrudt for nyligt",
+        "DECLINED-AGREEMENTS": "Afvist for nyligt",
+        "ABOUT": {
+            "ABOUT": "OM",
+            "ABOUT-TEXT": "Siden viser dig en oversigt over dine nuværende GGO aftaler.\n\nHver aftale bliver automatisk udført når du modtager nye GGO'er\n\nHver overførelses aftale har en bestemt loft. Dette er den maximale mængde watt timer (Wh), som b liver overført i timen. ",
+            "PROPOSE-NEW-AGREEMENT": "Forslå ny aftale",
+            "PROPOSE-NEW-AGREEMENT-TEXT": "Denne guide hjælper dig med at oprette en ny aftale.",
+            "PROPOSE-NEW-AGREEMENT-BUTTON-TEXT": "Indgå ny aftale"
+        }
+
+    },
+
+    "AGREEMENT-DETAILS": {
+        "GO-BACK-TOOLTIP": "Gå tilbage til overførelser",
+        "AGREEMENT-DETAILS": "Aftale detaljer",
+        "CANCEL-AGREEMENT": "Slette aftale",
+        "TRANSFER-SUMMARY": "Oversigt over dine overførelser",
+        "DIRECTION": "Retning",
+        "COUNTERPART": "Partner",
+        "SUBJECT": "Emne",
+        "BEGIN": "Start",
+        "END": "Slut",
+        "MAX-AMOUNT": "Maks. mængde",
+        "PER-HOUR": "per time",
+        "UP-TO-PERCENT": "eller op til {{percent}}% af GGO'er",
+        "LIMITED-TO-CONSUMPTION": "Denne aftale er begrænset til modtagerens forbrug. GGO'er bliver kun overført, så længe modtageren har et forbrug, som ikke er dækket af GGO'er",
+        "TECHNOLOGIES": "Teknologier"
+    },
+
+    "AGREEMENT-LIST": {
+        "RECIPIENT-NAME-AND-ID": "Modtager navn & ID",
+        "AMOUNT": "mængde",
+        "PERIOD": "periode",
+        "LIMITED-TO-CONSUMPTION": "Denne aftale er begrænset til modtagerens forbrug"
+    },
+
+    "CREATE-AGREEMENT": {
+        "ABOUT": {
+            "HEADLINE": "Forslag til ny aftale",
+            "INTRO": "Denne formular giver dig mulighed for at sende et forslag for en ny aftale for at overføre GGO'er til samarbejdspartner.",
+            "BACK-TOOLTIP": "Gå tilbage til overførelser"
+        },
+        "SENT-PROPOSAL": "Sendte forslag",
+        "RECEIVED-PROPOSAL": "Modtagende forslag",
+        "PROPOSAL-TO-SEND-GGOS": "Forslag om aftale til at sende GGO'er til {{company}}",
+        "PROPOSAL-TO-RECEIVE-GGOS": "Forslag om aftale til at modtage GGO'er fra {{company}}",
+        "WITHDRAW-PROPOSAL": "Trække forslag tilbage",
+        "WITHDRAWING": "Trækker forslaget tilbage...",
+        "ACCEPT-PROPOSAL": "Acceptere",
+        "ACCEPTING": "Accepterer...",
+        "DECLINE-PROPOSAL": "Afvise",
+        "DECLINING": "Afviser...",
+        "NOTE-FROM-SENDER": "Note fra afsenderen",
+        "TRANSFER-PERCENT-OF-GGO": "Overføre andel af GGO'er",
+        "TRANSFER-PERCENT-OF-GGO-TEXT": "Overføre altid en bestemt andel af GGO'er",
+        "TRANSFER-PERCENT-OF-GGO-PLACEHOLDER": "Indtast andel (1-100)",
+        "DIRECTION": {
+            "LABEL": "Retning",
+            "HEADLINE": "Hvad er det du vil gør?",
+            "SEND-GGOS": "SENDE GGO'er",
+            "SEND-GGOS-TEXT": "Jeg ønsker at sende GGO'er til en samarbejdspartner",
+            "RECEIVE-GGOS": "Modtage GGO'er",
+            "RECEIVE-GGOS-TEXT": "Jeg vil gerne modtage GGO'er fra en samarbejdspartner"
+        },
+        "PERIOD": {
+            "LABEL": "Periode",
+            "HEADLINE": "Hvornår skal aftalen starte og slutte?",
+            "TEXT": "Dette er den periode, som GGO'erne bliver udstedt for. Det er muligt at overføre tilbage i tiden."
+        },
+        "AMOUNT": {
+            "LABEL": "Mængde",
+            "HEADLINE-RECEIVING": "Hvor meget energi ønsker du at modtage??",
+            "HEADLINE-SENDING": "Hvor meget energi ønsker du at sende?",
+            "TEXT": "GGO overførelser er målt i watt timer (Wh), og er overført på time basis.\nDu har sat en begrænsning for antallet af watt timer (Wh) du ønsker at overføre per time i den forudgående skridt.",
+            "ENTER-MAX-AMOUNT-RECEIVING": "Indtast det maksimale antal af GGO'er du ønsker at modtage:",
+            "ENTER-MAX-AMOUNT-SENDING": "Indtast det maksimale antal af GGO'er du ønsker at sende:",
+            "PER-HOUR": "per time",
+            "CALCULATED-PEAK-CONSUMPTION": "{{amount}} {{unit}} er beregnet på baggrund af dit største forbrug i en time indenfor den valgte periode",
+            "CALCULATED-PEAK-PRODUCTION": "{{amount}} {{unit}} er beregnet på baggrund af din største produktion i en time indenfor den valgte periode",
+            "INSPECT": "undersøge",
+            "TRANSFER-PERCENTAGE-OF-GGOS": "Overføre andel ag GGO'er",
+            "TRANSFER-PERCENTAGE-OF-GGOS-TEXT": "Overføre altid en bestemt andel af GGO'er",
+            "PERCENT": "procent",
+            "LIMIT-TO-CONSUMPTION-RECEIVING": "Begrænse overførelsen til mit forbrug",
+            "LIMIT-TO-CONSUMPTION-RECEIVING-TEXT": "Hvis mit forbrug er lavet i en bestemt time, modtager jeg aldrig\n mere GGO'er end den mængde energi jeg har forbrugt",
+            "LIMIT-TO-CONSUMPTION-SENDING": "Begrænse overførelsen til modtagerens forbrug",
+            "LIMIT-TO-CONSUMPTION-SENDING-TEXT": "Hvis modtagerens forbrug er lavt i en bestemt time, ville de\n aldrig modtage mere GGO'er end den energi de far forbrugt"
+        },
+        "TECHNOLOGIES": {
+            "LABEL": "Teknologier",
+            "HEADLINE-RECEIVING": "Fra hvilke produktionstyper ønsker du at modtage GGO'er?",
+            "HEADLINE-SENDING": "Fra hvilke produktionstyper ønsker du at sende GGO'er?",
+            "TEXT": "Vælge mindst en produktionstype",
+            "CHECK-UNCHECK-ALL": "markere/af markere alt",
+            "FAILED-TO-LOAD": "Der skete en fejl ved at lade produktionstyperne"
+
+        },
+        "COUNTERPART": {
+            "LABEL": "Partner",
+            "HEADLINE-RECEIVING": "Hvordan ønsker du at finde en leverandør?",
+            "HEADLINE-SENDING": "Hvordan ønsker du at finde en modtager?",
+            "KNOW-MY-SUPPLIER": "JEG KENDER MIN LEVERANDØR",
+            "KNOW-MY-SUPPLIER-TEXT": "Jeg kender navnet på virksomheden jeg ønsker at modtage GGO'er fra",
+            "KNOW-MY-RECIPIENT": "JEG KENDER MIN MODTAGER",
+            "KNOW-MY-RECIPIENT-TEXT": "Jeg kender navnet på virksomheden jeg ønsker at sende GGO'er til",
+            "SEARCH-FOR-SUPPLIER": "SØG EFTER EN LEVERANDØR",
+            "SEARCH-FOR-SUPPLIER-TEXT": "Jeg vil gerne søge efter en virksomhed, som kan sende GGO'er til mig",
+            "CHOSEN-TO-RECEIVE-GGOS-FROM": "Du har valgt at modtage GGO'er fra {{counterpart}}",
+            "CHOSEN-TO-SEND-GGOS-TO": "Du har valgt at sende GGO'er til {{counterpart}}",
+            "CHOOSE-ANOTHER-SUPPLIER": "VÆLG EN ANDEN LEVERANDØR",
+            "CHOOSE-ANOTHER-RECIPIENT": "VÆLG EN ANDEN MODTAGER",
+            "COUNTERPART-DOWNDOWN-DIALOG": {
+                "HEADLINE": "VÆLGE PARTNER",
+                "TEXT": "Indtast navnen på den virksomhed, som kan sender GGO'er til dig, og vælge virksomheden fra menuen",
+                "ENTER-COUNTERPART-NAME": "Indtast din partners navn"
+            },
+            "COUNTERPART-LIST-DIALOG": {
+                "HEADLINE": "VÆLG LEVERANDØR",
+                "TEXT": "Listen viser dig virksomheder, som muligvis kan efterkommer dit GGO behov.",
+                "NO-SUPPLIERS-FOUND": "Der kun ikke findes leverandører, som kan efterkomme dit GGO behov.",
+                "CHOOSE-THIS": "Vælg dette"
+            }
+        },
+        "CONFIRM": {
+            "LABEL": "Bekræft",
+            "HEADLINE-RECEIVING": "Aftale forslag for at modtage GGO'er fra {{counterpart}}",
+            "HEADLINE-SENDING": "Aftale forslag for at sende GGO'er til {{counterpart}}",
+            "RUNS-FROM": "Kør fra",
+            "TO": "til",
+            "TRANSFERS-AMOUNT": "Overføre op til {{amount}} {{unit}} per time",
+            "TRANSFERS-AMOUNT-WITH-PERCENT": "Overfører {{ percent }}% af GGO'er op til {{amount}} {{unit}} per time",
+            "LIMITED-TO-YOUR-CONSUMPTION": "Er begrænset til dit forbrug: Hvis dit forbrug er lavere i visse timer,\n modtager du aldrig flere GGO'er end den mængde energi du du forbruger.",
+            "LIMITED-TO-RECIPIENTS-CONSUMPTION": "Er begrænset til modtagerens forbrug: Hvis modtagerens forbrug er lavere i visse timer, \n ville de aldrig modtage flere GGO'er end den mængde energi de forbruger.",
+            "SOURCE-TECHNOLOGIES": "Kun følgende produktionsform bliver overført",
+            "ENTER-SUBJECT": "Indtast et navn som fremtidig reference",
+            "ENTER-NOTE-PLACEHOLDER": "Indtast en besked til modtageren (valgfri)",
+            "SUBMIT-PROPOSAL": "Send forslag",
+            "SUBMITTING": "Sender...",
+            "PROPOSAL-SENT": "Forslag sendt",
+            "PROPOSAL-RECEIVED": "{{ counterpart }} har modtaget dit forslag om aftalen.",
+            "ACCEPT-DECLINE": "Du kommer til at se dine aftaler på \"Overførelser\"-siden så snart de er blevet accepteret eller afvist af modtageren."
+        }
     }
+
 }

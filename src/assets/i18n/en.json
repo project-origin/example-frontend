@@ -56,7 +56,6 @@
         "FAILED-TO-LOAD": "FAILED TO LOAD PLOT DATA"
     },
 
-
     "SIGN-IN": {
         "HEADLINE": "Hello and welcome to ElOprindelse",
         "BUTTON-TEXT": "Sign in",
@@ -251,7 +250,7 @@
             "RESIDUES": "Redisues"
         },
         "EMISSION-DETAILS-DIALOG": {
-            "HEADLINE": "TODO WRITE SOMETHING HERE",
+            "HEADLINE": "On this page you can get an overview of the emissions based on your consumption and GGOs",
             "ROUNDED": "Rounded",
             "ACTUAL": "Actual",
             "CONSUMED-ENERGY": "Consumed energy",
@@ -305,7 +304,7 @@
             "ABOUT": "About",
             "ABOUT-TEXT": " This page gives you an overview of all your current GGO transfer agreements.\n\nEach agreement is automatically processed when you receive new GGOs.\n\nEach transfer agreement has an amount. This is the maximum amount of Wh, that will be transferred per hour. ",
             "PROPOSE-NEW-AGREEMENT": "Propose new agreement",
-            "PROPOSE-NEW-AGREEMENT-TEXT": "TODO write me!",
+            "PROPOSE-NEW-AGREEMENT-TEXT": "This wizard will help you guide you through the process of creating an new agreement.",
             "PROPOSE-NEW-AGREEMENT-BUTTON-TEXT": "Create new agreement"
         }
 
