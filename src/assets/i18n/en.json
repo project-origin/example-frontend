@@ -56,7 +56,6 @@
         "FAILED-TO-LOAD": "FAILED TO LOAD PLOT DATA"
     },
 
-
     "SIGN-IN": {
         "HEADLINE": "Hello and welcome to ElOprindelse",
         "BUTTON-TEXT": "Sign in",
@@ -94,7 +93,18 @@
     },
 
     "DASHBOARD": {
-        "GGO-OVERVIEW": "GGO Overview",
+        "PRODUCTION-CONSUMPTION-FACILITIES": "Production and consumption facilities",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
+        "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs",
+        "ABOUT": {
+            "HEADLINE": "About",
+            "INTRO": "The dashboard gives you an overview of your CO2 emissions, and your production and consumption. You can modify the overview by choosing a date or period in the filter below.",
+            "INFO": "The old dashboard still exists, it can be found in the top menu GGOs -> overview."
+        }
+    },
+
+    "GGO-OVERVIEW": {
+        "TITLE": "GGO Overview",
         "STORED-GGOS": "Stored GGOs",
         "PRODUCTION-CONSUMPTION-FACILITIES": "Production and consumption facilities",
         "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
@@ -104,7 +114,7 @@
         "OUTBOUND-GGOS": "Outbound GGOs",
         "ABOUT": {
             "HEADLINE": "About",
-            "INTRO": "The dashboard gives you an overview of all the GGOs (Granular Guarantees of Origin). You can modify the overview by choosing a date or period in the filter below. This filter is applied to all graphs on this page.",
+            "INTRO": "This is an overview of all the GGOs (Granular Guarantees of Origin). You can modify the overview by choosing a date or period in the filter below. This filter is applied to all graphs on this page.",
             "INBOUND-TEXT": "The sum of GGOs transferred into your account.",
             "STORED-TEXT": "The sum of GGOs available for trade or retirement (=consumption).",
             "OUTBOUND-TEXT": "The sum of GGOs transferred from your account to others.",
@@ -219,6 +229,7 @@
     },
 
     "ENVIRONMENT": {
+        "ABOUT": "On this page you can get an overview of the emissions based on your consumption and GGOs",
         "NO-DATA-HEADLINE": "No data available",
         "NO-DATA-TEXT": "Emission data could not be calculated for the selected period.",
         "OVERVIEW": {
@@ -252,7 +263,7 @@
             "RESIDUES": "Redisues"
         },
         "EMISSION-DETAILS-DIALOG": {
-            "HEADLINE": "TODO WRITE SOMETHING HERE",
+            "HEADLINE": "This is a details view for a specific emissions type for the selected period.",
             "ROUNDED": "Rounded",
             "ACTUAL": "Actual",
             "CONSUMED-ENERGY": "Consumed energy",
@@ -306,7 +317,7 @@
             "ABOUT": "About",
             "ABOUT-TEXT": " This page gives you an overview of all your current GGO transfer agreements.\n\nEach agreement is automatically processed when you receive new GGOs.\n\nEach transfer agreement has an amount. This is the maximum amount of Wh, that will be transferred per hour. ",
             "PROPOSE-NEW-AGREEMENT": "Propose new agreement",
-            "PROPOSE-NEW-AGREEMENT-TEXT": "TODO write me!",
+            "PROPOSE-NEW-AGREEMENT-TEXT": "This wizard will help you guide you through the process of creating an new agreement.",
             "PROPOSE-NEW-AGREEMENT-BUTTON-TEXT": "Create new agreement"
         }
 
