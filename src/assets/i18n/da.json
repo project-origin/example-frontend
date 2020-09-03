@@ -126,7 +126,7 @@
         },
         "DISCLOSE-DATA": {
             "BUTTON-TEXT": "Offentliggør data",
-            "TOOLTIP": "Du kan genere et link, som giver dig mulighed for at dele de grafer du ser med andre. Du kan til en hver tid slette linket igen på "\Offentliggørelser\"-siden. Efter du har slettet linket, ville dine data ikke være tilgængeligt for andre længere."
+            "TOOLTIP": "Du kan genere et link, som giver dig mulighed for at dele de grafer du ser med andre. Du kan til en hver tid slette linket igen på \"Offentliggørelser\"-siden. Efter du har slettet linket, ville dine data ikke være tilgængeligt for andre længere."
         },
         "FACILITIES": {
             "HEADLINE": "Specifikke Bygninger/Anlæg",
