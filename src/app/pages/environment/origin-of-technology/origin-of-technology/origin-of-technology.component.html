@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-content>
-        <h1>Origin of Technology</h1>
+        <h1>{{ 'ENVIRONMENT.ORIGIN-OF-TECHNOLOGY.HEADLINE' | translate }}</h1>
 
         <canvas baseChart
             *ngIf="techChartData"
@@ -25,9 +25,9 @@
 
         <table width="100%" cellpadding="10" cellspacing="2" *ngIf="expandTechnologies">
             <tr style="background-color: #f1f1f1;">
-                <th colspan="2">Technology</th>
-                <th style="text-align: right; background-color: #e1e1e1;">Usage</th>
-                <th colspan="2">Percent of overall usage</th>
+                <th colspan="2">{{ 'COMMON.TECHNOLOGY' | translate }}</th>
+                <th style="text-align: right; background-color: #e1e1e1;">{{ 'ENVIRONMENT.ORIGIN-OF-TECHNOLOGY.USAGE' | translate }}</th>
+                <th colspan="2">{{ 'ENVIRONMENT.ORIGIN-OF-TECHNOLOGY.PERCENT-OVERALL-USAGE' | translate }}</th>
             </tr>
             <tr style="background-color: #f1f1f1;" *ngFor="let technology of individual.technologiesList">
                 <td style="width: 32px;">
