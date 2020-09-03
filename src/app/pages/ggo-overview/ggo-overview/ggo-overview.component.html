@@ -4,15 +4,15 @@
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>{{ 'DASHBOARD.ABOUT.HEADLINE' | translate }}</h1>
+                <h1>{{ 'GGO-OVERVIEW.ABOUT.HEADLINE' | translate }}</h1>
                 <div>
-                    <p>{{ 'DASHBOARD.ABOUT.INTRO' | translate }}</p>
-                    <p><b>{{ 'COMMON.INBOUND' | translate }}:</b> {{ 'DASHBOARD.ABOUT.INBOUND-TEXT' | translate }}</p>
-                    <p><b>{{ 'COMMON.STORED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.STORED-TEXT' | translate }}</p>
-                    <p><b>{{ 'COMMON.OUTBOUND' | translate }}:</b> {{ 'DASHBOARD.ABOUT.OUTBOUND-TEXT' | translate }}</p>
-                    <p><b>{{ 'COMMON.ISSUED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.ISSUED-TEXT' | translate }}</p>
-                    <p><b>{{ 'COMMON.RETIRED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.RETIRED-TEXT' | translate }}</p>
-                    <p><b>{{ 'COMMON.EXPIRED' | translate }}:</b> {{ 'DASHBOARD.ABOUT.EXPIRED-TEXT' | translate }}</p>
+                    <p>{{ 'GGO-OVERVIEW.ABOUT.INTRO' | translate }}</p>
+                    <p><b>{{ 'COMMON.INBOUND' | translate }}:</b> {{ 'GGO-OVERVIEW.ABOUT.INBOUND-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.STORED' | translate }}:</b> {{ 'GGO-OVERVIEW.ABOUT.STORED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.OUTBOUND' | translate }}:</b> {{ 'GGO-OVERVIEW.ABOUT.OUTBOUND-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.ISSUED' | translate }}:</b> {{ 'GGO-OVERVIEW.ABOUT.ISSUED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.RETIRED' | translate }}:</b> {{ 'GGO-OVERVIEW.ABOUT.RETIRED-TEXT' | translate }}</p>
+                    <p><b>{{ 'COMMON.EXPIRED' | translate }}:</b> {{ 'GGO-OVERVIEW.ABOUT.EXPIRED-TEXT' | translate }}</p>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -63,7 +63,7 @@
         <mat-card>
             <mat-card-content class="overview">
                 <div class="data-overview">
-                    <h1>{{ 'DASHBOARD.GGO-OVERVIEW' | translate }}</h1>
+                    <h1>{{ 'GGO-OVERVIEW.TITLE' | translate }}</h1>
 
                     <app-ggo-summary
                         [dateFrom]="dateFrom"
@@ -75,7 +75,7 @@
 
         <mat-card>
             <mat-card-content>
-                <h1>{{ 'DASHBOARD.STORED-GGOS' | translate }}</h1>
+                <h1>{{ 'GGO-OVERVIEW.STORED-GGOS' | translate }}</h1>
 
                 <app-ggo-summary-plot
                     [dateFrom]="dateFrom"
@@ -88,7 +88,7 @@
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <h1>{{ 'DASHBOARD.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>
+                    <h1>{{ 'GGO-OVERVIEW.PRODUCTION-CONSUMPTION-FACILITIES' | translate }}</h1>
                     <div class="fill-remaining"></div>
                     <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
                         {{ 'COMMON.EXPORT-CSV' | translate }}
@@ -100,7 +100,7 @@
                     </mat-menu>
                 </div>
 
-                <h2>{{ 'DASHBOARD.PRODUCED-POWER-ISSUED-GGOS' | translate }}</h2>
+                <h2>{{ 'GGO-OVERVIEW.PRODUCED-POWER-ISSUED-GGOS' | translate }}</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
@@ -111,7 +111,7 @@
 
                 &nbsp;<br>
 
-                <h2>{{ 'DASHBOARD.CONSUMED-POWER-RETIRED-GGOS' | translate }}</h2>
+                <h2>{{ 'GGO-OVERVIEW.CONSUMED-POWER-RETIRED-GGOS' | translate }}</h2>
 
                 <app-commodity-plot
                     [dateFrom]="dateFrom"
@@ -125,14 +125,14 @@
         <mat-card>
             <mat-card-content>
                 <div class="legend">
-                    <h1>{{ 'DASHBOARD.TRANSFER' | translate }}</h1>
+                    <h1>{{ 'GGO-OVERVIEW.TRANSFER' | translate }}</h1>
                     <div class="fill-remaining"></div>
                     <button mat-flat-button color="primary" (click)="exportTransferGgoSummary()">
                         {{ 'COMMON.EXPORT-CSV' | translate }}
                     </button>
                 </div>
 
-                <h2>{{ 'DASHBOARD.INBOUND-GGOS' | translate }}</h2>
+                <h2>{{ 'GGO-OVERVIEW.INBOUND-GGOS' | translate }}</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"
@@ -143,7 +143,7 @@
 
                 &nbsp;<br>
                 
-                <h2>{{ 'DASHBOARD.OUTBOUND-GGOS' | translate }}</h2>
+                <h2>{{ 'GGO-OVERVIEW.OUTBOUND-GGOS' | translate }}</h2>
 
                 <app-trading-plot
                     [dateFrom]="dateFrom"

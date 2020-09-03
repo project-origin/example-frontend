@@ -92,7 +92,17 @@
     },
 
     "DASHBOARD": {
-        "GGO-OVERVIEW": "GGO Overblik",
+        "PRODUCTION-CONSUMPTION-FACILITIES": "Produktions- og forbrugsenheder",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produceret energi og udstedte GGO'er",
+        "CONSUMED-POWER-RETIRED-GGOS": "Forbrugt energi og brugte GGO'er",
+        "ABOUT": {
+            "HEADLINE": "Om",
+            "INTRO": "Dette dashboard giver dig et overblik over din CO2 udledning, samt din produktion og forbrug. Du kan vælge tidsperioden i filterne nedenfor."
+        }
+    },
+
+    "GGO-OVERVIEW": {
+        "TITLE": "GGO Overblik",
         "STORED-GGOS": "Gemte GGO'er",
         "PRODUCTION-CONSUMPTION-FACILITIES": "Produktions- og forbrugsenheder",
         "PRODUCED-POWER-ISSUED-GGOS": "Produceret energi og udstedte GGO'er",
@@ -102,7 +112,7 @@
         "OUTBOUND-GGOS": "Udgående GGO'er",
         "ABOUT": {
             "HEADLINE": "Om",
-            "INTRO": "Denne dashboard giver dig et overblik over alle dine GGO'er (Granular Guarantees of Origin). Du kan vælge tidsperioden i filterne nedenfor. Denne filter anvendes på alle grafer på denne side.",
+            "INTRO": "Dette er et overblik over alle dine GGO'er (Granular Guarantees of Origin). Du kan vælge tidsperioden i filterne nedenfor. Denne filter anvendes på alle grafer på denne side.",
             "INBOUND-TEXT": "Summen af GGO'er, som blev overført til din konto.",
             "STORED-TEXT": "Summen af GGO'er, som enten kan handles eller forbruges.",
             "OUTBOUND-TEXT": "Summen af GGO'er som du har coverført til andre.",

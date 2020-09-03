@@ -92,7 +92,17 @@
     },
 
     "DASHBOARD": {
-        "GGO-OVERVIEW": "GGO Overview",
+        "PRODUCTION-CONSUMPTION-FACILITIES": "Production and consumption facilities",
+        "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
+        "CONSUMED-POWER-RETIRED-GGOS": "Consumed power and retired GGOs",
+        "ABOUT": {
+            "HEADLINE": "About",
+            "INTRO": "The dashboard gives you an overview of your CO2 emissions, and your production and consumption. You can modify the overview by choosing a date or period in the filter below."
+        }
+    },
+
+    "GGO-OVERVIEW": {
+        "TITLE": "GGO Overview",
         "STORED-GGOS": "Stored GGOs",
         "PRODUCTION-CONSUMPTION-FACILITIES": "Production and consumption facilities",
         "PRODUCED-POWER-ISSUED-GGOS": "Produced power and issued GGOs",
@@ -102,7 +112,7 @@
         "OUTBOUND-GGOS": "Outbound GGOs",
         "ABOUT": {
             "HEADLINE": "About",
-            "INTRO": "The dashboard gives you an overview of all the GGOs (Granular Guarantees of Origin). You can modify the overview by choosing a date or period in the filter below. This filter is applied to all graphs on this page.",
+            "INTRO": "This is an overview of all the GGOs (Granular Guarantees of Origin). You can modify the overview by choosing a date or period in the filter below. This filter is applied to all graphs on this page.",
             "INBOUND-TEXT": "The sum of GGOs transferred into your account.",
             "STORED-TEXT": "The sum of GGOs available for trade or retirement (=consumption).",
             "OUTBOUND-TEXT": "The sum of GGOs transferred from your account to others.",
