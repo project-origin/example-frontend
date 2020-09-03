@@ -19,7 +19,7 @@
         "TAGS": "Tags",
         "PRIORITY": "Prioritet",
         "TECHNOLOGY": "Teknologi",
-        "DATES": "Datum",
+        "DATES": "Dato",
         "BEGIN": "Start",
         "END": "Slut",
         "DELETE": "Slette",
@@ -32,7 +32,7 @@
         "PREVIOUS": "Tidligere",
         "NEXT": "Næste",
         "FILTERS": {
-            "DATE": "Datum",
+            "DATE": "Dato",
             "TYPE": "Type",
             "TAGS": "Tags",
             "SECTOR": "Sektor",
