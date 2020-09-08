@@ -107,7 +107,7 @@
                         </div>
                     </mat-step>
                     <!-- /Period -->
-                
+
                 
                     <!-- Amount -->
                     <mat-step [stepControl]="amountForm">
@@ -259,6 +259,20 @@
                                     </mat-selection-list>
                                     <div style="flex: 1 1 0;"></div>
                                 </div>
+                            </div>
+
+                            <div *ngIf="isOutbound && hasAvailableFacilities" style="text-align: center;">
+                                <h2>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.SOURCE-FACILITIES-HEADLINE' | translate }}</h2>
+                                <p>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.SOURCE-FACILITIES-TEXT' | translate }}:</p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.ALL-FACILITIES' | translate }}</mat-label>
+                                    <mat-select formControlName="facilityGsrn" multiple>
+                                        <mat-option *ngFor="let facility of availableFacilities" [value]="facility.gsrn">
+                                            {{ facility.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                  
                             </div>
                         </form>
 
