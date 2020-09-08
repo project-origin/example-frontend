@@ -86,7 +86,6 @@ import { ZoomNavigateBarComponent } from './widgets/zoom-navigate-bar/zoom-navig
 import { ForecastHistoryComponent } from './pages/forecast/forecast-history/forecast-history/forecast-history.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
 import { AgreementListComponentNEW } from './pages/transfer/agreement-list/agreement-list.component';
-import { ProposeAgreementComponent } from './pages/transfer/propose-agreement/propose-agreement.component';
 import { AgreementDetailsComponent } from './pages/transfer/agreement-details/agreement-details.component';
 import { ShowProposedAgreementComponent } from './pages/transfer/show-proposed-agreement/show-proposed-agreement.component';
 import { ResponseToProposedAgreementComponent } from './pages/transfer/response-to-proposed-agreement/response-to-proposed-agreement.component';
@@ -182,7 +181,6 @@ const appRoutes: Routes = [
     ZoomNavigateBarComponent,
     ForecastHistoryComponent,
     TransferComponent,
-    ProposeAgreementComponent,
     AgreementDetailsComponent,
     ShowProposedAgreementComponent,
     AgreementListComponentNEW,

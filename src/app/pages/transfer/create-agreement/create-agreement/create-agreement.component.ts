@@ -6,13 +6,14 @@ import { CounterpartDropdownDialogComponent } from '../counterpart-dropdown-dial
 import { CounterpartListDialogComponent } from '../counterpart-list-dialog/counterpart-list-dialog.component';
 import { AgreementService, SubmitProposalRequest, SubmitProposalResponse } from 'src/app/services/agreements/agreement.service';
 import { AgreementDirection } from 'src/app/services/agreements/models';
-import { FacilityService, GetFilteringOptionsResponse } from 'src/app/services/facilities/facility-service.service';
+import { FacilityService, GetFilteringOptionsResponse, GetFacilityListResponse } from 'src/app/services/facilities/facility-service.service';
 import { CommodityService, GetPeakMeasurementRequest, GetPeakMeasurementResponse } from 'src/app/services/commodities/commodity.service';
 import { DateRange } from 'src/app/services/common';
 import { MeasurementType, Measurement } from 'src/app/services/commodities/models';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ShowPeakMeasurementDialogComponent } from '../show-peak-measurement-dialog/show-peak-measurement-dialog/show-peak-measurement-dialog.component';
 import * as moment from 'moment';
+import { Facility, FacilityType } from 'src/app/services/facilities/models';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class CreateAgreementComponent implements OnInit {
 
   // Loading state
   loadingTechnologies: boolean = false;
+  loadingFacilities: boolean = false;
   errorLoadingTechnologies: boolean = false;
   loadingRecommendedAmount: boolean = false;
   errorLoadingRecommendedAmount: boolean = false;
@@ -51,6 +53,7 @@ export class CreateAgreementComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   availableTechnologies : string[] = [];
+  availableFacilities : Facility[] = [];
   showAmountPercentage: boolean = false;
 
 
@@ -87,6 +90,7 @@ export class CreateAgreementComponent implements OnInit {
 
     this.technologiesForm = this.formBuilder.group({
       technologies: [['Solar'], Validators.required],
+      facilityGsrn: [],
     });
 
     this.counterpartForm = this.formBuilder.group({
@@ -149,6 +153,7 @@ export class CreateAgreementComponent implements OnInit {
   selectOutbound() {
     this.directionForm.patchValue({direction: AgreementDirection.outbound});
     this.loadRecommendedAmount();
+    this.loadFacilities();
     this.stepTo(1);
   }
 
@@ -382,6 +387,41 @@ export class CreateAgreementComponent implements OnInit {
   }
 
 
+  // -- Loading available facilities -----------------------------------------
+
+
+  get hasAvailableFacilities(): boolean {
+    return this.availableFacilities.length > 0;
+  }
+
+
+  get facilityGsrn() : string[] {
+    return this.technologiesForm.get('facilityGsrn').value;
+  }
+
+
+  loadFacilities() {
+    this.availableFacilities = [];
+    this.loadingFacilities = true;
+
+    let request = {
+      filters: {
+        facilityType: FacilityType.production,
+      }
+    };
+
+    this.facilityService
+        .getFacilityList(request)
+        .subscribe(this.onFacilitiesLoaded.bind(this));
+  }
+
+
+  onFacilitiesLoaded(response: GetFacilityListResponse) {
+    this.loadingFacilities = false;
+    this.availableFacilities = response.facilities || [];
+  }
+
+
   // -- Counterpart ----------------------------------------------------------
 
 
@@ -434,7 +474,6 @@ export class CreateAgreementComponent implements OnInit {
 
 
   resetCounterpart() {
-    console.log('resetCounterpart');
     this.counterpartForm.reset();
   }
 
@@ -461,7 +500,7 @@ export class CreateAgreementComponent implements OnInit {
       reference: this.reference,
       counterpartId: this.counterpartId,
       technologies: this.technologies,
-      facilityIds: null,  // TODO
+      facilityGsrn: this.isOutbound ? this.facilityGsrn : [],
       amount: this.amount,
       unit: this.unit,
       amountPercent: this.amountPercent,

@@ -82,6 +82,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     location.href = this.settings.apiBaseUrl + '/auth/edit-profile';
   }
 
+  editClients() {
+    location.href = this.settings.apiBaseUrl + '/auth/edit-clients';
+  }
+
   logOut() {
     this.authService.unregister();
   }
