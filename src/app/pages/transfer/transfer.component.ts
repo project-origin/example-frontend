@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Agreement } from 'src/app/services/agreements/models';
 import { AgreementService, GetAgreementsResponse, SetTransferPriorityResponse } from 'src/app/services/agreements/agreement.service';
-import { ProposeAgreementComponent } from 'src/app/pages/transfer/propose-agreement/propose-agreement.component';
 import { ShowProposedAgreementComponent } from './show-proposed-agreement/show-proposed-agreement.component';
 import { ResponseToProposedAgreementComponent } from './response-to-proposed-agreement/response-to-proposed-agreement.component';
 
@@ -66,21 +65,6 @@ export class TransferComponent implements OnInit {
       this.cancelled = response.cancelled;
       this.declined = response.declined;
     }
-  }
-
-
-  // -- Create new agreement -------------------------------------------------
-
-
-  proposeNewAgreement() {
-    this.dialog
-      .open(ProposeAgreementComponent, { 
-        width: '560px',
-        panelClass: 'dialog',
-        disableClose: true,
-      })
-      .beforeClosed()
-      .subscribe(this.loadAgreements.bind(this));
   }
 
 
