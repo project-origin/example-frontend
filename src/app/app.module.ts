@@ -2,13 +2,16 @@ import "reflect-metadata";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
 import { MomentDateAdapter } from '@angular/material-moment-adapter'
+import { GaugeChartModule } from 'angular-gauge-chart'
 
 // Angular Material Design
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -33,6 +37,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
 import { MatDividerModule } from '@angular/material/divider';
+import { MatStepperModule } from '@angular/material/stepper'; 
 
 
 // Origin
@@ -40,17 +45,13 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';
 import { GgoDoughnotChartComponent } from './widgets/ggo-doughnot-chart/ggo-doughnot-chart.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { TradeComponent } from './pages/trade/trade.component';
 import { RetireComponent } from './pages/retire/retire.component';
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 import { ToolbarComponent } from './pages/main/toolbar/toolbar.component';
 import { LoadingButtonComponent } from './widgets/loading-button/loading-button.component';
 import { CommodityPlotComponent } from './widgets/commodity-plot/commodity-plot.component';
-import { AgreementListComponent } from './pages/trade/agreement-list/agreement-list.component';
-import { CreateAgreementComponent } from './pages/trade/create-agreement/create-agreement.component';
 import { SigninComponent } from './pages/signin/signin.component';
-import { AgreementSummaryComponent } from './pages/trade/agreement-summary/agreement-summary.component';
-import { GgoSummaryComponent } from './pages/dashboard/ggo-summary/ggo-summary.component';
+import { GgoSummaryComponent } from './pages/ggo-overview/ggo-summary/ggo-summary.component';
 import { FacilitiesComponent } from './pages/facilities/facilities.component';
 import { DisclosureComponent } from './pages/disclosure/disclosure.component';
 import { TradingPlotComponent } from './widgets/trading-plot/trading-plot.component';
@@ -58,11 +59,11 @@ import { LoadingViewComponent } from './widgets/loading-view/loading-view/loadin
 import { SpinnerTextComponent } from './widgets/spinner-text/spinner-text.component';
 import { SelectUserDialogComponent } from './widgets/select-user-dialog/select-user-dialog.component';
 import { EditFacilityDialogComponent } from './pages/facilities/edit-facility-dialog/edit-facility-dialog.component';
-import { ViewSentProposalComponent } from './pages/trade/view-sent-proposal/view-sent-proposal.component';
-import { ViewReceivedProposalComponent } from './pages/trade/view-received-proposal/view-received-proposal.component';
 import { CommoditiesComponent } from './pages/commodities/commodities.component';
 import { CommoditiesFiltersComponent } from './pages/commodities/commodities-filters/commodities-filters.component';
-import { formatAmountTransformer } from './pipes/unitamount';
+import { EnvironmentComponent } from './pages/environment/environment.component';
+import { EnvironmentFiltersComponent } from './pages/environment/environment-filters/environment-filters.component';
+import { formatAmountTransformer, formatEmissionTransformer, formatNumberTransformer } from './pipes/unitamount';
 import { CreateDisclosureDialogComponent } from './pages/disclosure/create-disclosure/create-disclosure-dialog/create-disclosure-dialog.component';
 import { ViewDisclosureComponent } from './pages/disclosure/view-disclosure/view-disclosure.component';
 import { DisclosureChartComponent } from './pages/disclosure/view-disclosure/disclosure-chart/disclosure-chart/disclosure-chart.component';
@@ -76,10 +77,39 @@ import localeDa from '@angular/common/locales/da';
 import { GgoSummaryPlotComponent } from './widgets/ggo-summary-plot/ggo-summary-plot.component';
 import { FacilityTypeBadgeComponent } from './widgets/facility-type-badge/facility-type-badge.component';
 import { AccountDetailsDialogComponent } from './pages/account/account-details-dialog/account-details-dialog.component';
+import { EmissionDetailsDialogComponent } from './pages/environment/emission-details-dialog/emission-details-dialog/emission-details-dialog.component';
+import { ExportEcoDeclarationPdfDialogComponent } from './pages/environment/export-pdf-dialog/export-eco-declaration-pdf-dialog/export-eco-declaration-pdf-dialog.component';
+import { EnergyPlotComponent } from './widgets/energy-plot/energy-plot/energy-plot.component';
+import { ForecastComponent } from './pages/forecast/forecast.component';
+import { ForecastDetailsComponent } from './pages/forecast/forecast-details/forecast-details/forecast-details.component';
+import { ZoomNavigateBarComponent } from './widgets/zoom-navigate-bar/zoom-navigate-bar/zoom-navigate-bar.component';
+import { ForecastHistoryComponent } from './pages/forecast/forecast-history/forecast-history/forecast-history.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
+import { AgreementListComponentNEW } from './pages/transfer/agreement-list/agreement-list.component';
+import { AgreementDetailsComponent } from './pages/transfer/agreement-details/agreement-details.component';
+import { ShowProposedAgreementComponent } from './pages/transfer/show-proposed-agreement/show-proposed-agreement.component';
+import { ResponseToProposedAgreementComponent } from './pages/transfer/response-to-proposed-agreement/response-to-proposed-agreement.component';
+import { AgreementDetailsTableComponent } from './pages/transfer/agreement-details-table/agreement-details-table.component';
+import { CreateAgreementComponent } from './pages/transfer/create-agreement/create-agreement/create-agreement.component';
+import { CounterpartDropdownDialogComponent } from './pages/transfer/create-agreement/counterpart-dropdown-dialog/counterpart-dropdown-dialog.component';
+import { CounterpartListDialogComponent } from './pages/transfer/create-agreement/counterpart-list-dialog/counterpart-list-dialog.component';
+import { ShowPeakMeasurementDialogComponent } from './pages/transfer/create-agreement/show-peak-measurement-dialog/show-peak-measurement-dialog/show-peak-measurement-dialog.component';
+import { EmissionOverviewComponent } from './pages/environment/emission-overview/emission-overview/emission-overview.component';
+import { OriginOfTechnologyComponent } from './pages/environment/origin-of-technology/origin-of-technology/origin-of-technology.component';
+import { EmissionTableComponent } from './pages/environment/emission-table/emission-table/emission-table.component';
+import { GgoOverviewComponent } from './pages/ggo-overview/ggo-overview/ggo-overview.component';
+import { SupportFormComponent } from './pages/support/support-form/support-form.component';
+import { FeedbackDialogComponent } from './pages/support/feedback-dialog/feedback-dialog.component';
 
 registerLocaleData(localeDa, 'da');
 
 const DEBUG = false;
+
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 
 const appRoutes: Routes = [
@@ -91,12 +121,16 @@ const appRoutes: Routes = [
     component: MainComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'ggo-overview', component: GgoOverviewComponent },
       { path: 'commodities', component: CommoditiesComponent },
-      { path: 'transfer/:agreementId', component: TradeComponent },
-      { path: 'transfer', component: TradeComponent },
+      { path: 'emissions', component: EnvironmentComponent },
+      { path: 'transfer', component: TransferComponent },
+      { path: 'transfer/propose', component: CreateAgreementComponent },
+      { path: 'transfer/:agreementId', component: AgreementDetailsComponent },
       { path: 'retire', component: RetireComponent },
       { path: 'facilities', component: FacilitiesComponent },
       { path: 'disclosure', component: DisclosureComponent },
+      { path: 'forecast', component: ForecastComponent },
       { path: 'support', component: SupportComponent },
     ]
   },
@@ -109,16 +143,12 @@ const appRoutes: Routes = [
     AppComponent,
     MainComponent,
     ToolbarComponent,
-    TradeComponent,
     DashboardComponent,
     RetireComponent,
     GgoDoughnotChartComponent,
     LoadingButtonComponent,
     CommodityPlotComponent,
-    AgreementListComponent,
-    CreateAgreementComponent,
     SigninComponent,
-    AgreementSummaryComponent,
     GgoSummaryComponent,
     FacilitiesComponent,
     DisclosureComponent,
@@ -127,11 +157,13 @@ const appRoutes: Routes = [
     SpinnerTextComponent,
     SelectUserDialogComponent,
     EditFacilityDialogComponent,
-    ViewSentProposalComponent,
-    ViewReceivedProposalComponent,
     CommoditiesComponent,
     CommoditiesFiltersComponent,
+    EnvironmentComponent,
+    EnvironmentFiltersComponent,
     formatAmountTransformer,
+    formatEmissionTransformer,
+    formatNumberTransformer,
     CreateDisclosureDialogComponent,
     ViewDisclosureComponent,
     DisclosureChartComponent,
@@ -141,8 +173,40 @@ const appRoutes: Routes = [
     GgoSummaryPlotComponent,
     FacilityTypeBadgeComponent,
     AccountDetailsDialogComponent,
+    EmissionDetailsDialogComponent,
+    ExportEcoDeclarationPdfDialogComponent,
+    EnergyPlotComponent,
+    ForecastComponent,
+    ForecastDetailsComponent,
+    ZoomNavigateBarComponent,
+    ForecastHistoryComponent,
+    TransferComponent,
+    AgreementDetailsComponent,
+    ShowProposedAgreementComponent,
+    AgreementListComponentNEW,
+    ResponseToProposedAgreementComponent,
+    AgreementDetailsTableComponent,
+    CreateAgreementComponent,
+    CounterpartDropdownDialogComponent,
+    CounterpartListDialogComponent,
+    ShowPeakMeasurementDialogComponent,
+    EmissionOverviewComponent,
+    OriginOfTechnologyComponent,
+    EmissionTableComponent,
+    GgoOverviewComponent,
+    SupportFormComponent,
+    FeedbackDialogComponent,
   ],
   imports: [
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: DEBUG }
@@ -157,6 +221,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatToolbarModule,
     MatIconModule,
     MatGridListModule,
@@ -177,6 +242,8 @@ const appRoutes: Routes = [
     MatRadioModule,
     MatTooltipModule,
     MatDividerModule,
+    MatStepperModule,
+    GaugeChartModule,
   ],
   exports: [ RouterModule ],
   bootstrap: [ AppComponent ],

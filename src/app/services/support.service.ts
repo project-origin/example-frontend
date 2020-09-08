@@ -8,6 +8,7 @@ export class SubmitSupportEnquiryRequest {
   phone: string;
   subject: string;
   subjectType: string;
+  link: string;
   message: string;
   fileName: string;
   fileSource: File;
@@ -18,6 +19,7 @@ export class SubmitSupportEnquiryRequest {
     phone: string,
     subject: string,
     subjectType: string,
+    link: string,
     message: string,
     fileName: string,
     fileSource: string,

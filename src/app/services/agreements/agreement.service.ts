@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Type, Transform } from "class-transformer";
-import * as moment from 'moment';
 import { ApiService, ApiResponse } from '../api.service';
-import { Agreement, AgreementDirection } from './models';
+import { Agreement, AgreementDirection, GgoSupplier } from './models';
 import { MeasurementDataSet } from '../commodities/models';
 import { DateRange } from '../common';
 
@@ -106,13 +105,13 @@ export class SubmitProposalRequest {
   direction: AgreementDirection;
   reference: string;
   counterpartId: string;
-  technology: string;
+  technologies: string[];
   amount: number;
   unit: string;
+  amountPercent: number;
   limitToConsumption: boolean;
-
-  @Transform(obj => obj || [], { toPlainOnly: true })
-  facilityIds: string[];
+  proposalNote: string;
+  facilityGsrn: string[];
 
   @Type(() => DateRange)
   date: DateRange;
@@ -121,14 +120,17 @@ export class SubmitProposalRequest {
     direction: AgreementDirection,
     reference: string,
     counterpartId: string,
-    technology: string,
-    facilityIds: string[],
+    technologies: string[],
+    facilityGsrn?: string[],
     amount: number,
     unit: string,
+    amountPercent: number,
     date: DateRange,
     limitToConsumption: boolean,
+    proposalNote: string,
   }) {
     Object.assign(this, args);
+    this.facilityGsrn = this.facilityGsrn || [];
   }
 }
 
@@ -138,6 +140,7 @@ export class SubmitProposalErrors {
   counterpartId: string[] = [];
   amount: string[] = [];
   date: string[] = [];
+  amountPercent: string[] = [];
   limitToConsumption: string[] = [];
 }
 
@@ -154,7 +157,8 @@ export class SubmitProposalResponse extends ApiResponse {
 export class RespondToProposalRequest {
   id: string;
   accept: boolean;
-  technology: string;
+  technologies: string[];
+  amountPercent: number;
 
   @Transform(obj => obj || [], { toPlainOnly: true })
   facilityIds: string[];
@@ -162,8 +166,9 @@ export class RespondToProposalRequest {
   constructor(args: {
     id: string,
     accept: boolean,
-    technology?: string,
+    technologies?: string[],
     facilityIds?: string[],
+    amountPercent?: number,
   }) {
     Object.assign(this, args);
   }
@@ -193,6 +198,52 @@ export class WithdrawProposalsResponse extends ApiResponse {}
 
 export class CountPendingProposalsResponse extends ApiResponse {
   count: number;
+}
+
+
+// -- setTransferPriority request & response ------------------------------ //
+
+
+export interface ISSetTransferPriorityRequest {
+  idsPrioritized: string[];
+}
+
+
+export class SetTransferPriorityResponse extends ApiResponse {}
+
+
+// -- setFacilities request & response ------------------------------ //
+
+
+export interface ISetFacilitiesRequest {
+  id: string;
+  facilityIds: string[];
+}
+
+
+export class SetFacilitiesResponse extends ApiResponse {}
+
+
+// -- setFacilities request & response ------------------------------ //
+
+
+export class FindSuppliersRequest {
+  @Type(() => DateRange)
+  dateRange: DateRange;
+  minAmount: number;
+
+  constructor(args: {
+    dateRange: DateRange,
+    minAmount: number,
+  }) {
+    Object.assign(this, args);
+  }
+}
+
+
+export class FindSuppliersResponse extends ApiResponse {
+  @Type(() => GgoSupplier)
+  suppliers: GgoSupplier[];
 }
 
 
@@ -244,6 +295,21 @@ export class AgreementService {
 
   countPendingProposalt() : Observable<CountPendingProposalsResponse> {
     return this.api.invoke('/agreements/propose/pending-count', CountPendingProposalsResponse);
+  }
+
+
+  setTransferPriority(request: ISSetTransferPriorityRequest) : Observable<SetTransferPriorityResponse> {
+    return this.api.invoke('/agreements/set-transfer-priority', SetTransferPriorityResponse, request);
+  }
+
+
+  findSuppliers(request: FindSuppliersRequest) : Observable<FindSuppliersResponse> {
+    return this.api.invoke('/agreements/find-suppliers', FindSuppliersResponse, request);
+  }
+
+
+  setFacilities(request: ISetFacilitiesRequest) : Observable<SetFacilitiesResponse> {
+    return this.api.invoke('/agreements/set-facilities', SetFacilitiesResponse, request);
   }
 
 

@@ -4,19 +4,29 @@
 
         <div class="fill-remaining"></div>
 
-        <a mat-button routerLink="/app/dashboard" [class.current]="isDashboard()">DASHBOARD</a>
+        <a mat-button routerLink="/app/dashboard" [class.current]="isDashboard" class="main">
+            {{ 'MAIN.TOOLBAR.DASHBOARD' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/commodities" [class.current]="isCommodities()">COMMODITIES</a>
+        <a mat-button [matMenuTriggerFor]="ggoMenu" [class.current]="isGgos" class="main">
+            {{ 'MAIN.TOOLBAR.GGOS' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/transfer" [class.current]="isTransfer()">TRANSFER</a>
+        <a mat-button routerLink="/app/emissions" [class.current]="isEmissions" class="main">
+            {{ 'MAIN.TOOLBAR.EMISSIONS' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/retire" [class.current]="isRetire()">RETIRE</a>
+        <a mat-button routerLink="/app/transfer" [class.current]="isTransfer" class="main">
+            {{ 'MAIN.TOOLBAR.TRANSFER' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/facilities" [class.current]="isFacilities()">FACILITIES</a>
+        <a mat-button routerLink="/app/facilities" [class.current]="isFacilities" class="main">
+            {{ 'MAIN.TOOLBAR.FACILITIES' | translate }}
+        </a>
         <div class="space"></div>
-        <a mat-button routerLink="/app/disclosure" [class.current]="isDisclosure()">DISCLOSURE</a>
-        <div class="space"></div>
-        <a mat-button routerLink="/app/support" [class.current]="isSupport()">SUPPORT</a>
+        <a mat-button routerLink="/app/support" [class.current]="isSupport" class="main">
+            {{ 'MAIN.TOOLBAR.SUPPORT' | translate }}
+        </a>
 
         <div class="fill-remaining"></div>
 
@@ -35,15 +45,56 @@
             </div>
         </button>
 
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/app/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
-                Pending proposals ({{ pendingProposals }})
-            </button>
 
-            <button mat-menu-item (click)="editProfil()">Edit profile</button>
-            <button mat-menu-item (click)="showAccountDetails()">Account details</button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="logOut()">Log out</button>
+
+        <!-- GGOs dropdown -->
+        <mat-menu #ggoMenu="matMenu">
+            <a mat-menu-item routerLink="/app/ggo-overview">
+                {{ 'MAIN.TOOLBAR.GGO-OVERVIEW' | translate }}
+            </a>
+            <a mat-menu-item routerLink="/app/commodities">
+                {{ 'MAIN.TOOLBAR.COMMODITIES' | translate }}
+            </a>
+            <a mat-menu-item routerLink="/app/retire">
+                {{ 'MAIN.TOOLBAR.RETIRE' | translate }}
+            </a>
+            <a mat-menu-item routerLink="/app/disclosure">
+                {{ 'MAIN.TOOLBAR.DISCLOSURE' | translate }}
+            </a>
+            <a mat-menu-item routerLink="/app/forecast" *ngIf="false">
+                {{ 'MAIN.TOOLBAR.FORECAST' | translate }}
+            </a>
         </mat-menu>
+        <!-- /GGOs dropdown -->
+
+
+        <!-- User dropdown -->
+        <mat-menu #menu="matMenu">
+            <a mat-menu-item routerLink="/app/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
+                {{ 'MAIN.TOOLBAR.PENDING-PROPOSALS' | translate }} ({{ pendingProposals }})
+            </a>
+            <a mat-menu-item (click)="editProfil()">
+                {{ 'MAIN.TOOLBAR.EDIT-PROFILE' | translate }}
+            </a>
+            <a mat-menu-item (click)="showAccountDetails()">
+                {{ 'MAIN.TOOLBAR.ACCOUNT-DETAILS' | translate }}
+            </a>
+            <a mat-menu-item (click)="editClients()">
+                {{ 'MAIN.TOOLBAR.EDIT-CLIENTS' | translate }}
+            </a>
+            <mat-divider></mat-divider>
+            <a mat-menu-item (click)="changeLanguage('en')" [class.selected]="isEnglish">
+                English
+            </a>
+            <a mat-menu-item (click)="changeLanguage('da')" [class.selected]="isDanish">
+                Dansk
+            </a>
+            <mat-divider></mat-divider>
+            <a mat-menu-item (click)="logOut()">
+                {{ 'MAIN.TOOLBAR.LOG-OUT' | translate }}
+            </a>
+        </mat-menu>
+        <!-- /User dropdown -->
+
     </mat-toolbar-row>
 </mat-toolbar>

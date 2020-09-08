@@ -1,0 +1,41 @@
+
+<div class="dialog-header">
+    <h1>{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-DOWNDOWN-DIALOG.HEADLINE' | translate }}</h1>
+    <h2 style="text-align: center;">{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-DOWNDOWN-DIALOG.TEXT' | translate }}</h2>
+</div>
+
+
+<div class="dialog-body">
+    <form [formGroup]="form">
+
+        <div>
+            <input 
+                matInput type="text"
+                placeholder="{{ 'CREATE-AGREEMENT.COUNTERPART.COUNTERPART-DOWNDOWN-DIALOG.ENTER-COUNTERPART-NAME' | translate }}"
+                class="field"
+                [matAutocomplete]="auto"
+                formControlName="counterpart">
+            
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCounterpartSelected($event)">
+                <mat-option *ngFor="let user of (filteredCounterparts | async)" [value]="user">
+                    {{ user.company }} ({{ user.name }})
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+
+
+        <div>&nbsp;</div>
+
+
+        <!-- Buttons -->
+        <div class="legend">
+            <div class="fill-remaining"></div>
+            <button mat-button type="button" class="cancel" (click)="closeDialog()">
+                {{ 'COMMON.CANCEL' | translate }}
+            </button>
+            <div class="fill-remaining"></div>
+
+        </div>
+
+    </form>
+</div>

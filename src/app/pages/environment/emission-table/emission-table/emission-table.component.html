@@ -1,0 +1,117 @@
+<mat-card>
+    <mat-card-content>
+    <div class="legend">
+        <h1>{{ 'ENVIRONMENT.EMISSION-TABLE.HEADLINE' | translate }}</h1>
+        <div class="fill-remaining"></div>
+        <button mat-flat-button color="primary" (click)="emitExportPdf()">
+            {{ 'COMMON.EXPORT-PDF' | translate }}
+        </button>
+        &nbsp;
+        <button mat-flat-button
+            color="primary"
+            [matMenuTriggerFor]="menu">
+            {{ 'COMMON.EXPORT-CSV' | translate }}
+        </button>
+        <mat-menu #menu="matMenu">
+            <a mat-menu-item (click)="emitExportEmissionsCSV()">
+                {{ 'ENVIRONMENT.EMISSION-TABLE.EXPORT-EMISSIONS' | translate }}
+            </a>
+            <a mat-menu-item (click)="emitExportTechnologiesCSV()">
+                {{ 'ENVIRONMENT.EMISSION-TABLE.EXPORT-TECHNOLOGIES' | translate }}
+            </a>
+        </mat-menu>
+    </div>
+
+
+    <p style="font-size: 20px;">
+        {{ 'ENVIRONMENT.EMISSION-TABLE.TOTAL-CONSUMPTION' | translate }}:
+        <b>{{ individual.totalConsumedAmount | formatAmount}}</b>
+    </p>
+
+
+    <table width="100%" cellpadding="10" cellspacing="2">
+        <tr style="background-color: #f1f1f1;">
+            <th></th>
+            <th colspan="2" style="background-color: #e1e1e1;">
+                {{ 'ENVIRONMENT.EMISSION-TABLE.MY-EMISSIONS' | translate }}
+            </th>
+            <th>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.GENERAL-MIX' | translate }}
+            </th>
+            <th>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.DIFFERENCE' | translate }}
+            </th>
+        </tr>
+        <tr style="background-color: #f1f1f1;">
+            <td><b>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.EMISSIONS-IN-AIR' | translate }}
+            </b></td>
+            <td style="text-align: right; background-color: #e1e1e1;"><b>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.TOTAL' | translate }}
+            </b></td>
+            <td style="text-align: right; background-color: #e1e1e1;"><b>g/kWh</b></td>
+            <td style="text-align: right;"><b>g/kWh</b></td>
+            <td style="text-align: right;"><b>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.PERCENT' | translate }}
+            </b></td>
+        </tr>
+        <tr class="emission"
+            *ngFor="let emission of emissions_in_air"
+            (click)="showEmissionDetailsPopup(emission)">
+
+            <td [innerHTML]="getHtmlLabel(emission)"></td>
+            <td style="background-color: #e1e1e1; text-align: right;">
+                {{ individual.getTotalEmissions(emission) | formatEmission }}
+            </td>
+            <td style="background-color: #e1e1e1; text-align: right;">
+                {{ individual.getEmissionsPerkWh(emission) | formatNumber : 2 }} g/kWh
+            </td>
+            <td style="text-align: right;">
+                {{ general.getEmissionsPerkWh(emission) | formatNumber : 2 }} g/kWh
+            </td>
+            <td style="text-align: right;">
+                <ng-container *ngIf="individual.getDeltaEmissionsPerkWh(general, emission);let deltaEmission">
+                    <span *ngIf="deltaEmission > 0" style="color: red;">+{{ deltaEmission | formatNumber : 1 }}%</span>
+                    <span *ngIf="deltaEmission < 0" style="color: green;">{{ deltaEmission | formatNumber : 1 }}%</span>
+                    <span *ngIf="deltaEmission == 0">{{ deltaEmission | formatNumber : 1 }}%</span>
+                </ng-container>
+            </td>
+        </tr>
+        <tr style="background-color: #f1f1f1;">
+            <td><b>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.RESIDUES' | translate }}
+            </b></td>
+            <td style="text-align: right; background-color: #e1e1e1;"><b>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.TOTAL' | translate }}
+            </b></td>
+            <td style="text-align: right; background-color: #e1e1e1;"><b>g/kWh</b></td>
+            <td style="text-align: right;"><b>g/kWh</b></td>
+            <td style="text-align: right;"><b>
+                {{ 'ENVIRONMENT.EMISSION-TABLE.PERCENT' | translate }}
+            </b></td>
+        </tr>
+        <tr class="emission"
+            *ngFor="let emission of residues"
+            (click)="showEmissionDetailsPopup(emission)">
+
+            <td [innerHTML]="getHtmlLabel(emission)"></td>
+            <td style="background-color: #e1e1e1; text-align: right;">
+                {{ individual.getTotalEmissions(emission) | formatEmission }}
+            </td>
+            <td style="background-color: #e1e1e1; text-align: right;">
+                {{ individual.getEmissionsPerkWh(emission) | formatNumber : 2 }} g/kWh
+            </td>
+            <td style="text-align: right;">
+                {{ general.getEmissionsPerkWh(emission) | formatNumber : 2 }} g/kWh
+            </td>
+            <td style="text-align: right;">
+                <ng-container *ngIf="individual.getDeltaEmissionsPerkWh(general, emission);let deltaEmission">
+                    <span *ngIf="deltaEmission > 0" style="color: red;">+{{ deltaEmission | formatNumber : 1 }}%</span>
+                    <span *ngIf="deltaEmission < 0" style="color: green;">{{ deltaEmission | formatNumber : 1 }}%</span>
+                    <span *ngIf="deltaEmission == 0">{{ deltaEmission | formatNumber : 1 }}%</span>
+                </ng-container>
+            </td>
+        </tr>
+    </table>
+  </mat-card-content>
+</mat-card>

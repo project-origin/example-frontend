@@ -1,164 +1,34 @@
+<div class="page">
 
-<div class="support">
-
+    <!-- Left column -->
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>Contact EnergiNet</h1>
-                <p>
-                    If your are experiencing problems or have questions or feedback, please don't hesitate to contact us.
-                </p>
+                <h1>{{ 'SUPPORT.ABOUT.HEADLINE' | translate }}</h1>
 
-                <p>
-                    Please use this form on the right, and we will contact you as soon as possibly.
+                <p style="white-space: pre-wrap;">
+                    {{ 'SUPPORT.ABOUT.TEXT' | translate }}
                 </p>
 
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
 
-    <div class="list">
-        
+    <!-- Right column -->
+    <div class="content">
         <mat-card>
             <mat-card-content>
-
-                <h1>Submit a Support Enquiry</h1>
-                <p>
-                    The easiest way to get support is by filling out the form below.
-                </p>
-
+                <h1>{{ 'SUPPORT.HEADLINE' | translate }}</h1>
+                <p>{{ 'SUPPORT.TEXT' | translate }}</p>
 
                 <br>
 
-
-                <div *ngIf="errors">
-                    <p style="color: red"><b>Please fill out all the required fields</b></p>
-                </div>
-
-
-                <div *ngIf="submitted">
-                    <p class="success"><b>Your enquiry has been submitted</b></p>
-                </div>
-
-
-                <form [formGroup]="form" *ngIf="!submitted">
-                    <table width="100%">
-                        <tr valign="top">
-                            <td><b>Enquiry type:</b></td>
-                            <td>
-                                <div class="field">
-                                    <mat-select formControlName="subjectType" >
-                                        <mat-option *ngFor="let st of subjectTypes" [value]="st.value">
-                                            {{st.label}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('email')">
-                            <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
-                        </tr>
-                        <tr valign="top">
-                            <td><b>E-mail:</b></td>
-                            <td>
-                                <input matInput
-                                    type="text"
-                                    placeholder="Enter your E-mail"
-                                    class="field"
-                                    formControlName="email">
-                            </td>
-                        </tr>
-                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('phone')">
-                            <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
-                        </tr>
-                        <tr valign="top">
-                            <td><b>Phone:</b></td>
-                            <td>
-                                <input matInput
-                                    type="text"
-                                    placeholder="Enter your Phone number"
-                                    class="field"
-                                    formControlName="phone">
-                            </td>
-                        </tr>
-                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('subject')">
-                            <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
-                        </tr>
-                        <tr valign="top">
-                            <td><b>Subject:</b></td>
-                            <td>
-                                <input matInput
-                                    type="text"
-                                    placeholder="Enter a subject"
-                                    class="field"
-                                    formControlName="subject">
-                            </td>
-                        </tr>
-                        <tr valign="top" *ngIf="errors !== null && errors.hasOwnProperty('message')">
-                            <td></td>
-                            <td><p style="color: red"><b>This field is required</b></p></td>
-                        </tr>
-                        <tr valign="top">
-                            <td><b>Message:</b></td>
-                            <td>
-                                <textarea matInput
-                                    type="text"
-                                    placeholder="Enter a message"
-                                    class="field"
-                                    rows="10"
-                                    formControlName="message"></textarea>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <td><b>Upload file:</b></td>
-                            <td>
-                                <input 
-                                    class="ng-hide"
-                                    id="input-file-id"
-                                    type="file"
-                                    formControlName="fileName"
-                                    (change)="onFileChange($event)" />
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <td></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr valign="top">
-                            <td></td>
-                            <td>
-                                <mat-checkbox formControlName="recipe">
-                                    Send me a copy
-                                </mat-checkbox>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <td></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr valign="top">
-                            <td></td>
-                            <td>
-                                <button mat-button
-                                    type="button"
-                                    class="send"
-                                    [disabled]="loading"
-                                    (click)="submit()">
-                                    SUBMIT ENQUIRY
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-
-
+                <app-support-form></app-support-form>
             </mat-card-content>
         </mat-card>
-
     </div>
-</div>
+    <!-- /Right column -->
 
+</div>

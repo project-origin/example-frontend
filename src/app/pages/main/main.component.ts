@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UserService, GetOnboardingUrlResponse } from '../../services/auth/user.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { FeedbackDialogComponent } from '../support/feedback-dialog/feedback-dialog.component';
 
 
 @Component({
@@ -16,6 +18,7 @@ export class MainComponent {
 
 
   constructor(
+    private dialog: MatDialog,
     private userService: UserService,
     private authService: AuthService,
   ) {
@@ -47,6 +50,14 @@ export class MainComponent {
     if(response.success) {
       location.replace(response.url);
     }
+  }
+
+  openFeedbackDialog() {
+    this.dialog.open(FeedbackDialogComponent, { 
+      width: '800px',
+      panelClass: 'dialog',
+      maxHeight: '90vh',
+    });
   }
 
 }

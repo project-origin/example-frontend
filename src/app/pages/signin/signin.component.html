@@ -3,17 +3,19 @@
 
   <mat-card *ngIf="showGettingProfile">
       <mat-spinner [diameter]="40"></mat-spinner><br>
-      <b>Signing in...</b>
+      <b>{{ 'SIGN-IN.SIGNING-IN' | translate }}</b>
   </mat-card>
 
   <mat-card *ngIf="showRedirecting">
       <mat-spinner [diameter]="40"></mat-spinner><br>
-      <b>Redirecting...</b>
+      <b>{{ 'SIGN-IN.REDIRECTING' | translate }}</b>
   </mat-card>
 
   <mat-card *ngIf="showLoginButton">
-      <p>Hello and welcome to ElOprindelse</p>
-      <button mat-button color="primary" (click)="login()">SIGN IN</button>
+      <p>{{ 'SIGN-IN.HEADLINE' | translate }}</p>
+      <button mat-button color="primary" (click)="login()">
+        {{ 'SIGN-IN.BUTTON-TEXT' | translate }}
+      </button>
   </mat-card>
 
 </div>

@@ -3,7 +3,7 @@
 <app-signin *ngIf="!isAuthenticated"></app-signin>
 
 
-<div *ngIf="isAuthenticated">
+<div *ngIf="isAuthenticated" style="margin-bottom: 50px;">
     <div class="toolbar-container">
         <div class="toolbar">
             <app-toolbar></app-toolbar>
@@ -13,13 +13,22 @@
 
     <div class="content-container">
         <div class="legend onboarding" *ngIf="showOnboardingMessage">
-            <span>Perform onboarding via ElOverblik to import your facilities, measurements and GGOs</span>
+            <span>{{ 'MAIN.PERFORM-ONBOARDING' | translate }}</span>
             <span class="fill-remaining"></span>
-            <span><button mat-button (click)="startOnboarding()">START ONBOARDING</button></span>
+            <span><button mat-button (click)="startOnboarding()">
+                {{ 'MAIN.START-ONBOARDING' | translate }}
+            </button></span>
         </div>
 
         <div class="content">
             <router-outlet></router-outlet>
         </div>
+    </div>
+
+
+    <div class="feedback mat-elevation-z2" mat-ripple (click)="openFeedbackDialog()">
+        <mat-icon>feedback</mat-icon>
+        <span>&nbsp;</span>
+        <span>Got feedback?</span>
     </div>
 </div>

@@ -1,0 +1,9 @@
+
+.emission {
+    cursor: pointer;
+}
+
+.emission:hover, .emission:hover>td {
+    background-color: #ccc !important;
+}
+

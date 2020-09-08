@@ -1,54 +1,47 @@
+<div class="page">
 
-<div class="facilities">
-
+    <!-- Left column -->
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>About</h1>
-                <p>
-                    On this page you have an overview of the facilities (metering points) you have onboarded into your account.
-                </p>
-                <p>
-                    These facilities are split into two categories, production facilities that produce electricity, and consumption facilities that use electricity.
-                </p>
-                <p>
-                    If you click on a facility, you can change the name of a facility or add tags to better enable filtering the facilities. 
+                <h1>{{ 'FACILITIES.ABOUT.HEADLINE' | translate }}</h1>
+                <p style="white-space: pre-wrap;">
+                    {{ 'FACILITIES.ABOUT.TEXT' | translate }}
                 </p>
             </mat-card-content>
         </mat-card>
 
-
         <mat-card>
             <mat-card-content>
-                <h2>Import facilities</h2>
-                <p>
-                    By clicking the button below you are redirected to Energinet's DataHub
-                    where you can authorize this application to pull data on your facilities.
-                </p>
+                <h2>{{ 'FACILITIES.IMPORT-FACILITIES.HEADLINE' | translate }}</h2>
+                <p>{{ 'FACILITIES.IMPORT-FACILITIES.TEXT' | translate }}</p>
 
-                <button type="button" mat-flat-button color="primary" (click)="startOnboarding()">START ONBOARDING</button>
+                <button mat-flat-button
+                    type="button"
+                    color="primary"
+                    (click)="startOnboarding()">
+                    {{ 'FACILITIES.IMPORT-FACILITIES.BUTTON-TEXT' | translate }}
+                </button>
             </mat-card-content>
         </mat-card>
     </div>
+    <!-- /Left column -->
 
 
-    <div class="list">
+    <!-- Right column -->
+    <div class="content">
 
         <mat-card>
             <mat-card-content>
-                <div class="legend">
-                    <h1>Facilities</h1>
-                    <div class="fill-remaining"></div>
-                    <div class="searchfield">&nbsp;</div>
-                </div>
+                <h1>{{ 'FACILITIES.HEADLINE' | translate }}</h1>
 
 
                 <app-loading-view *ngIf="loading"></app-loading-view>
 
 
                 <div *ngIf="!loading && empty" class="empty">
-                    <p><b>No facilities found</b></p>
-                    <p>Start onboarding from ElOverblik by clicking the button to the left to import your facilities</p>
+                    <p><b>{{ 'FACILITIES.NO-FACILITIES-FOUND.HEADLINE' | translate }}</b></p>
+                    <p>{{ 'FACILITIES.NO-FACILITIES-FOUND.TEXT' | translate }}</p>
                 </div>
 
 
@@ -56,19 +49,22 @@
 
                     <!-- Production -->
                     <div class="facility-table">
-                        <h2>Production</h2>
+                        <h2>{{ 'COMMON.PRODUCTION' | translate }}</h2>
+
                         <div class="table-row table-legend">
-                            <span class="name-gsrn">Name</span>
-                            <span class="address">Address</span>
-                            <span class="tags">Tags</span>
-                            <span class="technology">Technology</span>
+                            <span class="name-gsrn">{{ 'COMMON.NAME' | translate }}</span>
+                            <span class="address">{{ 'COMMON.ADDRESS' | translate }}</span>
+                            <span class="tags">{{ 'COMMON.TAGS' | translate }}</span>
+                            <span class="technology">{{ 'COMMON.TECHNOLOGY' | translate }}</span>
                         </div>
 
                         <div matRipple class="table-row table-item" *ngFor="let facility of producers" (click)="editFacility(facility)">
                             <span class="name-gsrn">
                                 <span class="name">
                                     {{ facility.name }}
-                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                    <app-facility-type-badge
+                                        [facilityType]="facility.facilityType">
+                                    </app-facility-type-badge>
                                 </span>
                                 {{ facility.gsrn }}
                             </span>
@@ -86,14 +82,16 @@
                             </span>
                         </div>
                     </div>
+                    <!-- /Production -->
+
 
                     <!-- Consumption -->
                     <div class="facility-table">
-                        <h2>Consumption</h2>
+                        <h2>{{ 'COMMON.CONSUMPTION' | translate }}</h2>
                         <div class="table-row table-legend">
-                            <span class="name-gsrn">Name</span>
-                            <span class="address">Address</span>
-                            <span class="tags">Tags</span>
+                            <span class="name-gsrn">{{ 'COMMON.NAME' | translate }}</span>
+                            <span class="address">{{ 'COMMON.ADDRESS' | translate }}</span>
+                            <span class="tags">{{ 'COMMON.TAGS' | translate }}</span>
                             <span class="technology"></span>
                         </div>
 
@@ -101,7 +99,9 @@
                             <span class="name-gsrn">
                                 <span class="name">
                                     {{ facility.name }}
-                                    <app-facility-type-badge [facilityType]="facility.facilityType"></app-facility-type-badge>
+                                    <app-facility-type-badge
+                                        [facilityType]="facility.facilityType">
+                                    </app-facility-type-badge>
                                 </span>
                                 {{ facility.gsrn }}
                             </span>
@@ -115,13 +115,13 @@
                             <span class="technology"></span>
                         </div>
                     </div>
-                </div>
+                    <!-- /Consumption -->
 
+                </div>
 
             </mat-card-content>
         </mat-card>
-
-
     </div>
+    <!-- /Right column -->
 
 </div>

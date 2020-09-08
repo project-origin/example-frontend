@@ -7,6 +7,8 @@ import { CommodityService, GetMeasurementsRequest } from 'src/app/services/commo
 import { DateRange } from 'src/app/services/common';
 import { AgreementService, GetAgreementSummaryRequest } from 'src/app/services/agreements/agreement.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { SatDatepickerRangeValue } from 'saturn-datepicker';
+import { EcoDeclaration, EnvironmentService, GetEcoDeclarationRequest, GetEcoDeclarationResponse, EcoDeclarationResolution } from 'src/app/services/environment/environment.service';
 
 
 @Component({
@@ -22,17 +24,35 @@ export class DashboardComponent implements OnInit {
   dateFrom: Date = moment().toDate();
   dateTo: Date = moment().subtract(1, 'months').toDate();
 
-  // Form controls
-  form: FormGroup = new FormGroup({
-    date: new FormControl(),
-  });
+  // Enviroment declaration
+  loading: boolean = false;
+  error: boolean = false;
+  individual: EcoDeclaration;
+  general: EcoDeclaration;
+
+
+  get defaultDateFrom() : Date {
+    return moment().subtract(1, 'months').toDate();
+  }
+
+
+  get defaultDateTo() : Date {
+    return moment().toDate();
+  }
+
+  
+  get pickerValue() : SatDatepickerRangeValue<Date> {
+    return {
+      begin: this.dateFrom,
+      end: this.dateTo,
+    };
+  }
 
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private commodityService: CommodityService,
-    private agreementService: AgreementService,
+    private environmentService: EnvironmentService,
     settingsService: SettingsService,
   ) {
     this.minDate = settingsService.minDate;
@@ -46,57 +66,70 @@ export class DashboardComponent implements OnInit {
         this.dateFrom = moment(params.get('dateFrom'), 'YYYY-MM-DD').toDate();
         this.dateTo = moment(params.get('dateTo'), 'YYYY-MM-DD').toDate();
       } else {
-        this.dateFrom = moment().subtract(1, 'months').toDate();
-        this.dateTo = moment().toDate();
+        this.dateFrom = this.defaultDateFrom;
+        this.dateTo = this.defaultDateTo;
       }
 
-      this.form.patchValue({date: {
+      this.loadEnvironmentDeclaration();
+    });
+  }
+
+
+  loadEnvironmentDeclaration() {
+    let request = new GetEcoDeclarationRequest({
+      filters: {},
+      resolution: EcoDeclarationResolution.day,
+      dateRange: new DateRange({
         begin: this.dateFrom,
         end: this.dateTo,
-      }})
+      }),
     });
 
-    this.form.valueChanges
-      .pipe(debounceTime(400), distinctUntilChanged())
-      .subscribe(this.onFiltersChanged.bind(this));
+    this.loading = true;
+    this.environmentService
+        .getEcoDeclaration(request)
+        .subscribe(this.onLoadEnvironmentDeclaration.bind(this));
   }
 
 
-  onFiltersChanged() {
+  onLoadEnvironmentDeclaration(response: GetEcoDeclarationResponse) {
+    if(response.success) {
+      this.individual = response.individual;
+      this.general = response.general;
+    } else {
+      this.individual = null;
+      this.general = null;
+    }
+    this.loading = false;
+    this.error = !response.success;
+  }
+
+
+  // -- Date change ----------------------------------------------------------
+
+
+  changeDate(dateFrom: Date, dateTo: Date) {
     let queryParams = {
-      dateFrom: moment(this.form.get('date').value.begin).format('YYYY-MM-DD'),
-      dateTo: moment(this.form.get('date').value.end).format('YYYY-MM-DD'),
+      dateFrom: moment(dateFrom).format('YYYY-MM-DD'),
+      dateTo: moment(dateTo).format('YYYY-MM-DD'),
     };
 
-    this.router.navigate(['/app/dashboard'], { queryParams: queryParams });
+    this.router.navigate([], { queryParams: queryParams });
   }
 
 
-  exportMeasurements() {
-    this.commodityService.exportMeasurements(new GetMeasurementsRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-      }));
+  onUserPickedDate(event: any) {
+    this.changeDate(event.value.begin, event.value.end)
   }
 
 
-  exportGgoSummary() {
-    this.commodityService.exportGgoSummary(new GetMeasurementsRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-      }));
+  onUserNavigated(event: {dateFrom: Date, dateTo: Date}) {
+    this.changeDate(event.dateFrom, event.dateTo);
   }
 
 
-  exportGgoList() {
-    this.commodityService.exportGgoList(new GetMeasurementsRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-      }));
-  }
-
-
-  exportTransferGgoSummary() {
-    this.agreementService.exportGgoSummary(new GetAgreementSummaryRequest({
-        dateRange: new DateRange({begin: this.dateFrom, end: this.dateTo})
-      }));
+  onReset() {
+    this.changeDate(this.defaultDateFrom, this.defaultDateTo);
   }
 
 }

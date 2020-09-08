@@ -1,0 +1,72 @@
+<div class="page">
+
+    <!-- Left column -->
+    <div class="about">
+        <app-environment-filters
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [filters]="filters">
+        </app-environment-filters>
+    </div>
+    <!-- !Left column -->
+
+
+    <!-- Right column -->
+    <div class="content">
+
+
+        <!-- Loading indicator -->
+        <mat-card *ngIf="loading">
+            <mat-card-content>
+                <app-loading-view></app-loading-view>
+            </mat-card-content>
+        </mat-card>
+        <!-- /Loading indicator -->
+
+
+        <!-- No data available -->
+        <mat-card *ngIf="!loading && !hasData">
+            <mat-card-content style="text-align: center; padding: 50px 0">
+                <h1>{{ 'ENVIRONMENT.NO-DATA-HEADLINE' | translate }}</h1>
+                <p>{{ 'ENVIRONMENT.NO-DATA-TEXT' | translate }}</p>
+            </mat-card-content>
+        </mat-card>
+        <!-- /No data available -->
+
+
+        <!-- CO2/overview -->
+        <app-emission-overview
+            *ngIf="showData"
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [individual]="individual"
+            [general]="general">
+        </app-emission-overview>
+        <!-- /CO2/overview -->
+
+        
+        <!-- Origin of technology -->
+        <app-origin-of-technology
+            *ngIf="showData"
+            [individual]="individual">
+        </app-origin-of-technology>
+        <!-- /Origin of technology -->
+
+        
+        <!-- Emissions table -->
+        <app-emission-table
+            *ngIf="showData"
+            [individual]="individual"
+            [general]="general"
+            [resolution]="resolution"
+            (exportPdf)="exportPdf()"
+            (exportEmissionsCSV)="exportEmissionsCsv()"
+            (exportTechnologiesCSV)="exportTechnologiesCsv()">
+        </app-emission-table>
+        <!-- /Emissions table -->
+
+
+    </div>
+    <!-- /Right column -->
+
+</div>

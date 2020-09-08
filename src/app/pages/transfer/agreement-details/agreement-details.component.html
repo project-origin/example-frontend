@@ -1,0 +1,128 @@
+<div class="page">
+    
+    <div class="about">
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <button mat-icon-button
+                        style="padding: 2px;"
+                        matTooltip="{{ 'AGREEMENT-DETAILS.GO-BACK-TOOLTIP' | translate }}"
+                        [routerLink]="['/app/transfer']">
+                        <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                    <div style="width: 6px;"></div>
+                    <h1>{{ 'AGREEMENT-DETAILS.AGREEMENT-DETAILS' | translate }}</h1>
+                    <div class="fill-remaining"></div>
+                </div>
+
+
+                <app-loading-view *ngIf="loadingAgreement"></app-loading-view>
+
+
+                <div *ngIf="!loadingAgreement">
+                    <app-agreement-details-table
+                        [agreement]="agreement">
+                    </app-agreement-details-table>
+
+                    <br>
+
+                    <button mat-flat-button
+                        color="warn"
+                        *ngIf="userCanCancelAgreement"
+                        (click)="cancelAgreement()">
+                        {{ 'AGREEMENT-DETAILS.CANCEL-AGREEMENT' | translate }}
+                    </button>
+
+                    <br><br>
+
+                    <!-- <div *ngIf="isOutbound">
+                        <h2>Outbound facilities</h2>
+                        <p>
+                            Optionally select the facilities to transfer GGOs from.
+                            Omitting this option transfers GGOs from all your facilities.
+                        </p>
+
+                        <div class="field">
+                            <mat-select multiple
+                                [(value)]="selectedFacilityIds"
+                                [placeholder]="loadingFacilities ? 'Loading...' : 'All facilities'"
+                                (openedChange)="onFacilitiesChanged($event)">
+                                <mat-option *ngFor="let facility of availableFacilities" [value]="facility.id">
+                                    {{facility.name}} ({{facility.gsrn}})
+                                </mat-option>
+                            </mat-select>
+                        </div>
+
+                        <br>
+
+                        <app-loading-view *ngIf="submittingFacilities"></app-loading-view>
+
+                        <span *ngIf="errorSubmittingFacilities" style="color: red">
+                            Failed to save facilities. Please try again.
+                        </span>
+                    </div> -->
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+    <div class="content">
+        <mat-card>
+            <mat-card-content>
+
+                <h1>{{ 'AGREEMENT-DETAILS.TRANSFER-SUMMARY' | translate }}</h1>
+
+
+                <app-loading-view *ngIf="loadingAgreement"></app-loading-view>
+
+
+                <div *ngIf="!loadingAgreement">
+                    <div class="legend">
+                        <div class="daterange">
+                            <input matInput disabled
+                                class="dateinput"
+                                [satDatepicker]="datePicker"
+                                (dateChange)="onUserPickedDate($event)"
+                                [value]="pickerValue"
+                                [min]="minDate"
+                                [max]="maxDate">
+
+                            <sat-datepicker #datePicker
+                                [rangeMode]="true"
+                                disabled="false">
+                            </sat-datepicker>
+                            <sat-datepicker-toggle matSuffix
+                                [for]="datePicker"
+                                class="datepicker">
+                            </sat-datepicker-toggle>
+                        </div>
+
+                        <div class="fill-remaining"></div>
+
+                        <div>
+                            <app-zoom-navigate-bar
+                                [dateFrom]="dateFrom"
+                                [dateTo]="dateTo"
+                                (dateChange)="onUserNavigated($event)"
+                                (dateReset)="onReset()">
+                            </app-zoom-navigate-bar>
+                        </div>
+                    </div>
+
+
+                    <app-energy-plot
+                        [loading]="loadingSummary"
+                        [error]="errorLoadingSummary"
+                        [lines]="chartData"
+                        [labels]="chartLabels"
+                        (reload)="loadSummaryData()">
+                    </app-energy-plot>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

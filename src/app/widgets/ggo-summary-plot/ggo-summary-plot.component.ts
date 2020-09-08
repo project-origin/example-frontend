@@ -1,9 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets, ChartTooltipItem } from 'chart.js';
-import { MeasurementDataSet, MeasurementType, GgoCategory } from 'src/app/services/commodities/models';
-import { IFacilityFilters } from 'src/app/services/facilities/models';
-import { CommodityService, GetMeasurementsRequest, GetMeasurementsResponse, GetGgoSummaryRequest, GetGgoSummaryResponse } from 'src/app/services/commodities/commodity.service';
-import { FormatAmount } from 'src/app/pipes/unitamount';
+import { MeasurementDataSet, GgoCategory } from 'src/app/services/commodities/models';
+import { CommodityService, GetGgoSummaryRequest, GetGgoSummaryResponse } from 'src/app/services/commodities/commodity.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -13,51 +11,65 @@ import { FormatAmount } from 'src/app/pipes/unitamount';
 })
 export class GgoSummaryPlotComponent implements OnChanges {
 
+
   @Input() dateFrom: Date;
   @Input() dateTo: Date;
   @Input() category: GgoCategory;
+
+  selectedDateFrom: Date;
+  selectedDateTo: Date;
+
 
   // Loading state
   loading: boolean = false;
   error: boolean = false;
 
-  // Chart data
-  chartLabels: string[] = [];
-  chartData: ChartDataSets[] = [{ label: '', data: [], backgroundColor: 'transparent' }];
-  chartLegend = true;
-  chartType: ChartType = 'bar';
-  chartOptions: ChartOptions = {
-    responsive: true,
-    aspectRatio: 3,
-    maintainAspectRatio: true,
-    legend: {
-      align: 'end',
-      position: 'top'
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem:ChartTooltipItem, data) {
-          return data.datasets[tooltipItem.datasetIndex].label + ': ' + FormatAmount.format(Number(tooltipItem.value));
-        }
-      }
-    },
-    scales: {
-      xAxes: [{ stacked: true }],
-      yAxes: [{ 
-        stacked: true,
-        ticks: {
-          beginAtZero: true,
-          callback: label => FormatAmount.format(label)
-        }
-      }],
-    },
-  };
+  // Graph data
+  labels: string[] = [];
+  bars: MeasurementDataSet[] = [];
+
+
+  get actualDateFrom() : Date {
+    return this.selectedDateFrom ? this.selectedDateFrom : this.dateFrom;
+  }
+
+
+  get actualDateTo() : Date {
+    return this.selectedDateTo ? this.selectedDateTo : this.dateTo;
+  }
+
+
+  get deltaDays() : number {
+    return moment(this.actualDateTo).diff(this.actualDateFrom, 'days');
+  }
+
+
+  get showNavigationBar() : boolean {
+    return true;
+  }
+
+
+  get canZoomIn() : boolean {
+    return this.deltaDays > 1;
+  }
+
+
+  get canZoomOut() : boolean {
+    return this.deltaDays < (365 * 10);
+  }
+
+
+  get canReset() : boolean {
+    return (this.selectedDateFrom !== null || this.selectedDateTo !== null);
+  }
 
 
   constructor(private commodityService: CommodityService) { }
 
 
   ngOnChanges(changes: SimpleChanges) {
+    this.selectedDateFrom = null;
+    this.selectedDateTo = null;
     this.loadData();
   }
 
@@ -66,8 +78,8 @@ export class GgoSummaryPlotComponent implements OnChanges {
     let request = new GetGgoSummaryRequest({
       category: this.category,
       dateRange: {
-        begin: this.dateFrom,
-        end: this.dateTo,
+        begin: this.actualDateFrom,
+        end: this.actualDateTo,
       },
     });
 
@@ -82,24 +94,59 @@ export class GgoSummaryPlotComponent implements OnChanges {
   onLoadComplete(response: GetGgoSummaryResponse) {
     this.loading = false;
     this.error = !response.success;
-
     if(response.success) {
-      this.chartLabels = response.labels;
-      this.chartData = this.buildDataFromResponse(response);
+      this.labels = response.labels;
+      this.bars = response.ggos;
     }
   }
 
 
-  buildDataFromResponse(response: GetGgoSummaryResponse) : ChartDataSets[] {
-    return response.ggos.map((data: MeasurementDataSet) => <ChartDataSets>{
-      label: data.label,
-      // fill: false,
-      borderColor: data.color,
-      hoverBorderColor: data.color,
-      backgroundColor: data.color,
-      hoverBackgroundColor: data.color,
-      data: data.values,
-    });
+  // -- Navigation and zoom --------------------------------------------------
+
+
+  navigatePrevious() {
+    let deltaDays = this.deltaDays + 1;
+    this.selectedDateFrom = moment(this.actualDateFrom).subtract(deltaDays, 'days').toDate();
+    this.selectedDateTo = moment(this.actualDateTo).subtract(deltaDays, 'days').toDate();
+    this.loadData();
+  }
+
+
+  navigateNext() {
+    let deltaDays = this.deltaDays + 1;
+    this.selectedDateFrom = moment(this.actualDateFrom).add(deltaDays, 'days').toDate();
+    this.selectedDateTo = moment(this.actualDateTo).add(deltaDays, 'days').toDate();
+    this.loadData();
+  }
+
+
+  zoomIn() {
+    let delta = Math.floor(this.deltaDays / 3);
+    delta = (delta > 1) ? delta : 1;
+    let dateFrom = moment(this.actualDateFrom).add(delta, 'days');
+    let dateTo = moment(this.actualDateTo).subtract(delta, 'days');
+    if(dateTo.diff(dateFrom, 'days') < 0) {
+      dateFrom = dateTo;
+    }
+    this.selectedDateFrom = dateFrom.toDate();
+    this.selectedDateTo = dateTo.toDate();
+    this.loadData();
+  }
+
+
+  zoomOut() {
+    let delta = Math.floor(this.deltaDays / 1.5);
+    delta = (delta > 1) ? delta : 1;
+    this.selectedDateFrom = moment(this.actualDateFrom).subtract(delta, 'days').toDate();
+    this.selectedDateTo = moment(this.actualDateTo).add(delta, 'days').toDate();
+    this.loadData();
+  }
+
+
+  reset() {
+    this.selectedDateFrom = null;
+    this.selectedDateTo = null;
+    this.loadData();
   }
 
 }

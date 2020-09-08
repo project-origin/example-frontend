@@ -1,0 +1,450 @@
+<div class="page">
+
+    <!-- Left column -->
+    <div class="about">
+        <mat-card>
+            <mat-card-content>
+                <div class="legend">
+                    <button mat-icon-button
+                        style="padding: 2px;"
+                        matTooltip="{{ 'CREATE-AGREEMENT.ABOUT.BACK-TOOLTIP' | translate }}"
+                        [routerLink]="['/app/transfer']">
+                        <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                    <div style="width: 6px;"></div>
+                    <h1>{{ 'CREATE-AGREEMENT.ABOUT.HEADLINE' | translate }}</h1>
+                    <div class="fill-remaining"></div>
+                </div>
+                <p style="white-space: pre-wrap;">{{ 'CREATE-AGREEMENT.ABOUT.INTRO' | translate }}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- /Left column -->
+
+
+    <!-- Right column -->
+    <div class="content">
+        <mat-card>
+            <mat-card-content>
+                <mat-horizontal-stepper linear #stepper *ngIf="!completed">
+
+
+                    <!-- Direction -->
+                    <mat-step [stepControl]="directionForm">
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.DIRECTION.LABEL' | translate }}</ng-template>
+                        
+                        <div style="text-align: center; margin: 50px 0;">
+                            <h2>{{ 'CREATE-AGREEMENT.DIRECTION.HEADLINE' | translate }}</h2>
+
+                            <div style="margin: 50px 0; display: flex; flex-direction: row;">
+                                <div style="flex: 2 2 0"></div>
+                                <div style="flex: 10 10 0; text-align: center;">
+                                    <mat-card matRipple class="option" [class.selected]="isOutbound" (click)="selectOutbound()">
+                                        <mat-card-content>
+                                            <h3>{{ 'CREATE-AGREEMENT.DIRECTION.SEND-GGOS' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.DIRECTION.SEND-GGOS-TEXT' | translate }}</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 1 1 0"></div>
+                                <div style="flex: 10 10 0; text-align: center;">
+                                    <mat-card matRipple class="option" [class.selected]="isInbound" (click)="selectInbound()">
+                                        <mat-card-content>
+                                            <h3>{{ 'CREATE-AGREEMENT.DIRECTION.RECEIVE-GGOS' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.DIRECTION.RECEIVE-GGOS-TEXT' | translate }}</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 2 2 0"></div>
+                            </div>
+                        </div>
+                    </mat-step>
+                    <!-- /Direction -->
+                
+                
+                    <!-- Period -->
+                    <mat-step [stepControl]="periodForm">
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.PERIOD.LABEL' | translate }}</ng-template>
+                        
+                        <form [formGroup]="periodForm">
+                            <div style="text-align: center; margin: 50px 0;">
+                                <h2>{{ 'CREATE-AGREEMENT.PERIOD.HEADLINE' | translate }}</h2>
+                                <p>{{ 'CREATE-AGREEMENT.PERIOD.TEXT' | translate }}</p>
+
+                                <div style="margin-top: 50px; display: flex; flex-direction: row; align-items: center;">
+                                    <div style="flex: 2 2 0;"></div>
+                                    <div style="flex: 3 3 0; display: flex; flex-direction: row;">
+                                        <input matInput disabled
+                                            class="field"
+                                            [satDatepicker]="datePicker"
+                                            (dateChange)="onUserPickedDate()"
+                                            formControlName="date"
+                                            [min]="minDate"
+                                            [max]="maxDate">
+        
+                                        <sat-datepicker #datePicker
+                                            [rangeMode]="true"
+                                            disabled="false">
+                                        </sat-datepicker>
+                                        <sat-datepicker-toggle matSuffix
+                                            [for]="datePicker"
+                                            class="datepicker">
+                                        </sat-datepicker-toggle>
+                                    </div>
+                                    <div style="flex: 2 2 0;"></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
+                            </button>
+                            <div class="fill-remaining"></div>
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!periodForm.valid" (click)="stepNext()">
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
+                            </button>
+                        </div>
+                    </mat-step>
+                    <!-- /Period -->
+
+                
+                    <!-- Amount -->
+                    <mat-step [stepControl]="amountForm">
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.AMOUNT.LABEL' | translate }}</ng-template>
+                        
+                        <form [formGroup]="amountForm">
+                            <div style="text-align: center; margin: 50px 0;">
+                                <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.AMOUNT.HEADLINE-RECEIVING' | translate }}</h2>
+                                <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.AMOUNT.HEADLINE-SENDING' | translate }}</h2>
+                                <p style="white-space: pre-wrap;">{{ 'CREATE-AGREEMENT.AMOUNT.TEXT' | translate }}</p>
+
+                                <div style="margin-top: 50px;">
+                                    <h3 *ngIf="isInbound">
+                                        <span class="required">*</span>
+                                        {{ 'CREATE-AGREEMENT.AMOUNT.ENTER-MAX-AMOUNT-RECEIVING' | translate }}
+                                    </h3>
+                                    <h3 *ngIf="isOutbound">
+                                        <span class="required">*</span>
+                                        {{ 'CREATE-AGREEMENT.AMOUNT.ENTER-MAX-AMOUNT-SENDING' | translate }}
+                                    </h3>
+
+                                    <div style="display: flex; flex-direction: row; align-items: center;">
+                                        <div style="flex: 10 10 0;"></div>
+
+                                        <input matInput formControlName="amount" class="field" style="flex: 4 4 0;">
+
+                                        <div style="flex: 1 1 0;"></div>
+
+                                        <mat-select formControlName="unit" class="field" style="flex: 4 4 0;">
+                                            <mat-option value="Wh">Wh</mat-option>
+                                            <mat-option value="kWh">kWh</mat-option>
+                                            <mat-option value="MWh">MWh</mat-option>
+                                            <mat-option value="GWh">GWh</mat-option>
+                                        </mat-select>
+                                        
+                                        <div style="flex: 1 1 0;"></div>
+                                        <div style="flex: 4 4 0;">{{ 'CREATE-AGREEMENT.AMOUNT.PER-HOUR' | translate }}</div>
+                                        <div style="flex: 10 10 0;"></div>
+                                    </div>
+
+                                    <div *ngIf="hasRecommendedAmount" style="margin-top: 25px; text-align: center;">
+                                        <p *ngIf="isInbound">
+                                            {{ 'CREATE-AGREEMENT.AMOUNT.CALCULATED-PEAK-CONSUMPTION' | translate:{'amount': recommendedAmount, 'unit': recommendedAmountUnit} }}
+                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">{{ 'CREATE-AGREEMENT.AMOUNT.INSPECT' | translate }}</a>).
+                                        </p>
+                                        <p *ngIf="isOutbound">
+                                            {{ 'CREATE-AGREEMENT.AMOUNT.CALCULATED-PEAK-PRODUCTION' | translate:{'amount': recommendedAmount, 'unit': recommendedAmountUnit} }}
+                                            (<a role="button" (click)="openInspectRecommendedAmountDialog()" style="cursor: pointer;">{{ 'CREATE-AGREEMENT.AMOUNT.INSPECT' | translate }}</a>).
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div style="display: inline-block; text-align: left; margin-top: 50px;">
+                                    <div *ngIf="isOutbound" style="margin-bottom: 30px;">
+                                        <mat-checkbox [(ngModel)]="showAmountPercentage" (change)="onToggleAmountPercent()" [ngModelOptions]="{standalone: true}">
+                                            <h3 style="margin: 0">{{ 'CREATE-AGREEMENT.AMOUNT.TRANSFER-PERCENTAGE-OF-GGOS' | translate }}</h3>
+                                        </mat-checkbox>
+                                        <div>
+                                            <p>{{ 'CREATE-AGREEMENT.AMOUNT.TRANSFER-PERCENTAGE-OF-GGOS-TEXT' | translate }}</p>
+                                        </div>
+
+                                        <div *ngIf="showAmountPercentage" style="display: flex; flex-direction: row; align-items: center;">
+                                            <input matInput formControlName="amountPercent" class="field" style="flex: 4 4 0;">
+                                            <div style="flex: 1 1 0;"></div>
+                                            <div style="flex: 10 10 0;">{{ 'CREATE-AGREEMENT.AMOUNT.PERCENT' | translate }} (%)</div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <mat-checkbox formControlName="limitToConsumption">
+                                            <h3 *ngIf="isInbound" style="margin: 0">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-RECEIVING' | translate }}
+                                            </h3>
+                                            <h3 *ngIf="isOutbound" style="margin: 0">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-SENDING' | translate }}
+                                            </h3>
+                                        </mat-checkbox>
+                                        <div>
+                                            <p *ngIf="isInbound" style="white-space: pre-wrap;">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-RECEIVING-TEXT' | translate }}
+                                            </p>
+                                            <p *ngIf="isOutbound" style="white-space: pre-wrap;">
+                                                {{ 'CREATE-AGREEMENT.AMOUNT.LIMIT-TO-CONSUMPTION-SENDING-TEXT' | translate }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
+                            </button>
+                            <div class="fill-remaining"></div>
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!amountForm.valid" (click)="stepNext()">
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
+                            </button>
+                        </div>
+                    </mat-step>
+                    <!-- /Amount -->
+                
+                
+                    <!-- Technologies -->
+                    <mat-step [stepControl]="technologiesForm">
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.LABEL' | translate }}</ng-template>
+
+
+                        <app-loading-view *ngIf="loadingTechnologies" style="margin-top: 50px;"></app-loading-view>
+
+
+                        <div *ngIf="errorLoadingTechnologies" style="margin-top: 50px; text-align: center;">
+                            <h2>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.FAILED-TO-LOAD' | translate }}</h2>
+                            <button mat-button type="button" class="send" style="margin-top: 25px;"(click)="loadFilteringOptions()">
+                                {{ 'COMMON.TRY-AGAIN' | translate }}
+                            </button>
+                        </div>
+
+
+                        <form [formGroup]="technologiesForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
+                            <div style="text-align: center; margin: 50px 0;">
+                                <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.TECHNOLOGIES.HEADLINE-RECEIVING' | translate }}</h2>
+                                <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.TECHNOLOGIES.HEADLINE-SENDING' | translate }}</h2>
+
+                                <h3 style="margin-top: 50px;">{{ 'CREATE-AGREEMENT.TECHNOLOGIES.TEXT' | translate }}</h3>
+
+                                <!-- Check/uncheck all -->
+                                <div style="text-align: center; margin: 20px 0;">
+                                    <mat-checkbox
+                                        [checked]="allTechnologiesSelected"
+                                        [indeterminate]="checkUncheckAllIsIndeterminate"
+                                        (click)="onCheckUncheckAllTechnologiesChanged($event)">
+                                        {{ 'CREATE-AGREEMENT.TECHNOLOGIES.CHECK-UNCHECK-ALL' | translate }}
+                                    </mat-checkbox>
+                                </div>
+
+                                <!-- Check technologies -->
+                                <div class="legend" style="display: flex; flex-direction: row;">
+                                    <div style="flex: 1 1 0;"></div>
+                                    <mat-selection-list formControlName="technologies" class="list-horizontal technologies-list" style="flex: 3 3 0;">
+                                        <mat-list-option [value]="technology" *ngFor="let technology of availableTechnologies">
+                                            <div style="display: flex; flex-direction: row; align-items: center;">
+                                                <div class="energy-type-avatar {{ technology }}" [class.almost-transparent]="!technologyIsSelected(technology)"></div>
+                                                <div>&nbsp;&nbsp;</div>
+                                                <div>{{ technology }}</div>
+                                            </div>
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    <div style="flex: 1 1 0;"></div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isOutbound && hasAvailableFacilities" style="text-align: center;">
+                                <h2>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.SOURCE-FACILITIES-HEADLINE' | translate }}</h2>
+                                <p>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.SOURCE-FACILITIES-TEXT' | translate }}:</p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>{{ 'CREATE-AGREEMENT.TECHNOLOGIES.ALL-FACILITIES' | translate }}</mat-label>
+                                    <mat-select formControlName="facilityGsrn" multiple>
+                                        <mat-option *ngFor="let facility of availableFacilities" [value]="facility.gsrn">
+                                            {{ facility.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                  
+                            </div>
+                        </form>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
+                            </button>
+                            <div class="fill-remaining"></div>
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!technologiesForm.valid" (click)="stepNext()">
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
+                            </button>
+                        </div>
+                    </mat-step>
+
+
+                    <!-- Counterpart -->
+                    <mat-step [stepControl]="counterpartForm">
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.COUNTERPART.LABEL' | translate }}</ng-template>
+
+                        <div style="text-align: center; margin: 50px 0;" *ngIf="!hasCounterpart">
+                            <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.COUNTERPART.HEADLINE-RECEIVING' | translate }}</h2>
+                            <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.COUNTERPART.HEADLINE-SENDING' | translate }}</h2>
+                            
+                            <div style="margin: 50px 0; display: flex; flex-direction: row;" *ngIf="isInbound">
+                                <div style="flex: 1 1 0"></div>
+                                <div style="flex: 5 5 0; text-align: center;">
+                                    <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartDropdownDialog()">
+                                        <mat-card-content>
+                                            <h3>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-SUPPLIER' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-SUPPLIER-TEXT' | translate }}</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 1 1 0"></div>
+                                <div style="flex: 5 5 0; text-align: center;">
+                                    <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartListDialogDialog()">
+                                        <mat-card-content *ngIf="isInbound">
+                                            <h3>{{ 'CREATE-AGREEMENT.COUNTERPART.SEARCH-FOR-SUPPLIER' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.COUNTERPART.SEARCH-FOR-SUPPLIER-TEXT' | translate }}</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 1 1 0"></div>
+                            </div>
+
+                            <div style="margin: 50px 0; display: flex; flex-direction: row;" *ngIf="isOutbound">
+                                <div style="flex: 4 4 0"></div>
+                                <div style="flex: 5 5 0; text-align: center;">
+                                    <mat-card matRipple style="cursor: pointer; background-color: e1e1e1;" (click)="openCounterpartDropdownDialog()">
+                                        <mat-card-content>
+                                            <h3>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-RECIPIENT' | translate }}</h3>
+                                            <p>{{ 'CREATE-AGREEMENT.COUNTERPART.KNOW-MY-RECIPIENT-TEXT' | translate }}</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div style="flex: 4 4 0"></div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin: 50px 0;" *ngIf="hasCounterpart">
+                            <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.COUNTERPART.CHOSEN-TO-RECEIVE-GGOS-FROM' | translate:{'counterpart': counterpartName} }}</h2>
+                            <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.COUNTERPART.CHOSEN-TO-SEND-GGOS-TO' | translate:{'counterpart': counterpartName} }}</h2>
+
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" (click)="resetCounterpart()" *ngIf="isInbound">
+                                {{ 'CREATE-AGREEMENT.COUNTERPART.CHOOSE-ANOTHER-SUPPLIER' | translate }}
+                            </button>
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" (click)="resetCounterpart()" *ngIf="isOutbound">
+                                {{ 'CREATE-AGREEMENT.COUNTERPART.CHOOSE-ANOTHER-RECIPIENT' | translate }}
+                            </button>
+                        </div>
+
+                        <div class="legend" style="text-align: center; margin-top: 50px;">
+                            <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                &laquo; {{ 'COMMON.PREVIOUS' | translate }}
+                            </button>
+                            <div class="fill-remaining"></div>
+                            <button mat-button type="button" class="send" style="margin-top: 50px;" [disabled]="!counterpartForm.valid" (click)="stepNext()">
+                                {{ 'COMMON.NEXT' | translate }} &raquo;
+                            </button>
+                        </div>
+                        
+                    </mat-step>
+                
+                
+                    <!-- Confirm -->
+                    <mat-step [stepControl]="confirmForm">
+                        <ng-template matStepLabel>{{ 'CREATE-AGREEMENT.CONFIRM.LABEL' | translate }}</ng-template>
+                        
+                        <form [formGroup]="confirmForm" *ngIf="!loadingTechnologies && !errorLoadingTechnologies">
+                            <div style="text-align: center; margin-top: 50px;">
+                                <h2 *ngIf="isInbound">{{ 'CREATE-AGREEMENT.CONFIRM.HEADLINE-RECEIVING' | translate:{'counterpart': counterpartName} }}</h2>
+                                <h2 *ngIf="isOutbound">{{ 'CREATE-AGREEMENT.CONFIRM.HEADLINE-SENDING' | translate:{'counterpart': counterpartName} }}</h2>
+
+                                <p>
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.RUNS-FROM' | translate }}
+                                    <b>{{ begin | date }}</b>
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.TO' | translate }}
+                                    <b>{{ end | date }}</b>
+                                </p>
+
+                                <p *ngIf="showAmountPercentage">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.TRANSFERS-AMOUNT-WITH-PERCENT' | translate:{'percent':amountPercent, 'amount':amount, 'unit':unit} }}
+                                </p>
+                                <p *ngIf="!showAmountPercentage">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.TRANSFERS-AMOUNT' | translate:{'amount':amount, 'unit':unit} }}
+                                </p>
+
+                                <p *ngIf="isLimitedToConsumption && isInbound" style="white-space: pre-wrap;">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.LIMITED-TO-YOUR-CONSUMPTION' | translate }}
+                                </p>
+                                <p *ngIf="isLimitedToConsumption && isOutbound" style="white-space: pre-wrap;">
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.LIMITED-TO-RECIPIENTS-CONSUMPTION' | translate }}
+                                </p>
+
+                                <p>
+                                    {{ 'CREATE-AGREEMENT.CONFIRM.SOURCE-TECHNOLOGIES' | translate }}:<br>
+                                    {{ technologiesString }}
+                                </p>
+                            </div>
+                            
+
+                            <h3 style="text-align: center; margin-top: 50px;">
+                                <span class="required">*</span>
+                                {{ 'CREATE-AGREEMENT.CONFIRM.ENTER-SUBJECT' | translate }}:
+                            </h3>
+
+
+                            <div class="legend" style="margin-top: 20px;">
+                                <div class="fill-remaining"></div>
+                                <input matInput formControlName="reference" class="field" style="width: 350px;">
+                                <div class="fill-remaining"></div>
+                            </div>
+                            
+
+                            <div class="legend" style="margin-top: 50px;">
+                                <div class="fill-remaining"></div>
+                                <div class="field" style="width: 350px; height: 120px">
+                                    <textarea matInput formControlName="proposalNote" [disabled]="submitting" placeholder="{{ 'CREATE-AGREEMENT.CONFIRM.ENTER-NOTE-PLACEHOLDER' | translate }}" style="width: 100%; height: 100%"></textarea>
+                                </div>
+                                <div class="fill-remaining"></div>
+                            </div>
+
+                            <div class="legend" style="text-align: center; margin-top: 50px;">
+                                <button mat-button type="button" class="cancel" style="margin-top: 50px;" (click)="stepPrevious()">
+                                    &laquo; {{ 'COMMON.PREVIOUS' | translate }}
+                                </button>
+    
+                                <div class="fill-remaining"></div>
+    
+                                <button mat-button type="button" class="send" [disabled]="!confirmForm.valid || submitting" (click)="submitProposal()">
+                                    <span *ngIf="!submitting">{{ 'CREATE-AGREEMENT.CONFIRM.SUBMIT-PROPOSAL' | translate }}</span>
+                                    <span *ngIf="submitting">{{ 'CREATE-AGREEMENT.CONFIRM.SUBMITTING' | translate }}</span>
+                                </button>
+                            </div>
+                        </form>
+
+                    </mat-step>
+                
+                </mat-horizontal-stepper>
+
+
+                <div *ngIf="completed">
+                    <div style="text-align: center; margin: 50px 0;">
+                        <h2>{{ 'CREATE-AGREEMENT.CONFIRM.PROPOSAL-SENT' | translate }}</h2>
+                        <p>{{ 'CREATE-AGREEMENT.CONFIRM.PROPOSAL-RECEIVED' | translate:{'counterpart':counterpartName} }}</p>
+                        <p>{{ 'CREATE-AGREEMENT.CONFIRM.ACCEPT-DECLINE' | translate }}</p>
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- /Right column -->
+
+</div>

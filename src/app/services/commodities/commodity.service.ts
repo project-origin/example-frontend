@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Type } from "class-transformer";
 import { ApiService, ApiResponse } from '../api.service';
-import { MeasurementDataSet, MeasurementType, GgoDistributionBundle, GgoCategory } from './models';
+import { Measurement, MeasurementDataSet, MeasurementType, GgoDistributionBundle, GgoCategory } from './models';
 import { IFacilityFilters } from '../facilities/models';
 import { DateRange } from '../common';
 
@@ -82,10 +82,32 @@ export class GetMeasurementsResponse extends ApiResponse {
   labels: string[];
 
   @Type(() => MeasurementDataSet)
-  ggos: MeasurementDataSet[];
-
-  @Type(() => MeasurementDataSet)
   measurements: MeasurementDataSet;
+}
+
+
+// -- getPeakMeasurement request & response ----------------------------------
+
+
+export class GetPeakMeasurementRequest {
+  @Type(() => DateRange)
+  dateRange: DateRange;
+  measurementType?: MeasurementType;
+  utcOffset: number;
+
+  constructor(args: {
+    dateRange: DateRange,
+    measurementType?: MeasurementType,
+  }) {
+    Object.assign(this, args);
+    this.utcOffset = (new Date().getTimezoneOffset()) / 60 * -1;
+  }
+}
+
+
+export class GetPeakMeasurementResponse extends ApiResponse {
+  @Type(() => Measurement)
+  measurement: Measurement;
 }
 
 
@@ -114,6 +136,11 @@ export class CommodityService {
 
   getMeasurements(request: GetMeasurementsRequest) : Observable<GetMeasurementsResponse> {
     return this.api.invoke('/commodities/measurements', GetMeasurementsResponse, request);
+  }
+
+
+  getPeakMeasurement(request: GetPeakMeasurementRequest) : Observable<GetPeakMeasurementResponse> {
+    return this.api.invoke('/commodities/get-peak-measurement', GetPeakMeasurementResponse, request);
   }
 
 
