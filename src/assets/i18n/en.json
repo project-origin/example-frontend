@@ -80,6 +80,7 @@
             "SUPPORT": "SUPPORT",
             "PENDING-PROPOSALS": "Pending proposals",
             "EDIT-PROFILE": "Edit profile",
+            "EDIT-CLIENTS": "Clients",
             "ACCOUNT-DETAILS": "Account details",
             "LOG-OUT": "Log out"
         },
@@ -404,8 +405,10 @@
             "HEADLINE-SENDING": "Which source technologies would you like to send?",
             "TEXT": "Select at least one source technology",
             "CHECK-UNCHECK-ALL": "Check/uncheck all",
-            "FAILED-TO-LOAD": "Failed to load technologies"
-
+            "FAILED-TO-LOAD": "Failed to load technologies",
+            "SOURCE-FACILITIES-HEADLINE": "Which facilities would you like to send GGOs from?",
+            "SOURCE-FACILITIES-TEXT": "Only send GGOs issued to any of these facilities",
+            "ALL-FACILITIES": "All facilities"
         },
         "COUNTERPART": {
             "LABEL": "Counterpart",

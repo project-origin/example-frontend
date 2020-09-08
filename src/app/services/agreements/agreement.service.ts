@@ -111,9 +111,7 @@ export class SubmitProposalRequest {
   amountPercent: number;
   limitToConsumption: boolean;
   proposalNote: string;
-
-  @Transform(obj => obj || [], { toPlainOnly: true })
-  facilityIds: string[];
+  facilityGsrn: string[];
 
   @Type(() => DateRange)
   date: DateRange;
@@ -123,7 +121,7 @@ export class SubmitProposalRequest {
     reference: string,
     counterpartId: string,
     technologies: string[],
-    facilityIds?: string[],
+    facilityGsrn?: string[],
     amount: number,
     unit: string,
     amountPercent: number,
@@ -132,6 +130,7 @@ export class SubmitProposalRequest {
     proposalNote: string,
   }) {
     Object.assign(this, args);
+    this.facilityGsrn = this.facilityGsrn || [];
   }
 }
 

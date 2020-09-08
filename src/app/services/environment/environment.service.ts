@@ -109,15 +109,7 @@ export class EcoDeclaration {
       return 0;
     }
 
-    let delta = (e1 - e2) / e2 * 100;
-
-    if(delta > 1) {
-      return delta;
-    } else if(delta < 1) {
-      return -1 * delta;
-    } else {
-      return 0;
-    }
+    return (e1 - e2) / e2 * 100;
   }
 }
 

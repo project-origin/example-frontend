@@ -61,7 +61,7 @@
             <a mat-menu-item routerLink="/app/disclosure">
                 {{ 'MAIN.TOOLBAR.DISCLOSURE' | translate }}
             </a>
-            <a mat-menu-item routerLink="/app/forecast">
+            <a mat-menu-item routerLink="/app/forecast" *ngIf="false">
                 {{ 'MAIN.TOOLBAR.FORECAST' | translate }}
             </a>
         </mat-menu>
@@ -70,27 +70,29 @@
 
         <!-- User dropdown -->
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/app/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
+            <a mat-menu-item routerLink="/app/transfer" class="pending-proposal" *ngIf="hasPendingProposals()">
                 {{ 'MAIN.TOOLBAR.PENDING-PROPOSALS' | translate }} ({{ pendingProposals }})
-            </button>
-
-            <button mat-menu-item (click)="editProfil()">
+            </a>
+            <a mat-menu-item (click)="editProfil()">
                 {{ 'MAIN.TOOLBAR.EDIT-PROFILE' | translate }}
-            </button>
-            <button mat-menu-item (click)="showAccountDetails()">
+            </a>
+            <a mat-menu-item (click)="showAccountDetails()">
                 {{ 'MAIN.TOOLBAR.ACCOUNT-DETAILS' | translate }}
-            </button>
+            </a>
+            <a mat-menu-item (click)="editClients()">
+                {{ 'MAIN.TOOLBAR.EDIT-CLIENTS' | translate }}
+            </a>
             <mat-divider></mat-divider>
-            <button mat-menu-item (click)="changeLanguage('en')" [class.selected]="isEnglish">
+            <a mat-menu-item (click)="changeLanguage('en')" [class.selected]="isEnglish">
                 English
-            </button>
-            <button mat-menu-item (click)="changeLanguage('da')" [class.selected]="isDanish">
+            </a>
+            <a mat-menu-item (click)="changeLanguage('da')" [class.selected]="isDanish">
                 Dansk
-            </button>
+            </a>
             <mat-divider></mat-divider>
-            <button mat-menu-item (click)="logOut()">
+            <a mat-menu-item (click)="logOut()">
                 {{ 'MAIN.TOOLBAR.LOG-OUT' | translate }}
-            </button>
+            </a>
         </mat-menu>
         <!-- /User dropdown -->
 
