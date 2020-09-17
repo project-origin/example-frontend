@@ -39,7 +39,7 @@ export class SigninComponent implements OnInit {
     }
 
     this.route.queryParamMap.subscribe((params: ParamMap) => {
-      if(params.get('autoLogin') == '1') {
+      if(params.get('autoLogin') == '1' && !this.showGettingProfile) {
         this.login();
       }
     });
@@ -48,7 +48,7 @@ export class SigninComponent implements OnInit {
 
   login() {
     this.showRedirecting = true;
-    this.showLoginButton= false;
+    this.showLoginButton = false;
     this.authService.login();
   }
 
