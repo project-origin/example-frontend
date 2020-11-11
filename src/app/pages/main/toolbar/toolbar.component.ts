@@ -7,6 +7,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { User } from 'src/app/services/auth/models';
 import { AgreementService, CountPendingProposalsResponse } from 'src/app/services/agreements/agreement.service';
 import { AccountDetailsDialogComponent } from 'src/app/pages/account/account-details-dialog/account-details-dialog.component';
+import { UserService } from 'src/app/services/auth/user.service';
 
 
 
@@ -28,6 +29,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private settings: SettingsService,
     private router: Router,
+    private userService: UserService,
     private authService: AuthService,
     private agreementService: AgreementService,
   ) { }
@@ -79,11 +81,15 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   editProfil() {
-    location.href = this.settings.apiBaseUrl + '/auth/edit-profile';
+    location.href = this.settings.editProfileUrl;
   }
 
   editClients() {
-    location.href = this.settings.apiBaseUrl + '/auth/edit-clients';
+    location.href = this.settings.editClientsUrl;
+  }
+
+  disableUser() {
+    location.href = this.settings.disableUserUrl;
   }
 
   logOut() {
