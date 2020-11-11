@@ -79,6 +79,7 @@
             "FACILITIES": "BYGNINGER/ANLÆG",
             "SUPPORT": "SUPPORT",
             "PENDING-PROPOSALS": "Afventende handlingsforslag",
+            "CLOSE-ACCOUNT": "Luk konto",
             "EDIT-PROFILE": "Redigere profil",
             "ACCOUNT-DETAILS": "Konto detaljer",
             "LOG-OUT": "Log ud"
