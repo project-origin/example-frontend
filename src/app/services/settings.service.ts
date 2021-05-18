@@ -17,6 +17,6 @@ export class SettingsService {
 
 
   minDate: Date = moment('2019-01-01').toDate();
-  maxDate: Date = moment('2020-12-31').toDate();
+  maxDate: Date = moment('2021-12-31').toDate();
 
 }
