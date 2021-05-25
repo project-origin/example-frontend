@@ -4,9 +4,9 @@
     <div class="about">
         <mat-card>
             <mat-card-content>
-                <h1>About</h1>
-                <p>
-                    TODO write me
+                <h1>{{ 'FORECAST.ABOUT.HEADLINE' | translate }}</h1>
+                <p style="white-space: pre-wrap;">
+                    {{ 'FORECAST.ABOUT.TEXT' | translate }}
                 </p>
             </mat-card-content>
         </mat-card>
@@ -14,13 +14,13 @@
 
         <mat-card>
             <mat-card-content>
-                <h1>Forecast series</h1>
-                <p>
-                    TODO write me
+                <h1>{{ 'FORECAST.SERIES.HEADLINE' | translate }}</h1>
+                <p style="white-space: pre-wrap;">
+                    {{ 'FORECAST.SERIES.TEXT' | translate }}
                 </p>
 
 
-                <h2>Received forecasts</h2>
+                <h2>{{ 'FORECAST.SERIES.RECEIVED' | translate }}</h2>
 
                 <div matRipple class="series"
                     *ngFor="let reference of sentSeries"
@@ -32,7 +32,7 @@
 
                 <br>
 
-                <h2>Sent forecasts</h2>
+                <h2>{{ 'FORECAST.SERIES.SENT' | translate }}</h2>
 
                 <div matRipple class="series"
                     *ngFor="let reference of receivedSeries"
@@ -50,9 +50,9 @@
         
         <mat-card *ngIf="!selectedReference">
             <mat-card-content>
-                <h1>Forecasts</h1>
+                <h1>{{ 'FORECAST.CONTENT.HEADLINE' | translate }}</h1>
                 <div>
-                    Select a series in the menu to the left
+                    {{ 'FORECAST.CONTENT.EMPTY' | translate }}
                 </div>
             </mat-card-content>
         </mat-card>

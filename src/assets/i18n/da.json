@@ -453,6 +453,23 @@
             "PROPOSAL-RECEIVED": "{{ counterpart }} har modtaget dit forslag om aftalen.",
             "ACCEPT-DECLINE": "Du kommer til at se dine aftaler på \"Overførelser\"-siden så snart de er blevet accepteret eller afvist af modtageren."
         }
-    }
+    },
 
+    "FORECAST": {
+        "ABOUT": {
+            "HEADLINE": "Om",
+            "TEXT": "Siden viser dig alle the prognoser du har modtaget på platformen.\n\nEn prognose serie er en gruppe af prognoser med samme id, men med forskellige værdier og tid."
+        },
+        "SERIES": { 
+            "HEADLINE": "For serie",
+            "TEXT": "Neden for kan du væle en prognose serie som du har sendt eller modtaget.",
+            "RECEIVED": "Received forecasts",
+            "SENT": "Sent forecasts"
+        },
+        "CONTENT": {
+            "HEADLINE": "Prognose",
+            "EMPTY": "Vælg en prognose serie i menuen til venstre."
+        }
+
+    }
 }

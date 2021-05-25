@@ -456,6 +456,23 @@
             "PROPOSAL-RECEIVED": "{{ counterpart }} has received your agreement proposal.",
             "ACCEPT-DECLINE": "You will be able to see the agreement on the Transfer page as soon as they accept or decline the proposal."
         }
-    }
+    },
 
+    "FORECAST": {
+        "ABOUT": {
+            "HEADLINE": "About",
+            "TEXT": "This page enables you to view all the forecasts you have sent or received through the platform.\n\nA forecast series is a set of forecasts with the same identifier, but with different values and periods."
+        },
+        "SERIES": { 
+            "HEADLINE": "Forecast series",
+            "TEXT": "Below you can select the forecast-series you want to view.",
+            "RECEIVED": "Received forecasts",
+            "SENT": "Sent forecasts"
+        },
+        "CONTENT": {
+            "HEADLINE": "FORECAST",
+            "EMPTY": "Select a series in the menu to the left."
+        }
+
+    }
 }
